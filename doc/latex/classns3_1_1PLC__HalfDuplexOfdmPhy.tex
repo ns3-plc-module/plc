@@ -1,0 +1,412 @@
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy \-Class \-Reference}
+\label{classns3_1_1PLC__HalfDuplexOfdmPhy}\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+}
+
+
+\-Base class for half duplex \-O\-F\-D\-M \-P\-H\-Y devices.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/phy.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.177305cm]{classns3_1_1PLC__HalfDuplexOfdmPhy}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}{\-State} \{ {\bfseries \-I\-D\-L\-E}, 
+{\bfseries \-T\-X}, 
+{\bfseries \-R\-X}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a8f0b0301c3ee37a86495cbc7040c1eb8}{\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy} ()
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_aa8188f7d1e0a2f97486764f372dd3ec5}{\-Create\-Interfaces} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ outlet, \-Ptr$<$ \-Spectrum\-Value $>$ tx\-Psd, \-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ rx\-Impedance=0, \-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ tx\-Impedance=0)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a2a58277a4d03c70d20e986d0ff3e7c98}{\-Get\-Outlet} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a6181d4b225c735f11a032580744ab7f0}{\-Set\-Tx\-Power\-Spectral\-Density} (\-Ptr$<$ \-Spectrum\-Value $>$ tx\-Psd)
+\item 
+\-Ptr$<$ const \-Spectrum\-Value $>$ \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a585258d85da1a323b303e0bc7667d060}{\-Get\-Tx\-Power\-Spectral\-Density} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $>$ \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a8349f22e4ea1d1a3741ee9d637a46e19}{\-Get\-Tx\-Interface} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a11ca81cdba9558972946a332fb6c3b9d}{\-Get\-Rx\-Interface} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_acbab033f2353b868ecbfdd23239407af}{\-Set\-Shunt\-Impedance} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ shunt\-Impedance)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a55a7d4f09175852d51ea067e3cb76123}{\-Set\-Rx\-Impedance} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ rx\-Impedance)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a8633a9bbaafcccf370900b1301d1c963}{\-Set\-Tx\-Impedance} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ tx\-Impedance)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a22702ed1d5c608d1ba3a080df7cfedd5}{\-Get\-Shunt\-Impedance} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a389c21538679bec18de4c624dd28c61f}{\-Get\-Rx\-Impedance} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_ab5b12c099c8f65bef93a85e2c48bd4c6}{\-Get\-Tx\-Impedance} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_aedcd8f1a9400e8a671736fb62fafd340}{\-Cca\-Request} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a16299517e55127bc575d52d6f809ed7b}{\-Cancel\-Cca} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_af33d069bbe8515210d3d4417dd5bccbd}{\-End\-Cca} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a164bdc70d4527dd9790d5cb75bc877ff}{\-Set\-Cca\-Confirm\-Callback} (\-P\-L\-C\-\_\-\-Phy\-Cca\-Confirm\-Callback c)
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a180d9f91b00a180c05a806b5b65d7e35}{\-Change\-State} (\hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}{\-State} new\-State)
+\item 
+\hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}{\-State} \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a9ee7d4f5414925e91038ea157eabcf4b}{\-Get\-State} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_a39ba28f6194b993dbc5b688a419a820d}{\-Is\-Busy} (void)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a3e1f887ac54a21f1b25dc9ae0d400876}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a3e1f887ac54a21f1b25dc9ae0d400876}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a2f8829a35fa830a115bcb1745b6ff78e}{static void {\bfseries \-Set\-Guard\-Interval\-Duration} (\-Time duration)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a2f8829a35fa830a115bcb1745b6ff78e}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_acadeeeb6cfd55ccb8a58d1b6f169f7aa}{static \-Time {\bfseries \-Get\-Guard\-Interval\-Duration} (void)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_acadeeeb6cfd55ccb8a58d1b6f169f7aa}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a4ccdaa92b8f91a0530da9bba78d4f4ee}{virtual void {\bfseries \-Do\-Start} (void)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a4ccdaa92b8f91a0530da9bba78d4f4ee}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a4426554b2fc88ca89ebe521b1229dd01}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a4426554b2fc88ca89ebe521b1229dd01}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a45fe71a9301d4e0824729664f7cf69f0}{virtual \hyperlink{classns3_1_1PLC__ChannelTransferImpl}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} $\ast$ {\bfseries \-Do\-Get\-Channel\-Transfer\-Impl} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ rx\-Phy)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a45fe71a9301d4e0824729664f7cf69f0}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a90f00571701cf79b3c3ee3d61d48b4cb}{void {\bfseries \-Compute\-Equivalent\-Impedances} (void)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a90f00571701cf79b3c3ee3d61d48b4cb}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a544c0c9fba81da60a7fc3974e72d2f2c}{virtual \-P\-L\-C\-\_\-\-Phy\-Cca\-Result {\bfseries \-Clear\-Channel\-Assessment} (void)=0}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a544c0c9fba81da60a7fc3974e72d2f2c}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a16d8bb82f9d9261e1de673cf88649512}{\-Time {\bfseries \-Calculate\-Tx\-Duration} (size\-\_\-t n\-Symbols)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a16d8bb82f9d9261e1de673cf88649512}
+
+\item 
+void \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_afff34328dc4f9eb43f856f9219992889}{\-Switch\-Impedance} (\hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}{\-State} state)
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_adfe2b1987ca9704095ed703eb08c1c70}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ {\bfseries m\-\_\-outlet}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_adfe2b1987ca9704095ed703eb08c1c70}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a6a904a2c38391214b2a62a4fc4f5511f}{\-Ptr$<$ \-Spectrum\-Value $>$ {\bfseries m\-\_\-tx\-Psd}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a6a904a2c38391214b2a62a4fc4f5511f}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a6eaca4edd12af067e7987484356c6cf5}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $>$ {\bfseries m\-\_\-tx\-Interface}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a6eaca4edd12af067e7987484356c6cf5}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_aea630f00604f2b9070686aeb4be8b267}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ {\bfseries m\-\_\-rx\-Interface}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_aea630f00604f2b9070686aeb4be8b267}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a542835f146ac6622ea7721141f7aeeda}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ {\bfseries m\-\_\-shunt\-Impedance}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a542835f146ac6622ea7721141f7aeeda}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_ae06fc2fbd60a6ff0aa0091d903426a3b}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ {\bfseries m\-\_\-tx\-Impedance}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_ae06fc2fbd60a6ff0aa0091d903426a3b}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a23caed38904f16e0dba4c8e599438106}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ {\bfseries m\-\_\-rx\-Impedance}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a23caed38904f16e0dba4c8e599438106}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a9738f5edb93b5ae8b115fd8ccbfdc02b}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ {\bfseries m\-\_\-eq\-Rx\-Impedance}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a9738f5edb93b5ae8b115fd8ccbfdc02b}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_afc47d34c0d11b856a3a9d47ca8acb607}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ {\bfseries m\-\_\-eq\-Tx\-Impedance}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_afc47d34c0d11b856a3a9d47ca8acb607}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a21275e992aeaab6db7ff1d5f64642c89}{size\-\_\-t {\bfseries m\-\_\-num\-Subcarriers}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a21275e992aeaab6db7ff1d5f64642c89}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_ad6f4ab3078f989d354c3d85acf345d07}{std\-::map$<$ uint32\-\_\-t, \-Ptr$<$ const \*
+\-Spectrum\-Value $>$ $>$ {\bfseries m\-\_\-rx\-Noise\-Psd\-Map}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_ad6f4ab3078f989d354c3d85acf345d07}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a665c5ac94fc11ce28a4e339a44210b00}{\-Event\-Id {\bfseries m\-\_\-cca\-End\-Event}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a665c5ac94fc11ce28a4e339a44210b00}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a97a8264fc6b8ecc64f171fd123fbaf45}{\-P\-L\-C\-\_\-\-Phy\-Cca\-Confirm\-Callback {\bfseries m\-\_\-cca\-Confirm\-Callback}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a97a8264fc6b8ecc64f171fd123fbaf45}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_ae8b5e15753d4db61d3a9a064deb2312a}{\hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}{\-State} {\bfseries m\-\_\-state}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_ae8b5e15753d4db61d3a9a064deb2312a}
+
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_adc6191b17189ec85356aba1b5f42cc93}{\-Traced\-Callback$<$ \-Time, \hyperlink{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}{\-State} $>$ {\bfseries m\-\_\-\-Phy\-State\-Logger}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_adc6191b17189ec85356aba1b5f42cc93}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a9326e8671fc183ee09d6dc35800f2a9b}{static \-Time {\bfseries guard\-\_\-interval\-\_\-duration} = \-Seconds(0)}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a9326e8671fc183ee09d6dc35800f2a9b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Base class for half duplex \-O\-F\-D\-M \-P\-H\-Y devices. 
+
+\-Each half duplex \-P\-H\-Y owns both a tx\-Interface for transmitting and a rx\-Interface for receiving. \-Depending on the \-P\-H\-Y's state the access impedance of the device may change, which influences channel transfer functions. \-The number of \-O\-F\-D\-M subbands to be used will be implicitly defined by the \-Spectrum\-Model of the transmit power spectral density.
+
+\-T\-O\-D\-O\-: masking subbands when not all of them are used (e.\-g. because of using pilot tones, bad snr)
+
+\-The link layer performance between \-P\-H\-Y devices is also depends on the \-Modulation and \-Coding \-Scheme and the error model used to abstract from real physical devices. 
+
+\subsection{\-Member \-Enumeration \-Documentation}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-State@{\-State}}
+\index{\-State@{\-State}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-State}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-State}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_ae91e168f9a51bf5344e7e03d9ae13b60}
+\-Three states of the half duplex phy 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a8f0b0301c3ee37a86495cbc7040c1eb8}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\index{\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a8f0b0301c3ee37a86495cbc7040c1eb8}
+\-Constructor 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a16299517e55127bc575d52d6f809ed7b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Cancel\-Cca@{\-Cancel\-Cca}}
+\index{\-Cancel\-Cca@{\-Cancel\-Cca}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Cancel\-Cca}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Cancel\-Cca} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a16299517e55127bc575d52d6f809ed7b}
+\-Cancel previous \-Cca\-Request \hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_aedcd8f1a9400e8a671736fb62fafd340}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Cca\-Request@{\-Cca\-Request}}
+\index{\-Cca\-Request@{\-Cca\-Request}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Cca\-Request}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Cca\-Request} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_aedcd8f1a9400e8a671736fb62fafd340}
+\-Clear \-Channel \-Assessment request \-Typically called by \-M\-A\-C layer \hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a180d9f91b00a180c05a806b5b65d7e35}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Change\-State@{\-Change\-State}}
+\index{\-Change\-State@{\-Change\-State}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Change\-State}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Change\-State} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-State}}]{new\-State}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a180d9f91b00a180c05a806b5b65d7e35}
+\-Change the \-P\-H\-Y's state to new\-State 
+\begin{DoxyParams}{\-Parameters}
+{\em new\-State} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_aa8188f7d1e0a2f97486764f372dd3ec5}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Create\-Interfaces@{\-Create\-Interfaces}}
+\index{\-Create\-Interfaces@{\-Create\-Interfaces}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Create\-Interfaces}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Create\-Interfaces} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Outlet} $>$}]{outlet, }
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$}]{tx\-Psd, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{rx\-Impedance = {\ttfamily 0}, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{tx\-Impedance = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_aa8188f7d1e0a2f97486764f372dd3ec5}
+\-Creates rx and tx interface, respectively, on outlet
+
+\-If an impedance has been assigned previously to outlet, the value will be treated as shunt impedance to the device. \-By initializing tx\-Psd the \-Spectrum\-Model and the \-O\-F\-D\-M subbands are defined
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em outlet} & \\
+\hline
+{\em tx\-Psd} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_af33d069bbe8515210d3d4417dd5bccbd}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-End\-Cca@{\-End\-Cca}}
+\index{\-End\-Cca@{\-End\-Cca}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-End\-Cca}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-End\-Cca} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_af33d069bbe8515210d3d4417dd5bccbd}
+\-Clear \-Channel \-Assessment listening end \hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a2a58277a4d03c70d20e986d0ff3e7c98}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-Outlet@{\-Get\-Outlet}}
+\index{\-Get\-Outlet@{\-Get\-Outlet}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Outlet}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-Outlet} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a2a58277a4d03c70d20e986d0ff3e7c98}
+\begin{DoxyReturn}{\-Returns}
+\-Outlet the device is attached to 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a389c21538679bec18de4c624dd28c61f}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-Rx\-Impedance@{\-Get\-Rx\-Impedance}}
+\index{\-Get\-Rx\-Impedance@{\-Get\-Rx\-Impedance}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-Rx\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Impedance}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-Rx\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a389c21538679bec18de4c624dd28c61f}
+\begin{DoxyReturn}{\-Returns}
+\-Access impedance used while receiving 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a11ca81cdba9558972946a332fb6c3b9d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-Rx\-Interface@{\-Get\-Rx\-Interface}}
+\index{\-Get\-Rx\-Interface@{\-Get\-Rx\-Interface}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-Rx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-Rx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a11ca81cdba9558972946a332fb6c3b9d}
+\begin{DoxyReturn}{\-Returns}
+\-R\-X interface of the \-P\-H\-Y 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a22702ed1d5c608d1ba3a080df7cfedd5}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-Shunt\-Impedance@{\-Get\-Shunt\-Impedance}}
+\index{\-Get\-Shunt\-Impedance@{\-Get\-Shunt\-Impedance}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-Shunt\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Impedance}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-Shunt\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a22702ed1d5c608d1ba3a080df7cfedd5}
+\begin{DoxyReturn}{\-Returns}
+\-Shunt impedance of the node the device is located on 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a9ee7d4f5414925e91038ea157eabcf4b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-State@{\-Get\-State}}
+\index{\-Get\-State@{\-Get\-State}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-State}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-State} {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-State} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a9ee7d4f5414925e91038ea157eabcf4b}
+\-Get current state of the \-P\-H\-Y \begin{DoxyReturn}{\-Returns}
+\-Current state 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_ab5b12c099c8f65bef93a85e2c48bd4c6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-Tx\-Impedance@{\-Get\-Tx\-Impedance}}
+\index{\-Get\-Tx\-Impedance@{\-Get\-Tx\-Impedance}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-Tx\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Impedance}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-Tx\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_ab5b12c099c8f65bef93a85e2c48bd4c6}
+\begin{DoxyReturn}{\-Returns}
+\-Access impedance used while transmitting 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a8349f22e4ea1d1a3741ee9d637a46e19}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-Tx\-Interface@{\-Get\-Tx\-Interface}}
+\index{\-Get\-Tx\-Interface@{\-Get\-Tx\-Interface}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-Tx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Tx\-Interface} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-Tx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a8349f22e4ea1d1a3741ee9d637a46e19}
+\begin{DoxyReturn}{\-Returns}
+\-T\-X interface of the \-P\-H\-Y 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a585258d85da1a323b303e0bc7667d060}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Get\-Tx\-Power\-Spectral\-Density@{\-Get\-Tx\-Power\-Spectral\-Density}}
+\index{\-Get\-Tx\-Power\-Spectral\-Density@{\-Get\-Tx\-Power\-Spectral\-Density}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Get\-Tx\-Power\-Spectral\-Density}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$const \-Spectrum\-Value$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Get\-Tx\-Power\-Spectral\-Density} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a585258d85da1a323b303e0bc7667d060}
+\begin{DoxyReturn}{\-Returns}
+\-P\-S\-D used for transmission 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a39ba28f6194b993dbc5b688a419a820d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Is\-Busy@{\-Is\-Busy}}
+\index{\-Is\-Busy@{\-Is\-Busy}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Is\-Busy}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Is\-Busy} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a39ba28f6194b993dbc5b688a419a820d}
+\begin{DoxyReturn}{\-Returns}
+\-True if \-P\-H\-Y is not \-I\-D\-L\-E 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a164bdc70d4527dd9790d5cb75bc877ff}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Set\-Cca\-Confirm\-Callback@{\-Set\-Cca\-Confirm\-Callback}}
+\index{\-Set\-Cca\-Confirm\-Callback@{\-Set\-Cca\-Confirm\-Callback}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Set\-Cca\-Confirm\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Set\-Cca\-Confirm\-Callback} (
+\begin{DoxyParamCaption}
+\item[{\-P\-L\-C\-\_\-\-Phy\-Cca\-Confirm\-Callback}]{c}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a164bdc70d4527dd9790d5cb75bc877ff}
+\-Confirmation callback after \-Clear \-Channel \-Assessment request \-This is part of the interconnection between \-M\-A\-C and \-P\-H\-Y layer 
+\begin{DoxyParams}{\-Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a55a7d4f09175852d51ea067e3cb76123}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Set\-Rx\-Impedance@{\-Set\-Rx\-Impedance}}
+\index{\-Set\-Rx\-Impedance@{\-Set\-Rx\-Impedance}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Set\-Rx\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Set\-Rx\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{rx\-Impedance}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a55a7d4f09175852d51ea067e3cb76123}
+\-Set access impedance for the device being in receive state 
+\begin{DoxyParams}{\-Parameters}
+{\em rx\-Impedance} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_acbab033f2353b868ecbfdd23239407af}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Set\-Shunt\-Impedance@{\-Set\-Shunt\-Impedance}}
+\index{\-Set\-Shunt\-Impedance@{\-Set\-Shunt\-Impedance}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Set\-Shunt\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Set\-Shunt\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{shunt\-Impedance}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_acbab033f2353b868ecbfdd23239407af}
+\-Set shunt impedance to the node the device is located on 
+\begin{DoxyParams}{\-Parameters}
+{\em shunt\-Impedance} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a8633a9bbaafcccf370900b1301d1c963}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Set\-Tx\-Impedance@{\-Set\-Tx\-Impedance}}
+\index{\-Set\-Tx\-Impedance@{\-Set\-Tx\-Impedance}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Set\-Tx\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Set\-Tx\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{tx\-Impedance}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a8633a9bbaafcccf370900b1301d1c963}
+\-Set access impedance for the device being in transmit state 
+\begin{DoxyParams}{\-Parameters}
+{\em rx\-Impedance} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_a6181d4b225c735f11a032580744ab7f0}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Set\-Tx\-Power\-Spectral\-Density@{\-Set\-Tx\-Power\-Spectral\-Density}}
+\index{\-Set\-Tx\-Power\-Spectral\-Density@{\-Set\-Tx\-Power\-Spectral\-Density}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Set\-Tx\-Power\-Spectral\-Density}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Set\-Tx\-Power\-Spectral\-Density} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$}]{tx\-Psd}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_a6181d4b225c735f11a032580744ab7f0}
+\-Set the power spectral density to be used for the outgoing waveform 
+\begin{DoxyParams}{\-Parameters}
+{\em tx\-Psd} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__HalfDuplexOfdmPhy_afff34328dc4f9eb43f856f9219992889}{\index{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}!\-Switch\-Impedance@{\-Switch\-Impedance}}
+\index{\-Switch\-Impedance@{\-Switch\-Impedance}!ns3::PLC_HalfDuplexOfdmPhy@{ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy}}
+\subsubsection[{\-Switch\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Half\-Duplex\-Ofdm\-Phy\-::\-Switch\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-State}}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classns3_1_1PLC__HalfDuplexOfdmPhy_afff34328dc4f9eb43f856f9219992889}
+\-Switch access impedance of the device according to state \begin{DoxyWarning}{\-Warning}
+will not change the state of the \-P\-H\-Y, but only the impedance value; for a state change call \-Change\-State () 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{\-Parameters}
+{\em state} & \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/phy.\-h\item 
+model/plc-\/phy.\-cc\end{DoxyCompactItemize}

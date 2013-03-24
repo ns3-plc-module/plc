@@ -1,0 +1,156 @@
+\hypertarget{classns3_1_1PLC__Outlet}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Outlet \-Class \-Reference}
+\label{classns3_1_1PLC__Outlet}\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+}
+
+
+{\ttfamily \#include $<$plc-\/outlet.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__Outlet_a20410290c64c5ee366128c3edc30fdc9}{\-P\-L\-C\-\_\-\-Outlet} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ node, \-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ impedance=0)
+\begin{DoxyCompactList}\small\item\em \-Constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classns3_1_1PLC__Outlet_a0c15b46c212ab77c95a9d18c1ce47726}{\-Register\-Backbone\-Branch} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $>$ bb\-\_\-branch)
+\item 
+void \hyperlink{classns3_1_1PLC__Outlet_a32be6c4aa7df70885ed9bdb9b5436b15}{\-Set\-Impedance} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ impedance, bool update\-Immediately=true)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ \hyperlink{classns3_1_1PLC__Outlet_a52267b6a122a2bf70321338dfd206b58}{\-Get\-Impedance} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__Outlet_a36a30f5393c98fb09da8b97b74bb50d3}{\-Is\-Time\-Variant} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__Outlet_a52917fa7fdc4eecd5b96b793b6a096b7}{\-Get\-Node} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Outlet_a6aade3f2f29e273669f65713ffdb5b7a}{\-Set\-Rx\-Interface} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ interface)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ \hyperlink{classns3_1_1PLC__Outlet_a94c11cdaa6097ad213bfea7f7fb17287}{\-Get\-Rx\-Interface} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Outlet_a13c9901ccfd9a557ad8bea25451e961b}{\-Lock} (void) const 
+\item 
+\hypertarget{classns3_1_1PLC__Outlet_a78519f9e3b8b7ec16567dcf0cf5e654e}{void {\bfseries \-Unlock} (void) const }\label{classns3_1_1PLC__Outlet_a78519f9e3b8b7ec16567dcf0cf5e654e}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Outlet_a3d8e9c3d0cafafd26589021d8e68744d}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Outlet_a3d8e9c3d0cafafd26589021d8e68744d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Class representing an outlet in the \-P\-L\-C network. \-An outlet has to be bound to a \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} and an impedance can be assigned to it. \-The main purpose of \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} is to define network nodes that may sporadically change their shunt impedance while the simulation is running. \-If this happens all affected cached equivalent impedances, edge transfer units and channel transfer functions are set out of date resulting in a recomputation of these values when needed the next time. 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__Outlet_a20410290c64c5ee366128c3edc30fdc9}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-P\-L\-C\-\_\-\-Outlet@{\-P\-L\-C\-\_\-\-Outlet}}
+\index{\-P\-L\-C\-\_\-\-Outlet@{\-P\-L\-C\-\_\-\-Outlet}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-P\-L\-C\-\_\-\-Outlet} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{node, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{impedance = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Outlet_a20410290c64c5ee366128c3edc30fdc9}
+
+
+\-Constructor. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em node} & \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the outlet is connected to \\
+\hline
+{\em impedance} & \-P\-L\-C\-\_\-\-Impedance to connect with the outlet \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Outlet_a52267b6a122a2bf70321338dfd206b58}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Get\-Impedance@{\-Get\-Impedance}}
+\index{\-Get\-Impedance@{\-Get\-Impedance}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Get\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Get\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Outlet_a52267b6a122a2bf70321338dfd206b58}
+\begin{DoxyReturn}{\-Returns}
+\-The shunt impedance currently connected to the outlet 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Outlet_a52917fa7fdc4eecd5b96b793b6a096b7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Get\-Node@{\-Get\-Node}}
+\index{\-Get\-Node@{\-Get\-Node}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Get\-Node}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Node}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Get\-Node} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Outlet_a52917fa7fdc4eecd5b96b793b6a096b7}
+\begin{DoxyReturn}{\-Returns}
+\-The associated \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Outlet_a94c11cdaa6097ad213bfea7f7fb17287}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Get\-Rx\-Interface@{\-Get\-Rx\-Interface}}
+\index{\-Get\-Rx\-Interface@{\-Get\-Rx\-Interface}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Get\-Rx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Get\-Rx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Outlet_a94c11cdaa6097ad213bfea7f7fb17287}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} bound to this node or \-N\-U\-L\-L 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Outlet_a36a30f5393c98fb09da8b97b74bb50d3}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Is\-Time\-Variant@{\-Is\-Time\-Variant}}
+\index{\-Is\-Time\-Variant@{\-Is\-Time\-Variant}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Is\-Time\-Variant}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Is\-Time\-Variant} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Outlet_a36a30f5393c98fb09da8b97b74bb50d3}
+\begin{DoxyReturn}{\-Returns}
+\-True if the outlet's impedance is time variant 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Outlet_a13c9901ccfd9a557ad8bea25451e961b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Outlet_a13c9901ccfd9a557ad8bea25451e961b}
+\-Mutex lock and unlock \hypertarget{classns3_1_1PLC__Outlet_a0c15b46c212ab77c95a9d18c1ce47726}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Register\-Backbone\-Branch@{\-Register\-Backbone\-Branch}}
+\index{\-Register\-Backbone\-Branch@{\-Register\-Backbone\-Branch}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Register\-Backbone\-Branch}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Register\-Backbone\-Branch} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Backbone\-Branch} $>$}]{bb\-\_\-branch}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Outlet_a0c15b46c212ab77c95a9d18c1ce47726}
+\-Register a \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} which is affected by an impedance change of this outlet. \-This is done by the depth first search algorithm within \-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Discover\-Outlets
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em bb\-\_\-branch} & \-Affected \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Outlet_a32be6c4aa7df70885ed9bdb9b5436b15}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Set\-Impedance@{\-Set\-Impedance}}
+\index{\-Set\-Impedance@{\-Set\-Impedance}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Set\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Set\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{impedance, }
+\item[{bool}]{update\-Immediately = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Outlet_a32be6c4aa7df70885ed9bdb9b5436b15}
+\-Change the shunt impedance of the outlet and set all affected values of the \-P\-L\-C network out of date.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em impedance} & \-New shunt impedance \\
+\hline
+{\em update\-Immediately} & \-If true all channels and currently active receive \-P\-S\-Ds will be recalculated \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Outlet_a6aade3f2f29e273669f65713ffdb5b7a}{\index{ns3\-::\-P\-L\-C\-\_\-\-Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}!\-Set\-Rx\-Interface@{\-Set\-Rx\-Interface}}
+\index{\-Set\-Rx\-Interface@{\-Set\-Rx\-Interface}!ns3::PLC_Outlet@{ns3\-::\-P\-L\-C\-\_\-\-Outlet}}
+\subsubsection[{\-Set\-Rx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Outlet\-::\-Set\-Rx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $>$}]{interface}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Outlet_a6aade3f2f29e273669f65713ffdb5b7a}
+\-Notify the outlet that it has an \-R\-X interface on top. \-This is necessary to set out of date all backbone paths leading to this node. 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/outlet.\-h\item 
+model/plc-\/outlet.\-cc\end{DoxyCompactItemize}

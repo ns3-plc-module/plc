@@ -1,0 +1,379 @@
+\hypertarget{classns3_1_1PLC__Edge}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Edge \-Class \-Reference}
+\label{classns3_1_1PLC__Edge}\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+}
+
+
+\-Edge of the \-P\-L\-C graph.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/edge.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Edge\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classns3_1_1PLC__Edge}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__Edge_a22660fa9d5fa0759b15808662b15d8e0}{\-P\-L\-C\-\_\-\-Edge} (\-Ptr$<$ const \-Spectrum\-Model $>$ sm, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ from, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ to)
+\item 
+virtual \hyperlink{classns3_1_1PLC__Edge_a77e3e30630a1c0ad98e8c3592842606b}{$\sim$\-P\-L\-C\-\_\-\-Edge} ()=0
+\item 
+double \hyperlink{classns3_1_1PLC__Edge_a630eb9fa431f6bea93c4f991a0ff17fa}{\-Get\-Length} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Edge_a01a3d9a0a340ef3c012bc7961fdbb489}{\-Lock} () const 
+\item 
+void \hyperlink{classns3_1_1PLC__Edge_a43e39fe1abb80ca4af68218cf5de99f7}{\-Unlock} () const 
+\item 
+\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$ \hyperlink{classns3_1_1PLC__Edge_adce513462cb101c6710785641ab2beae}{\-Get\-Connected\-Node} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$src\-\_\-node)
+\item 
+virtual void \hyperlink{classns3_1_1PLC__Edge_a0ad990652f55b19e05ff5dbf7a76b568}{\-Calculate\-Input\-Impedance} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)=0
+\item 
+virtual void \hyperlink{classns3_1_1PLC__Edge_ae2f1a73e1388daf1c98dd0647fed52fd}{\-Calculate\-Edge\-Transfer\-Factor} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)=0
+\item 
+virtual double \hyperlink{classns3_1_1PLC__Edge_ab1bd5e82652cf7575118e0658ba0d8ea}{\-Get\-Attenuation\-Approxd\-B} (void)=0
+\item 
+virtual double \hyperlink{classns3_1_1PLC__Edge_a3c83c3916dba13109ef53ad476390f4d}{\-Get\-Ideal\-Propagation\-Delay} (void)=0
+\item 
+bool \hyperlink{classns3_1_1PLC__Edge_ace741bd174171405f05cc8f67aa12464}{\-Is\-Input\-Impedance\-Up2\-Date} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+bool \hyperlink{classns3_1_1PLC__Edge_a32ee8533ac45cf7de4a8dbcf6ea082c3}{\-Is\-Edge\-Transfer\-Factor\-Up2\-Date} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+void \hyperlink{classns3_1_1PLC__Edge_a97475cf3a29dc9f37a4decab57f964c9}{\-Set\-Input\-Impedance\-Out\-Of\-Date} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+void \hyperlink{classns3_1_1PLC__Edge_a6d67f5eed3ae68f7c33b224494a3d47c}{\-Set\-Edge\-Transfer\-Factor\-Out\-Of\-Date} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+\hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $\ast$ \hyperlink{classns3_1_1PLC__Edge_a5db49775230c303010bda7de19982571}{\-Get\-Input\-Impedance} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+void \hyperlink{classns3_1_1PLC__Edge_af260164445e2242de25261b185f62f90}{\-Cache\-Impedances} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node, \-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ input\-\_\-impedance, \-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ load\-\_\-impedance)
+\item 
+void \hyperlink{classns3_1_1PLC__Edge_a99a343e65fcbc15350c8deb977535c5c}{\-Init\-Edge\-Transfer\-Factor} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node, bool time\-\_\-variant=false)
+\item 
+\hyperlink{classns3_1_1PLC__EdgeTransferUnit}{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} $\ast$ \hyperlink{classns3_1_1PLC__Edge_a7b02c57ee0502dabd372e5d9d40f66c7}{\-Get\-Edge\-Transfer\-Unit} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+\hyperlink{classns3_1_1PLC__EdgeTransferUnit}{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} $\ast$ \hyperlink{classns3_1_1PLC__Edge_a56286fb8bc2f9413bc6dbee56755a5ba}{\-Get\-Updated\-Edge\-Transfer\-Unit} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+\hypertarget{classns3_1_1PLC__Edge_aebba7172ee9bcee3a9d0305b6b6d1470}{std\-::vector$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$ $>$ {\bfseries \-Get\-Nodes} (void)}\label{classns3_1_1PLC__Edge_aebba7172ee9bcee3a9d0305b6b6d1470}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Edge_a1e66231b03f7a4df5a02d15f3b5e4dab}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Edge_a1e66231b03f7a4df5a02d15f3b5e4dab}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Edge_a4703458299a5f874da08232fdf9d6b92}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__Edge_a4703458299a5f874da08232fdf9d6b92}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Edge_ada00bd0fb6e1dbb9148f645b859d6a6a}{\hyperlink{structns3_1_1PLC__Mutex}{\-P\-L\-C\-\_\-\-Mutex} {\bfseries m\-\_\-line\-\_\-mutex}}\label{classns3_1_1PLC__Edge_ada00bd0fb6e1dbb9148f645b859d6a6a}
+
+\item 
+\hypertarget{classns3_1_1PLC__Edge_ae0fe84523339bbade8bcb905c8a9bceb}{\-Ptr$<$ const \-Spectrum\-Model $>$ {\bfseries m\-\_\-spectrum\-\_\-model}}\label{classns3_1_1PLC__Edge_ae0fe84523339bbade8bcb905c8a9bceb}
+
+\item 
+\hypertarget{classns3_1_1PLC__Edge_ab90645f1de623ae1c81aadede03f4138}{double {\bfseries m\-\_\-propagation\-\_\-delay}}\label{classns3_1_1PLC__Edge_ab90645f1de623ae1c81aadede03f4138}
+
+\item 
+\hypertarget{classns3_1_1PLC__Edge_a11d16bf051e9e6970734cd8c8dc2fbd5}{bool {\bfseries added2graph}}\label{classns3_1_1PLC__Edge_a11d16bf051e9e6970734cd8c8dc2fbd5}
+
+\item 
+\hypertarget{classns3_1_1PLC__Edge_aae665bf4f0a1d8975a060bb0564c716f}{double {\bfseries m\-\_\-length}}\label{classns3_1_1PLC__Edge_aae665bf4f0a1d8975a060bb0564c716f}
+
+\item 
+\hypertarget{classns3_1_1PLC__Edge_a8a1fa48343af7822ac4775b7768e317a}{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Data\-Map {\bfseries m\-\_\-edge\-\_\-transfer\-\_\-data}}\label{classns3_1_1PLC__Edge_a8a1fa48343af7822ac4775b7768e317a}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Edge_ad6a901f035f00bb56e0cdc02304de558}{class {\bfseries \-P\-L\-C\-\_\-\-Graph}}\label{classns3_1_1PLC__Edge_ad6a901f035f00bb56e0cdc02304de558}
+
+\item 
+\hypertarget{classns3_1_1PLC__Edge_ae6906119e2bc3e6a134b7087a1ad1afe}{class {\bfseries \-P\-L\-C\-\_\-\-Outlet}}\label{classns3_1_1PLC__Edge_ae6906119e2bc3e6a134b7087a1ad1afe}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Edge of the \-P\-L\-C graph. 
+
+\-This class represents an edge of the undirected graph defined by the \-P\-L\-C network topology. \-An edge instance can either be a transmission line connecting two nodes or an abstract two port network, that is used to characterize network transformers 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__Edge_a22660fa9d5fa0759b15808662b15d8e0}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-P\-L\-C\-\_\-\-Edge@{\-P\-L\-C\-\_\-\-Edge}}
+\index{\-P\-L\-C\-\_\-\-Edge@{\-P\-L\-C\-\_\-\-Edge}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Edge}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-P\-L\-C\-\_\-\-Edge} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ const \-Spectrum\-Model $>$}]{sm, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{from, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{to}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a22660fa9d5fa0759b15808662b15d8e0}
+\-Constructor \-No default constructor, because an edge can't exists without connected nodes
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sm} & \-The spectrum model to be used \\
+\hline
+{\em from} & \-First node linked by this edge \\
+\hline
+{\em to} & \-Second node linked by this edge \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Edge_a77e3e30630a1c0ad98e8c3592842606b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!$\sim$\-P\-L\-C\-\_\-\-Edge@{$\sim$\-P\-L\-C\-\_\-\-Edge}}
+\index{$\sim$\-P\-L\-C\-\_\-\-Edge@{$\sim$\-P\-L\-C\-\_\-\-Edge}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{$\sim$\-P\-L\-C\-\_\-\-Edge}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::$\sim$\-P\-L\-C\-\_\-\-Edge} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classns3_1_1PLC__Edge_a77e3e30630a1c0ad98e8c3592842606b}
+\-Destructor \-Pure virtual due to abstract base class 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Edge_af260164445e2242de25261b185f62f90}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Cache\-Impedances@{\-Cache\-Impedances}}
+\index{\-Cache\-Impedances@{\-Cache\-Impedances}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Cache\-Impedances}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Cache\-Impedances} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{input\-\_\-impedance, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{load\-\_\-impedance}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_af260164445e2242de25261b185f62f90}
+\-Caches the input and node impedances respectively in direction to dst\-\_\-node 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+{\em input\-\_\-impedance} & \-Input impedance \\
+\hline
+{\em load\-\_\-impedance} & \-Load impedance \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Edge_ae2f1a73e1388daf1c98dd0647fed52fd}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Calculate\-Edge\-Transfer\-Factor@{\-Calculate\-Edge\-Transfer\-Factor}}
+\index{\-Calculate\-Edge\-Transfer\-Factor@{\-Calculate\-Edge\-Transfer\-Factor}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Calculate\-Edge\-Transfer\-Factor}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Calculate\-Edge\-Transfer\-Factor} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classns3_1_1PLC__Edge_ae2f1a73e1388daf1c98dd0647fed52fd}
+\-Triggers the calculation of the so called edge transfer factor which is the transfer function representation of a two port network 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Output destination node \\
+\hline
+\end{DoxyParams}
+
+
+\-Implemented in \hyperlink{classns3_1_1PLC__Line_a10f17c1ab8e3d6b32b26886df64259da}{ns3\-::\-P\-L\-C\-\_\-\-Line}.
+
+\hypertarget{classns3_1_1PLC__Edge_a0ad990652f55b19e05ff5dbf7a76b568}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Calculate\-Input\-Impedance@{\-Calculate\-Input\-Impedance}}
+\index{\-Calculate\-Input\-Impedance@{\-Calculate\-Input\-Impedance}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Calculate\-Input\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Calculate\-Input\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classns3_1_1PLC__Edge_a0ad990652f55b19e05ff5dbf7a76b568}
+\-Triggers calculation of the input impedance of this node \-This function is recursive 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Output destination node \\
+\hline
+\end{DoxyParams}
+
+
+\-Implemented in \hyperlink{classns3_1_1PLC__Line_a8e6afa7dbbc769b9dcae32b3929c3c7c}{ns3\-::\-P\-L\-C\-\_\-\-Line}.
+
+\hypertarget{classns3_1_1PLC__Edge_ab1bd5e82652cf7575118e0658ba0d8ea}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Get\-Attenuation\-Approxd\-B@{\-Get\-Attenuation\-Approxd\-B}}
+\index{\-Get\-Attenuation\-Approxd\-B@{\-Get\-Attenuation\-Approxd\-B}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Get\-Attenuation\-Approxd\-B}]{\setlength{\rightskip}{0pt plus 5cm}virtual double {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Get\-Attenuation\-Approxd\-B} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classns3_1_1PLC__Edge_ab1bd5e82652cf7575118e0658ba0d8ea}
+\-Approximation of the damping through this edge. \-This function is not used yet, but meant to reduce the computational effort in order to mask non reachable nodes \begin{DoxyReturn}{\-Returns}
+\-Approximation of the node attenuation 
+\end{DoxyReturn}
+
+
+\-Implemented in \hyperlink{classns3_1_1PLC__Line_ae4981c65ab02bcfb414ff5db42e9a69c}{ns3\-::\-P\-L\-C\-\_\-\-Line}.
+
+\hypertarget{classns3_1_1PLC__Edge_adce513462cb101c6710785641ab2beae}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Get\-Connected\-Node@{\-Get\-Connected\-Node}}
+\index{\-Get\-Connected\-Node@{\-Get\-Connected\-Node}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Get\-Connected\-Node}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Node} $\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Get\-Connected\-Node} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{src\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_adce513462cb101c6710785641ab2beae}
+\-Get the second node linked by this edge 
+\begin{DoxyParams}{\-Parameters}
+{\em src\-\_\-node} & \-First node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Second node (opposite of src\-\_\-node) 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Edge_a7b02c57ee0502dabd372e5d9d40f66c7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Get\-Edge\-Transfer\-Unit@{\-Get\-Edge\-Transfer\-Unit}}
+\index{\-Get\-Edge\-Transfer\-Unit@{\-Get\-Edge\-Transfer\-Unit}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Get\-Edge\-Transfer\-Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} $\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Get\-Edge\-Transfer\-Unit} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a7b02c57ee0502dabd372e5d9d40f66c7}
+\-Get the edge transfer unit for computation of the transfer function 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the edge transfer unit instance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Edge_a3c83c3916dba13109ef53ad476390f4d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Get\-Ideal\-Propagation\-Delay@{\-Get\-Ideal\-Propagation\-Delay}}
+\index{\-Get\-Ideal\-Propagation\-Delay@{\-Get\-Ideal\-Propagation\-Delay}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Get\-Ideal\-Propagation\-Delay}]{\setlength{\rightskip}{0pt plus 5cm}virtual double {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Get\-Ideal\-Propagation\-Delay} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classns3_1_1PLC__Edge_a3c83c3916dba13109ef53ad476390f4d}
+\-Propagation delay for signals running through this node \-Ideal because the calculated delay is non dispersive \begin{DoxyReturn}{\-Returns}
+
+\end{DoxyReturn}
+
+
+\-Implemented in \hyperlink{classns3_1_1PLC__Line_a477c77becc30d44916269b10a02bf0c7}{ns3\-::\-P\-L\-C\-\_\-\-Line}.
+
+\hypertarget{classns3_1_1PLC__Edge_a5db49775230c303010bda7de19982571}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Get\-Input\-Impedance@{\-Get\-Input\-Impedance}}
+\index{\-Get\-Input\-Impedance@{\-Get\-Input\-Impedance}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Get\-Input\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Impedance} $\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Get\-Input\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a5db49775230c303010bda7de19982571}
+\-Get the input impedance looking to dst\-\_\-node 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Input impedance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Edge_a630eb9fa431f6bea93c4f991a0ff17fa}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Get\-Length@{\-Get\-Length}}
+\index{\-Get\-Length@{\-Get\-Length}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Get\-Length}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Get\-Length} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Edge_a630eb9fa431f6bea93c4f991a0ff17fa}
+\-The length of this edge \begin{DoxyReturn}{\-Returns}
+\-Distance between the linked nodes 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Edge_a56286fb8bc2f9413bc6dbee56755a5ba}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Get\-Updated\-Edge\-Transfer\-Unit@{\-Get\-Updated\-Edge\-Transfer\-Unit}}
+\index{\-Get\-Updated\-Edge\-Transfer\-Unit@{\-Get\-Updated\-Edge\-Transfer\-Unit}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Get\-Updated\-Edge\-Transfer\-Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} $\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Get\-Updated\-Edge\-Transfer\-Unit} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a56286fb8bc2f9413bc6dbee56755a5ba}
+\-Get the edge transfer unit but trigger an update cycle before 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the edge transfer unit instance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Edge_a99a343e65fcbc15350c8deb977535c5c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Init\-Edge\-Transfer\-Factor@{\-Init\-Edge\-Transfer\-Factor}}
+\index{\-Init\-Edge\-Transfer\-Factor@{\-Init\-Edge\-Transfer\-Factor}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Init\-Edge\-Transfer\-Factor}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Init\-Edge\-Transfer\-Factor} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node, }
+\item[{bool}]{time\-\_\-variant = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a99a343e65fcbc15350c8deb977535c5c}
+\-Inits the data structures used to cache the edge data 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+{\em time\-\_\-variant} & \-Can be set true if already known that the input impedance of dst\-\_\-node is time variant \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Edge_a32ee8533ac45cf7de4a8dbcf6ea082c3}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Is\-Edge\-Transfer\-Factor\-Up2\-Date@{\-Is\-Edge\-Transfer\-Factor\-Up2\-Date}}
+\index{\-Is\-Edge\-Transfer\-Factor\-Up2\-Date@{\-Is\-Edge\-Transfer\-Factor\-Up2\-Date}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Is\-Edge\-Transfer\-Factor\-Up2\-Date}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Is\-Edge\-Transfer\-Factor\-Up2\-Date} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a32ee8533ac45cf7de4a8dbcf6ea082c3}
+\-Indicates whether the calculated edge transfer factor is still up to date 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+true if no reachable impedance has changed, false otherwise 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Edge_ace741bd174171405f05cc8f67aa12464}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Is\-Input\-Impedance\-Up2\-Date@{\-Is\-Input\-Impedance\-Up2\-Date}}
+\index{\-Is\-Input\-Impedance\-Up2\-Date@{\-Is\-Input\-Impedance\-Up2\-Date}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Is\-Input\-Impedance\-Up2\-Date}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Is\-Input\-Impedance\-Up2\-Date} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_ace741bd174171405f05cc8f67aa12464}
+\-Indicates whether the cached input impedance of this edge is up to date 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-True if impedance is up to date, false otherwise 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Edge_a01a3d9a0a340ef3c012bc7961fdbb489}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Edge_a01a3d9a0a340ef3c012bc7961fdbb489}
+\-Lock edge mutex for multiprocessing \hypertarget{classns3_1_1PLC__Edge_a6d67f5eed3ae68f7c33b224494a3d47c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Set\-Edge\-Transfer\-Factor\-Out\-Of\-Date@{\-Set\-Edge\-Transfer\-Factor\-Out\-Of\-Date}}
+\index{\-Set\-Edge\-Transfer\-Factor\-Out\-Of\-Date@{\-Set\-Edge\-Transfer\-Factor\-Out\-Of\-Date}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Set\-Edge\-Transfer\-Factor\-Out\-Of\-Date}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Set\-Edge\-Transfer\-Factor\-Out\-Of\-Date} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a6d67f5eed3ae68f7c33b224494a3d47c}
+\-Set the edge transfer function in direction to dst\-\_\-node out of date 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Edge_a97475cf3a29dc9f37a4decab57f964c9}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Set\-Input\-Impedance\-Out\-Of\-Date@{\-Set\-Input\-Impedance\-Out\-Of\-Date}}
+\index{\-Set\-Input\-Impedance\-Out\-Of\-Date@{\-Set\-Input\-Impedance\-Out\-Of\-Date}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Set\-Input\-Impedance\-Out\-Of\-Date}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Set\-Input\-Impedance\-Out\-Of\-Date} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Edge_a97475cf3a29dc9f37a4decab57f964c9}
+\-Set the input impedance heading to dst\-\_\-node out of date 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Destination node \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Edge_a43e39fe1abb80ca4af68218cf5de99f7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}!\-Unlock@{\-Unlock}}
+\index{\-Unlock@{\-Unlock}!ns3::PLC_Edge@{ns3\-::\-P\-L\-C\-\_\-\-Edge}}
+\subsubsection[{\-Unlock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-::\-Unlock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Edge_a43e39fe1abb80ca4af68218cf5de99f7}
+\-Unlock edge mutex 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/edge.\-h\item 
+model/plc-\/edge.\-cc\end{DoxyCompactItemize}

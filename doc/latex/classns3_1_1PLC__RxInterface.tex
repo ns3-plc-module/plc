@@ -1,0 +1,144 @@
+\hypertarget{classns3_1_1PLC__RxInterface}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Rx\-Interface \-Class \-Reference}
+\label{classns3_1_1PLC__RxInterface}\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+}
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Rx\-Interface\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classns3_1_1PLC__RxInterface}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__RxInterface_aaa0968f79a07db808c0122c28ec25204}{\-P\-L\-C\-\_\-\-Rx\-Interface} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ associated\-\_\-node, \-Ptr$<$ const \-Spectrum\-Model $>$ sm)
+\item 
+void \hyperlink{classns3_1_1PLC__RxInterface_a2760adb4b1bda24377254c7fec9cd21d}{\-Set\-Idx} (uint32\-\_\-t idx)
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__RxInterface_aa0c5595df05fa4bdfe66e7ddb24059fc}{\-Get\-Rx\-If\-Idx} (void) const 
+\item 
+void \hyperlink{classns3_1_1PLC__RxInterface_ad7659f89d745e25b469beb2dfcc475d1}{\-Set\-Outlet} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ outlet)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ \hyperlink{classns3_1_1PLC__RxInterface_a51921ebe8b6889afe7df65329a272d47}{\-Get\-Outlet} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__RxInterface_aaad8e59970851ef619f4f4109bcde74c}{\-Start\-Rx} (\-Ptr$<$ \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)
+\item 
+void \hyperlink{classns3_1_1PLC__RxInterface_a5ed074ad9563a148975b3b5b3e15eb40}{\-Rx\-Psd\-Changed} (uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ rx\-Signal)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__RxInterface_a8617ce468622d3734adb1a3fd894ebd3}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__RxInterface_a8617ce468622d3734adb1a3fd894ebd3}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__RxInterface_aaa0968f79a07db808c0122c28ec25204}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-P\-L\-C\-\_\-\-Rx\-Interface@{\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\index{\-P\-L\-C\-\_\-\-Rx\-Interface@{\-P\-L\-C\-\_\-\-Rx\-Interface}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Rx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-P\-L\-C\-\_\-\-Rx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{associated\-\_\-node, }
+\item[{\-Ptr$<$ const \-Spectrum\-Model $>$}]{sm}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__RxInterface_aaa0968f79a07db808c0122c28ec25204}
+\-Constructor 
+\begin{DoxyParams}{\-Parameters}
+{\em associated\-\_\-plc\-\_\-node} & \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the interface is located on \\
+\hline
+{\em sm} & \-Spectrum model \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__RxInterface_a51921ebe8b6889afe7df65329a272d47}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Get\-Outlet@{\-Get\-Outlet}}
+\index{\-Get\-Outlet@{\-Get\-Outlet}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\subsubsection[{\-Get\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Outlet}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-Get\-Outlet} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__RxInterface_a51921ebe8b6889afe7df65329a272d47}
+\begin{DoxyReturn}{\-Returns}
+\-Outlet the interface is connected with 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__RxInterface_aa0c5595df05fa4bdfe66e7ddb24059fc}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Get\-Rx\-If\-Idx@{\-Get\-Rx\-If\-Idx}}
+\index{\-Get\-Rx\-If\-Idx@{\-Get\-Rx\-If\-Idx}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\subsubsection[{\-Get\-Rx\-If\-Idx}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-Get\-Rx\-If\-Idx} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__RxInterface_aa0c5595df05fa4bdfe66e7ddb24059fc}
+\begin{DoxyReturn}{\-Returns}
+\-Index the interface is registered with the channel 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__RxInterface_a5ed074ad9563a148975b3b5b3e15eb40}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Rx\-Psd\-Changed@{\-Rx\-Psd\-Changed}}
+\index{\-Rx\-Psd\-Changed@{\-Rx\-Psd\-Changed}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\subsubsection[{\-Rx\-Psd\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-Rx\-Psd\-Changed} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{tx\-Id, }
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$}]{rx\-Signal}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__RxInterface_a5ed074ad9563a148975b3b5b3e15eb40}
+\-Called when rx\-Psd changes due to channel evolution 
+\begin{DoxyParams}{\-Parameters}
+{\em tx\-Id} & \-Transmitter index \\
+\hline
+{\em rx\-Signal} & \-New rx\-Psd \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__RxInterface_a2760adb4b1bda24377254c7fec9cd21d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Set\-Idx@{\-Set\-Idx}}
+\index{\-Set\-Idx@{\-Set\-Idx}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\subsubsection[{\-Set\-Idx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-Set\-Idx} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{idx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__RxInterface_a2760adb4b1bda24377254c7fec9cd21d}
+\-Assign the index returned by \hyperlink{classns3_1_1PLC__Channel_a73a5536b841a92523150328bd2b85aea}{\-P\-L\-C\-\_\-\-Channel\-::\-Add\-Tx\-Interface} to this interface 
+\begin{DoxyParams}{\-Parameters}
+{\em idx} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__RxInterface_ad7659f89d745e25b469beb2dfcc475d1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Set\-Outlet@{\-Set\-Outlet}}
+\index{\-Set\-Outlet@{\-Set\-Outlet}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\subsubsection[{\-Set\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-Set\-Outlet} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Outlet} $>$}]{outlet}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__RxInterface_ad7659f89d745e25b469beb2dfcc475d1}
+\-Connect this interface to an outlet 
+\begin{DoxyParams}{\-Parameters}
+{\em outlet} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__RxInterface_aaad8e59970851ef619f4f4109bcde74c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Start\-Rx@{\-Start\-Rx}}
+\index{\-Start\-Rx@{\-Start\-Rx}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
+\subsubsection[{\-Start\-Rx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-Start\-Rx} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ \-Packet $>$}]{p, }
+\item[{uint32\-\_\-t}]{tx\-Id, }
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$ \&}]{rx\-Psd, }
+\item[{\-Modulation\-And\-Coding\-Type}]{mcs, }
+\item[{\-Time}]{duration}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__RxInterface_aaad8e59970851ef619f4f4109bcde74c}
+\-Start receiving. \-Called by \hyperlink{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}{\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-Start()}
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em p} & \-Packet associated with the incoming waveform or \-N\-U\-L\-L for noise \\
+\hline
+{\em tx\-Id} & tx\-Interface index \\
+\hline
+{\em rx\-Psd} & received power spectral density \\
+\hline
+{\em st} & \-Spectrum type of the signal (emulates modulation scheme) \\
+\hline
+{\em duration} & \-Time duration rx\-Psd is active on rx\-Interface \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/interface.\-h\item 
+model/plc-\/interface.\-cc\end{DoxyCompactItemize}

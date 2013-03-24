@@ -1,0 +1,166 @@
+\hypertarget{classns3_1_1PLC__Line}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Line \-Class \-Reference}
+\label{classns3_1_1PLC__Line}\index{ns3\-::\-P\-L\-C\-\_\-\-Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}}
+}
+
+
+\-Line connecting to nodes.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/edge.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Line\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classns3_1_1PLC__Line}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__Line_a0cc696d94455b11e4e7fdcd8ba643498}{\-P\-L\-C\-\_\-\-Line} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Cable}{\-P\-L\-C\-\_\-\-Cable} $>$ cable\-\_\-type, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ from, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ to)
+\item 
+double \hyperlink{classns3_1_1PLC__Line_a477c77becc30d44916269b10a02bf0c7}{\-Get\-Ideal\-Propagation\-Delay} (void)
+\item 
+\hypertarget{classns3_1_1PLC__Line_a8dda1611f3de351fe1df0c15f6ce6deb}{\-Ptr$<$ const \hyperlink{classns3_1_1PLC__Cable}{\-P\-L\-C\-\_\-\-Cable} $>$ {\bfseries \-Get\-Cable} (void) const }\label{classns3_1_1PLC__Line_a8dda1611f3de351fe1df0c15f6ce6deb}
+
+\item 
+\hypertarget{classns3_1_1PLC__Line_a8cc584bac90f608af35cc4934326d925}{\-Ptr$<$ const \*
+\hyperlink{classns3_1_1PLC__FreqSelectiveValue}{\-P\-L\-C\-\_\-\-Freq\-Selective\-Impedance} $>$ {\bfseries \-Get\-Char\-Line\-Imp} (void) const }\label{classns3_1_1PLC__Line_a8cc584bac90f608af35cc4934326d925}
+
+\item 
+\hypertarget{classns3_1_1PLC__Line_abdb95fb7ad258c039cc3eac96f132e7b}{\-Ptr$<$ const \*
+\hyperlink{classns3_1_1PLC__FreqSelectiveValue}{\-P\-L\-C\-\_\-\-Freq\-Selective\-Impedance} $>$ {\bfseries \-Get\-Trans\-Line\-Const} (void) const }\label{classns3_1_1PLC__Line_abdb95fb7ad258c039cc3eac96f132e7b}
+
+\item 
+void \hyperlink{classns3_1_1PLC__Line_a10f17c1ab8e3d6b32b26886df64259da}{\-Calculate\-Edge\-Transfer\-Factor} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+double \hyperlink{classns3_1_1PLC__Line_ae4981c65ab02bcfb414ff5db42e9a69c}{\-Get\-Attenuation\-Approxd\-B} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Line_a8e6afa7dbbc769b9dcae32b3929c3c7c}{\-Calculate\-Input\-Impedance} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node)
+\item 
+{\footnotesize template$<$typename Impedance\-Return\-Type , typename Load\-Impedance\-Type $>$ }\\\-Impedance\-Return\-Type \hyperlink{classns3_1_1PLC__Line_aaff1b993c3d103d52dde53155fcb1787}{\-Calc\-Line\-Input\-Impedance} (const \-Load\-Impedance\-Type \&z\-\_\-l)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Line_ab8112822cd7c367c7b66e63add1eeaad}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Line_ab8112822cd7c367c7b66e63add1eeaad}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Line_a5618956e0010de3da5ea92d89613a380}{class {\bfseries \-P\-L\-C\-\_\-\-Node}}\label{classns3_1_1PLC__Line_a5618956e0010de3da5ea92d89613a380}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Line connecting to nodes. 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__Line_a0cc696d94455b11e4e7fdcd8ba643498}{\index{ns3\-::\-P\-L\-C\-\_\-\-Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}!\-P\-L\-C\-\_\-\-Line@{\-P\-L\-C\-\_\-\-Line}}
+\index{\-P\-L\-C\-\_\-\-Line@{\-P\-L\-C\-\_\-\-Line}!ns3::PLC_Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Line}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Line\-::\-P\-L\-C\-\_\-\-Line} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Cable} $>$}]{cable\-\_\-type, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{from, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{to}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Line_a0cc696d94455b11e4e7fdcd8ba643498}
+\-Constructor of an edge of type line from node  to node  
+\begin{DoxyParams}{\-Parameters}
+{\em cable\-\_\-type} & \-Instance of cable model \\
+\hline
+{\em from} & \-First node \\
+\hline
+{\em to} & \-Second node \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Line_aaff1b993c3d103d52dde53155fcb1787}{\index{ns3\-::\-P\-L\-C\-\_\-\-Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}!\-Calc\-Line\-Input\-Impedance@{\-Calc\-Line\-Input\-Impedance}}
+\index{\-Calc\-Line\-Input\-Impedance@{\-Calc\-Line\-Input\-Impedance}!ns3::PLC_Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}}
+\subsubsection[{\-Calc\-Line\-Input\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Impedance\-Return\-Type , typename Load\-Impedance\-Type $>$ \-Impedance\-Return\-Type {\bf ns3\-::\-P\-L\-C\-\_\-\-Line\-::\-Calc\-Line\-Input\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{const \-Load\-Impedance\-Type \&}]{z\-\_\-l}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Line_aaff1b993c3d103d52dde53155fcb1787}
+\-Template function for the calculation of input impedance of line heading to the load impedance  of type \-Load\-Impedance\-Type \-If \-Load\-Impedance\-Type if time variant \-Impedance\-Return\-Type has to be \-P\-L\-C\-\_\-\-Time\-Variant\-Frequency\-Selective\-Value
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em z\-\_\-l} & load impedance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Input impedance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Line_a10f17c1ab8e3d6b32b26886df64259da}{\index{ns3\-::\-P\-L\-C\-\_\-\-Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}!\-Calculate\-Edge\-Transfer\-Factor@{\-Calculate\-Edge\-Transfer\-Factor}}
+\index{\-Calculate\-Edge\-Transfer\-Factor@{\-Calculate\-Edge\-Transfer\-Factor}!ns3::PLC_Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}}
+\subsubsection[{\-Calculate\-Edge\-Transfer\-Factor}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Line\-::\-Calculate\-Edge\-Transfer\-Factor} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classns3_1_1PLC__Line_a10f17c1ab8e3d6b32b26886df64259da}
+\-Triggers the calculation of the so called edge transfer factor which is the transfer function representation of a two port network 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Output destination node \\
+\hline
+\end{DoxyParams}
+
+
+\-Implements \hyperlink{classns3_1_1PLC__Edge_ae2f1a73e1388daf1c98dd0647fed52fd}{ns3\-::\-P\-L\-C\-\_\-\-Edge}.
+
+\hypertarget{classns3_1_1PLC__Line_a8e6afa7dbbc769b9dcae32b3929c3c7c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}!\-Calculate\-Input\-Impedance@{\-Calculate\-Input\-Impedance}}
+\index{\-Calculate\-Input\-Impedance@{\-Calculate\-Input\-Impedance}!ns3::PLC_Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}}
+\subsubsection[{\-Calculate\-Input\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Line\-::\-Calculate\-Input\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classns3_1_1PLC__Line_a8e6afa7dbbc769b9dcae32b3929c3c7c}
+\-Triggers calculation of the input impedance of this node \-This function is recursive 
+\begin{DoxyParams}{\-Parameters}
+{\em dst\-\_\-node} & \-Output destination node \\
+\hline
+\end{DoxyParams}
+
+
+\-Implements \hyperlink{classns3_1_1PLC__Edge_a0ad990652f55b19e05ff5dbf7a76b568}{ns3\-::\-P\-L\-C\-\_\-\-Edge}.
+
+\hypertarget{classns3_1_1PLC__Line_ae4981c65ab02bcfb414ff5db42e9a69c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}!\-Get\-Attenuation\-Approxd\-B@{\-Get\-Attenuation\-Approxd\-B}}
+\index{\-Get\-Attenuation\-Approxd\-B@{\-Get\-Attenuation\-Approxd\-B}!ns3::PLC_Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}}
+\subsubsection[{\-Get\-Attenuation\-Approxd\-B}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ns3\-::\-P\-L\-C\-\_\-\-Line\-::\-Get\-Attenuation\-Approxd\-B} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classns3_1_1PLC__Line_ae4981c65ab02bcfb414ff5db42e9a69c}
+\-Approximation of the damping through this edge. \-This function is not used yet, but meant to reduce the computational effort in order to mask non reachable nodes \begin{DoxyReturn}{\-Returns}
+\-Approximation of the node attenuation 
+\end{DoxyReturn}
+
+
+\-Implements \hyperlink{classns3_1_1PLC__Edge_ab1bd5e82652cf7575118e0658ba0d8ea}{ns3\-::\-P\-L\-C\-\_\-\-Edge}.
+
+\hypertarget{classns3_1_1PLC__Line_a477c77becc30d44916269b10a02bf0c7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}!\-Get\-Ideal\-Propagation\-Delay@{\-Get\-Ideal\-Propagation\-Delay}}
+\index{\-Get\-Ideal\-Propagation\-Delay@{\-Get\-Ideal\-Propagation\-Delay}!ns3::PLC_Line@{ns3\-::\-P\-L\-C\-\_\-\-Line}}
+\subsubsection[{\-Get\-Ideal\-Propagation\-Delay}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ns3\-::\-P\-L\-C\-\_\-\-Line\-::\-Get\-Ideal\-Propagation\-Delay} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classns3_1_1PLC__Line_a477c77becc30d44916269b10a02bf0c7}
+\-Propagation delay for signals running through this node \-Ideal because the calculated delay is non dispersive \begin{DoxyReturn}{\-Returns}
+
+\end{DoxyReturn}
+
+
+\-Implements \hyperlink{classns3_1_1PLC__Edge_a3c83c3916dba13109ef53ad476390f4d}{ns3\-::\-P\-L\-C\-\_\-\-Edge}.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/edge.\-h\item 
+model/plc-\/edge.\-cc\end{DoxyCompactItemize}

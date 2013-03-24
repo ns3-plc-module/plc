@@ -1,0 +1,105 @@
+\hypertarget{classns3_1_1PLC__ImpulsiveNoiseSource}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source \-Class \-Reference}
+\label{classns3_1_1PLC__ImpulsiveNoiseSource}\index{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}}
+}
+
+
+\-Model for impulsive noise sources.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/noise.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classns3_1_1PLC__ImpulsiveNoiseSource}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__ImpulsiveNoiseSource_a4c7278ed0a96d2edd86759474fe95524}{{\bfseries \-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ m\-\_\-src\-\_\-node, \-Ptr$<$ \-Spectrum\-Value $>$ noise\-Psd)}\label{classns3_1_1PLC__ImpulsiveNoiseSource_a4c7278ed0a96d2edd86759474fe95524}
+
+\item 
+\hyperlink{classns3_1_1PLC__ImpulsiveNoiseSource_ab62fc890eaf1caa48b74563d9e9a9a7a}{\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ src\-\_\-node, \-Ptr$<$ \-Spectrum\-Value $>$ noise\-Psd, \-Random\-Variable $\ast$pulselen\-\_\-gen, \-Random\-Variable $\ast$pulsegap\-\_\-gen)
+\item 
+void \hyperlink{classns3_1_1PLC__ImpulsiveNoiseSource_ab0f6587b0abb04afcebf6d9a1407a833}{\-Enable} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__ImpulsiveNoiseSource_a63a45910cd88be1b20ac9875f4a8fe20}{\-Pulse\-Start} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__ImpulsiveNoiseSource_af90f96c556fc3abff99d1ccee2fd8da6}{\-Pulse\-End} (void)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__ImpulsiveNoiseSource_a7dbb76ce4844f72f95c4e188ce08a904}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__ImpulsiveNoiseSource_a7dbb76ce4844f72f95c4e188ce08a904}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Model for impulsive noise sources. 
+
+\-Impulsive noise sources are modelled by a two random processes which provide values $\backslash$ for the durations the noise source being active and the period between the \char`\"{}pulses\char`\"{}, i.\-e. when the noise source is inactive. \-Of course there are no transient pulses simulated which would have a great influence on the shape of the noise \-P\-S\-D. \-Instead the propagated noise \-P\-S\-Ds will be switched on and of at the receivers interference model. 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__ImpulsiveNoiseSource_ab62fc890eaf1caa48b74563d9e9a9a7a}{\index{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}!\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source@{\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}}
+\index{\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source@{\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}!ns3::PLC_ImpulsiveNoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}]{\setlength{\rightskip}{0pt plus 5cm}ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{src\-\_\-node, }
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$}]{noise\-Psd, }
+\item[{\-Random\-Variable $\ast$}]{pulselen\-\_\-gen, }
+\item[{\-Random\-Variable $\ast$}]{pulsegap\-\_\-gen}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ImpulsiveNoiseSource_ab62fc890eaf1caa48b74563d9e9a9a7a}
+
+\begin{DoxyParams}{\-Parameters}
+{\em src\-\_\-node} & \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the noise source is located on \\
+\hline
+{\em noise\-Psd} & \-Power spectral density of the noise's waveform \\
+\hline
+{\em pulselen\-\_\-gen} & \-Random\-Variable for the pulse duration generator \\
+\hline
+{\em pulsegap\-\_\-gen} & \-Random\-Variable for the silence duration generator \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__ImpulsiveNoiseSource_ab0f6587b0abb04afcebf6d9a1407a833}{\index{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}!\-Enable@{\-Enable}}
+\index{\-Enable@{\-Enable}!ns3::PLC_ImpulsiveNoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}}
+\subsubsection[{\-Enable}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source\-::\-Enable} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classns3_1_1PLC__ImpulsiveNoiseSource_ab0f6587b0abb04afcebf6d9a1407a833}
+\-Enable noise source 
+
+\-Reimplemented from \hyperlink{classns3_1_1PLC__NoiseSource_a1753484062d53fe249c9a28f9db1ae1d}{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}.
+
+\hypertarget{classns3_1_1PLC__ImpulsiveNoiseSource_af90f96c556fc3abff99d1ccee2fd8da6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}!\-Pulse\-End@{\-Pulse\-End}}
+\index{\-Pulse\-End@{\-Pulse\-End}!ns3::PLC_ImpulsiveNoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}}
+\subsubsection[{\-Pulse\-End}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source\-::\-Pulse\-End} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ImpulsiveNoiseSource_af90f96c556fc3abff99d1ccee2fd8da6}
+\-Stop emitting noise psd
+
+\-Scheduled in \-Pulse\-Start with random variable m\-\_\-pulselen\-\_\-gen \hypertarget{classns3_1_1PLC__ImpulsiveNoiseSource_a63a45910cd88be1b20ac9875f4a8fe20}{\index{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}!\-Pulse\-Start@{\-Pulse\-Start}}
+\index{\-Pulse\-Start@{\-Pulse\-Start}!ns3::PLC_ImpulsiveNoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}}
+\subsubsection[{\-Pulse\-Start}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source\-::\-Pulse\-Start} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ImpulsiveNoiseSource_a63a45910cd88be1b20ac9875f4a8fe20}
+\-Emit noise psd if source is still enabled
+
+\-Scheduled by \hyperlink{classns3_1_1PLC__ImpulsiveNoiseSource_af90f96c556fc3abff99d1ccee2fd8da6}{\-Pulse\-End()} with random variable m\-\_\-pulsegap\-\_\-gen 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/noise.\-h\item 
+model/plc-\/noise.\-cc\end{DoxyCompactItemize}

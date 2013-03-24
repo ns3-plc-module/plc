@@ -1,0 +1,232 @@
+\hypertarget{classns3_1_1PLC__Phy}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Phy \-Class \-Reference}
+\label{classns3_1_1PLC__Phy}\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+}
+
+
+{\ttfamily \#include $<$plc-\/phy.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Phy\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.177305cm]{classns3_1_1PLC__Phy}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}{\-Start\-Tx} (\-Ptr$<$ \-Packet $>$ p)
+\item 
+void \hyperlink{classns3_1_1PLC__Phy_aed817b59511d2c3455d75230d673ba7b}{\-Start\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)
+\item 
+void \hyperlink{classns3_1_1PLC__Phy_a37c13147b5d5cb71843be91c1654fc18}{\-Rx\-Psd\-Changed} (uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ new\-Rx\-Psd)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__Phy_ac671d3c0e8fbe3792f4ee16e7f8998a2}{\-Get\-Node} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Phy_a970811df6124983c58f6b578a986f336}{\-Set\-Data\-Frame\-Sent\-Callback} (\-P\-L\-C\-\_\-\-Phy\-Data\-Frame\-Sent\-Callback c)
+\item 
+void \hyperlink{classns3_1_1PLC__Phy_abd23f344001a334bc6b2981e1f9e096d}{\-Set\-Receive\-Success\-Callback} (\-Phy\-Rx\-End\-Ok\-Callback c)
+\item 
+void \hyperlink{classns3_1_1PLC__Phy_a67ae8c7bf4a78a5788408f507b179bcc}{\-Set\-Receive\-Error\-Callback} (\-Phy\-Rx\-End\-Error\-Callback c)
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a2901b7bc2979a2637c665c5501ef6d4a}{\hyperlink{classns3_1_1PLC__ChannelTransferImpl}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} $\ast$ {\bfseries \-Get\-Channel\-Transfer\-Impl} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ rx\-Phy)}\label{classns3_1_1PLC__Phy_a2901b7bc2979a2637c665c5501ef6d4a}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a51e432fe0945a6b810e0f5d240b2ff55}{void {\bfseries \-Notify\-Data\-Frame\-Sent} (void)}\label{classns3_1_1PLC__Phy_a51e432fe0945a6b810e0f5d240b2ff55}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Phy_af2c0f72bd84e27254b7cabc6ad06e3ed}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Phy_af2c0f72bd84e27254b7cabc6ad06e3ed}
+
+\item 
+static void \hyperlink{classns3_1_1PLC__Phy_a5d5a1f64272f35b2355750e77c0d2868}{\-Set\-Symbol\-Duration} (\-Time t\-Symbol)
+\begin{DoxyCompactList}\small\item\em \-Set the global symbol duration value for all \-P\-H\-Ys. \end{DoxyCompactList}\item 
+static \-Time \hyperlink{classns3_1_1PLC__Phy_a407d28e0eaa83475f931038c94cd4381}{\-Get\-Symbol\-Duration} (void)
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a614fcc21473fed15ea0a56f86a0e3628}{virtual void {\bfseries \-Do\-Start} (void)}\label{classns3_1_1PLC__Phy_a614fcc21473fed15ea0a56f86a0e3628}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a5654398d73868f256bd338a5bd64229f}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__Phy_a5654398d73868f256bd338a5bd64229f}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a29adea495ce0dfd3299766982ed5b0fe}{virtual bool {\bfseries \-Do\-Start\-Tx} (\-Ptr$<$ \-Packet $>$ p)=0}\label{classns3_1_1PLC__Phy_a29adea495ce0dfd3299766982ed5b0fe}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a446953e5279dd63f8cf4bde85993504f}{virtual void {\bfseries \-Do\-Start\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)=0}\label{classns3_1_1PLC__Phy_a446953e5279dd63f8cf4bde85993504f}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_ad2137025b97803e834683d9a1eed897e}{virtual void {\bfseries \-Do\-Update\-Rx\-Psd} (uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ new\-Rx\-Psd)=0}\label{classns3_1_1PLC__Phy_ad2137025b97803e834683d9a1eed897e}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_ac539a2e014f1ed6a532ee79e7e4f1ea0}{virtual \hyperlink{classns3_1_1PLC__ChannelTransferImpl}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} $\ast$ {\bfseries \-Do\-Get\-Channel\-Transfer\-Impl} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ rx\-Phy)=0}\label{classns3_1_1PLC__Phy_ac539a2e014f1ed6a532ee79e7e4f1ea0}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a1bc49688d4ac54538439e1a39a595be0}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ {\bfseries m\-\_\-node}}\label{classns3_1_1PLC__Phy_a1bc49688d4ac54538439e1a39a595be0}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_afc2005e3f6427922206d8a7255b985df}{\-P\-L\-C\-\_\-\-Phy\-Data\-Frame\-Sent\-Callback {\bfseries m\-\_\-data\-\_\-frame\-\_\-sent\-\_\-callback}}\label{classns3_1_1PLC__Phy_afc2005e3f6427922206d8a7255b985df}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a3cb312c1f9c2adb0f5565a3c7fa619a3}{\-Phy\-Rx\-End\-Ok\-Callback {\bfseries m\-\_\-receive\-\_\-success\-\_\-cb}}\label{classns3_1_1PLC__Phy_a3cb312c1f9c2adb0f5565a3c7fa619a3}
+
+\item 
+\hypertarget{classns3_1_1PLC__Phy_a199024edfc1cb1242e1b66ec56239d44}{\-Phy\-Rx\-End\-Error\-Callback {\bfseries m\-\_\-receive\-\_\-error\-\_\-cb}}\label{classns3_1_1PLC__Phy_a199024edfc1cb1242e1b66ec56239d44}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Phy_ac75ba543faa54de93f57144070b4e420}{static \-Time {\bfseries symbol\-\_\-duration} = \-Nano\-Seconds(8192)}\label{classns3_1_1PLC__Phy_ac75ba543faa54de93f57144070b4e420}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Abstract base class for \-P\-L\-C \-P\-H\-Ys 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Phy_ac671d3c0e8fbe3792f4ee16e7f8998a2}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Get\-Node@{\-Get\-Node}}
+\index{\-Get\-Node@{\-Get\-Node}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Get\-Node}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Node}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Get\-Node} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Phy_ac671d3c0e8fbe3792f4ee16e7f8998a2}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the \-P\-H\-Y is attached to 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Phy_a407d28e0eaa83475f931038c94cd4381}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Get\-Symbol\-Duration@{\-Get\-Symbol\-Duration}}
+\index{\-Get\-Symbol\-Duration@{\-Get\-Symbol\-Duration}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Get\-Symbol\-Duration}]{\setlength{\rightskip}{0pt plus 5cm}\-Time {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Get\-Symbol\-Duration} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classns3_1_1PLC__Phy_a407d28e0eaa83475f931038c94cd4381}
+\begin{DoxyReturn}{\-Returns}
+\-The global modulation symbol duration 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Phy_a37c13147b5d5cb71843be91c1654fc18}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Rx\-Psd\-Changed@{\-Rx\-Psd\-Changed}}
+\index{\-Rx\-Psd\-Changed@{\-Rx\-Psd\-Changed}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Rx\-Psd\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Rx\-Psd\-Changed} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{tx\-Id, }
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$}]{new\-Rx\-Psd}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Phy_a37c13147b5d5cb71843be91c1654fc18}
+\-Notify the \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} instance that the \-Power \-Spectral \-Density of the incoming waveform transmitted by interface tx\-Id has changed to new\-Rx\-Psd 
+\begin{DoxyParams}{\-Parameters}
+{\em tx\-Id} & \\
+\hline
+{\em new\-Rx\-Psd} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Phy_a970811df6124983c58f6b578a986f336}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Set\-Data\-Frame\-Sent\-Callback@{\-Set\-Data\-Frame\-Sent\-Callback}}
+\index{\-Set\-Data\-Frame\-Sent\-Callback@{\-Set\-Data\-Frame\-Sent\-Callback}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Set\-Data\-Frame\-Sent\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Set\-Data\-Frame\-Sent\-Callback} (
+\begin{DoxyParamCaption}
+\item[{\-P\-L\-C\-\_\-\-Phy\-Data\-Frame\-Sent\-Callback}]{c}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Phy_a970811df6124983c58f6b578a986f336}
+\-Callback after a successful frame transmission 
+\begin{DoxyParams}{\-Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Phy_a67ae8c7bf4a78a5788408f507b179bcc}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Set\-Receive\-Error\-Callback@{\-Set\-Receive\-Error\-Callback}}
+\index{\-Set\-Receive\-Error\-Callback@{\-Set\-Receive\-Error\-Callback}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Set\-Receive\-Error\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Set\-Receive\-Error\-Callback} (
+\begin{DoxyParamCaption}
+\item[{\-Phy\-Rx\-End\-Error\-Callback}]{c}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Phy_a67ae8c7bf4a78a5788408f507b179bcc}
+\-Callback for a failed datagram/message reception 
+\begin{DoxyParams}{\-Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Phy_abd23f344001a334bc6b2981e1f9e096d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Set\-Receive\-Success\-Callback@{\-Set\-Receive\-Success\-Callback}}
+\index{\-Set\-Receive\-Success\-Callback@{\-Set\-Receive\-Success\-Callback}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Set\-Receive\-Success\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Set\-Receive\-Success\-Callback} (
+\begin{DoxyParamCaption}
+\item[{\-Phy\-Rx\-End\-Ok\-Callback}]{c}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Phy_abd23f344001a334bc6b2981e1f9e096d}
+\-Callback for a successful datagram/message reception 
+\begin{DoxyParams}{\-Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Phy_a5d5a1f64272f35b2355750e77c0d2868}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Set\-Symbol\-Duration@{\-Set\-Symbol\-Duration}}
+\index{\-Set\-Symbol\-Duration@{\-Set\-Symbol\-Duration}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Set\-Symbol\-Duration}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Set\-Symbol\-Duration} (
+\begin{DoxyParamCaption}
+\item[{\-Time}]{t\-Symbol}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classns3_1_1PLC__Phy_a5d5a1f64272f35b2355750e77c0d2868}
+
+
+\-Set the global symbol duration value for all \-P\-H\-Ys. 
+
+\-This method should not be called directly, but by calling \-P\-L\-C\-\_\-\-Time\-Model\-::\-Set\-Periodicity\-Model, as the simulations time resolution will be adapted to symbol granularity
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em t\-Symbol} & \-Duration of a modulation symbol \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Phy_aed817b59511d2c3455d75230d673ba7b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Start\-Rx@{\-Start\-Rx}}
+\index{\-Start\-Rx@{\-Start\-Rx}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Start\-Rx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Start\-Rx} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ const \-Packet $>$}]{p, }
+\item[{uint32\-\_\-t}]{tx\-Id, }
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$ \&}]{rx\-Psd, }
+\item[{\-Modulation\-And\-Coding\-Type}]{mcs, }
+\item[{\-Time}]{duration}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Phy_aed817b59511d2c3455d75230d673ba7b}
+\-Notify the \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} instance of an incoming waveform
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em p} & the \-Packet associated with the incoming waveform \\
+\hline
+{\em rx\-Psd} & the \-Power \-Spectral \-Density of the incoming \\
+\hline
+{\em st} & spectrum type \\
+\hline
+{\em duration} & the duration of the incoming waveform \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Start\-Tx@{\-Start\-Tx}}
+\index{\-Start\-Tx@{\-Start\-Tx}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Start\-Tx}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Start\-Tx} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ \-Packet $>$}]{p}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}
+\-Start transmitting a packet 
+\begin{DoxyParams}{\-Parameters}
+{\em p} & \-Packet \\
+\hline
+{\em tx\-Psd} & \-Power \-Spectral \-Density of the waveform to be transmitted \\
+\hline
+{\em duration} & \-Time the packet needs for transmission \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-True if \-P\-H\-Y started transmission 
+\end{DoxyReturn}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/phy.\-h\item 
+model/plc-\/phy.\-cc\end{DoxyCompactItemize}

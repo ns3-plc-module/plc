@@ -1,0 +1,461 @@
+\hypertarget{classns3_1_1PLC__Node}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Node \-Class \-Reference}
+\label{classns3_1_1PLC__Node}\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+}
+
+
+\-Node of the \-P\-L\-C graph.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/node.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\-Vector3\-D \hyperlink{classns3_1_1PLC__Node_a7d674232f339efb17da8dcfadcb22163}{\-Get\-Position} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_ada328a74b065ac102694749a8919fe1f}{\-Set\-Position} (\-Vector3\-D pos)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_aa5ed946abf9e3c9fc6be7ae4e2050da0}{\-Set\-Position} (double pos\-\_\-x, double pos\-\_\-y, double pos\-\_\-z)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_a31c5810c134f37b72ba3db59dad75621}{\-Set\-Impedance} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ impedance)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ \hyperlink{classns3_1_1PLC__Node_a988d9ed14676cc4d8b9725d3259008c0}{\-Get\-Impedance\-Ptr} (void)
+\item 
+\hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $\ast$ \hyperlink{classns3_1_1PLC__Node_a4283ee95d6bedc63c499f5ca08121ebf}{\-Get\-Impedance\-Peek\-Ptr} (void) const 
+\item 
+unsigned int \hyperlink{classns3_1_1PLC__Node_a0d5cca2e02d101bfba1c970b2909ce2e}{\-Get\-Vertex\-Id} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ \hyperlink{classns3_1_1PLC__Node_a9db89c2d14fb4bbdf2c2f89baf75aaa8}{\-Get\-Outlet} (void)
+\item 
+\hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $\ast$ \hyperlink{classns3_1_1PLC__Node_acdbac44dcd3dae5a5b13b562857778d5}{\-Get\-Outlet\-Peek\-Ptr} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__Node_a8fc4a4502b1ba5df3462186a2b4fa940}{\-Has\-Outlet} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__Node_a6298bba852b3af995dcc7cfc63ffd290}{\-Is\-Open\-Circuit} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_a6cc2d90cc40afb47a31e8c684c373a15}{\-Open\-Circuit} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_af6560be99ff6e16d432a0e41faed79ea}{\-Close\-Circuit} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_aaa44f0ecd5020c1a7017a3481d6f7210}{\-Add\-Edge} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ to, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Edge}{\-P\-L\-C\-\_\-\-Edge} $>$ edge)
+\item 
+size\-\_\-t \hyperlink{classns3_1_1PLC__Node_a86ca49cbb5461a44b35f0bb5cf3de620}{\-Get\-Num\-Edges} (void)
+\item 
+\hyperlink{classns3_1_1PLC__Edge}{\-P\-L\-C\-\_\-\-Edge} $\ast$ \hyperlink{classns3_1_1PLC__Node_ada9176eadf2ae9c7b11bdd09153cd9fb}{\-Get\-Edge} (\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$node)
+\item 
+\-P\-L\-C\-\_\-\-Node\-Out\-Edges\-Map \hyperlink{classns3_1_1PLC__Node_aec97fb77345bd3c151e831301d1a32dc}{\-Get\-Edges} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_a46df7d06f7ee78a6c676571b62049f07}{\-Associate\-Backbone\-Branch} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $>$ backbone\-Branch)
+\item 
+\-P\-L\-C\-\_\-\-Node\-Out\-Edges\-Map\-::iterator \hyperlink{classns3_1_1PLC__Node_a6dfb62dfcf6272953b1627cea050b2fa}{\-Out\-Edges\-Begin} (void)
+\item 
+\-P\-L\-C\-\_\-\-Node\-Out\-Edges\-Map\-::iterator \hyperlink{classns3_1_1PLC__Node_a375b66ef51bfc6c0dae7a82022340210}{\-Out\-Edges\-End} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_a5d72e14ad1c2e07730a854371268d5bd}{\-Set\-Name} (std\-::string name)
+\item 
+std\-::string \hyperlink{classns3_1_1PLC__Node_aec3167f9b53ba7ebc932c86a88ee6316}{\-Get\-Name} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_afd5af9d69a6611cbd9bab8598cce37fb}{\-Lock} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_ab1c0af5debda14870430089e4522dca4}{\-Unlock} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__Node_a07aa4b7127953ab3285c50d00ebd550d}{\-Is\-Time\-Variant} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ \hyperlink{classns3_1_1PLC__Node_aa4f801cb511cb5d99b5918ae47d74b18}{\-Get\-Graph} (void)
+\item 
+\hypertarget{classns3_1_1PLC__Node_a1af9782b5b1703cb60b149fde6ea5c53}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ {\bfseries \-Get\-Channel} (void)}\label{classns3_1_1PLC__Node_a1af9782b5b1703cb60b149fde6ea5c53}
+
+\item 
+void \hyperlink{classns3_1_1PLC__Node_afd7f60aa8c6cb699b303fe3bba4035d2}{\-Set\-Graph} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ graph)
+\item 
+void \hyperlink{classns3_1_1PLC__Node_abbd0e0d52256ff736e33a22c708f1111}{\-Set\-Outlet} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ outlet)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Node_a5a51763811f8468bffb7d0f34e8eedd5}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Node_a5a51763811f8468bffb7d0f34e8eedd5}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_abea56a73f524e9817bc1847b5d9ba82d}{static uint64\-\_\-t {\bfseries \-Get\-Impedance\-Hash\-Sum} (void)}\label{classns3_1_1PLC__Node_abea56a73f524e9817bc1847b5d9ba82d}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Node_a4a29e9bd60301a431ab162f2eb159961}{virtual void {\bfseries \-Do\-Start} (void)}\label{classns3_1_1PLC__Node_a4a29e9bd60301a431ab162f2eb159961}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_aba36f5bab59110d3f39c8fb34e956f23}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__Node_aba36f5bab59110d3f39c8fb34e956f23}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Node_a0cd50efe49ce06272051907a28c8b3aa}{\-Vector3\-D {\bfseries m\-\_\-position}}\label{classns3_1_1PLC__Node_a0cd50efe49ce06272051907a28c8b3aa}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_a620af6446076b03d0f010cc317027973}{\hyperlink{structns3_1_1PLC__Mutex}{\-P\-L\-C\-\_\-\-Mutex} {\bfseries m\-\_\-node\-\_\-mutex}}\label{classns3_1_1PLC__Node_a620af6446076b03d0f010cc317027973}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_a757708a106bfca54bf0135460ad1310c}{unsigned int {\bfseries m\-\_\-vertex\-\_\-id}}\label{classns3_1_1PLC__Node_a757708a106bfca54bf0135460ad1310c}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_a341489f0e9b80216fd7ac87fce77d88b}{bool {\bfseries m\-\_\-open\-\_\-circuit}}\label{classns3_1_1PLC__Node_a341489f0e9b80216fd7ac87fce77d88b}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_a9ec77cbb4e809ce63da6089288dde5b7}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ {\bfseries m\-\_\-graph}}\label{classns3_1_1PLC__Node_a9ec77cbb4e809ce63da6089288dde5b7}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_aefbfc6758432979e81158f25b6b17aba}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ {\bfseries m\-\_\-impedance}}\label{classns3_1_1PLC__Node_aefbfc6758432979e81158f25b6b17aba}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_ae99868305e8498c70f01801d3ce21798}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ {\bfseries m\-\_\-outlet}}\label{classns3_1_1PLC__Node_ae99868305e8498c70f01801d3ce21798}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_a026d4b0049bf2e529482a7aacf4ad5a7}{\-P\-L\-C\-\_\-\-Node\-Out\-Edges\-Map {\bfseries m\-\_\-edges}}\label{classns3_1_1PLC__Node_a026d4b0049bf2e529482a7aacf4ad5a7}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_a06802f7db36ff8fb9d72cc8257944f91}{std\-::set$<$ \-Ptr\*
+$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $>$ $>$ {\bfseries m\-\_\-associated\-\_\-backbone\-\_\-branches}}\label{classns3_1_1PLC__Node_a06802f7db36ff8fb9d72cc8257944f91}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_ab2c054db2d9ee98a4d99010a5575337b}{std\-::string {\bfseries m\-\_\-name}}\label{classns3_1_1PLC__Node_ab2c054db2d9ee98a4d99010a5575337b}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Node_a78ef898aba8cfa4e6dbdef9122aca6ef}{static uint64\-\_\-t {\bfseries m\-\_\-impedance\-\_\-hash\-\_\-sum} = 0}\label{classns3_1_1PLC__Node_a78ef898aba8cfa4e6dbdef9122aca6ef}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Node_ad6a901f035f00bb56e0cdc02304de558}{class {\bfseries \-P\-L\-C\-\_\-\-Graph}}\label{classns3_1_1PLC__Node_ad6a901f035f00bb56e0cdc02304de558}
+
+\item 
+\hypertarget{classns3_1_1PLC__Node_ae6906119e2bc3e6a134b7087a1ad1afe}{class {\bfseries \-P\-L\-C\-\_\-\-Outlet}}\label{classns3_1_1PLC__Node_ae6906119e2bc3e6a134b7087a1ad1afe}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Node of the \-P\-L\-C graph. 
+
+\-In order to calculate the transmission channels of the \-P\-L\-C network an undirected graph will be constructed. \-This class defines the graph nodes which are used as an abstract representation of network components, e.\-g. impedances, outlets, branches, etc. 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Node_aaa44f0ecd5020c1a7017a3481d6f7210}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Add\-Edge@{\-Add\-Edge}}
+\index{\-Add\-Edge@{\-Add\-Edge}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Add\-Edge}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Add\-Edge} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{to, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Edge} $>$}]{edge}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_aaa44f0ecd5020c1a7017a3481d6f7210}
+\-Links an edge to the node. \-An edge represents a two port network (e.\-g. a cable or transformer instance so far)
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em to} & destination node \\
+\hline
+{\em edge} & instance \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_a46df7d06f7ee78a6c676571b62049f07}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Associate\-Backbone\-Branch@{\-Associate\-Backbone\-Branch}}
+\index{\-Associate\-Backbone\-Branch@{\-Associate\-Backbone\-Branch}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Associate\-Backbone\-Branch}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Associate\-Backbone\-Branch} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Backbone\-Branch} $>$}]{backbone\-Branch}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_a46df7d06f7ee78a6c676571b62049f07}
+associates an instance of a backbone branch to this node. \-A reference to the backbone branches is needed by \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} to set them out of date in case of an impedance change
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em pointer} & to the backbone branch \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_af6560be99ff6e16d432a0e41faed79ea}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Close\-Circuit@{\-Close\-Circuit}}
+\index{\-Close\-Circuit@{\-Close\-Circuit}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Close\-Circuit}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Close\-Circuit} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_af6560be99ff6e16d432a0e41faed79ea}
+reconnects the impedance to the circuit if existing \hypertarget{classns3_1_1PLC__Node_ada9176eadf2ae9c7b11bdd09153cd9fb}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Edge@{\-Get\-Edge}}
+\index{\-Get\-Edge@{\-Get\-Edge}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Edge}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Edge} $\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Edge} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_ada9176eadf2ae9c7b11bdd09153cd9fb}
+
+\begin{DoxyParams}{\-Parameters}
+{\em node} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the linked edge leading to node 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_aec97fb77345bd3c151e831301d1a32dc}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Edges@{\-Get\-Edges}}
+\index{\-Get\-Edges@{\-Get\-Edges}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Edges}]{\setlength{\rightskip}{0pt plus 5cm}\-P\-L\-C\-\_\-\-Node\-Out\-Edges\-Map {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Edges} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_aec97fb77345bd3c151e831301d1a32dc}
+\begin{DoxyReturn}{\-Returns}
+a std\-::map of all linked edges of the node 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_aa4f801cb511cb5d99b5918ae47d74b18}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Graph@{\-Get\-Graph}}
+\index{\-Get\-Graph@{\-Get\-Graph}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Graph}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Graph} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_aa4f801cb511cb5d99b5918ae47d74b18}
+\begin{DoxyReturn}{\-Returns}
+pointer to the graph 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a4283ee95d6bedc63c499f5ca08121ebf}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Impedance\-Peek\-Ptr@{\-Get\-Impedance\-Peek\-Ptr}}
+\index{\-Get\-Impedance\-Peek\-Ptr@{\-Get\-Impedance\-Peek\-Ptr}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Impedance\-Peek\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Impedance}$\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Impedance\-Peek\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a4283ee95d6bedc63c499f5ca08121ebf}
+\begin{DoxyReturn}{\-Returns}
+node impedance raw poiner 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a988d9ed14676cc4d8b9725d3259008c0}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Impedance\-Ptr@{\-Get\-Impedance\-Ptr}}
+\index{\-Get\-Impedance\-Ptr@{\-Get\-Impedance\-Ptr}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Impedance\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Impedance}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Impedance\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a988d9ed14676cc4d8b9725d3259008c0}
+\begin{DoxyReturn}{\-Returns}
+node impedance smart pointer 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_aec3167f9b53ba7ebc932c86a88ee6316}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Name@{\-Get\-Name}}
+\index{\-Get\-Name@{\-Get\-Name}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Name}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Name} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_aec3167f9b53ba7ebc932c86a88ee6316}
+\-Get the assigned name of the node \begin{DoxyReturn}{\-Returns}
+
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a86ca49cbb5461a44b35f0bb5cf3de620}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Num\-Edges@{\-Get\-Num\-Edges}}
+\index{\-Get\-Num\-Edges@{\-Get\-Num\-Edges}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Num\-Edges}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Num\-Edges} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a86ca49cbb5461a44b35f0bb5cf3de620}
+\begin{DoxyReturn}{\-Returns}
+the number of edges assigned to this node 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a9db89c2d14fb4bbdf2c2f89baf75aaa8}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Outlet@{\-Get\-Outlet}}
+\index{\-Get\-Outlet@{\-Get\-Outlet}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Outlet}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Outlet} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a9db89c2d14fb4bbdf2c2f89baf75aaa8}
+\begin{DoxyReturn}{\-Returns}
+pointer to the outlet or \-N\-U\-L\-L if it doesn't have one 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_acdbac44dcd3dae5a5b13b562857778d5}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Outlet\-Peek\-Ptr@{\-Get\-Outlet\-Peek\-Ptr}}
+\index{\-Get\-Outlet\-Peek\-Ptr@{\-Get\-Outlet\-Peek\-Ptr}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Outlet\-Peek\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Outlet} $\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Outlet\-Peek\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_acdbac44dcd3dae5a5b13b562857778d5}
+\begin{DoxyReturn}{\-Returns}
+raw pointer to the outlet or \-N\-U\-L\-L if it doesn't have one 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a7d674232f339efb17da8dcfadcb22163}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Position@{\-Get\-Position}}
+\index{\-Get\-Position@{\-Get\-Position}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Position}]{\setlength{\rightskip}{0pt plus 5cm}\-Vector3\-D {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Position} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a7d674232f339efb17da8dcfadcb22163}
+\begin{DoxyReturn}{\-Returns}
+the node's assigned position 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a0d5cca2e02d101bfba1c970b2909ce2e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Get\-Vertex\-Id@{\-Get\-Vertex\-Id}}
+\index{\-Get\-Vertex\-Id@{\-Get\-Vertex\-Id}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Get\-Vertex\-Id}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Get\-Vertex\-Id} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a0d5cca2e02d101bfba1c970b2909ce2e}
+\begin{DoxyReturn}{\-Returns}
+id assigned to this node by the network graph 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a8fc4a4502b1ba5df3462186a2b4fa940}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Has\-Outlet@{\-Has\-Outlet}}
+\index{\-Has\-Outlet@{\-Has\-Outlet}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Has\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Has\-Outlet} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a8fc4a4502b1ba5df3462186a2b4fa940}
+\begin{DoxyReturn}{\-Returns}
+true if node has an outlet 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a6298bba852b3af995dcc7cfc63ffd290}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Is\-Open\-Circuit@{\-Is\-Open\-Circuit}}
+\index{\-Is\-Open\-Circuit@{\-Is\-Open\-Circuit}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Is\-Open\-Circuit}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Is\-Open\-Circuit} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a6298bba852b3af995dcc7cfc63ffd290}
+\begin{DoxyReturn}{\-Returns}
+true if node has no impedance assigned 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a07aa4b7127953ab3285c50d00ebd550d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Is\-Time\-Variant@{\-Is\-Time\-Variant}}
+\index{\-Is\-Time\-Variant@{\-Is\-Time\-Variant}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Is\-Time\-Variant}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Is\-Time\-Variant} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_a07aa4b7127953ab3285c50d00ebd550d}
+\begin{DoxyReturn}{\-Returns}
+whether the connected impedance is time variant 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_afd5af9d69a6611cbd9bab8598cce37fb}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_afd5af9d69a6611cbd9bab8598cce37fb}
+\-Locks the mutex of this node \hypertarget{classns3_1_1PLC__Node_a6cc2d90cc40afb47a31e8c684c373a15}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Open\-Circuit@{\-Open\-Circuit}}
+\index{\-Open\-Circuit@{\-Open\-Circuit}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Open\-Circuit}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Open\-Circuit} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a6cc2d90cc40afb47a31e8c684c373a15}
+disconnects a contigent impedance \hypertarget{classns3_1_1PLC__Node_a6dfb62dfcf6272953b1627cea050b2fa}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Out\-Edges\-Begin@{\-Out\-Edges\-Begin}}
+\index{\-Out\-Edges\-Begin@{\-Out\-Edges\-Begin}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Out\-Edges\-Begin}]{\setlength{\rightskip}{0pt plus 5cm}\-P\-L\-C\-\_\-\-Node\-Out\-Edges\-Map\-::iterator {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Out\-Edges\-Begin} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a6dfb62dfcf6272953b1627cea050b2fa}
+\begin{DoxyReturn}{\-Returns}
+the start iterator of the edge map 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_a375b66ef51bfc6c0dae7a82022340210}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Out\-Edges\-End@{\-Out\-Edges\-End}}
+\index{\-Out\-Edges\-End@{\-Out\-Edges\-End}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Out\-Edges\-End}]{\setlength{\rightskip}{0pt plus 5cm}\-P\-L\-C\-\_\-\-Node\-Out\-Edges\-Map\-::iterator {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Out\-Edges\-End} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a375b66ef51bfc6c0dae7a82022340210}
+\begin{DoxyReturn}{\-Returns}
+the end iterator of the edge map 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Node_afd7f60aa8c6cb699b303fe3bba4035d2}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Set\-Graph@{\-Set\-Graph}}
+\index{\-Set\-Graph@{\-Set\-Graph}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Set\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Set\-Graph} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Graph} $>$}]{graph}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_afd7f60aa8c6cb699b303fe3bba4035d2}
+
+\begin{DoxyParams}{\-Parameters}
+{\em graph} & set the graph \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_a31c5810c134f37b72ba3db59dad75621}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Set\-Impedance@{\-Set\-Impedance}}
+\index{\-Set\-Impedance@{\-Set\-Impedance}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Set\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Set\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Impedance} $>$}]{impedance}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_a31c5810c134f37b72ba3db59dad75621}
+\-Connect an impedance in parallel to all two wire transission lines linked to this node
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em impedance} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_a5d72e14ad1c2e07730a854371268d5bd}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Set\-Name@{\-Set\-Name}}
+\index{\-Set\-Name@{\-Set\-Name}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Set\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Set\-Name} (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_a5d72e14ad1c2e07730a854371268d5bd}
+\-Assign a name to the node 
+\begin{DoxyParams}{\-Parameters}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_abbd0e0d52256ff736e33a22c708f1111}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Set\-Outlet@{\-Set\-Outlet}}
+\index{\-Set\-Outlet@{\-Set\-Outlet}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Set\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Set\-Outlet} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Outlet} $>$}]{outlet}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_abbd0e0d52256ff736e33a22c708f1111}
+allocates outlet to the node
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em outlet} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_ada328a74b065ac102694749a8919fe1f}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Set\-Position@{\-Set\-Position}}
+\index{\-Set\-Position@{\-Set\-Position}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Set\-Position}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Set\-Position} (
+\begin{DoxyParamCaption}
+\item[{\-Vector3\-D}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_ada328a74b065ac102694749a8919fe1f}
+
+\begin{DoxyParams}{\-Parameters}
+{\em pos} & position to be assigned to the node \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_aa5ed946abf9e3c9fc6be7ae4e2050da0}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Set\-Position@{\-Set\-Position}}
+\index{\-Set\-Position@{\-Set\-Position}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Set\-Position}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Set\-Position} (
+\begin{DoxyParamCaption}
+\item[{double}]{pos\-\_\-x, }
+\item[{double}]{pos\-\_\-y, }
+\item[{double}]{pos\-\_\-z}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Node_aa5ed946abf9e3c9fc6be7ae4e2050da0}
+
+\begin{DoxyParams}{\-Parameters}
+{\em pos\-\_\-x} & x coordinate \\
+\hline
+{\em pos\-\_\-y} & y coordinate \\
+\hline
+{\em pos\-\_\-z} & z coordinate \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Node_ab1c0af5debda14870430089e4522dca4}{\index{ns3\-::\-P\-L\-C\-\_\-\-Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}!\-Unlock@{\-Unlock}}
+\index{\-Unlock@{\-Unlock}!ns3::PLC_Node@{ns3\-::\-P\-L\-C\-\_\-\-Node}}
+\subsubsection[{\-Unlock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Node\-::\-Unlock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Node_ab1c0af5debda14870430089e4522dca4}
+\-Unlocks the mutex of this node 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/node.\-h\item 
+model/plc-\/node.\-cc\end{DoxyCompactItemize}

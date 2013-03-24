@@ -1,0 +1,220 @@
+\hypertarget{classns3_1_1PLC__TxInterface}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Tx\-Interface \-Class \-Reference}
+\label{classns3_1_1PLC__TxInterface}\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+}
+
+
+\-Interface with transmitting ability.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/interface.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Tx\-Interface\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classns3_1_1PLC__TxInterface}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__TxInterface_aff6a3c7efa2b90340580e72006525267}{\-P\-L\-C\-\_\-\-Tx\-Interface} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ associated\-\_\-plc\-\_\-node, \-Ptr$<$ const \-Spectrum\-Model $>$ sm)
+\item 
+void \hyperlink{classns3_1_1PLC__TxInterface_a88a9bf7b50d5fa11a5adcb09b5398239}{\-Set\-Idx} (uint32\-\_\-t idx)
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__TxInterface_ad89273d8968ace83a49c39bbe3bab3fc}{\-Get\-Tx\-If\-Idx} (void) const 
+\item 
+\-Ptr$<$ const \-Spectrum\-Value $>$ \hyperlink{classns3_1_1PLC__TxInterface_a85f0732d7d01349f56d6bcbecc3e3c62}{\-Get\-Tx\-Psd} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__TxInterface_ad6c95936608eeb3b081f9b8eb5e46c87}{\-Initialize\-Channel\-Transfer\-Impls} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__TxInterface_a9d5e237a329135b8f73178200f94bbc9}{\-Calculate\-Channels} (void)
+\item 
+\hyperlink{classns3_1_1PLC__ChannelTransferImpl}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} $\ast$ \hyperlink{classns3_1_1PLC__TxInterface_abcb48efd0fa3c23f04646e93e6c7ebbe}{\-Get\-Channel\-Transfer\-Impl} (\hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$rx\-Interface)
+\item 
+std\-::list$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $\ast$ $>$ \hyperlink{classns3_1_1PLC__TxInterface_a13001bc1b0947eac4b31d3f86dfbc848}{\-Get\-Backbone\-Path} (\hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$sink)
+\item 
+\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator \hyperlink{classns3_1_1PLC__TxInterface_a7a0f421716fa2999885f3dfa9e00649e}{\-Backbone\-Path\-Begin} (\hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$sink)
+\item 
+\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator \hyperlink{classns3_1_1PLC__TxInterface_abef68692750f3bb5a11bf6c37d1b3af6}{\-Backbone\-Path\-End} (\hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$sink)
+\item 
+void \hyperlink{classns3_1_1PLC__TxInterface_a35e0b32414508038c169efc345dbd1e2}{\-Start\-Tx} (\-Ptr$<$ \-Packet $>$ p, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__TxInterface_ac240c7f6f69961cb86b5bcf1e68480cc}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__TxInterface_ac240c7f6f69961cb86b5bcf1e68480cc}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__TxInterface_ae6906119e2bc3e6a134b7087a1ad1afe}{class {\bfseries \-P\-L\-C\-\_\-\-Outlet}}\label{classns3_1_1PLC__TxInterface_ae6906119e2bc3e6a134b7087a1ad1afe}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Interface with transmitting ability. 
+
+\-Interface with receiving ability. 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__TxInterface_aff6a3c7efa2b90340580e72006525267}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-P\-L\-C\-\_\-\-Tx\-Interface@{\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\index{\-P\-L\-C\-\_\-\-Tx\-Interface@{\-P\-L\-C\-\_\-\-Tx\-Interface}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Tx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-P\-L\-C\-\_\-\-Tx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{associated\-\_\-plc\-\_\-node, }
+\item[{\-Ptr$<$ const \-Spectrum\-Model $>$}]{sm}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_aff6a3c7efa2b90340580e72006525267}
+\-Constructor 
+\begin{DoxyParams}{\-Parameters}
+{\em associated\-\_\-plc\-\_\-node} & \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the interface is located on \\
+\hline
+{\em sm} & \-Spectrum model \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__TxInterface_a7a0f421716fa2999885f3dfa9e00649e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Backbone\-Path\-Begin@{\-Backbone\-Path\-Begin}}
+\index{\-Backbone\-Path\-Begin@{\-Backbone\-Path\-Begin}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Backbone\-Path\-Begin}]{\setlength{\rightskip}{0pt plus 5cm}\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Backbone\-Path\-Begin} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$}]{sink}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_a7a0f421716fa2999885f3dfa9e00649e}
+
+\begin{DoxyParams}{\-Parameters}
+{\em sink} & \-R\-X \-Interface of the backbone path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Iterator to start of the backbone path to sink 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__TxInterface_abef68692750f3bb5a11bf6c37d1b3af6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Backbone\-Path\-End@{\-Backbone\-Path\-End}}
+\index{\-Backbone\-Path\-End@{\-Backbone\-Path\-End}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Backbone\-Path\-End}]{\setlength{\rightskip}{0pt plus 5cm}\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Backbone\-Path\-End} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$}]{sink}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_abef68692750f3bb5a11bf6c37d1b3af6}
+
+\begin{DoxyParams}{\-Parameters}
+{\em sink} & \-R\-X \-Interface of the backbone path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Iterator to end of the backbone path to sink 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__TxInterface_a9d5e237a329135b8f73178200f94bbc9}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Calculate\-Channels@{\-Calculate\-Channels}}
+\index{\-Calculate\-Channels@{\-Calculate\-Channels}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Calculate\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Calculate\-Channels} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_a9d5e237a329135b8f73178200f94bbc9}
+\-Calculate the channel transfer function to each receiver interface
+
+\-Only call after \hyperlink{classns3_1_1PLC__TxInterface_ad6c95936608eeb3b081f9b8eb5e46c87}{\-Initialize\-Channel\-Transfer\-Impls()} \hypertarget{classns3_1_1PLC__TxInterface_a13001bc1b0947eac4b31d3f86dfbc848}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Get\-Backbone\-Path@{\-Get\-Backbone\-Path}}
+\index{\-Get\-Backbone\-Path@{\-Get\-Backbone\-Path}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Get\-Backbone\-Path}]{\setlength{\rightskip}{0pt plus 5cm}std\-::list$<$ {\bf \-P\-L\-C\-\_\-\-Backbone\-Branch} $\ast$ $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Get\-Backbone\-Path} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$}]{sink}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_a13001bc1b0947eac4b31d3f86dfbc848}
+\-Get the backbone path between this tx interface and the sink rx interface \-An empty list indicates a direct connection 
+\begin{DoxyParams}{\-Parameters}
+{\em sink} & \-R\-X \-Interface of the backbone path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Backbone path 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__TxInterface_abcb48efd0fa3c23f04646e93e6c7ebbe}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Get\-Channel\-Transfer\-Impl@{\-Get\-Channel\-Transfer\-Impl}}
+\index{\-Get\-Channel\-Transfer\-Impl@{\-Get\-Channel\-Transfer\-Impl}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Get\-Channel\-Transfer\-Impl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} $\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Get\-Channel\-Transfer\-Impl} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$}]{rx\-Interface}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_abcb48efd0fa3c23f04646e93e6c7ebbe}
+\-Get the channel transfer implementation that has the channel transfer data to rx\-Interface 
+\begin{DoxyParams}{\-Parameters}
+{\em rx\-Interface} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Channel transfer implementation to rx\-Interface 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__TxInterface_ad89273d8968ace83a49c39bbe3bab3fc}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Get\-Tx\-If\-Idx@{\-Get\-Tx\-If\-Idx}}
+\index{\-Get\-Tx\-If\-Idx@{\-Get\-Tx\-If\-Idx}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Get\-Tx\-If\-Idx}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Get\-Tx\-If\-Idx} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__TxInterface_ad89273d8968ace83a49c39bbe3bab3fc}
+\begin{DoxyReturn}{\-Returns}
+\-Index the interface is registered with the channel 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__TxInterface_a85f0732d7d01349f56d6bcbecc3e3c62}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Get\-Tx\-Psd@{\-Get\-Tx\-Psd}}
+\index{\-Get\-Tx\-Psd@{\-Get\-Tx\-Psd}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Get\-Tx\-Psd}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$const \-Spectrum\-Value$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Get\-Tx\-Psd} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__TxInterface_a85f0732d7d01349f56d6bcbecc3e3c62}
+\begin{DoxyReturn}{\-Returns}
+\-The most recent used transmission power spectral density 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__TxInterface_ad6c95936608eeb3b081f9b8eb5e46c87}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Initialize\-Channel\-Transfer\-Impls@{\-Initialize\-Channel\-Transfer\-Impls}}
+\index{\-Initialize\-Channel\-Transfer\-Impls@{\-Initialize\-Channel\-Transfer\-Impls}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Initialize\-Channel\-Transfer\-Impls}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Initialize\-Channel\-Transfer\-Impls} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_ad6c95936608eeb3b081f9b8eb5e46c87}
+\-Initialize channel implementations from this transmission interface to each known receiver interface.
+
+\-Only call after all interfaces have been added to \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} \hypertarget{classns3_1_1PLC__TxInterface_a88a9bf7b50d5fa11a5adcb09b5398239}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Set\-Idx@{\-Set\-Idx}}
+\index{\-Set\-Idx@{\-Set\-Idx}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Set\-Idx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Set\-Idx} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{idx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__TxInterface_a88a9bf7b50d5fa11a5adcb09b5398239}
+\-Assign the index returned by \hyperlink{classns3_1_1PLC__Channel_a73a5536b841a92523150328bd2b85aea}{\-P\-L\-C\-\_\-\-Channel\-::\-Add\-Tx\-Interface} to this interface 
+\begin{DoxyParams}{\-Parameters}
+{\em idx} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__TxInterface_a35e0b32414508038c169efc345dbd1e2}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Start\-Tx@{\-Start\-Tx}}
+\index{\-Start\-Tx@{\-Start\-Tx}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
+\subsubsection[{\-Start\-Tx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Start\-Tx} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ \-Packet $>$}]{p, }
+\item[{\-Ptr$<$ const \-Spectrum\-Value $>$}]{tx\-Psd, }
+\item[{\-Modulation\-And\-Coding\-Type}]{mcs, }
+\item[{\-Time}]{duration}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__TxInterface_a35e0b32414508038c169efc345dbd1e2}
+\-Start transmission from this tx interface
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em p} & \-Packet to be transmitted or \-N\-U\-L\-L for noise signal \\
+\hline
+{\em tx\-Psd} & \-Spectral power density to be used for the transmission \\
+\hline
+{\em st} & \-Spectrum type of the signal to distinguish between different modulation types or noise respectively \\
+\hline
+{\em duration} & \-Transmission duration \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/interface.\-h\item 
+model/plc-\/interface.\-cc\end{DoxyCompactItemize}

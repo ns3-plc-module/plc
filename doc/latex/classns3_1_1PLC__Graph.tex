@@ -1,0 +1,311 @@
+\hypertarget{classns3_1_1PLC__Graph}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Graph \-Class \-Reference}
+\label{classns3_1_1PLC__Graph}\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+}
+
+
+\-Graph of the \-P\-L\-C network.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/graph.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classns3_1_1PLC__Graph_a1bdc6900ab0e1744bde930c67f13b561}{\-Add\-Node} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ node)
+\item 
+void \hyperlink{classns3_1_1PLC__Graph_a74c846e5f691f681f901704af755df0b}{\-Set\-Channel} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ channel)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ \hyperlink{classns3_1_1PLC__Graph_a0e801b209261229e434348f3ac0eabbe}{\-Get\-Channel} (void)
+\item 
+\hypertarget{classns3_1_1PLC__Graph_ac98fb34a0fbd84616b58ca1d549c96f9}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ {\bfseries \-Get\-Channel} (void) const }\label{classns3_1_1PLC__Graph_ac98fb34a0fbd84616b58ca1d549c96f9}
+
+\item 
+std\-::vector$<$ \-Ptr\*
+$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ $>$ \hyperlink{classns3_1_1PLC__Graph_a7a73879c31ec3aa3f8cf198379c57ada}{\-Get\-Connected\-Rx\-Interfaces} ()
+\item 
+\hypertarget{classns3_1_1PLC__Graph_a7f033b5c9863275754673c662a3f537e}{std\-::vector$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$ $>$ {\bfseries \-Get\-Connected\-Rx\-Interface\-Peek\-Ptrs} (void)}\label{classns3_1_1PLC__Graph_a7f033b5c9863275754673c662a3f537e}
+
+\item 
+void \hyperlink{classns3_1_1PLC__Graph_ae319e64246156050fd7c19f165db1993}{\-Create\-P\-L\-C\-Graph} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__Graph_acf496c2f3fa3e095174352b3b7a53f71}{\-Get\-Node\-Ptr} (unsigned int id)
+\item 
+\hypertarget{classns3_1_1PLC__Graph_a0fccd6eef8e9af5305372bce6c347a35}{\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$ {\bfseries \-Get\-Node\-Peek\-Ptr} (unsigned int id)}\label{classns3_1_1PLC__Graph_a0fccd6eef8e9af5305372bce6c347a35}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_a6cd95bff61b3364b44b61315a421c271}{std\-::vector$<$ \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ $>$ {\bfseries \-Get\-Nodes} (void)}\label{classns3_1_1PLC__Graph_a6cd95bff61b3364b44b61315a421c271}
+
+\item 
+boost\-::\-U\-Graph $\ast$ \hyperlink{classns3_1_1PLC__Graph_ad3c87c152e0a7e4162843aaac261380e}{\-Get\-Graph\-Ptr} (void)
+\item 
+std\-::list$<$ \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ $>$ \hyperlink{classns3_1_1PLC__Graph_aa09a9dcbc563e6c4d4611308a8f3c0a1}{\-Get\-Shortest\-Path} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ from, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ to)
+\item 
+double \hyperlink{classns3_1_1PLC__Graph_a484285d6736dd5515154837db21fa769}{\-Get\-Distance} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ from, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ to)
+\item 
+bool \hyperlink{classns3_1_1PLC__Graph_a39b4b9720fc281cd55c1ff29d1f03552}{\-Backbone\-Branch\-Exists} (\-P\-L\-C\-\_\-\-Backbone\-Branch\-Key key)
+\item 
+void \hyperlink{classns3_1_1PLC__Graph_a0715ae252ce170c59ffe5325ef8bcd56}{\-Register\-Backbone\-Branch} (\-P\-L\-C\-\_\-\-Backbone\-Branch\-Key bb\-\_\-key, \-Ptr$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $>$ bb\-\_\-branch)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $>$ \hyperlink{classns3_1_1PLC__Graph_a6367c91dfdb82fefddcafdf0f871efde}{\-Get\-Backbone\-Branch} (\-P\-L\-C\-\_\-\-Backbone\-Branch\-Key bb\-\_\-key)
+\item 
+bool \hyperlink{classns3_1_1PLC__Graph_ad0a93aaa9331850a8d5a96355aa7e7f1}{\-Path\-Exists} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ from, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ to)
+\item 
+void \hyperlink{classns3_1_1PLC__Graph_acf2804c3aeefe4d619d337c88676f288}{\-Lock} ()
+\item 
+void \hyperlink{classns3_1_1PLC__Graph_a42e820f44e236404054f5c9245d404a5}{\-Unlock} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Graph_acbdb07d6ea6b298299ebba538b32c5f8}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Graph_acbdb07d6ea6b298299ebba538b32c5f8}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Graph_ac8a6a73c5a49f4b55c72fc779ad89fda}{virtual void {\bfseries \-Do\-Start} (void)}\label{classns3_1_1PLC__Graph_ac8a6a73c5a49f4b55c72fc779ad89fda}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_ab6d36d72337828e7691210a4f97d6aad}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__Graph_ab6d36d72337828e7691210a4f97d6aad}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_aa521edba859d97fe0486768367dcef25}{void {\bfseries \-Calculate\-Shortest\-Paths} (void)}\label{classns3_1_1PLC__Graph_aa521edba859d97fe0486768367dcef25}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Graph_ad13ed40f420330d56cf09ce1a4c12530}{boost\-::\-U\-Graph {\bfseries m\-\_\-graph}}\label{classns3_1_1PLC__Graph_ad13ed40f420330d56cf09ce1a4c12530}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_a87a60248a007f1623e10c018092da7f5}{\hyperlink{structns3_1_1PLC__Mutex}{\-P\-L\-C\-\_\-\-Mutex} {\bfseries m\-\_\-graph\-\_\-mutex}}\label{classns3_1_1PLC__Graph_a87a60248a007f1623e10c018092da7f5}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_a50f681762429c722e78aa6e827078ccc}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ {\bfseries m\-\_\-channel}}\label{classns3_1_1PLC__Graph_a50f681762429c722e78aa6e827078ccc}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_a904350cff841221d0bdb3adedfc2b8ae}{std\-::vector$<$ \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ $>$ {\bfseries m\-\_\-nodes}}\label{classns3_1_1PLC__Graph_a904350cff841221d0bdb3adedfc2b8ae}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_a90b738e71acf3ea34f9d4fbb8825b860}{std\-::map$<$ std\-::pair$<$ unsigned \*
+int, unsigned int $>$, std\-::pair\*
+$<$ double, std\-::list$<$ \-Ptr\*
+$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ $>$ $>$ $>$ {\bfseries m\-\_\-shortest\-\_\-paths}}\label{classns3_1_1PLC__Graph_a90b738e71acf3ea34f9d4fbb8825b860}
+
+\item 
+\hypertarget{classns3_1_1PLC__Graph_ab566852171d70687a5965c7099c01c44}{std\-::map\*
+$<$ \-P\-L\-C\-\_\-\-Backbone\-Branch\-Key, \-Ptr\*
+$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $>$ $>$ {\bfseries m\-\_\-backbone\-\_\-branches}}\label{classns3_1_1PLC__Graph_ab566852171d70687a5965c7099c01c44}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Graph_aa66746b40db26e1809096549f957b7ac}{class {\bfseries \-P\-L\-C\-\_\-\-Tx\-Interface}}\label{classns3_1_1PLC__Graph_aa66746b40db26e1809096549f957b7ac}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Graph of the \-P\-L\-C network. 
+
+\-This class describes the \-P\-L\-C network topology as an undirected graph. \-Annotation\-: \-As the simulation has only graph and one channel instance the correspondent classes could be combined, but to have a logical seperation they are realized in different classes. \-It is currently not allowed to have cycles in the topology as the \-Dijkstra \-Algorithm for the shortest path calculation will fail! \-Although there should be no cycles in a real world power line network for the power transmission frequency, it is possible to (galvanically) recouple an \-H\-F signal over a redundant path to the network. \-T\-O\-D\-O\-: segment graph to support cycles 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Graph_a1bdc6900ab0e1744bde930c67f13b561}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Add\-Node@{\-Add\-Node}}
+\index{\-Add\-Node@{\-Add\-Node}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Add\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Add\-Node} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{node}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_a1bdc6900ab0e1744bde930c67f13b561}
+\-Add a \-Node to the graph. \-All network nodes have to be added before calling \-Create\-Graph 
+\begin{DoxyParams}{\-Parameters}
+{\em node} & \-Node to be added \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Graph_a39b4b9720fc281cd55c1ff29d1f03552}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Backbone\-Branch\-Exists@{\-Backbone\-Branch\-Exists}}
+\index{\-Backbone\-Branch\-Exists@{\-Backbone\-Branch\-Exists}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Backbone\-Branch\-Exists}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Backbone\-Branch\-Exists} (
+\begin{DoxyParamCaption}
+\item[{\-P\-L\-C\-\_\-\-Backbone\-Branch\-Key}]{key}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_a39b4b9720fc281cd55c1ff29d1f03552}
+\-Proof if a backbone branch already exists (see \hyperlink{plc-backbone_8h_source}{plc-\/backbone.\-h} for further information) 
+\begin{DoxyParams}{\-Parameters}
+{\em key} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-True if there is already a backbone branch with  registered, false otherwise 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_ae319e64246156050fd7c19f165db1993}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Create\-P\-L\-C\-Graph@{\-Create\-P\-L\-C\-Graph}}
+\index{\-Create\-P\-L\-C\-Graph@{\-Create\-P\-L\-C\-Graph}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Create\-P\-L\-C\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Create\-P\-L\-C\-Graph} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_ae319e64246156050fd7c19f165db1993}
+\-Creates the \-P\-L\-C graph, i.\-e. the method performs a \-Dijkstra search to calculate the shortest paths between all network nodes (needed for the \char`\"{}line of sight\char`\"{} path of signal transmission over the \-P\-L\-C fading channel). \-It uses the boost graph library \hypertarget{classns3_1_1PLC__Graph_a6367c91dfdb82fefddcafdf0f871efde}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Get\-Backbone\-Branch@{\-Get\-Backbone\-Branch}}
+\index{\-Get\-Backbone\-Branch@{\-Get\-Backbone\-Branch}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Get\-Backbone\-Branch}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Backbone\-Branch} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Get\-Backbone\-Branch} (
+\begin{DoxyParamCaption}
+\item[{\-P\-L\-C\-\_\-\-Backbone\-Branch\-Key}]{bb\-\_\-key}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_a6367c91dfdb82fefddcafdf0f871efde}
+\-Get the backbone branch associated with  or \-N\-U\-L\-L if it does not exist 
+\begin{DoxyParams}{\-Parameters}
+{\em bb\-\_\-key} & \-Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Backbone branch 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_a0e801b209261229e434348f3ac0eabbe}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Get\-Channel@{\-Get\-Channel}}
+\index{\-Get\-Channel@{\-Get\-Channel}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Get\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Channel}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Get\-Channel} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Graph_a0e801b209261229e434348f3ac0eabbe}
+\begin{DoxyReturn}{\-Returns}
+\-Used channel instance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_a7a73879c31ec3aa3f8cf198379c57ada}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Get\-Connected\-Rx\-Interfaces@{\-Get\-Connected\-Rx\-Interfaces}}
+\index{\-Get\-Connected\-Rx\-Interfaces@{\-Get\-Connected\-Rx\-Interfaces}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Get\-Connected\-Rx\-Interfaces}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ \-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $>$ $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Get\-Connected\-Rx\-Interfaces} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_a7a73879c31ec3aa3f8cf198379c57ada}
+\begin{DoxyReturn}{\-Returns}
+\-All connected \-R\-X interfaces of the used channel instance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_a484285d6736dd5515154837db21fa769}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Get\-Distance@{\-Get\-Distance}}
+\index{\-Get\-Distance@{\-Get\-Distance}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Get\-Distance}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Get\-Distance} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{from, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{to}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_a484285d6736dd5515154837db21fa769}
+\-Returns the distance between  and  calculated by the \-Dijkstra algorithm with the sum of directed distances of the paths nodes as the cost function 
+\begin{DoxyParams}{\-Parameters}
+{\em from} & \-First node \\
+\hline
+{\em to} & \-Second node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Distance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_ad3c87c152e0a7e4162843aaac261380e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Get\-Graph\-Ptr@{\-Get\-Graph\-Ptr}}
+\index{\-Get\-Graph\-Ptr@{\-Get\-Graph\-Ptr}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Get\-Graph\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::\-U\-Graph$\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Get\-Graph\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Graph_ad3c87c152e0a7e4162843aaac261380e}
+\-Get the underlying boost graph. \-Used by the parallelized dijkstra and depth first search algorithms \begin{DoxyReturn}{\-Returns}
+\-Boost graph pointer 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_acf496c2f3fa3e095174352b3b7a53f71}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Get\-Node\-Ptr@{\-Get\-Node\-Ptr}}
+\index{\-Get\-Node\-Ptr@{\-Get\-Node\-Ptr}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Get\-Node\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Get\-Node\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{id}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_acf496c2f3fa3e095174352b3b7a53f71}
+\-Get the node pointer associated with id 
+\begin{DoxyParams}{\-Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_aa09a9dcbc563e6c4d4611308a8f3c0a1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Get\-Shortest\-Path@{\-Get\-Shortest\-Path}}
+\index{\-Get\-Shortest\-Path@{\-Get\-Shortest\-Path}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Get\-Shortest\-Path}]{\setlength{\rightskip}{0pt plus 5cm}std\-::list$<$ \-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$ $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Get\-Shortest\-Path} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{from, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{to}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_aa09a9dcbc563e6c4d4611308a8f3c0a1}
+\-Returns the shortest path between two nodes in form of a list of intermediate nodes \-An empty list indicates a direct connection between from and to. \-Note that an existing path between the nodes is mandatory! 
+\begin{DoxyParams}{\-Parameters}
+{\em from} & \-First node \\
+\hline
+{\em to} & \-Second node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_acf2804c3aeefe4d619d337c88676f288}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Graph_acf2804c3aeefe4d619d337c88676f288}
+\-Lock graph mutex for mutual exclusion \hypertarget{classns3_1_1PLC__Graph_ad0a93aaa9331850a8d5a96355aa7e7f1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Path\-Exists@{\-Path\-Exists}}
+\index{\-Path\-Exists@{\-Path\-Exists}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Path\-Exists}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Path\-Exists} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{from, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{to}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_ad0a93aaa9331850a8d5a96355aa7e7f1}
+\-Proof if there is an existing path between  and  
+\begin{DoxyParams}{\-Parameters}
+{\em from} & \-First node \\
+\hline
+{\em to} & \-Second nod \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-True if path exists, false otherwise 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Graph_a0715ae252ce170c59ffe5325ef8bcd56}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Register\-Backbone\-Branch@{\-Register\-Backbone\-Branch}}
+\index{\-Register\-Backbone\-Branch@{\-Register\-Backbone\-Branch}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Register\-Backbone\-Branch}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Register\-Backbone\-Branch} (
+\begin{DoxyParamCaption}
+\item[{\-P\-L\-C\-\_\-\-Backbone\-Branch\-Key}]{bb\-\_\-key, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Backbone\-Branch} $>$}]{bb\-\_\-branch}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Graph_a0715ae252ce170c59ffe5325ef8bcd56}
+\-Register a backbone branch instance with  
+\begin{DoxyParams}{\-Parameters}
+{\em bb\-\_\-key} & \-Key \\
+\hline
+{\em bb\-\_\-branch} & \-Backbone branch \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Graph_a74c846e5f691f681f901704af755df0b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Set\-Channel@{\-Set\-Channel}}
+\index{\-Set\-Channel@{\-Set\-Channel}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Set\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Set\-Channel} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Channel} $>$}]{channel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Graph_a74c846e5f691f681f901704af755df0b}
+\-Sets the channel instance to be used. 
+\begin{DoxyParams}{\-Parameters}
+{\em channel} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Graph_a42e820f44e236404054f5c9245d404a5}{\index{ns3\-::\-P\-L\-C\-\_\-\-Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}!\-Unlock@{\-Unlock}}
+\index{\-Unlock@{\-Unlock}!ns3::PLC_Graph@{ns3\-::\-P\-L\-C\-\_\-\-Graph}}
+\subsubsection[{\-Unlock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Graph\-::\-Unlock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Graph_a42e820f44e236404054f5c9245d404a5}
+\-Unlock graph mutex 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/graph.\-h\item 
+model/plc-\/graph.\-cc\end{DoxyCompactItemize}

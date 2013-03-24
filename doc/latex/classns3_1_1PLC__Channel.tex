@@ -1,0 +1,363 @@
+\hypertarget{classns3_1_1PLC__Channel}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Channel \-Class \-Reference}
+\label{classns3_1_1PLC__Channel}\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+}
+
+
+{\ttfamily \#include $<$plc-\/channel.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__Channel_a0e9b3acca482aecfea2c9665e6f32ace}{\-P\-L\-C\-\_\-\-Channel} ()
+\item 
+\hyperlink{classns3_1_1PLC__Channel_acef2a8d6dde042ff14746dd8af7762d1}{\-P\-L\-C\-\_\-\-Channel} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ graph)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_af65d9c7bae272538860cea8bb772db36}{\-Set\-Graph} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ graph)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ \hyperlink{classns3_1_1PLC__Channel_a6b451dc47ab893697df18fc1d2ee5ff8}{\-Get\-Graph} (void)
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__Channel_a73a5536b841a92523150328bd2b85aea}{\-Add\-Tx\-Interface} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $>$ tx\-Interface)
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__Channel_a372e033f5ce2b93087e737137ff4feff}{\-Get\-N\-Tx\-Interfaces} (void) const 
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $>$ \hyperlink{classns3_1_1PLC__Channel_a77f1dd8f29f132466f6575806f110973}{\-Get\-Tx\-Interface} (uint32\-\_\-t i) const 
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__Channel_ac0726a9b7366e2ab59808ec7f055bc7d}{\-Add\-Rx\-Interface} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ rx\-Interface)
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__Channel_a3aa9e800cbe2e94a1f807be9184da5e5}{\-Get\-N\-Rx\-Interfaces} (void) const 
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ \hyperlink{classns3_1_1PLC__Channel_aa9fe1d783e2d3662649835c99232f04d}{\-Get\-Rx\-Interface} (uint32\-\_\-t i) const 
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__Channel_ad89f6779ad4976cd5acfbe072996eff6}{\-Add\-Device} (\-Ptr$<$ \-Net\-Device $>$)
+\item 
+uint32\-\_\-t \hyperlink{classns3_1_1PLC__Channel_abf943700252f5244e10ba042f142ee6f}{\-Get\-N\-Devices} (void) const 
+\item 
+\-Ptr$<$ \-Net\-Device $>$ \hyperlink{classns3_1_1PLC__Channel_a3b85c19d252573c3efc1578613b22f9d}{\-Get\-Device} (uint32\-\_\-t i) const 
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_a9210af0d915d96817f77e21000deb5a5}{\-Init\-Transmission\-Channels} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_a2bb68af9c30a3d0c4f7a264c4e90ddab}{\-Calc\-Transmission\-Channels} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Transfer\-Base} $>$ \hyperlink{classns3_1_1PLC__Channel_ae0ccd3520dbb21ed05cb006f817a89c7}{\-Get\-Channel\-Transfer\-Data} (uint32\-\_\-t tx\-Id, uint32\-\_\-t rx\-Id)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}{\-Transmission\-Start} (\-Ptr$<$ \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)
+\begin{DoxyCompactList}\small\item\em \-Start transmitting a packet over the channel. \end{DoxyCompactList}\item 
+bool \hyperlink{classns3_1_1PLC__Channel_a55062b28eb83414f99f9941d093ee02d}{\-Transmission\-End} (uint32\-\_\-t src\-Id, \-Time propagation\-\_\-delay, \-Modulation\-And\-Coding\-Type mcs)
+\begin{DoxyCompactList}\small\item\em \-Indicates that the tx\-Interface has finished transmitting over the channel. \end{DoxyCompactList}\item 
+void \hyperlink{classns3_1_1PLC__Channel_a7a8d3f9a2f2a603db996402b8ffa7efc}{\-Propagation\-Complete\-Event} (uint32\-\_\-t src\-Id, \-Modulation\-And\-Coding\-Type mcs)
+\begin{DoxyCompactList}\small\item\em \-Indicates that the channel has finished propagating the current packet. \-The channel is released and becomes free. \end{DoxyCompactList}\item 
+\-Timeslot \hyperlink{classns3_1_1PLC__Channel_a98aa64e61af6c58a7cfbcb40570237b1}{\-Get\-Current\-Timeslot} (void)
+\item 
+\-Time \hyperlink{classns3_1_1PLC__Channel_acf2ae112a813063d27798f9ac196fa02}{\-Get\-Remaining\-Slot\-Time} (\-Time t)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_ad19b881e0302a2a3e0dda571ecf83bf7}{\-Process\-Timeslot\-Tasks} (\-Timeslot timeslot)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_a16a04f6f67a846e5268bd88585ef41c8}{\-Schedule\-Next\-Timeslot\-Tasks} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_abd286d90c5e534bd30284dec68d9a5b0}{\-Update\-Receive\-P\-S\-Ds} (\-Timeslot timeslot, bool channel\-\_\-changed=false)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_adcb2c90b76ee9555e22ac717df870a61}{\-Delete\-Out\-Of\-Date\-P\-S\-Ds} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $>$ tx, \-Ptr$<$ \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $>$ rx)
+\item 
+void \hyperlink{classns3_1_1PLC__Channel_a61b0040978135b9c6368bf4cd1bb7561}{\-Lock} (void) const 
+\item 
+\hypertarget{classns3_1_1PLC__Channel_a19fb8d37e61ea9b98cd3b5748502a1e9}{void {\bfseries \-Unlock} (void) const }\label{classns3_1_1PLC__Channel_a19fb8d37e61ea9b98cd3b5748502a1e9}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Channel_a5eda32b8aa44efc775175bbd2ea0d045}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Channel_a5eda32b8aa44efc775175bbd2ea0d045}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Channel_ae6906119e2bc3e6a134b7087a1ad1afe}{class {\bfseries \-P\-L\-C\-\_\-\-Outlet}}\label{classns3_1_1PLC__Channel_ae6906119e2bc3e6a134b7087a1ad1afe}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Joins all \-P\-L\-C channel transfer functions \-By extending ns3\-::\-Channel this class provides an interface for attaching ns3\-::\-Net\-Device instances to a \-P\-L\-C channel 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__Channel_a0e9b3acca482aecfea2c9665e6f32ace}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-P\-L\-C\-\_\-\-Channel@{\-P\-L\-C\-\_\-\-Channel}}
+\index{\-P\-L\-C\-\_\-\-Channel@{\-P\-L\-C\-\_\-\-Channel}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-P\-L\-C\-\_\-\-Channel} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a0e9b3acca482aecfea2c9665e6f32ace}
+\-Default constructor \hypertarget{classns3_1_1PLC__Channel_acef2a8d6dde042ff14746dd8af7762d1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-P\-L\-C\-\_\-\-Channel@{\-P\-L\-C\-\_\-\-Channel}}
+\index{\-P\-L\-C\-\_\-\-Channel@{\-P\-L\-C\-\_\-\-Channel}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-P\-L\-C\-\_\-\-Channel} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Graph} $>$}]{graph}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_acef2a8d6dde042ff14746dd8af7762d1}
+\-Constructor 
+\begin{DoxyParams}{\-Parameters}
+{\em graph} & \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} instance to use \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Channel_ad89f6779ad4976cd5acfbe072996eff6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Add\-Device@{\-Add\-Device}}
+\index{\-Add\-Device@{\-Add\-Device}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Add\-Device}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Add\-Device} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ \-Net\-Device $>$}]{dev}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_ad89f6779ad4976cd5acfbe072996eff6}
+\-Connect a \-Net\-Device to this channel. \-This method must be implemented by subclasses. \-However, this implementation uses \hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} and \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} to identify attached communication devices rather than ns3\-::\-Net\-Device. \-Hence it is possible to distinguish between simple \-Tx devices (e.\-g. noise sources) and simplex \-Rx devices, which decreases the effort of channel computation \hypertarget{classns3_1_1PLC__Channel_ac0726a9b7366e2ab59808ec7f055bc7d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Add\-Rx\-Interface@{\-Add\-Rx\-Interface}}
+\index{\-Add\-Rx\-Interface@{\-Add\-Rx\-Interface}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Add\-Rx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Add\-Rx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $>$}]{rx\-Interface}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_ac0726a9b7366e2ab59808ec7f055bc7d}
+\-Connect a \-Rx\-Interface to this channel \hypertarget{classns3_1_1PLC__Channel_a73a5536b841a92523150328bd2b85aea}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Add\-Tx\-Interface@{\-Add\-Tx\-Interface}}
+\index{\-Add\-Tx\-Interface@{\-Add\-Tx\-Interface}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Add\-Tx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Add\-Tx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Tx\-Interface} $>$}]{tx\-Interface}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a73a5536b841a92523150328bd2b85aea}
+\-Connect a \-Tx\-Interface to this channel \hypertarget{classns3_1_1PLC__Channel_a2bb68af9c30a3d0c4f7a264c4e90ddab}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Calc\-Transmission\-Channels@{\-Calc\-Transmission\-Channels}}
+\index{\-Calc\-Transmission\-Channels@{\-Calc\-Transmission\-Channels}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Calc\-Transmission\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Calc\-Transmission\-Channels} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a2bb68af9c30a3d0c4f7a264c4e90ddab}
+\-Calculate transmission channels from every tx\-Interface to every rx\-Interface \hypertarget{classns3_1_1PLC__Channel_adcb2c90b76ee9555e22ac717df870a61}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Delete\-Out\-Of\-Date\-P\-S\-Ds@{\-Delete\-Out\-Of\-Date\-P\-S\-Ds}}
+\index{\-Delete\-Out\-Of\-Date\-P\-S\-Ds@{\-Delete\-Out\-Of\-Date\-P\-S\-Ds}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Delete\-Out\-Of\-Date\-P\-S\-Ds}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Delete\-Out\-Of\-Date\-P\-S\-Ds} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Tx\-Interface} $>$}]{tx, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $>$}]{rx}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_adcb2c90b76ee9555e22ac717df870a61}
+\-Deletes the cached (time variant) power spectral density from tx to rx. \-When they are needed the next time they have to be recalculated. \-Called by \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} after impedance change \hypertarget{classns3_1_1PLC__Channel_ae0ccd3520dbb21ed05cb006f817a89c7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-Channel\-Transfer\-Data@{\-Get\-Channel\-Transfer\-Data}}
+\index{\-Get\-Channel\-Transfer\-Data@{\-Get\-Channel\-Transfer\-Data}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-Channel\-Transfer\-Data}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Transfer\-Base} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-Channel\-Transfer\-Data} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{tx\-Id, }
+\item[{uint32\-\_\-t}]{rx\-Id}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_ae0ccd3520dbb21ed05cb006f817a89c7}
+\-Get the channel transfer data between \-T\-X-\/\-Interface with tx\-Id and \-R\-X-\/\-Interface with rx\-Id \hypertarget{classns3_1_1PLC__Channel_a98aa64e61af6c58a7cfbcb40570237b1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-Current\-Timeslot@{\-Get\-Current\-Timeslot}}
+\index{\-Get\-Current\-Timeslot@{\-Get\-Current\-Timeslot}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-Current\-Timeslot}]{\setlength{\rightskip}{0pt plus 5cm}\-Timeslot {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-Current\-Timeslot} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a98aa64e61af6c58a7cfbcb40570237b1}
+\-Get the current timeslot \hypertarget{classns3_1_1PLC__Channel_a3b85c19d252573c3efc1578613b22f9d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-Device@{\-Get\-Device}}
+\index{\-Get\-Device@{\-Get\-Device}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-Device}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ \-Net\-Device $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-Device} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{i}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__Channel_a3b85c19d252573c3efc1578613b22f9d}
+
+\begin{DoxyParams}{\-Parameters}
+{\em i} & index of \-Net\-Device to retrieve \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+one of the \-Net\-Devices connected to this channel. 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Channel_a6b451dc47ab893697df18fc1d2ee5ff8}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-Graph@{\-Get\-Graph}}
+\index{\-Get\-Graph@{\-Get\-Graph}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Graph}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-Graph} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Channel_a6b451dc47ab893697df18fc1d2ee5ff8}
+\begin{DoxyReturn}{\-Returns}
+\-The used \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} instance 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Channel_abf943700252f5244e10ba042f142ee6f}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-N\-Devices@{\-Get\-N\-Devices}}
+\index{\-Get\-N\-Devices@{\-Get\-N\-Devices}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-N\-Devices}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-N\-Devices} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__Channel_abf943700252f5244e10ba042f142ee6f}
+\begin{DoxyReturn}{\-Returns}
+the number of \-Net\-Devices connected to this \-Channel.
+\end{DoxyReturn}
+\-This method must be implemented by subclasses. \hypertarget{classns3_1_1PLC__Channel_a3aa9e800cbe2e94a1f807be9184da5e5}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-N\-Rx\-Interfaces@{\-Get\-N\-Rx\-Interfaces}}
+\index{\-Get\-N\-Rx\-Interfaces@{\-Get\-N\-Rx\-Interfaces}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-N\-Rx\-Interfaces}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-N\-Rx\-Interfaces} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__Channel_a3aa9e800cbe2e94a1f807be9184da5e5}
+\begin{DoxyReturn}{\-Returns}
+the number of \-Rx\-Interface connected to this \-Channel. 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Channel_a372e033f5ce2b93087e737137ff4feff}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-N\-Tx\-Interfaces@{\-Get\-N\-Tx\-Interfaces}}
+\index{\-Get\-N\-Tx\-Interfaces@{\-Get\-N\-Tx\-Interfaces}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-N\-Tx\-Interfaces}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-N\-Tx\-Interfaces} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__Channel_a372e033f5ce2b93087e737137ff4feff}
+\begin{DoxyReturn}{\-Returns}
+the number of \-Tx\-Interfaces connected to this \-Channel. 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Channel_acf2ae112a813063d27798f9ac196fa02}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-Remaining\-Slot\-Time@{\-Get\-Remaining\-Slot\-Time}}
+\index{\-Get\-Remaining\-Slot\-Time@{\-Get\-Remaining\-Slot\-Time}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-Remaining\-Slot\-Time}]{\setlength{\rightskip}{0pt plus 5cm}\-Time {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-Remaining\-Slot\-Time} (
+\begin{DoxyParamCaption}
+\item[{\-Time}]{t}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_acf2ae112a813063d27798f9ac196fa02}
+\-Calculate remaining time from t to next slot after t \hypertarget{classns3_1_1PLC__Channel_aa9fe1d783e2d3662649835c99232f04d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-Rx\-Interface@{\-Get\-Rx\-Interface}}
+\index{\-Get\-Rx\-Interface@{\-Get\-Rx\-Interface}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-Rx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-Rx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{i}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__Channel_aa9fe1d783e2d3662649835c99232f04d}
+
+\begin{DoxyParams}{\-Parameters}
+{\em i} & index of \-Rx\-Interface to retrieve \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+one of the \-Rx\-Interface connected to this channel.
+\end{DoxyReturn}
+\-This method must be implemented by subclasses. \hypertarget{classns3_1_1PLC__Channel_a77f1dd8f29f132466f6575806f110973}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Get\-Tx\-Interface@{\-Get\-Tx\-Interface}}
+\index{\-Get\-Tx\-Interface@{\-Get\-Tx\-Interface}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Get\-Tx\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Tx\-Interface} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Get\-Tx\-Interface} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{i}
+\end{DoxyParamCaption}
+) const}}\label{classns3_1_1PLC__Channel_a77f1dd8f29f132466f6575806f110973}
+
+\begin{DoxyParams}{\-Parameters}
+{\em i} & index of \-Tx\-Interface to retrieve \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+one of the \-Tx\-Interfaces connected to this channel. 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Channel_a9210af0d915d96817f77e21000deb5a5}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Init\-Transmission\-Channels@{\-Init\-Transmission\-Channels}}
+\index{\-Init\-Transmission\-Channels@{\-Init\-Transmission\-Channels}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Init\-Transmission\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Init\-Transmission\-Channels} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a9210af0d915d96817f77e21000deb5a5}
+\-Create \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} and init transmission channel data structures \hypertarget{classns3_1_1PLC__Channel_a61b0040978135b9c6368bf4cd1bb7561}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Channel_a61b0040978135b9c6368bf4cd1bb7561}
+\-Mutex lock and unlock \hypertarget{classns3_1_1PLC__Channel_ad19b881e0302a2a3e0dda571ecf83bf7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Process\-Timeslot\-Tasks@{\-Process\-Timeslot\-Tasks}}
+\index{\-Process\-Timeslot\-Tasks@{\-Process\-Timeslot\-Tasks}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Process\-Timeslot\-Tasks}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Process\-Timeslot\-Tasks} (
+\begin{DoxyParamCaption}
+\item[{\-Timeslot}]{timeslot}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_ad19b881e0302a2a3e0dda571ecf83bf7}
+\-Process periodic tasks, i.\-e. update receive power spectral densities of all active transmission when a new timeslot starts \hypertarget{classns3_1_1PLC__Channel_a7a8d3f9a2f2a603db996402b8ffa7efc}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Propagation\-Complete\-Event@{\-Propagation\-Complete\-Event}}
+\index{\-Propagation\-Complete\-Event@{\-Propagation\-Complete\-Event}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Propagation\-Complete\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Propagation\-Complete\-Event} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{src\-Id, }
+\item[{\-Modulation\-And\-Coding\-Type}]{mcs}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a7a8d3f9a2f2a603db996402b8ffa7efc}
+
+
+\-Indicates that the channel has finished propagating the current packet. \-The channel is released and becomes free. 
+
+\-Calls the receive function of every active rx \-Interface that is attached to the channel. \hypertarget{classns3_1_1PLC__Channel_a16a04f6f67a846e5268bd88585ef41c8}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Schedule\-Next\-Timeslot\-Tasks@{\-Schedule\-Next\-Timeslot\-Tasks}}
+\index{\-Schedule\-Next\-Timeslot\-Tasks@{\-Schedule\-Next\-Timeslot\-Tasks}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Schedule\-Next\-Timeslot\-Tasks}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Schedule\-Next\-Timeslot\-Tasks} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a16a04f6f67a846e5268bd88585ef41c8}
+\-While a transmission is active \hyperlink{classns3_1_1PLC__Channel_ad19b881e0302a2a3e0dda571ecf83bf7}{\-Process\-Timeslot\-Tasks()} has to be rescheduled for the next timeslot \hypertarget{classns3_1_1PLC__Channel_af65d9c7bae272538860cea8bb772db36}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Set\-Graph@{\-Set\-Graph}}
+\index{\-Set\-Graph@{\-Set\-Graph}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Set\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Set\-Graph} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Graph} $>$}]{graph}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_af65d9c7bae272538860cea8bb772db36}
+\-Set \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} \-Has to be done before calling \-Init\-Transmission\-Channels 
+\begin{DoxyParams}{\-Parameters}
+{\em graph} & \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Channel_a55062b28eb83414f99f9941d093ee02d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-End@{\-Transmission\-End}}
+\index{\-Transmission\-End@{\-Transmission\-End}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Transmission\-End}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-End} (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{src\-Id, }
+\item[{\-Time}]{propagation\-\_\-delay, }
+\item[{\-Modulation\-And\-Coding\-Type}]{mcs}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_a55062b28eb83414f99f9941d093ee02d}
+
+
+\-Indicates that the tx\-Interface has finished transmitting over the channel. 
+
+\-The channel will stay busy until the packet has completely propagated to all net devices attached to the channel. \-The \-Transmit\-End function schedules the \-Propagation\-Complete\-Event which will free the channel for further transmissions. \-Stores the packet p as the m\-\_\-current\-Pkt, the packet being currently transmitting.
+
+\begin{DoxyReturn}{\-Returns}
+\-Returns true unless the source was detached before it completed its transmission. 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-Start@{\-Transmission\-Start}}
+\index{\-Transmission\-Start@{\-Transmission\-Start}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Transmission\-Start}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-Start} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ \-Packet $>$}]{p, }
+\item[{uint32\-\_\-t}]{tx\-Id, }
+\item[{\-Ptr$<$ const \-Spectrum\-Value $>$}]{tx\-Psd, }
+\item[{\-Modulation\-And\-Coding\-Type}]{mcs, }
+\item[{\-Time}]{duration}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}
+
+
+\-Start transmitting a packet over the channel. 
+
+\-If the src\-Id belongs to a tx\-Interface that is connected to the channel, packet transmission begins, and the channel becomes busy until the packet has completely reached all destinations.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em p} & \-A reference to the packet that will be transmitted over the channel or \-N\-U\-L\-L if tx\-Interface is a noise source \\
+\hline
+{\em src\-Id} & \-The device \-Id of the tx\-Interface that wants to transmit on the channel. \\
+\hline
+{\em st} & \-Spectrum \-Type of tx\-Psd to emulate different modulations \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Channel_abd286d90c5e534bd30284dec68d9a5b0}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Update\-Receive\-P\-S\-Ds@{\-Update\-Receive\-P\-S\-Ds}}
+\index{\-Update\-Receive\-P\-S\-Ds@{\-Update\-Receive\-P\-S\-Ds}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Update\-Receive\-P\-S\-Ds}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Update\-Receive\-P\-S\-Ds} (
+\begin{DoxyParamCaption}
+\item[{\-Timeslot}]{timeslot, }
+\item[{bool}]{channel\-\_\-changed = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Channel_abd286d90c5e534bd30284dec68d9a5b0}
+\-Changes the receive \-P\-S\-Ds of the rx\-Interfaces 
+\begin{DoxyParams}{\-Parameters}
+{\em timeslot} & \-Current timeslot (as parameter to avoid recalculation) \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/channel.\-h\item 
+model/plc-\/channel.\-cc\end{DoxyCompactItemize}

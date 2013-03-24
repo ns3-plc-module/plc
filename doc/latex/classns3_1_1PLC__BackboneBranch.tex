@@ -1,0 +1,232 @@
+\hypertarget{classns3_1_1PLC__BackboneBranch}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Backbone\-Branch \-Class \-Reference}
+\label{classns3_1_1PLC__BackboneBranch}\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+}
+
+
+\-Element of a backbone path.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/backbone.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__BackboneBranch_ac3149172bb5f48d090487fa8cec7ac8a}{\-P\-L\-C\-\_\-\-Backbone\-Branch} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ node, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ before, \-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ next, \-Ptr$<$ const \-Spectrum\-Model $>$ sm)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__BackboneBranch_a2730204c21937b6069f98576b0f39e0d}{\-Get\-Node\-Ptr} (void)
+\item 
+\hypertarget{classns3_1_1PLC__BackboneBranch_a2b8155ab6e4cb939ac1b37eea6ae737a}{\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$ {\bfseries \-Get\-Node\-Peek\-Ptr} (void)}\label{classns3_1_1PLC__BackboneBranch_a2b8155ab6e4cb939ac1b37eea6ae737a}
+
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__BackboneBranch_a1a78be8b86c6ec8840ec484f3a864e9e}{\-Get\-Before\-Node\-Ptr} (void)
+\item 
+\hypertarget{classns3_1_1PLC__BackboneBranch_a807a8309f21a92a0141a294652a5ef84}{\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$ {\bfseries \-Get\-Before\-Node\-Peek\-Ptr} (void)}\label{classns3_1_1PLC__BackboneBranch_a807a8309f21a92a0141a294652a5ef84}
+
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__BackboneBranch_a395f8ecf621d2feb3ca11243fa39640c}{\-Get\-Next\-Node\-Ptr} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__BackboneBranch_afbf5d1cd2a13916d7a4cf6057b7cd81c}{\-Add\-Interface\-Pair} (\hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $\ast$tx\-Interface, \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$rx\-Interface)
+\item 
+void \hyperlink{classns3_1_1PLC__BackboneBranch_af026ecb7063aa1214155fab86c909710}{\-Discover\-Outlets} (boost\-::\-U\-Graph \&graph\-\_\-copy, \hyperlink{structns3_1_1PLC__Mutex}{\-P\-L\-C\-\_\-\-Mutex} $\ast$graph\-\_\-copy\-\_\-mutex)
+\item 
+void \hyperlink{classns3_1_1PLC__BackboneBranch_adfe4499983e8d55525aacb70a69ffb49}{\-Calculate\-Equivalent\-Bridge\-Tap\-Impedance} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Impedance} $>$ \hyperlink{classns3_1_1PLC__BackboneBranch_a07cb86efbad5b228b71fc839d0b2c17b}{\-Get\-Equivalent\-Bridge\-Tap\-Impedance} (void) const 
+\item 
+bool \hyperlink{classns3_1_1PLC__BackboneBranch_acdb29c19ea9a36c0078cb4f46e09ac97}{\-Is\-Up2\-Date} (void) const 
+\item 
+bool \hyperlink{classns3_1_1PLC__BackboneBranch_a0d7422e7b9c34586641d5ac3724aa77d}{\-Is\-Time\-Variant} (void) const 
+\item 
+void \hyperlink{classns3_1_1PLC__BackboneBranch_a043df96872850196aa2050e59f14aa7b}{\-Set\-Time\-Variant} (void)
+\item 
+std\-::pair$<$ unsigned int, \*
+std\-::pair$<$ unsigned int, \*
+unsigned int $>$ $>$ \hyperlink{classns3_1_1PLC__BackboneBranch_ab45c9e8646f7cba2e2b9e82782dfebee}{\-Get\-Key} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__BackboneBranch_aa9081c674aa58e212d27b611ef04b6e7}{\-Lock} (void)
+\item 
+\hypertarget{classns3_1_1PLC__BackboneBranch_afdb9175e09669f9a77d05286340b1b7b}{void {\bfseries \-Unlock} (void)}\label{classns3_1_1PLC__BackboneBranch_afdb9175e09669f9a77d05286340b1b7b}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \-Type\-Id \hyperlink{classns3_1_1PLC__BackboneBranch_a64a11d6315fb88b93e4dde96d39471a4}{\-Get\-Type\-Id} (void)
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__BackboneBranch_ae6906119e2bc3e6a134b7087a1ad1afe}{class {\bfseries \-P\-L\-C\-\_\-\-Outlet}}\label{classns3_1_1PLC__BackboneBranch_ae6906119e2bc3e6a134b7087a1ad1afe}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Element of a backbone path. 
+
+\-The shortest path between each transmitter-\/receiver pair is described by one backbone path maintained by \hyperlink{classns3_1_1PLC__ChannelTransferImpl}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}. \-A backbone branch is uniquely defined by three adjacent nodes on this path and therefore gives information about the graph edges contributing to the computation of channel transfer function. \-Thereby several backbone branches of different transmitter-\/receiver paths can be associated with the same plc node as well as one backbone branch can be part of multiple backbone branches. \-Thus, memory allocation and recomputation effort is minimized. \-Besides the equivalent shunt impedances of the bridge tap of one backbone node is cached. 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__BackboneBranch_ac3149172bb5f48d090487fa8cec7ac8a}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-P\-L\-C\-\_\-\-Backbone\-Branch@{\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\index{\-P\-L\-C\-\_\-\-Backbone\-Branch@{\-P\-L\-C\-\_\-\-Backbone\-Branch}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Backbone\-Branch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-P\-L\-C\-\_\-\-Backbone\-Branch} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{node, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{before, }
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{next, }
+\item[{\-Ptr$<$ const \-Spectrum\-Model $>$}]{sm}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__BackboneBranch_ac3149172bb5f48d090487fa8cec7ac8a}
+\-Constructor 
+\begin{DoxyParams}{\-Parameters}
+{\em node} & \-Backbone node \\
+\hline
+{\em before} & \-Adjacent node 1 \\
+\hline
+{\em next} & \-Adjacent node 2 \\
+\hline
+{\em sm} & \-Spectrum model \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__BackboneBranch_afbf5d1cd2a13916d7a4cf6057b7cd81c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Add\-Interface\-Pair@{\-Add\-Interface\-Pair}}
+\index{\-Add\-Interface\-Pair@{\-Add\-Interface\-Pair}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Add\-Interface\-Pair}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Add\-Interface\-Pair} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Tx\-Interface} $\ast$}]{tx\-Interface, }
+\item[{{\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$}]{rx\-Interface}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__BackboneBranch_afbf5d1cd2a13916d7a4cf6057b7cd81c}
+\-Register transmitter-\/receiver which is using this backbone branch for its backbone path. \-That is needed to notify \hyperlink{classns3_1_1PLC__ChannelTransferImpl}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} after a change of bridge tap impedance 
+\begin{DoxyParams}{\-Parameters}
+{\em tx\-Interface} & \-T\-X interface of the backbone path to be registered \\
+\hline
+{\em rx\-Interface} & \-R\-X interface of the backbone path to be registered \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__BackboneBranch_adfe4499983e8d55525aacb70a69ffb49}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Calculate\-Equivalent\-Bridge\-Tap\-Impedance@{\-Calculate\-Equivalent\-Bridge\-Tap\-Impedance}}
+\index{\-Calculate\-Equivalent\-Bridge\-Tap\-Impedance@{\-Calculate\-Equivalent\-Bridge\-Tap\-Impedance}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Calculate\-Equivalent\-Bridge\-Tap\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Calculate\-Equivalent\-Bridge\-Tap\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__BackboneBranch_adfe4499983e8d55525aacb70a69ffb49}
+\-Calculates the access impedance of the bridge tap (recursively) \hypertarget{classns3_1_1PLC__BackboneBranch_af026ecb7063aa1214155fab86c909710}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Discover\-Outlets@{\-Discover\-Outlets}}
+\index{\-Discover\-Outlets@{\-Discover\-Outlets}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Discover\-Outlets}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Discover\-Outlets} (
+\begin{DoxyParamCaption}
+\item[{boost\-::\-U\-Graph \&}]{graph\-\_\-copy, }
+\item[{{\bf \-P\-L\-C\-\_\-\-Mutex} $\ast$}]{graph\-\_\-copy\-\_\-mutex}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__BackboneBranch_af026ecb7063aa1214155fab86c909710}
+\-Triggers a depth first search on all bridge tap edges of this branch to find outlets and to register on them for notification 
+\begin{DoxyParams}{\-Parameters}
+{\em graph\-\_\-copy} & \-Copy of the boost graph (for parallel processing) \\
+\hline
+{\em graph\-\_\-copy\-\_\-mutex} & \-Shared mutex \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__BackboneBranch_a1a78be8b86c6ec8840ec484f3a864e9e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Get\-Before\-Node\-Ptr@{\-Get\-Before\-Node\-Ptr}}
+\index{\-Get\-Before\-Node\-Ptr@{\-Get\-Before\-Node\-Ptr}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Get\-Before\-Node\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Node}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Get\-Before\-Node\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_a1a78be8b86c6ec8840ec484f3a864e9e}
+\begin{DoxyReturn}{\-Returns}
+\-First adjacent node pointer 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_a07cb86efbad5b228b71fc839d0b2c17b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Get\-Equivalent\-Bridge\-Tap\-Impedance@{\-Get\-Equivalent\-Bridge\-Tap\-Impedance}}
+\index{\-Get\-Equivalent\-Bridge\-Tap\-Impedance@{\-Get\-Equivalent\-Bridge\-Tap\-Impedance}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Get\-Equivalent\-Bridge\-Tap\-Impedance}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Impedance}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Get\-Equivalent\-Bridge\-Tap\-Impedance} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_a07cb86efbad5b228b71fc839d0b2c17b}
+\begin{DoxyReturn}{\-Returns}
+access impedance of the bridge tap 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_ab45c9e8646f7cba2e2b9e82782dfebee}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Get\-Key@{\-Get\-Key}}
+\index{\-Get\-Key@{\-Get\-Key}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Get\-Key}]{\setlength{\rightskip}{0pt plus 5cm}std\-::pair$<$unsigned int, std\-::pair$<$unsigned int, unsigned int$>$ $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Get\-Key} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_ab45c9e8646f7cba2e2b9e82782dfebee}
+\begin{DoxyReturn}{\-Returns}
+\-Key of the backbone branch (id triple of m\-\_\-node, m\-\_\-node\-\_\-before, m\-\_\-node\-\_\-next) 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_a395f8ecf621d2feb3ca11243fa39640c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Get\-Next\-Node\-Ptr@{\-Get\-Next\-Node\-Ptr}}
+\index{\-Get\-Next\-Node\-Ptr@{\-Get\-Next\-Node\-Ptr}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Get\-Next\-Node\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Node}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Get\-Next\-Node\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_a395f8ecf621d2feb3ca11243fa39640c}
+\begin{DoxyReturn}{\-Returns}
+\-Second adjacent node pointer 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_a2730204c21937b6069f98576b0f39e0d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Get\-Node\-Ptr@{\-Get\-Node\-Ptr}}
+\index{\-Get\-Node\-Ptr@{\-Get\-Node\-Ptr}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Get\-Node\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Node}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Get\-Node\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_a2730204c21937b6069f98576b0f39e0d}
+\begin{DoxyReturn}{\-Returns}
+\-Backbone node 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_a64a11d6315fb88b93e4dde96d39471a4}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Get\-Type\-Id@{\-Get\-Type\-Id}}
+\index{\-Get\-Type\-Id@{\-Get\-Type\-Id}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Get\-Type\-Id}]{\setlength{\rightskip}{0pt plus 5cm}\-Type\-Id {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Get\-Type\-Id} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_a64a11d6315fb88b93e4dde96d39471a4}
+\begin{DoxyReturn}{\-Returns}
+
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_a0d7422e7b9c34586641d5ac3724aa77d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Is\-Time\-Variant@{\-Is\-Time\-Variant}}
+\index{\-Is\-Time\-Variant@{\-Is\-Time\-Variant}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Is\-Time\-Variant}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Is\-Time\-Variant} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_a0d7422e7b9c34586641d5ac3724aa77d}
+\begin{DoxyReturn}{\-Returns}
+\-True if equivalent bridge tap impedance is time variant 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_acdb29c19ea9a36c0078cb4f46e09ac97}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Is\-Up2\-Date@{\-Is\-Up2\-Date}}
+\index{\-Is\-Up2\-Date@{\-Is\-Up2\-Date}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Is\-Up2\-Date}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Is\-Up2\-Date} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_acdb29c19ea9a36c0078cb4f46e09ac97}
+\begin{DoxyReturn}{\-Returns}
+\-True if equivalent bridge tap impedance is still up to date 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__BackboneBranch_aa9081c674aa58e212d27b611ef04b6e7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__BackboneBranch_aa9081c674aa58e212d27b611ef04b6e7}
+\-Mutex lock an unlock \hypertarget{classns3_1_1PLC__BackboneBranch_a043df96872850196aa2050e59f14aa7b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}!\-Set\-Time\-Variant@{\-Set\-Time\-Variant}}
+\index{\-Set\-Time\-Variant@{\-Set\-Time\-Variant}!ns3::PLC_BackboneBranch@{ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch}}
+\subsubsection[{\-Set\-Time\-Variant}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Backbone\-Branch\-::\-Set\-Time\-Variant} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__BackboneBranch_a043df96872850196aa2050e59f14aa7b}
+\-Convert equivalent bridge tap impedance to time variant value 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/backbone.\-h\item 
+model/plc-\/backbone.\-cc\end{DoxyCompactItemize}

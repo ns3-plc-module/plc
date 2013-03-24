@@ -1,0 +1,173 @@
+\hypertarget{classns3_1_1PLC__Interface}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Interface \-Class \-Reference}
+\label{classns3_1_1PLC__Interface}\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+}
+
+
+\-Abstract base class for transmitter and receiver interfaces.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/interface.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Interface\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classns3_1_1PLC__Interface}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__Interface_a927245efbd7f1d63e14e9a899903c163}{\-P\-L\-C\-\_\-\-Interface} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ associated\-\_\-plc\-\_\-node, \-Ptr$<$ const \-Spectrum\-Model $>$ sm)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ \hyperlink{classns3_1_1PLC__Interface_a8a4c6651e7bd4883ef2dd5c7e7f71fbf}{\-Get\-Graph} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ \hyperlink{classns3_1_1PLC__Interface_a86335fbf5d53c00ad1af68fb21160857}{\-Get\-Channel} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Interface_ae5f7967e8e11add42d9062b6bff000e5}{\-Set\-Phy} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ phy)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ \hyperlink{classns3_1_1PLC__Interface_ab1eaf63c2a5aef32069279c6cf3d272a}{\-Get\-Phy} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__Interface_a0e8ee852d599842463e7d729fbdd9780}{\-Set\-Node} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ node)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__Interface_a0cdbe245c4a72b78d0c7ef5346bc621f}{\-Get\-Node} (void) const 
+\item 
+\hypertarget{classns3_1_1PLC__Interface_a0f383f5a874a805ef2faec17c609cd60}{\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$ {\bfseries \-Get\-Node\-Peek\-Pointer} (void) const }\label{classns3_1_1PLC__Interface_a0f383f5a874a805ef2faec17c609cd60}
+
+\item 
+void \hyperlink{classns3_1_1PLC__Interface_aaa45cf03953a3989bf3dae3a423b5c99}{\-Lock} (void)
+\item 
+\hypertarget{classns3_1_1PLC__Interface_acb8badf569663b34aaa272372836549e}{void {\bfseries \-Unlock} (void)}\label{classns3_1_1PLC__Interface_acb8badf569663b34aaa272372836549e}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Interface_a1cdef444d546a3967ea0aee8c4d605a1}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__Interface_a1cdef444d546a3967ea0aee8c4d605a1}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Interface_a3f004e2e2c1ebce93fa38fe0c7a9d858}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__Interface_a3f004e2e2c1ebce93fa38fe0c7a9d858}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__Interface_a601610231531a725be13634851a853e6}{\hyperlink{structns3_1_1PLC__Mutex}{\-P\-L\-C\-\_\-\-Mutex} {\bfseries m\-\_\-mutex}}\label{classns3_1_1PLC__Interface_a601610231531a725be13634851a853e6}
+
+\item 
+\hypertarget{classns3_1_1PLC__Interface_a1bd242a8f74f65ad8c856bc331a63f20}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ {\bfseries m\-\_\-plc\-\_\-node}}\label{classns3_1_1PLC__Interface_a1bd242a8f74f65ad8c856bc331a63f20}
+
+\item 
+\hypertarget{classns3_1_1PLC__Interface_a3f86b2927a461f43fca67f291f59b37a}{\-Ptr$<$ const \-Spectrum\-Model $>$ {\bfseries m\-\_\-spectrum\-\_\-model}}\label{classns3_1_1PLC__Interface_a3f86b2927a461f43fca67f291f59b37a}
+
+\item 
+\hypertarget{classns3_1_1PLC__Interface_ab6a5dc7b7244416f562f1b63eb0079c2}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ {\bfseries m\-\_\-phy}}\label{classns3_1_1PLC__Interface_ab6a5dc7b7244416f562f1b63eb0079c2}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Abstract base class for transmitter and receiver interfaces. 
+
+\-Transmission channels will be calculated for each transmitter-\/receiver pair. \-Because not every device has to be duplex the computational costs can be reduced by distinction between transmitting and receiving interfaces 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__Interface_a927245efbd7f1d63e14e9a899903c163}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-P\-L\-C\-\_\-\-Interface@{\-P\-L\-C\-\_\-\-Interface}}
+\index{\-P\-L\-C\-\_\-\-Interface@{\-P\-L\-C\-\_\-\-Interface}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-P\-L\-C\-\_\-\-Interface} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{associated\-\_\-plc\-\_\-node, }
+\item[{\-Ptr$<$ const \-Spectrum\-Model $>$}]{sm}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Interface_a927245efbd7f1d63e14e9a899903c163}
+\-Constructor 
+\begin{DoxyParams}{\-Parameters}
+{\em associated\-\_\-plc\-\_\-node} & \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the interface is located on \\
+\hline
+{\em sm} & \-Spectrum model \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__Interface_a86335fbf5d53c00ad1af68fb21160857}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-Get\-Channel@{\-Get\-Channel}}
+\index{\-Get\-Channel@{\-Get\-Channel}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-Get\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Channel} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-Get\-Channel} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Interface_a86335fbf5d53c00ad1af68fb21160857}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} the interface is connected to 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Interface_a8a4c6651e7bd4883ef2dd5c7e7f71fbf}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-Get\-Graph@{\-Get\-Graph}}
+\index{\-Get\-Graph@{\-Get\-Graph}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-Get\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Graph} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-Get\-Graph} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Interface_a8a4c6651e7bd4883ef2dd5c7e7f71fbf}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} of associated\-\_\-plc\-\_\-node 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Interface_a0cdbe245c4a72b78d0c7ef5346bc621f}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-Get\-Node@{\-Get\-Node}}
+\index{\-Get\-Node@{\-Get\-Node}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-Get\-Node}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Node}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-Get\-Node} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Interface_a0cdbe245c4a72b78d0c7ef5346bc621f}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the interface is located on 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Interface_ab1eaf63c2a5aef32069279c6cf3d272a}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-Get\-Phy@{\-Get\-Phy}}
+\index{\-Get\-Phy@{\-Get\-Phy}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-Get\-Phy}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Phy} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-Get\-Phy} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Interface_ab1eaf63c2a5aef32069279c6cf3d272a}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} instance using this interface 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__Interface_aaa45cf03953a3989bf3dae3a423b5c99}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Interface_aaa45cf03953a3989bf3dae3a423b5c99}
+\-Mutex lock and unlock \hypertarget{classns3_1_1PLC__Interface_a0e8ee852d599842463e7d729fbdd9780}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-Set\-Node@{\-Set\-Node}}
+\index{\-Set\-Node@{\-Set\-Node}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-Set\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-Set\-Node} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__Interface_a0e8ee852d599842463e7d729fbdd9780}
+\-Bind interface to node 
+\begin{DoxyParams}{\-Parameters}
+{\em node} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__Interface_ae5f7967e8e11add42d9062b6bff000e5}{\index{ns3\-::\-P\-L\-C\-\_\-\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}!\-Set\-Phy@{\-Set\-Phy}}
+\index{\-Set\-Phy@{\-Set\-Phy}!ns3::PLC_Interface@{ns3\-::\-P\-L\-C\-\_\-\-Interface}}
+\subsubsection[{\-Set\-Phy}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Interface\-::\-Set\-Phy} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Phy} $>$}]{phy}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__Interface_ae5f7967e8e11add42d9062b6bff000e5}
+\-Define \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} instance that uses this interface 
+\begin{DoxyParams}{\-Parameters}
+{\em phy} & \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/interface.\-h\item 
+model/plc-\/interface.\-cc\end{DoxyCompactItemize}

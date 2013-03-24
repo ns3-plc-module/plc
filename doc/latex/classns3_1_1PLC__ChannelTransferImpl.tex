@@ -1,0 +1,291 @@
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl \-Class \-Reference}
+\label{classns3_1_1PLC__ChannelTransferImpl}\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+}
+
+
+{\ttfamily \#include $<$plc-\/channel.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__ChannelTransferImpl_a17b06fd2fd82ff75ac601dd8c4d1e94d}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} (\hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $\ast$tx\-Interface, \hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$rx\-Interface, \-Ptr$<$ const \-Spectrum\-Model $>$ sm, bool create\-\_\-backbone\-\_\-path=true)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} $>$ \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a303d12a4e2c3a6fe9318d0ea8c6a5e70}{\-Get\-Graph} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a0df21d5b8842358a4f8e23ee07dc0fdd}{\-Is\-Time\-Variant} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a1eefbd6435b696a41c0738e3cdbe8395}{\-Set\-Time\-Variant} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_af5fa36c7ec01d2bfc16f8f83da0657ed}{\-Update\-Immediately} (bool value)
+\item 
+bool \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a1c2c55cbc8fee287bb9957f7280ba06c}{\-Is\-Up2\-Date} (void)
+\item 
+\-Time \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a539f73d6fc92df3b47fb8dc6f45f4e30}{\-Get\-Direct\-Path\-Propagation\-Delay} (void)
+\item 
+std\-::list$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Backbone\-Branch} $\ast$ $>$ \hyperlink{classns3_1_1PLC__ChannelTransferImpl_afe4bfef3bb7327c230a797fb8f0a0cfa}{\-Get\-Backbone\-Path} (void)
+\item 
+\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator \hyperlink{classns3_1_1PLC__ChannelTransferImpl_ab3d728667ee846163ba56e925736cca6}{\-Backbone\-Path\-Begin} (void)
+\item 
+\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a950a1d1c561995e923ab9e3f95bb58d8}{\-Backbone\-Path\-End} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a582253c799d69225502e5ac42b982124}{\-Create\-Backbone\-Path} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a7b46950025353634deb5cd0e239b1da4}{\-Discover\-Backbone\-Branches} (void)
+\begin{DoxyCompactList}\small\item\em \-Triggers a parallel depth first search onto the \-P\-L\-C graph originating from each node of the backbone path. \-If an outlet is found while traversing the graph a registration with the backbone node is done in order to get informed when the outlet impedance changes during the simulation and the channel transfer function needs to be recalculated. \end{DoxyCompactList}\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_ae91aa6f04d300ad7c246e797540aed69}{\-Initialize\-Channel\-Transfer\-Vector} (bool set\-\_\-time\-\_\-variant=false)
+\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_ae2d8f97c7f06512573f6c2ee6df8c89f}{\-Calculate\-Channel\-Transfer\-Vector} (void)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Transfer\-Base} $>$ \hyperlink{classns3_1_1PLC__ChannelTransferImpl_adac05b35a3b2080d6ccd78c50a8a83c4}{\-Get\-Channel\-Transfer\-Vector} (void)
+\item 
+\-Ptr$<$ \-Spectrum\-Value $>$ \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a0e4b0a7b0252655f7d150e01872bfc12}{\-Get\-Abs\-Sqr\-Ctf} (unsigned int timeslot=0)
+\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_ab46c85b0bd89898e3cb62f4fdad438a1}{\-Generate\-Abs\-Sqr\-Ctf} (void)
+\item 
+\-Ptr$<$ \-Spectrum\-Value $>$ \hyperlink{classns3_1_1PLC__ChannelTransferImpl_ae57dedf11484bf8dae9519b7736c37db}{\-Calculate\-Rx\-Power\-Spectral\-Density} (\-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Timeslot timeslot=0)
+\begin{DoxyCompactList}\small\item\em \-Calculate the power spectral density seen at the receiver's interface. \end{DoxyCompactList}\item 
+void \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a259a5f13bdbfed36bc21b47407eec734}{\-Lock} (void) const 
+\item 
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a8e448bde1deeaa0d6e1e773d9fbc1df3}{void {\bfseries \-Unlock} (void) const }\label{classns3_1_1PLC__ChannelTransferImpl_a8e448bde1deeaa0d6e1e773d9fbc1df3}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_ae64a9ee719cfe0da3574f6c9244e082b}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__ChannelTransferImpl_ae64a9ee719cfe0da3574f6c9244e082b}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_aa66746b40db26e1809096549f957b7ac}{class {\bfseries \-P\-L\-C\-\_\-\-Tx\-Interface}}\label{classns3_1_1PLC__ChannelTransferImpl_aa66746b40db26e1809096549f957b7ac}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\hyperlink{classns3_1_1PLC__ChannelTransferImpl}{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} is owner of the channel transfer function of a (tx,rx)-\/tupel. \-Besides it caches the square values of the absolute channel transfer function. 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a17b06fd2fd82ff75ac601dd8c4d1e94d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\index{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Tx\-Interface} $\ast$}]{tx\-Interface, }
+\item[{{\bf \-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$}]{rx\-Interface, }
+\item[{\-Ptr$<$ const \-Spectrum\-Model $>$}]{sm, }
+\item[{bool}]{create\-\_\-backbone\-\_\-path = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a17b06fd2fd82ff75ac601dd8c4d1e94d}
+\-Constructor 
+\begin{DoxyParams}{\-Parameters}
+{\em tx\-Interface} & \-Transmission source interface \\
+\hline
+{\em rx\-Interface} & \-Transmission sink interface \\
+\hline
+{\em sm} & \-Spectrum model \\
+\hline
+{\em create\-\_\-backbone\-\_\-path} & \-If true the backbone path from tx\-Interface to rx\-Interface will be calculated \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_ab3d728667ee846163ba56e925736cca6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Backbone\-Path\-Begin@{\-Backbone\-Path\-Begin}}
+\index{\-Backbone\-Path\-Begin@{\-Backbone\-Path\-Begin}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Backbone\-Path\-Begin}]{\setlength{\rightskip}{0pt plus 5cm}\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Backbone\-Path\-Begin} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_ab3d728667ee846163ba56e925736cca6}
+\begin{DoxyReturn}{\-Returns}
+\-Iterator to the head of the backbone path list 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a950a1d1c561995e923ab9e3f95bb58d8}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Backbone\-Path\-End@{\-Backbone\-Path\-End}}
+\index{\-Backbone\-Path\-End@{\-Backbone\-Path\-End}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Backbone\-Path\-End}]{\setlength{\rightskip}{0pt plus 5cm}\-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Backbone\-Path\-End} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a950a1d1c561995e923ab9e3f95bb58d8}
+\begin{DoxyReturn}{\-Returns}
+\-Iterator to the tail of the backbone path list 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_ae2d8f97c7f06512573f6c2ee6df8c89f}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Calculate\-Channel\-Transfer\-Vector@{\-Calculate\-Channel\-Transfer\-Vector}}
+\index{\-Calculate\-Channel\-Transfer\-Vector@{\-Calculate\-Channel\-Transfer\-Vector}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Calculate\-Channel\-Transfer\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Calculate\-Channel\-Transfer\-Vector} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_ae2d8f97c7f06512573f6c2ee6df8c89f}
+\-Triggers the channel calculation \hypertarget{classns3_1_1PLC__ChannelTransferImpl_ae57dedf11484bf8dae9519b7736c37db}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Calculate\-Rx\-Power\-Spectral\-Density@{\-Calculate\-Rx\-Power\-Spectral\-Density}}
+\index{\-Calculate\-Rx\-Power\-Spectral\-Density@{\-Calculate\-Rx\-Power\-Spectral\-Density}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Calculate\-Rx\-Power\-Spectral\-Density}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ \-Spectrum\-Value $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Calculate\-Rx\-Power\-Spectral\-Density} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ const \-Spectrum\-Value $>$}]{tx\-Psd, }
+\item[{\-Timeslot}]{timeslot = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_ae57dedf11484bf8dae9519b7736c37db}
+
+
+\-Calculate the power spectral density seen at the receiver's interface. 
+
+rx\-Psd = tx\-Psd$\ast$$|$\-H$|$$^\wedge$2
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em tx\-Psd} & \-Power spectral density of the transmitted waveform \\
+\hline
+{\em timeslot} & \-Timeslot of propagation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Received power spectral density 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a582253c799d69225502e5ac42b982124}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Create\-Backbone\-Path@{\-Create\-Backbone\-Path}}
+\index{\-Create\-Backbone\-Path@{\-Create\-Backbone\-Path}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Create\-Backbone\-Path}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Create\-Backbone\-Path} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a582253c799d69225502e5ac42b982124}
+\-Creates the backbone path \hypertarget{classns3_1_1PLC__ChannelTransferImpl_a7b46950025353634deb5cd0e239b1da4}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Discover\-Backbone\-Branches@{\-Discover\-Backbone\-Branches}}
+\index{\-Discover\-Backbone\-Branches@{\-Discover\-Backbone\-Branches}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Discover\-Backbone\-Branches}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Discover\-Backbone\-Branches} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a7b46950025353634deb5cd0e239b1da4}
+
+
+\-Triggers a parallel depth first search onto the \-P\-L\-C graph originating from each node of the backbone path. \-If an outlet is found while traversing the graph a registration with the backbone node is done in order to get informed when the outlet impedance changes during the simulation and the channel transfer function needs to be recalculated. 
+
+\begin{DoxyWarning}{\-Warning}
+\-Should be called after \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a582253c799d69225502e5ac42b982124}{\-Create\-Backbone\-Path()} and before \hyperlink{classns3_1_1PLC__ChannelTransferImpl_ae91aa6f04d300ad7c246e797540aed69}{\-Initialize\-Channel\-Transfer\-Vector()} 
+\end{DoxyWarning}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_ab46c85b0bd89898e3cb62f4fdad438a1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Generate\-Abs\-Sqr\-Ctf@{\-Generate\-Abs\-Sqr\-Ctf}}
+\index{\-Generate\-Abs\-Sqr\-Ctf@{\-Generate\-Abs\-Sqr\-Ctf}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Generate\-Abs\-Sqr\-Ctf}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Generate\-Abs\-Sqr\-Ctf} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_ab46c85b0bd89898e3cb62f4fdad438a1}
+\-Create square of the absolute channel transfer function \hypertarget{classns3_1_1PLC__ChannelTransferImpl_a0e4b0a7b0252655f7d150e01872bfc12}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Get\-Abs\-Sqr\-Ctf@{\-Get\-Abs\-Sqr\-Ctf}}
+\index{\-Get\-Abs\-Sqr\-Ctf@{\-Get\-Abs\-Sqr\-Ctf}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Get\-Abs\-Sqr\-Ctf}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ \-Spectrum\-Value $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Get\-Abs\-Sqr\-Ctf} (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{timeslot = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a0e4b0a7b0252655f7d150e01872bfc12}
+\-Get magnitude square of the channel transfer function. \-Triggers \hyperlink{classns3_1_1PLC__ChannelTransferImpl_a0e4b0a7b0252655f7d150e01872bfc12}{\-Get\-Abs\-Sqr\-Ctf()} if not up to date 
+\begin{DoxyParams}{\-Parameters}
+{\em timeslot} & \-Timeslot for timevariant \-C\-T\-F \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+$|$\-H(f)$|$² 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_afe4bfef3bb7327c230a797fb8f0a0cfa}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Get\-Backbone\-Path@{\-Get\-Backbone\-Path}}
+\index{\-Get\-Backbone\-Path@{\-Get\-Backbone\-Path}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Get\-Backbone\-Path}]{\setlength{\rightskip}{0pt plus 5cm}std\-::list$<$ {\bf \-P\-L\-C\-\_\-\-Backbone\-Branch} $\ast$ $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Get\-Backbone\-Path} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_afe4bfef3bb7327c230a797fb8f0a0cfa}
+\-Get backbone path \begin{DoxyReturn}{\-Returns}
+\-List of backbone nodes lying between tx\-Interface and rx\-Interface; \-In case of a direct connection the function returns an empty list 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_adac05b35a3b2080d6ccd78c50a8a83c4}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Get\-Channel\-Transfer\-Vector@{\-Get\-Channel\-Transfer\-Vector}}
+\index{\-Get\-Channel\-Transfer\-Vector@{\-Get\-Channel\-Transfer\-Vector}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Get\-Channel\-Transfer\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Transfer\-Base} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Get\-Channel\-Transfer\-Vector} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_adac05b35a3b2080d6ccd78c50a8a83c4}
+\begin{DoxyReturn}{\-Returns}
+\-Updated channel transfer vector 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a539f73d6fc92df3b47fb8dc6f45f4e30}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Get\-Direct\-Path\-Propagation\-Delay@{\-Get\-Direct\-Path\-Propagation\-Delay}}
+\index{\-Get\-Direct\-Path\-Propagation\-Delay@{\-Get\-Direct\-Path\-Propagation\-Delay}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Get\-Direct\-Path\-Propagation\-Delay}]{\setlength{\rightskip}{0pt plus 5cm}\-Time {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Get\-Direct\-Path\-Propagation\-Delay} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a539f73d6fc92df3b47fb8dc6f45f4e30}
+\begin{DoxyReturn}{\-Returns}
+\-An estimation for the signal's propagation delay on the direct path 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a303d12a4e2c3a6fe9318d0ea8c6a5e70}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Get\-Graph@{\-Get\-Graph}}
+\index{\-Get\-Graph@{\-Get\-Graph}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Get\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Graph} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Get\-Graph} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a303d12a4e2c3a6fe9318d0ea8c6a5e70}
+\begin{DoxyReturn}{\-Returns}
+\-P\-L\-C graph of the interfaces 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_ae91aa6f04d300ad7c246e797540aed69}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Initialize\-Channel\-Transfer\-Vector@{\-Initialize\-Channel\-Transfer\-Vector}}
+\index{\-Initialize\-Channel\-Transfer\-Vector@{\-Initialize\-Channel\-Transfer\-Vector}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Initialize\-Channel\-Transfer\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Initialize\-Channel\-Transfer\-Vector} (
+\begin{DoxyParamCaption}
+\item[{bool}]{set\-\_\-time\-\_\-variant = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_ae91aa6f04d300ad7c246e797540aed69}
+\-Initialize the channel transfer vector data structure 
+\begin{DoxyParams}{\-Parameters}
+{\em set\-\_\-time\-\_\-variant} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a0df21d5b8842358a4f8e23ee07dc0fdd}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Is\-Time\-Variant@{\-Is\-Time\-Variant}}
+\index{\-Is\-Time\-Variant@{\-Is\-Time\-Variant}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Is\-Time\-Variant}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Is\-Time\-Variant} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a0df21d5b8842358a4f8e23ee07dc0fdd}
+\begin{DoxyReturn}{\-Returns}
+\-True if channel transfer function is time variant, false otherwise 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a1c2c55cbc8fee287bb9957f7280ba06c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Is\-Up2\-Date@{\-Is\-Up2\-Date}}
+\index{\-Is\-Up2\-Date@{\-Is\-Up2\-Date}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Is\-Up2\-Date}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Is\-Up2\-Date} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__ChannelTransferImpl_a1c2c55cbc8fee287bb9957f7280ba06c}
+\begin{DoxyReturn}{\-Returns}
+\-True if the channel transfer function is up to date 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__ChannelTransferImpl_a259a5f13bdbfed36bc21b47407eec734}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__ChannelTransferImpl_a259a5f13bdbfed36bc21b47407eec734}
+\-Mutex lock and unlock \hypertarget{classns3_1_1PLC__ChannelTransferImpl_a1eefbd6435b696a41c0738e3cdbe8395}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Set\-Time\-Variant@{\-Set\-Time\-Variant}}
+\index{\-Set\-Time\-Variant@{\-Set\-Time\-Variant}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Set\-Time\-Variant}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Set\-Time\-Variant} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__ChannelTransferImpl_a1eefbd6435b696a41c0738e3cdbe8395}
+\-If channel transfer vector is not time variant it will be converted to a time variant value. \-Called if an \hyperlink{classns3_1_1PLC__EdgeTransferUnit}{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} of the backbone path becomes time variant. \hypertarget{classns3_1_1PLC__ChannelTransferImpl_af5fa36c7ec01d2bfc16f8f83da0657ed}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}!\-Update\-Immediately@{\-Update\-Immediately}}
+\index{\-Update\-Immediately@{\-Update\-Immediately}!ns3::PLC_ChannelTransferImpl@{ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl}}
+\subsubsection[{\-Update\-Immediately}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-Transfer\-Impl\-::\-Update\-Immediately} (
+\begin{DoxyParamCaption}
+\item[{bool}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__ChannelTransferImpl_af5fa36c7ec01d2bfc16f8f83da0657ed}
+\-Set to true if the channel transfer function should be recalculated immediately after a change in the network, e.\-g. for the time correct tracing of the channel transfer function's evolution. \-If false the channel transfer function will only be updated at the next point in time when needed 
+\begin{DoxyParams}{\-Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/channel.\-h\item 
+model/plc-\/channel.\-cc\end{DoxyCompactItemize}

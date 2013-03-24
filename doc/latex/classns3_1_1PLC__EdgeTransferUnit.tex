@@ -1,0 +1,176 @@
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit \-Class \-Reference}
+\label{classns3_1_1PLC__EdgeTransferUnit}\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+}
+
+
+{\ttfamily \#include $<$plc-\/channel.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__EdgeTransferUnit_a9c00b33a2ee8d4cbfa4c8b8494cd72c2}{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} (\hyperlink{classns3_1_1PLC__Edge}{\-P\-L\-C\-\_\-\-Edge} $\ast$edge, \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$dst\-\_\-node, \-Ptr$<$ const \-Spectrum\-Model $>$ sm, bool time\-\_\-variant=false)
+\item 
+\hyperlink{classns3_1_1PLC__EdgeTransferUnit_aa0a67c9ed8d62feb12b3d5ae9596238a}{$\sim$\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} (void)
+\item 
+\hyperlink{classns3_1_1PLC__Edge}{\-P\-L\-C\-\_\-\-Edge} $\ast$ \hyperlink{classns3_1_1PLC__EdgeTransferUnit_aa4a79f531e6ff0a56da73af53dc711dd}{\-Get\-Edge} (void) const 
+\item 
+\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $\ast$ \hyperlink{classns3_1_1PLC__EdgeTransferUnit_a63ba9dd1d244f74d2433a2693f68fd4c}{\-Get\-Dst\-Node} (void) const 
+\item 
+void \hyperlink{classns3_1_1PLC__EdgeTransferUnit_aff946ecb860942cba79ce26c340b83e0}{\-Set\-Edge\-Transfer\-Vector} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Transfer\-Base} $>$ ctv)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Transfer\-Base} $>$ \hyperlink{classns3_1_1PLC__EdgeTransferUnit_a7db518fc0ca26326b68054d4679fc7ab}{\-Get\-Edge\-Transfer\-Vector} (void)
+\item 
+\hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Transfer\-Base} $\ast$ \hyperlink{classns3_1_1PLC__EdgeTransferUnit_afbaead46b8d608d9a79a341ca048d829}{\-Get\-Edge\-Transfer\-Vector\-Ptr} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__EdgeTransferUnit_ad71b374a26276cf8187e14e25642f4e9}{\-Is\-Up2\-Date} (void) const 
+\item 
+void \hyperlink{classns3_1_1PLC__EdgeTransferUnit_a7c9e3cda7687e848b5a54c92fda9ff1b}{\-Set\-Out\-Of\-Date} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__EdgeTransferUnit_a720b5892580b59087166d65ee9047521}{\-Is\-Time\-Variant} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__EdgeTransferUnit_a904d5e7b7c64ed14e6c4fff27453f4d9}{\-Lock} (void) const 
+\item 
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_ac6caf9f9cb662bc5f32b134b171c6c49}{void {\bfseries \-Unlock} (void) const }\label{classns3_1_1PLC__EdgeTransferUnit_ac6caf9f9cb662bc5f32b134b171c6c49}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_a1db4df9206bf22cd277911194692e5bd}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__EdgeTransferUnit_a1db4df9206bf22cd277911194692e5bd}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_ae6906119e2bc3e6a134b7087a1ad1afe}{class {\bfseries \-P\-L\-C\-\_\-\-Outlet}}\label{classns3_1_1PLC__EdgeTransferUnit_ae6906119e2bc3e6a134b7087a1ad1afe}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\hyperlink{classns3_1_1PLC__EdgeTransferUnit}{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} holds the transfer function of a single edge of the \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph}. \-The channel transfer function for a (tx,rx) tupel is the product of the path's \-P\-L\-C\-\_\-\-Edge\-Transfer\-Data. \-Each \hyperlink{classns3_1_1PLC__Edge}{\-P\-L\-C\-\_\-\-Edge} references two \hyperlink{classns3_1_1PLC__EdgeTransferUnit}{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} instances (each for one direction). 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_a9c00b33a2ee8d4cbfa4c8b8494cd72c2}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\index{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-P\-L\-C\-\_\-\-Edge} $\ast$}]{edge, }
+\item[{{\bf \-P\-L\-C\-\_\-\-Node} $\ast$}]{dst\-\_\-node, }
+\item[{\-Ptr$<$ const \-Spectrum\-Model $>$}]{sm, }
+\item[{bool}]{time\-\_\-variant = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__EdgeTransferUnit_a9c00b33a2ee8d4cbfa4c8b8494cd72c2}
+\-Constructor 
+\begin{DoxyParams}{\-Parameters}
+{\em edge} & \-Associated edge \\
+\hline
+{\em dst\-\_\-node} & \-Node pointing to transfer direction \\
+\hline
+{\em sm} & \-Spectrum model \\
+\hline
+{\em time\-\_\-variant} & \-If true channel transfer vector will be initialised as time variant value \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_aa0a67c9ed8d62feb12b3d5ae9596238a}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!$\sim$\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{$\sim$\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\index{$\sim$\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{$\sim$\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{$\sim$\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::$\sim$\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__EdgeTransferUnit_aa0a67c9ed8d62feb12b3d5ae9596238a}
+\-Destructor 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_a63ba9dd1d244f74d2433a2693f68fd4c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Get\-Dst\-Node@{\-Get\-Dst\-Node}}
+\index{\-Get\-Dst\-Node@{\-Get\-Dst\-Node}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Get\-Dst\-Node}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Node}$\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Get\-Dst\-Node} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__EdgeTransferUnit_a63ba9dd1d244f74d2433a2693f68fd4c}
+\begin{DoxyReturn}{\-Returns}
+\-Destination node heading to transfer direction 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_aa4a79f531e6ff0a56da73af53dc711dd}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Get\-Edge@{\-Get\-Edge}}
+\index{\-Get\-Edge@{\-Get\-Edge}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Get\-Edge}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Edge}$\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Get\-Edge} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__EdgeTransferUnit_aa4a79f531e6ff0a56da73af53dc711dd}
+\begin{DoxyReturn}{\-Returns}
+\-Associated edge of the \-P\-L\-C graph 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_a7db518fc0ca26326b68054d4679fc7ab}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Get\-Edge\-Transfer\-Vector@{\-Get\-Edge\-Transfer\-Vector}}
+\index{\-Get\-Edge\-Transfer\-Vector@{\-Get\-Edge\-Transfer\-Vector}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Get\-Edge\-Transfer\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Transfer\-Base} $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Get\-Edge\-Transfer\-Vector} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__EdgeTransferUnit_a7db518fc0ca26326b68054d4679fc7ab}
+\begin{DoxyReturn}{\-Returns}
+\-Previously assigned channel transfer vector or \-N\-U\-L\-L 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_afbaead46b8d608d9a79a341ca048d829}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Get\-Edge\-Transfer\-Vector\-Ptr@{\-Get\-Edge\-Transfer\-Vector\-Ptr}}
+\index{\-Get\-Edge\-Transfer\-Vector\-Ptr@{\-Get\-Edge\-Transfer\-Vector\-Ptr}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Get\-Edge\-Transfer\-Vector\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Transfer\-Base}$\ast$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Get\-Edge\-Transfer\-Vector\-Ptr} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__EdgeTransferUnit_afbaead46b8d608d9a79a341ca048d829}
+\begin{DoxyReturn}{\-Returns}
+\-Peek pointer of the channel transfer vector (for parallel processing) 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_a720b5892580b59087166d65ee9047521}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Is\-Time\-Variant@{\-Is\-Time\-Variant}}
+\index{\-Is\-Time\-Variant@{\-Is\-Time\-Variant}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Is\-Time\-Variant}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Is\-Time\-Variant} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__EdgeTransferUnit_a720b5892580b59087166d65ee9047521}
+\begin{DoxyReturn}{\-Returns}
+\-True if channel transfer vector is time variant 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_ad71b374a26276cf8187e14e25642f4e9}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Is\-Up2\-Date@{\-Is\-Up2\-Date}}
+\index{\-Is\-Up2\-Date@{\-Is\-Up2\-Date}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Is\-Up2\-Date}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Is\-Up2\-Date} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__EdgeTransferUnit_ad71b374a26276cf8187e14e25642f4e9}
+\begin{DoxyReturn}{\-Returns}
+\-True if channel transfer vector is still up to date 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_a904d5e7b7c64ed14e6c4fff27453f4d9}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Lock@{\-Lock}}
+\index{\-Lock@{\-Lock}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Lock} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__EdgeTransferUnit_a904d5e7b7c64ed14e6c4fff27453f4d9}
+\-Mutex lock and unlock \hypertarget{classns3_1_1PLC__EdgeTransferUnit_aff946ecb860942cba79ce26c340b83e0}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Set\-Edge\-Transfer\-Vector@{\-Set\-Edge\-Transfer\-Vector}}
+\index{\-Set\-Edge\-Transfer\-Vector@{\-Set\-Edge\-Transfer\-Vector}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Set\-Edge\-Transfer\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Set\-Edge\-Transfer\-Vector} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Transfer\-Base} $>$}]{ctv}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__EdgeTransferUnit_aff946ecb860942cba79ce26c340b83e0}
+\-Set channel transfer vector for this edge unit pointing to m\-\_\-dst\-\_\-node 
+\begin{DoxyParams}{\-Parameters}
+{\em ctv} & \-Channel transfer vector \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__EdgeTransferUnit_a7c9e3cda7687e848b5a54c92fda9ff1b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}!\-Set\-Out\-Of\-Date@{\-Set\-Out\-Of\-Date}}
+\index{\-Set\-Out\-Of\-Date@{\-Set\-Out\-Of\-Date}!ns3::PLC_EdgeTransferUnit@{ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit}}
+\subsubsection[{\-Set\-Out\-Of\-Date}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Edge\-Transfer\-Unit\-::\-Set\-Out\-Of\-Date} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__EdgeTransferUnit_a7c9e3cda7687e848b5a54c92fda9ff1b}
+\-Sets the channel transfer vector out of date 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/channel.\-h\item 
+model/plc-\/channel.\-cc\end{DoxyCompactItemize}

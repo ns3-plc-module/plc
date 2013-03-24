@@ -1,0 +1,249 @@
+\hypertarget{classns3_1_1PLC__NoiseSource}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Noise\-Source \-Class \-Reference}
+\label{classns3_1_1PLC__NoiseSource}\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+}
+
+
+\-Base class for noise source models.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/noise.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Noise\-Source\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.848185cm]{classns3_1_1PLC__NoiseSource}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classns3_1_1PLC__NoiseSource_a3f5751ed7e0ffe2f0c9ad37d2c75ff2b}{\-Noise\-Source\-Type} \{ {\bfseries \-S\-T\-A\-T\-I\-C}, 
+{\bfseries \-T\-I\-M\-E\-V\-A\-R\-I\-A\-N\-T}, 
+{\bfseries \-I\-M\-P\-U\-L\-S\-I\-V\-E}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classns3_1_1PLC__NoiseSource_a1032d5a50bb3141a0ff1d105a6b55a63}{\-P\-L\-C\-\_\-\-Noise\-Source} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ src\-\_\-node, \-Ptr$<$ \-Spectrum\-Value $>$ noise\-Psd, \hyperlink{classns3_1_1PLC__NoiseSource_a3f5751ed7e0ffe2f0c9ad37d2c75ff2b}{\-Noise\-Source\-Type} type)
+\item 
+void \hyperlink{classns3_1_1PLC__NoiseSource_afd6623a52b8a5624a8e6d86a362c45e0}{\-Set\-Noise\-Psd} (\-Ptr$<$ \-Spectrum\-Value $>$ psd)
+\item 
+\-Ptr$<$ \-Spectrum\-Value $>$ \hyperlink{classns3_1_1PLC__NoiseSource_ab0fc8962c55913f1ca375d07b2b318ac}{\-Get\-Noise\-Psd} (void)
+\item 
+\hyperlink{classns3_1_1PLC__NoiseSource_a3f5751ed7e0ffe2f0c9ad37d2c75ff2b}{\-Noise\-Source\-Type} \hyperlink{classns3_1_1PLC__NoiseSource_ad9c3d566a21a422a6b2b1f61c6d8ff2e}{\-Get\-Noise\-Source\-Type} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__NoiseSource_a1c3237553ba374e899af1a10baeccdf3}{\-Set\-Node} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ node)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ \hyperlink{classns3_1_1PLC__NoiseSource_a65d247ba7af27380c2b752c3de4ca95c}{\-Get\-Node} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__NoiseSource_aceb67ba0b75a9e1ee5b87d9e5dd06bf6}{\-Set\-Channel} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ channel)
+\item 
+\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ \hyperlink{classns3_1_1PLC__NoiseSource_ac613d35629021be467d3a31786cf79d1}{\-Get\-Channel} (void)
+\item 
+void \hyperlink{classns3_1_1PLC__NoiseSource_a3ab9d89fc6110f80ba8771bd65813f94}{\-Init} (void)
+\item 
+virtual void \hyperlink{classns3_1_1PLC__NoiseSource_a1753484062d53fe249c9a28f9db1ae1d}{\-Enable} (void)
+\item 
+virtual void \hyperlink{classns3_1_1PLC__NoiseSource_a73fae674a603ed0da7845cbdba4845f1}{\-Disable} (void)
+\item 
+bool \hyperlink{classns3_1_1PLC__NoiseSource_a4c3b2917a7f6ccd83b1f1db98d3b4d8b}{\-Is\-Enabled} (void)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_a56ebebf6999795b86666c5cd81ddbb7a}{static \-Type\-Id {\bfseries \-Get\-Type\-Id} (void)}\label{classns3_1_1PLC__NoiseSource_a56ebebf6999795b86666c5cd81ddbb7a}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_ab3322f38aab36c853b510005586c6f1f}{\hyperlink{classns3_1_1PLC__NoiseSource_a3f5751ed7e0ffe2f0c9ad37d2c75ff2b}{\-Noise\-Source\-Type} {\bfseries m\-\_\-noise\-\_\-source\-\_\-type}}\label{classns3_1_1PLC__NoiseSource_ab3322f38aab36c853b510005586c6f1f}
+
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_a188ca4a4774d742fec3f47786c058dea}{uint32\-\_\-t {\bfseries m\-\_\-noise\-\_\-src\-Id}}\label{classns3_1_1PLC__NoiseSource_a188ca4a4774d742fec3f47786c058dea}
+
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_ad662fa5660b51b3def6d1de3e7cec431}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} $>$ {\bfseries m\-\_\-src\-\_\-node}}\label{classns3_1_1PLC__NoiseSource_ad662fa5660b51b3def6d1de3e7cec431}
+
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_a518e97ac1af538cc5b0882e9377f8d5e}{\-Ptr$<$ \-Spectrum\-Value $>$ {\bfseries m\-\_\-noise\-Psd}}\label{classns3_1_1PLC__NoiseSource_a518e97ac1af538cc5b0882e9377f8d5e}
+
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_a45823912e0c463830a12bf19b48c33eb}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} $>$ {\bfseries m\-\_\-channel}}\label{classns3_1_1PLC__NoiseSource_a45823912e0c463830a12bf19b48c33eb}
+
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_a81eefe10f70528eb58bc84ed66c76ba5}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__TxInterface}{\-P\-L\-C\-\_\-\-Tx\-Interface} $>$ {\bfseries m\-\_\-tx\-Interface}}\label{classns3_1_1PLC__NoiseSource_a81eefe10f70528eb58bc84ed66c76ba5}
+
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_ae57359c93b18f7f6a9292f02f9a882ae}{bool {\bfseries m\-\_\-is\-\_\-enabled}}\label{classns3_1_1PLC__NoiseSource_ae57359c93b18f7f6a9292f02f9a882ae}
+
+\item 
+\hypertarget{classns3_1_1PLC__NoiseSource_a1bf1f07b508144cb85d5192ec864b498}{bool {\bfseries m\-\_\-is\-\_\-initialized}}\label{classns3_1_1PLC__NoiseSource_a1bf1f07b508144cb85d5192ec864b498}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Base class for noise source models. 
+
+\-The noise sources act as transmitters in the \-P\-L\-C network. \-The noise \-P\-S\-D will therefore experience channel distortion before received by the receivers as interfering signal. \-Thus a a more realistic noise environment can be simulated rather than using a simple \-A\-W\-G\-N noise model. 
+
+\subsection{\-Member \-Enumeration \-Documentation}
+\hypertarget{classns3_1_1PLC__NoiseSource_a3f5751ed7e0ffe2f0c9ad37d2c75ff2b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Noise\-Source\-Type@{\-Noise\-Source\-Type}}
+\index{\-Noise\-Source\-Type@{\-Noise\-Source\-Type}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Noise\-Source\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Noise\-Source\-Type}}}\label{classns3_1_1PLC__NoiseSource_a3f5751ed7e0ffe2f0c9ad37d2c75ff2b}
+\-Noise source types
+
+currently only impulsive noise source is implemented 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classns3_1_1PLC__NoiseSource_a1032d5a50bb3141a0ff1d105a6b55a63}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-P\-L\-C\-\_\-\-Noise\-Source@{\-P\-L\-C\-\_\-\-Noise\-Source}}
+\index{\-P\-L\-C\-\_\-\-Noise\-Source@{\-P\-L\-C\-\_\-\-Noise\-Source}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-P\-L\-C\-\_\-\-Noise\-Source}]{\setlength{\rightskip}{0pt plus 5cm}ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-P\-L\-C\-\_\-\-Noise\-Source (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{src\-\_\-node, }
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$}]{noise\-Psd, }
+\item[{{\bf \-Noise\-Source\-Type}}]{type}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__NoiseSource_a1032d5a50bb3141a0ff1d105a6b55a63}
+\-Constructor
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em src\-\_\-node} & \-The source node where the noise source is originated \\
+\hline
+{\em noise\-Psd} & \-The noise power spectral density \\
+\hline
+{\em type} & noise source type \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classns3_1_1PLC__NoiseSource_a73fae674a603ed0da7845cbdba4845f1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Disable@{\-Disable}}
+\index{\-Disable@{\-Disable}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Disable}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Disable} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_a73fae674a603ed0da7845cbdba4845f1}
+\-Disable the noise source \hypertarget{classns3_1_1PLC__NoiseSource_a1753484062d53fe249c9a28f9db1ae1d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Enable@{\-Enable}}
+\index{\-Enable@{\-Enable}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Enable}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Enable} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_a1753484062d53fe249c9a28f9db1ae1d}
+\-Enable the noise source 
+
+\-Reimplemented in \hyperlink{classns3_1_1PLC__ImpulsiveNoiseSource_ab0f6587b0abb04afcebf6d9a1407a833}{ns3\-::\-P\-L\-C\-\_\-\-Impulsive\-Noise\-Source}.
+
+\hypertarget{classns3_1_1PLC__NoiseSource_ac613d35629021be467d3a31786cf79d1}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Get\-Channel@{\-Get\-Channel}}
+\index{\-Get\-Channel@{\-Get\-Channel}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Get\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Channel}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Get\-Channel} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_ac613d35629021be467d3a31786cf79d1}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} the noise source is connected to 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__NoiseSource_a65d247ba7af27380c2b752c3de4ca95c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Get\-Node@{\-Get\-Node}}
+\index{\-Get\-Node@{\-Get\-Node}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Get\-Node}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<${\bf \-P\-L\-C\-\_\-\-Node}$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Get\-Node} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_a65d247ba7af27380c2b752c3de4ca95c}
+\begin{DoxyReturn}{\-Returns}
+\hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node} the noise source is located on 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__NoiseSource_ab0fc8962c55913f1ca375d07b2b318ac}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Get\-Noise\-Psd@{\-Get\-Noise\-Psd}}
+\index{\-Get\-Noise\-Psd@{\-Get\-Noise\-Psd}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Get\-Noise\-Psd}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$\-Spectrum\-Value$>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Get\-Noise\-Psd} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_ab0fc8962c55913f1ca375d07b2b318ac}
+\begin{DoxyReturn}{\-Returns}
+\-The used noise power spectral density 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__NoiseSource_ad9c3d566a21a422a6b2b1f61c6d8ff2e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Get\-Noise\-Source\-Type@{\-Get\-Noise\-Source\-Type}}
+\index{\-Get\-Noise\-Source\-Type@{\-Get\-Noise\-Source\-Type}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Get\-Noise\-Source\-Type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-P\-L\-C\-\_\-\-Noise\-Source\-::\-Noise\-Source\-Type} {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Get\-Noise\-Source\-Type} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__NoiseSource_ad9c3d566a21a422a6b2b1f61c6d8ff2e}
+\-Get noise source type \begin{DoxyReturn}{\-Returns}
+\-The type of this noise source 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__NoiseSource_a3ab9d89fc6110f80ba8771bd65813f94}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Init@{\-Init}}
+\index{\-Init@{\-Init}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Init} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__NoiseSource_a3ab9d89fc6110f80ba8771bd65813f94}
+\-Initialize the noise source, i.\-e. create the transmit interface on the bounded node
+
+\begin{DoxyWarning}{\-Warning}
+\-To be done before calling \hyperlink{classns3_1_1PLC__Channel_a9210af0d915d96817f77e21000deb5a5}{\-P\-L\-C\-\_\-\-Channel\-::\-Init\-Transmission\-Channels()}, otherwise the noise source will not be known by the channel 
+\end{DoxyWarning}
+\hypertarget{classns3_1_1PLC__NoiseSource_a4c3b2917a7f6ccd83b1f1db98d3b4d8b}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Is\-Enabled@{\-Is\-Enabled}}
+\index{\-Is\-Enabled@{\-Is\-Enabled}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Is\-Enabled}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Is\-Enabled} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classns3_1_1PLC__NoiseSource_a4c3b2917a7f6ccd83b1f1db98d3b4d8b}
+\begin{DoxyReturn}{\-Returns}
+\-True is noise source is enabled 
+\end{DoxyReturn}
+\hypertarget{classns3_1_1PLC__NoiseSource_aceb67ba0b75a9e1ee5b87d9e5dd06bf6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Set\-Channel@{\-Set\-Channel}}
+\index{\-Set\-Channel@{\-Set\-Channel}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Set\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Set\-Channel} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Channel} $>$}]{channel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_aceb67ba0b75a9e1ee5b87d9e5dd06bf6}
+\-Set the channel the noise source is connected to 
+\begin{DoxyParams}{\-Parameters}
+{\em channel} & \hyperlink{classns3_1_1PLC__Channel}{\-P\-L\-C\-\_\-\-Channel} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__NoiseSource_a1c3237553ba374e899af1a10baeccdf3}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Set\-Node@{\-Set\-Node}}
+\index{\-Set\-Node@{\-Set\-Node}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Set\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Set\-Node} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ {\bf \-P\-L\-C\-\_\-\-Node} $>$}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_a1c3237553ba374e899af1a10baeccdf3}
+\-Bind the noise source to a specific \hyperlink{classns3_1_1PLC__Node}{\-P\-L\-C\-\_\-\-Node}
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em node} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classns3_1_1PLC__NoiseSource_afd6623a52b8a5624a8e6d86a362c45e0}{\index{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}!\-Set\-Noise\-Psd@{\-Set\-Noise\-Psd}}
+\index{\-Set\-Noise\-Psd@{\-Set\-Noise\-Psd}!ns3::PLC_NoiseSource@{ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source}}
+\subsubsection[{\-Set\-Noise\-Psd}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Noise\-Source\-::\-Set\-Noise\-Psd} (
+\begin{DoxyParamCaption}
+\item[{\-Ptr$<$ \-Spectrum\-Value $>$}]{psd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classns3_1_1PLC__NoiseSource_afd6623a52b8a5624a8e6d86a362c45e0}
+\-Set the noise power spectral density 
+\begin{DoxyParams}{\-Parameters}
+{\em psd} & \-The noise power spectral density \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/noise.\-h\item 
+model/plc-\/noise.\-cc\end{DoxyCompactItemize}

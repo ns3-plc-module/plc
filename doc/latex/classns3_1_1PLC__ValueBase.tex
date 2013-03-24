@@ -1,0 +1,83 @@
+\hypertarget{classns3_1_1PLC__ValueBase}{\section{ns3\-:\-:\-P\-L\-C\-\_\-\-Value\-Base \-Class \-Reference}
+\label{classns3_1_1PLC__ValueBase}\index{ns3\-::\-P\-L\-C\-\_\-\-Value\-Base@{ns3\-::\-P\-L\-C\-\_\-\-Value\-Base}}
+}
+
+
+\-Base class for \-P\-L\-C values types.  
+
+
+
+
+{\ttfamily \#include $<$plc-\/value.\-h$>$}
+
+\-Inheritance diagram for ns3\-:\-:\-P\-L\-C\-\_\-\-Value\-Base\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.098039cm]{classns3_1_1PLC__ValueBase}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Types}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries \-P\-L\-C\-\_\-\-Value\-Type} \{ {\bfseries \-C\-O\-N\-S\-T\-A\-N\-T}, 
+{\bfseries \-F\-R\-E\-Q\-\_\-\-S\-E\-L\-E\-C\-T\-I\-V\-E}, 
+{\bfseries \-T\-I\-M\-E\-V\-A\-R\-I\-A\-N\-T\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T}, 
+{\bfseries \-T\-I\-M\-E\-V\-A\-R\-I\-A\-N\-T\-\_\-\-F\-R\-E\-Q\-\_\-\-S\-E\-L\-E\-C\-T\-I\-V\-E}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a86eb923e3dcf6669a080bdd81dd42970}{{\bfseries \-P\-L\-C\-\_\-\-Value\-Base} (\-Ptr$<$ const \-Spectrum\-Model $>$ sm, \-P\-L\-C\-\_\-\-Value\-Type type)}\label{classns3_1_1PLC__ValueBase_a86eb923e3dcf6669a080bdd81dd42970}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_ac53469f956ea121d70d0c5be54b5a552}{\-P\-L\-C\-\_\-\-Value\-Type {\bfseries \-Get\-Value\-Type} (void) const }\label{classns3_1_1PLC__ValueBase_ac53469f956ea121d70d0c5be54b5a552}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a5d3e4f116b8aae6e20e6ca682f85164c}{\-Ptr$<$ const \-Spectrum\-Model $>$ {\bfseries \-Get\-Spectrum\-Model} (void) const }\label{classns3_1_1PLC__ValueBase_a5d3e4f116b8aae6e20e6ca682f85164c}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_ad9b926e6254a94ad392e4a25c876a5b4}{size\-\_\-t {\bfseries \-Get\-Num\-Bands} (void) const }\label{classns3_1_1PLC__ValueBase_ad9b926e6254a94ad392e4a25c876a5b4}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a114798be562dd3a3a7a719fa877cf11a}{void {\bfseries \-Lock} (void) const }\label{classns3_1_1PLC__ValueBase_a114798be562dd3a3a7a719fa877cf11a}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a396855838da89e7f508fafdf56942f56}{void {\bfseries \-Unlock} (void) const }\label{classns3_1_1PLC__ValueBase_a396855838da89e7f508fafdf56942f56}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a253772117d6c84d6a9901a73dae13dfa}{bool {\bfseries \-Is\-Time\-Variant} (void) const }\label{classns3_1_1PLC__ValueBase_a253772117d6c84d6a9901a73dae13dfa}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a419f1eae4b67b9b463a837eb1efed152}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Value\-Base} $>$ {\bfseries \-Copy} (void)}\label{classns3_1_1PLC__ValueBase_a419f1eae4b67b9b463a837eb1efed152}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_ada5e05a8498a3bf69e682404a15bfedb}{\hyperlink{structns3_1_1PLC__Mutex}{\-P\-L\-C\-\_\-\-Mutex} {\bfseries m\-\_\-mutex}}\label{classns3_1_1PLC__ValueBase_ada5e05a8498a3bf69e682404a15bfedb}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a3da12fe42a52936f4f72a1c635824ddd}{\-Ptr$<$ const \-Spectrum\-Model $>$ {\bfseries m\-\_\-spectrum\-\_\-model}}\label{classns3_1_1PLC__ValueBase_a3da12fe42a52936f4f72a1c635824ddd}
+
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_ae20150e2ae5678848c5961ebe4b6e9ab}{\-P\-L\-C\-\_\-\-Value\-Type {\bfseries m\-\_\-value\-\_\-type}}\label{classns3_1_1PLC__ValueBase_ae20150e2ae5678848c5961ebe4b6e9ab}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classns3_1_1PLC__ValueBase_a2bf86fcf6c4f50fc8c925910881c7e37}{std\-::ostream \& {\bfseries operator$<$$<$} (std\-::ostream \&stream, \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Value\-Base} \&value)}\label{classns3_1_1PLC__ValueBase_a2bf86fcf6c4f50fc8c925910881c7e37}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Base class for \-P\-L\-C values types. 
+
+\-The \-P\-L\-C value classes are used for efficient operations among different value types. \-A value is a set of complex numbers which can be constant in time and/or frequency as well as time variant with respect to the main cycle. \-P\-L\-C value classes are used to represent network impedances, channel transfer functions and \-A\-B\-C\-D parameters for two port networks. 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+model/plc-\/value.\-h\item 
+model/plc-\/value.\-cc\end{DoxyCompactItemize}
