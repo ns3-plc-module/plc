@@ -29,7 +29,6 @@
 #include "ns3/plc-edge.h"
 #include "ns3/plc-channel.h"
 #include "ns3/plc-phy.h"
-#include "ns3/plc-error-model.h"
 
 namespace ns3 {
 

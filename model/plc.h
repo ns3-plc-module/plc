@@ -46,7 +46,6 @@
 #include "ns3/plc-backbone.h"
 #include "ns3/plc-outlet.h"
 #include "ns3/plc-noise.h"
-#include "ns3/plc-error-model.h"
 #include "ns3/plc-phy.h"
 #include "ns3/plc-mac.h"
 #include "ns3/plc-net-device.h"
