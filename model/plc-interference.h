@@ -49,12 +49,17 @@ public:
 	void AddInterferenceSignal (Ptr<const SpectrumValue> spd);
 	void RemoveInterferenceSignal (Ptr<const SpectrumValue> spd);
 
-	Ptr<SpectrumValue> GetSINR(void);
+	Ptr<SpectrumValue> GetSinr(void);
 	double GetTotalRxPower(void);
 	double GetTotalNoisePower(void);
 
+	void SetSinrBase(Ptr<const SpectrumValue> baseSinr);
+	Ptr<const SpectrumValue> GetSinrBase(void);
+
 private:
 	void DoDispose ();
+
+	void CalcSinr(void);
 
 	bool m_receiving;
 
@@ -63,6 +68,7 @@ private:
 	Ptr<SpectrumValue> 			m_noiseSignals;
 	Ptr<const SpectrumValue> 	m_noiseFloor;
 	Ptr<SpectrumValue>			m_sinr;
+	Ptr<const SpectrumValue>	m_sinr_base;
 
 	TracedCallback<Time, Ptr<const SpectrumValue> > m_sumSignalTracer;
 	TracedCallback<Time, Ptr<const SpectrumValue> > m_rxSignalTracer;

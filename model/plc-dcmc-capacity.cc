@@ -28,7 +28,7 @@ SpectrumValue GetCapacity(const SpectrumValue& SINR, Modulation mod, short cardi
 {
 	SpectrumValue capacityPerHertz(SINR.GetSpectrumModel());
 
-	double *cap;
+	const double *cap;
 	if (mod == QAM)
 	{
 		switch (cardinality)

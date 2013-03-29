@@ -63,6 +63,16 @@ NS_LOG_COMPONENT_DEFINE ("PLC_Phy");
 		}\
 	} while(0)
 
+#define PLC_PHY_DEBUG(msg)\
+	do {\
+		if (m_node) {\
+			NS_LOG_DEBUG(m_node->GetName() << msg);\
+		}\
+		else {\
+			NS_LOG_DEBUG(msg);\
+		}\
+	} while(0)
+
 namespace ns3 {
 
 Time
@@ -100,7 +110,7 @@ CalculateFixedRateTxDuration(size_t uncoded_bytes, ModulationAndCodingType mcs, 
 
 		case QAM64_16_21:
 		{
-			code_rate = 16/21;
+			code_rate = (double) 16/21;
 			bits_per_subcarrier = 6;
 			break;
 		}
@@ -116,8 +126,6 @@ CalculateFixedRateTxDuration(size_t uncoded_bytes, ModulationAndCodingType mcs, 
 	NS_LOG_LOGIC("num_symbols: " << num_symbols);
 
 	Time duration = Time::FromInteger((PLC_Phy::GetSymbolDuration().GetInteger() * num_symbols), Time::GetResolution());
-
-	NS_LOG_INFO("Calculated tx duration: " << duration);
 
 	return duration;
 }
@@ -186,7 +194,8 @@ CodeRate (ModulationAndCodingType mcs)
 
 NS_OBJECT_ENSURE_REGISTERED (PLC_Phy);
 
-Time PLC_Phy::symbol_duration = NanoSeconds(8192);
+//Time PLC_Phy::symbol_duration = NanoSeconds(8192);
+Time PLC_Phy::symbol_duration = MicroSeconds(2240);
 
 TypeId
 PLC_Phy::GetTypeId (void)
@@ -284,6 +293,16 @@ PLC_Phy::GetChannelTransferImpl (Ptr<PLC_Phy> rxPhy)
 	return DoGetChannelTransferImpl(rxPhy);
 }
 
+Ptr<PLC_TransferBase>
+PLC_Phy::GetChannelTransferVector(Ptr<PLC_Phy> rxPhy)
+{
+	PLC_PHY_FUNCTION (this << rxPhy);
+	PLC_ChannelTransferImpl *cti = GetChannelTransferImpl(rxPhy);
+	NS_ASSERT_MSG (cti, "No channel to rxPhy " << rxPhy);
+	return cti->GetChannelTransferVector();
+}
+
+
 ////////////////////////////// PLC_HalfDuplexOfdmPhy /////////////////////////////////////////////
 
 NS_OBJECT_ENSURE_REGISTERED (PLC_HalfDuplexOfdmPhy);
@@ -371,10 +390,16 @@ PLC_HalfDuplexOfdmPhy::CreateInterfaces (Ptr<PLC_Outlet> outlet, Ptr<SpectrumVal
 	Ptr<PLC_Channel> ch = graph->GetChannel();
 	NS_ASSERT_MSG(ch, "PLC_HalfDuplexOfdmPhy::CreateInterfaces: the graph the outlet's node is connected to is not bound to a PLC_Channel");
 
-	m_txInterface = CreateObject<PLC_TxInterface> (m_node, txPsd->GetSpectrumModel());
+	if (!m_txInterface)
+	{
+		m_txInterface = CreateObject<PLC_TxInterface> (m_node, txPsd->GetSpectrumModel());
+	}
 	m_txInterface->SetPhy(Ptr<PLC_Phy> (this));
 
-	m_rxInterface = CreateObject<PLC_RxInterface> (m_node, txPsd->GetSpectrumModel());
+	if (!m_rxInterface)
+	{
+		m_rxInterface = CreateObject<PLC_RxInterface> (m_node, txPsd->GetSpectrumModel());
+	}
 	m_rxInterface->SetPhy(Ptr<PLC_Phy> (this));
 	m_rxInterface->SetOutlet(m_outlet);
 
@@ -706,6 +731,7 @@ PLC_ErrorRatePhy::DoStartTx (Ptr<Packet> p)
 
 	// Calculate transmission duration
 	Time duration = CalculateTxDuration(p);
+	PLC_PHY_INFO("Calculated tx duration: " << duration);
 	NS_ASSERT_MSG(m_txInterface, "Phy has no tx interface");
 
 	if (m_state == IDLE)
@@ -1025,15 +1051,25 @@ PLC_InformationRatePhy::DoStartTx (Ptr<Packet> p)
 	Time duration;
 	Time payload_duration;
 
+	uint16_t uncoded_header_bits;
+	uint32_t uncoded_payload_bits = p->GetSize()*8;
+
 	if (m_payload_mcs < BPSK_RATELESS)
 	{
 		// Fixed rate payload encoding
-
 		size_t encoded_payload_size = ceil(((double) p->GetSize()) / CodeRate(m_payload_mcs));
 		txPacket = Create<Packet> (encoded_payload_size);
 
-		payload_duration = CalculateFixedRateTxDuration(encoded_payload_size, m_payload_mcs, m_numSubcarriers);
-		duration = CalculateFixedRateTxDuration(phyHeader.GetSerializedSize(), m_header_mcs, m_numSubcarriers) + payload_duration;
+		payload_duration = CalculateFixedRateTxDuration(p->GetSize(), m_payload_mcs, m_numSubcarriers);
+		Time hdr_duration = CalculateFixedRateTxDuration(phyHeader.GetSerializedSize(), m_header_mcs, m_numSubcarriers);
+		duration = hdr_duration + payload_duration;
+		PLC_PHY_LOGIC ("Header duration: " << hdr_duration);
+		PLC_PHY_LOGIC ("Payload duration: " << payload_duration);
+		PLC_PHY_LOGIC ("Frame duration: " << duration);
+
+		// Determine uncoded header bits
+		uncoded_header_bits = phyHeader.GetSerializedSize()*8;
+		PLC_PHY_LOGIC ("Start TX, uncoded header bits: " << uncoded_header_bits);
 	}
 	else
 	{
@@ -1076,6 +1112,9 @@ PLC_InformationRatePhy::DoStartTx (Ptr<Packet> p)
 		// Add rateless PHY header
 		txPacket->AddHeader(rlHdr);
 
+		// Determine uncoded header bits
+		uncoded_header_bits = (phyHeader.GetSerializedSize() + rlHdr.GetSerializedSize())*8;
+
 		// Calculate time needed for transmission (the baudrate is supposed to be the same for both modulation types)
 		Time hdr_duration = CalculateFixedRateTxDuration(phyHeader.GetSerializedSize() + rlHdr.GetSerializedSize(), m_header_mcs, m_numSubcarriers);
 		payload_duration = CalculateTxDuration(payload_symbols);
@@ -1083,6 +1122,7 @@ PLC_InformationRatePhy::DoStartTx (Ptr<Packet> p)
 		PLC_PHY_LOGIC("payload_duration: " << payload_duration);
 
 		duration = hdr_duration + payload_duration;
+		PLC_PHY_INFO("Calculated tx duration: " << duration);
 	}
 
 	// Add PHY header
@@ -1091,7 +1131,8 @@ PLC_InformationRatePhy::DoStartTx (Ptr<Packet> p)
 	// Add packet tag to avoid recomputation of payload_duration and uncoded bit amount at the receiver
 	tag.SetPayloadMcs(m_payload_mcs);
 	tag.SetPayloadDuration(payload_duration);
-	tag.SetUncodedBits(p->GetSize()*8);
+	tag.SetUncodedHeaderBits(uncoded_header_bits);
+	tag.SetUncodedPayloadBits(uncoded_payload_bits);
 	txPacket->AddPacketTag(tag);
 
 	NS_ASSERT_MSG(m_txInterface, "Phy has no tx interface");
@@ -1142,7 +1183,9 @@ PLC_InformationRatePhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<Spect
 		NS_ASSERT_MSG(m_incoming_packet->RemovePacketTag(tag), "Packet is not tagged, something went wrong...");
 		ModulationAndCodingType payload_mcs = tag.GetPayloadMcs();
 		Time payload_duration = tag.GetPayloadDuration();
-		m_uncoded_rx_bits = tag.GetUncodedBits();
+		m_uncoded_payload_bits = tag.GetUncodedPayloadBits();
+
+		PLC_PHY_LOGIC ("Payload duration: " << payload_duration);
 
 		size_t uncoded_header_bits;
 		if (m_payload_mcs >= BPSK_RATELESS)
@@ -1150,12 +1193,13 @@ PLC_InformationRatePhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<Spect
 			// Rateless encoded payload
 			// Remove rateless header
 			m_incoming_packet->RemoveHeader(m_rateless_header);
-			uncoded_header_bits = (phyHeader.GetSerializedSize() + m_rateless_header.GetSerializedSize()) * 8 * CodeRate(mcs);
+			uncoded_header_bits = (phyHeader.GetSerializedSize() + m_rateless_header.GetSerializedSize()) * 8;
+			PLC_PHY_LOGIC ("Start RX, uncoded header bits: " << uncoded_header_bits);
 		}
 		else
 		{
 			// fixed rate encoded payload
-			uncoded_header_bits = phyHeader.GetSerializedSize() * 8 * CodeRate(mcs);
+			uncoded_header_bits = phyHeader.GetSerializedSize() * 8;
 		}
 		PLC_PHY_LOGIC("Uncoded header bits: " << uncoded_header_bits);
 
@@ -1207,7 +1251,7 @@ PLC_InformationRatePhy::EndRxHeader(ModulationAndCodingType mcs, Time duration)
 		PLC_PHY_INFO("Remaining rx time: " << duration);
 
 		m_receiving_payload = true;
-		m_information_rate_model->StartRx(mcs, m_rxPsd, m_uncoded_rx_bits);
+		m_information_rate_model->StartRx(mcs, m_rxPsd, m_uncoded_payload_bits);
 		Simulator::Schedule(duration, &PLC_InformationRatePhy::EndRxPayload, this);
 		Simulator::Schedule(duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
 	}
@@ -1239,6 +1283,8 @@ PLC_InformationRatePhy::EndRxPayload(void)
 		{
 			m_receive_success_cb(m_uncoded_packet);
 		}
+
+		NotifySuccessfulReception();
 	}
 	else
 	{
@@ -1287,6 +1333,136 @@ PLC_InformationRatePhy::ClearChannelAssessment(void)
 		return CHANNEL_CLEAR;
 	else
 		return CHANNEL_OCCUPIED;
+}
+
+void
+PLC_InformationRatePhy::NotifySuccessfulReception (void)
+{
+	PLC_PHY_FUNCTION (this);
+}
+
+////////////////////////////// PLC_ChaseCombiningPhy /////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_ChaseCombiningPhy);
+
+TypeId
+PLC_ChaseCombiningPhy::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_ChaseCombiningPhy")
+	.SetParent<PLC_InformationRatePhy> ()
+	.AddConstructor<PLC_ChaseCombiningPhy> ()
+    ;
+  return tid;
+}
+
+PLC_ChaseCombiningPhy::PLC_ChaseCombiningPhy (void)
+{
+	m_rxPacketRef = 0;
+	m_information_rate_model->TraceConnectWithoutContext ("SinrTrace", MakeCallback (&PLC_ChaseCombiningPhy::TraceSinr, this));
+}
+
+void
+PLC_ChaseCombiningPhy::UpdateSinrBase (Ptr<const SpectrumValue> newSinrBase)
+{
+	PLC_PHY_FUNCTION (this << newSinrBase);
+	m_information_rate_model->SetSinrBase(newSinrBase);
+}
+
+void
+PLC_ChaseCombiningPhy::TraceSinr (Time t, Ptr<const SpectrumValue> sinr)
+{
+	PLC_PHY_FUNCTION(this << t << sinr);
+	NS_ASSERT_MSG (t >= m_rxStartTime, "SINR trace time less than packet reception start time, something went wrong...");
+	Time offset = t - m_rxStartTime;
+	m_sinrBaseTrace.push_back(std::pair<Time, Ptr<const SpectrumValue> > (offset, sinr->Copy()));
+}
+
+void
+PLC_ChaseCombiningPhy::DoStart (void)
+{
+	PLC_PHY_FUNCTION(this);
+	m_rxPacketRef = 0;
+	PLC_InformationRatePhy::DoStart();
+}
+
+void
+PLC_ChaseCombiningPhy::DoDispose(void)
+{
+	PLC_PHY_FUNCTION(this);
+	m_rxPacketRef = 0;
+	m_sinrBaseTrace.clear();
+	PLC_InformationRatePhy::DoDispose();
+}
+
+bool
+PLC_ChaseCombiningPhy::DoStartTx (Ptr<Packet> p)
+{
+	PLC_PHY_FUNCTION(this << p);
+	return PLC_InformationRatePhy::DoStartTx (p);
+}
+
+void
+PLC_ChaseCombiningPhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration)
+{
+	PLC_PHY_FUNCTION(this << p << txId << rxPsd << mcs << duration);
+
+	PLC_PhyHeader phyHdr;
+	p->PeekHeader(phyHdr);
+
+	if (phyHdr.GetDelimiterType() < PLC_PhyHeader::ACK)
+	{
+		// Is data frame
+		PLC_PHY_INFO ("Starting reception of data frame " << p);
+
+		m_rxStartTime = Now();
+
+		Ptr<PLC_Phy> txPhy = GetRxInterface()->GetChannel()->GetTxInterface(m_locked_txId)->GetPhy();
+		Ptr<const Packet> packetRef = (static_cast<PLC_InformationRatePhy *> (PeekPointer(txPhy)))->GetUncodedPacket();
+
+		if (packetRef == m_rxPacketRef)
+		{
+			// Is redundancy packet
+			PLC_PHY_INFO ("Is redundancy frame, starting chase combining reception...");
+
+			// Schedule sinr base updates
+			PLC_SinrTrace::const_iterator it = m_sinrBaseTrace.begin();
+
+			NS_ASSERT_MSG (it != m_sinrBaseTrace.end(), "No sinr base entries for redundancy packet reception");
+			NS_ASSERT_MSG (it->first == Seconds(0), "Offset time of first sinr base entry not zero");
+
+			UpdateSinrBase(it->second);
+
+			while (++it != m_sinrBaseTrace.end())
+			{
+				Simulator::Schedule(it->first, &PLC_ChaseCombiningPhy::UpdateSinrBase, this, it->second);
+			}
+		}
+		else
+		{
+			// Is new packet
+			PLC_PHY_INFO ("Is new data frame, starting reception...");
+			m_rxPacketRef = packetRef;
+		}
+
+		m_sinrBaseTrace.clear();
+	}
+
+	PLC_InformationRatePhy::DoStartRx (p, txId, rxPsd, mcs, duration);
+}
+
+void
+PLC_ChaseCombiningPhy::DoUpdateRxPsd (uint32_t txId, Ptr<SpectrumValue> newRxPsd)
+{
+	PLC_PHY_FUNCTION(this << txId << newRxPsd);
+	PLC_InformationRatePhy::DoUpdateRxPsd(txId, newRxPsd);
+}
+
+void
+PLC_ChaseCombiningPhy::NotifySuccessfulReception (void)
+{
+	PLC_PHY_FUNCTION (this);
+	m_rxPacketRef = 0;
+	m_sinrBaseTrace.clear();
 }
 
 }

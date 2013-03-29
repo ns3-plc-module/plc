@@ -38,6 +38,9 @@ PLC_LinkPerformanceModel::GetTypeId (void)
 {
 	static TypeId tid = TypeId ("ns3::PLC_LinkPerformanceModel")
 	.SetParent<Object> ()
+	.AddTraceSource  ("SinrTrace",
+					 "Signal to Interference plus Noise Ratio while receiving",
+					 MakeTraceSourceAccessor  (&PLC_LinkPerformanceModel::m_sinrTracer))
 	;
 	return tid;
 }
@@ -46,6 +49,7 @@ PLC_LinkPerformanceModel::PLC_LinkPerformanceModel ()
 {
 	m_interference = CreateObject<PLC_Interference> ();
 	m_receiving = false;
+	m_mcs = NONE_MCS;
 }
 
 PLC_LinkPerformanceModel::PLC_LinkPerformanceModel (Ptr<const SpectrumValue> noiseFloor)
@@ -95,7 +99,10 @@ PLC_LinkPerformanceModel::StartRx(ModulationAndCodingType mcs, Ptr<const Spectru
 	m_mcs = mcs;
 	m_interference->StartRx(rxPsd);
 	m_receiving = true;
+
 	DoStartRx(requiredInformationBits);
+
+	m_sinrTracer(Now(), m_interference->GetSinr());
 }
 
 void
@@ -106,6 +113,7 @@ PLC_LinkPerformanceModel::EvaluateChunk(void)
 	if (m_receiving && m_lastChangeTime < Now())
 	{
 		DoEvaluateChunk();
+		m_sinrTracer(Now(), m_interference->GetSinr());
 	}
 }
 
@@ -144,6 +152,19 @@ PLC_LinkPerformanceModel::RemoveNoiseSignal(Ptr<const SpectrumValue> noisePsd)
 	m_interference->RemoveInterferenceSignal(noisePsd);
 }
 
+void
+PLC_LinkPerformanceModel::SetSinrBase(Ptr<const SpectrumValue> sinrBase)
+{
+	NS_LOG_FUNCTION (this << sinrBase);
+	NS_ASSERT(m_interference);
+	m_interference->SetSinrBase(sinrBase);
+
+	if (m_receiving)
+	{
+		EvaluateChunk();
+	}
+}
+
 /////////////////////////////////////// PLC_ErrorRateModel /////////////////////////////////////////////
 
 NS_OBJECT_ENSURE_REGISTERED (PLC_ErrorRateModel);
@@ -177,7 +198,7 @@ double
 PLC_ErrorRateModel::GetChunkSuccessRate(uint32_t numBlocks)
 {
 	NS_LOG_FUNCTION(this);
-	SpectrumValue& sinr = *(m_interference->GetSINR());
+	SpectrumValue& sinr = *(m_interference->GetSinr());
 	double bler = GetBler(m_mcs, sinr);
 	return pow(1-bler, numBlocks);
 }
@@ -270,7 +291,7 @@ PLC_InformationRateModel::GetTypeId (void)
 }
 
 PLC_InformationRateModel::PLC_InformationRateModel()
-	: m_ineffective_time_proportion(0)
+	: m_ineffective_time_proportion(0), m_gathered_information_bits(0)
 {
 	NS_LOG_FUNCTION(this);
 }
@@ -301,9 +322,13 @@ PLC_InformationRateModel::DoEvaluateChunk(void)
 	NS_LOG_FUNCTION(this);
 
 	double effective_duration_s = ((Now() - m_lastChangeTime).GetSeconds())*(1-m_ineffective_time_proportion);
+	NS_LOG_LOGIC ("Effective duration: " << effective_duration_s);
 
-	Ptr<SpectrumValue> sinr = m_interference->GetSINR();
+	Ptr<SpectrumValue> sinr = m_interference->GetSinr();
+	NS_LOG_LOGIC ("SINR: " << *sinr);
+
 	SpectrumValue CapacityPerHertz = GetCapacity((*sinr), s_mcs_info[m_mcs].mod, s_mcs_info[m_mcs].cardinality);
+	NS_LOG_LOGIC ("Capacity per hertz: " << CapacityPerHertz);
 
 	Bands::const_iterator bi = CapacityPerHertz.ConstBandsBegin ();
 	Values::const_iterator vi = CapacityPerHertz.ConstValuesBegin ();

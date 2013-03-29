@@ -34,24 +34,6 @@ namespace ns3 {
 #define MAX_PULSE_GAP_DURATION		2
 
 /**
- * Helper class for noise floor generation
- */
-class PLC_NoiseFloor : public SimpleRefCount<PLC_NoiseFloor>
-{
-public:
-
-	PLC_NoiseFloor(Ptr<const SpectrumModel> sm);
-	PLC_NoiseFloor(Ptr<const SpectrumModel> sm, double const_value);
-	PLC_NoiseFloor(Ptr<SpectrumValue> noisePsd);
-
-	Ptr<SpectrumValue> GetNoisePsd(void);
-	void SetNoisePsd(Ptr<SpectrumValue> noisePsd);
-
-protected:
-	Ptr<SpectrumValue> m_noisePsd;
-};
-
-/**
  *	Helper class for colored noise generation
  *	with a simple three parameter model proposed in:
  *
@@ -63,15 +45,30 @@ protected:
  *	NoisePsd = a + b|f|^c [dBm/Hz]
  *
  *	with f in Mhz
- *
- *
  */
-class PLC_ColoredNoiseFloor : public PLC_NoiseFloor
+class PLC_ColoredNoiseFloor : public SimpleRefCount<PLC_ColoredNoiseFloor>
 {
 public:
 
 	PLC_ColoredNoiseFloor(double a, double b, double c, Ptr<const SpectrumModel> sm);
+
+	Ptr<SpectrumValue> GetNoisePsd(void);
+
+protected:
+	Ptr<SpectrumValue> m_noisePsd;
 };
+
+/**
+ *	\class PLC_NoiseSource
+ *
+ *	@brief Base class for noise source models
+ *
+ *	The noise sources act as transmitters in the PLC network.
+ *	The noise PSD will therefore experience channel distortion
+ *	before received by the receivers as interfering signal. Thus a
+ *	a more realistic noise environment can be simulated rather
+ *	than using a simple AWGN noise model.
+ */
 
 /**
  *	\class PLC_NoiseSource
@@ -177,6 +174,9 @@ public:
 	bool IsEnabled(void);
 
 protected:
+    // pure virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) = 0;
+
 	NoiseSourceType m_noise_source_type;
 	uint32_t m_noise_srcId;
 	Ptr<PLC_Node> m_src_node;
@@ -196,6 +196,10 @@ public:
 
 	void Start (Time duration);
 
+protected:
+    // dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
+
 private:
 	Ptr<SpectrumValue> m_noisePsd;
 };
@@ -210,6 +214,10 @@ public:
 
 	void SetProbability(double p);
 	double GetProbability(void);
+
+protected:
+    // dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
 
 private:
 	double m_p;
@@ -261,6 +269,10 @@ public:
 	 * Scheduled in PulseStart with random variable m_pulselen_gen
 	 */
 	void PulseEnd(void);
+
+protected:
+    // dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
 
 private:
 	RandomVariable		*m_pulse_len;

@@ -61,8 +61,9 @@ public:
 		TIMEVARIANT_FREQ_SELECTIVE
 	};
 
+    PLC_ValueBase() {}
 	PLC_ValueBase(Ptr<const SpectrumModel> sm, PLC_ValueType type);
-	virtual ~PLC_ValueBase(void) = 0;
+	~PLC_ValueBase(void);
 
 	PLC_ValueType GetValueType(void) const { return m_value_type; }
 	Ptr<const SpectrumModel> GetSpectrumModel(void) const { return m_spectrum_model; }
@@ -78,6 +79,8 @@ public:
 	Ptr<PLC_ValueBase> Copy(void);
 
 protected:
+    // pure virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) = 0;
 
 	mutable PLC_Mutex			m_mutex;
 	Ptr<const SpectrumModel> 	m_spectrum_model;
@@ -92,11 +95,12 @@ class PLC_ConstValue : public PLC_ValueBase
 
 public:
 
+    PLC_ConstValue();
 	PLC_ConstValue(Ptr<const SpectrumModel> sm, double real);
 	PLC_ConstValue(Ptr<const SpectrumModel> sm, PLC_Value value = PLC_Value(0, 0));
 	PLC_ConstValue(const PLC_ConstValue& value);
 
-	PLC_Value GetValue(void) const { return m_value; }
+	PLC_Value GetValue(void) const;
 
 	PLC_ConstValue& operator=(const PLC_ConstValue& value);
 
@@ -145,6 +149,10 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& stream, PLC_ConstValue& value);
 
+protected:
+    // virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
+
 private:
 
 	PLC_Value m_value;
@@ -157,6 +165,7 @@ class PLC_FreqSelectiveValue : public PLC_ValueBase
 {
 public:
 
+    PLC_FreqSelectiveValue() {}
 	PLC_FreqSelectiveValue(Ptr<const SpectrumModel> sm, PLC_Value value = PLC_Value(0, 0));
 	PLC_FreqSelectiveValue(Ptr<const SpectrumModel> sm, const PLC_ValueSpectrum& values);
 	PLC_FreqSelectiveValue(Ptr<const SpectrumModel> sm, double R, double Q, double f_0);
@@ -237,6 +246,10 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& stream, PLC_FreqSelectiveValue& value);
 
+protected:
+    // virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
+
 private:
 
 	PLC_ValueSpectrum	m_values;
@@ -248,6 +261,8 @@ private:
 class PLC_TimeVariantConstValue : public PLC_ValueBase
 {
 public:
+
+    PLC_TimeVariantConstValue() {}
 	PLC_TimeVariantConstValue(Ptr<const SpectrumModel> sm, PLC_Value value = PLC_Value(0, 0), size_t timeslots = PLC_Time::GetNumTimeslots());
 	PLC_TimeVariantConstValue(Ptr<const SpectrumModel> sm, const PLC_TimeVariantValue& values);
 	PLC_TimeVariantConstValue(const PLC_ConstValue& value, size_t timeslots = PLC_Time::GetNumTimeslots());
@@ -327,6 +342,10 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& stream, PLC_TimeVariantConstValue& value);
 
+protected:
+    // virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
+
 private:
 
 	PLC_TimeVariantValue	m_values;
@@ -349,6 +368,7 @@ public:
 		double phi;
 	};
 
+    PLC_TimeVariantFreqSelectiveValue() {}
 	PLC_TimeVariantFreqSelectiveValue(Ptr<const SpectrumModel> sm, size_t timeslots = PLC_Time::GetNumTimeslots(), PLC_Value value = PLC_Value(0, 0));
 	PLC_TimeVariantFreqSelectiveValue(Ptr<const SpectrumModel> sm, const PLC_TimeVariantValue& values);
 	PLC_TimeVariantFreqSelectiveValue(Ptr<const SpectrumModel> sm, const PLC_TimeVariantValueSpectrum& values);
@@ -455,6 +475,10 @@ public:
 	friend PLC_TimeVariantFreqSelectiveValue operator/(const PLC_FreqSelectiveValue& lhs, const PLC_TimeVariantConstValue& rhs);
 
 	friend std::ostream& operator<<(std::ostream& stream, PLC_TimeVariantFreqSelectiveValue& value);
+
+protected:
+    // virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
 
 private:
 

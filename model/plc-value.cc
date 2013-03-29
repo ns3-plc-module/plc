@@ -904,6 +904,10 @@ Ptr<PLC_ValueBase> PLC_ValueBase::Copy(void)
 
 //////////////////////////////////////// PLC_ConstValue /////////////////////////////////////////////
 
+PLC_ConstValue::PLC_ConstValue(void)
+{
+}
+
 PLC_ConstValue::PLC_ConstValue(Ptr<const SpectrumModel> sm, double real) : PLC_ValueBase(sm, PLC_ValueBase::CONSTANT)
 {
 	this->m_value = PLC_Value(real, 0);
@@ -917,6 +921,12 @@ PLC_ConstValue::PLC_ConstValue(Ptr<const SpectrumModel> sm, PLC_Value value) : P
 PLC_ConstValue::PLC_ConstValue(const PLC_ConstValue& value) : PLC_ValueBase(value.GetSpectrumModel(), PLC_ValueBase::CONSTANT)
 {
 	this->m_value = value.GetValue();
+}
+
+PLC_Value 
+PLC_ConstValue::GetValue(void) const 
+{ 
+    return m_value; 
 }
 
 PLC_ConstValue& PLC_ConstValue::operator=(const PLC_ConstValue& value)
@@ -942,6 +952,63 @@ PLC_ConstValue& PLC_ConstValue::operator+=(const PLC_ConstValue& value)
 {
 	NS_ASSERT(value.GetSpectrumModel() == this->m_spectrum_model);
 	this->m_value += value.GetValue();
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator-=(double value)
+{
+	this->m_value -= PLC_Value(value, 0);
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator-=(const PLC_Value& value)
+{
+	this->m_value -= value;
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator-=(const PLC_ConstValue& value)
+{
+	NS_ASSERT(value.GetSpectrumModel() == this->m_spectrum_model);
+	this->m_value -= value.GetValue();
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator*=(double value)
+{
+	this->m_value *= PLC_Value(value, 0);
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator*=(const PLC_Value& value)
+{
+	this->m_value *= value;
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator*=(const PLC_ConstValue& value)
+{
+	NS_ASSERT(value.GetSpectrumModel() == this->m_spectrum_model);
+	this->m_value *= value.GetValue();
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator/=(double value)
+{
+	this->m_value /= PLC_Value(value, 0);
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator/=(const PLC_Value& value)
+{
+	this->m_value /= value;
+	return *this;
+}
+
+PLC_ConstValue& PLC_ConstValue::operator/=(const PLC_ConstValue& value)
+{
+	NS_ASSERT(value.GetSpectrumModel() == this->m_spectrum_model);
+	this->m_value /= value.GetValue();
 	return *this;
 }
 

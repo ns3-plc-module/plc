@@ -31,8 +31,10 @@ public:
 	  ModulationAndCodingType GetPayloadMcs(void) const { return m_payload_mcs; }
 	  void SetPayloadDuration(Time duration) { m_duration = duration; }
 	  Time GetPayloadDuration(void) const { return m_duration; }
-	  void SetUncodedBits(uint32_t uncoded_bits) { m_uncoded_bits = uncoded_bits; }
-	  uint32_t GetUncodedBits(void) { return m_uncoded_bits; }
+	  void SetUncodedHeaderBits(uint16_t bits) { m_uncoded_header_bits = bits; }
+	  uint16_t GetUncodedHeaderBits(void) { return m_uncoded_header_bits; }
+	  void SetUncodedPayloadBits(uint16_t bits) { m_uncoded_payload_bits = bits; }
+	  uint16_t GetUncodedPayloadBits(void) { return m_uncoded_payload_bits; }
 
 	  virtual uint32_t GetSerializedSize (void) const;
 	  virtual void Serialize (TagBuffer i) const;
@@ -42,17 +44,30 @@ public:
 private:
 	  ModulationAndCodingType m_payload_mcs;
 	  Time m_duration;
-	  uint32_t m_uncoded_bits;
+	  uint16_t m_uncoded_header_bits;
+	  uint32_t m_uncoded_payload_bits;
 };
 
 class PLC_PhyHeader : public Header
 {
 public:
+	enum DelimiterType
+	{
+		NoResponseExpected,
+		ResponseExpected,
+		ACK,
+		NACK
+	};
+
 	static TypeId GetTypeId (void);
 
 	PLC_PhyHeader(void);
 	~PLC_PhyHeader(void);
 
+	void SetDelimiterType(DelimiterType type);
+	DelimiterType GetDelimiterType(void);
+	void SetFrameId(uint32_t id);
+	uint32_t GetFrameId(void);
 	virtual uint32_t GetSerializedSize (void) const;
 	virtual TypeId GetInstanceTypeId (void) const;
 	virtual void Serialize (Buffer::Iterator start) const;
@@ -61,6 +76,8 @@ public:
 
 private:
 	uint8_t m_preamble;
+	uint8_t m_delimiter_type;
+	uint32_t m_frame_id;
 };
 
 class PLC_RatelessPhyHeader : public Header

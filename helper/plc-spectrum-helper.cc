@@ -25,6 +25,17 @@ namespace ns3 {
 
 ////////////////////////////////// PLC_SpectrumModelHelper /////////////////////////////////////////////////
 
+NS_OBJECT_ENSURE_REGISTERED (PLC_SpectrumModelHelper);
+
+TypeId
+PLC_SpectrumModelHelper::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId ("ns3::PLC_SpectrumModelHelper")
+    		.SetParent<Object> ()
+    		;
+	return tid;
+}
+
 void PLC_SpectrumModelHelper::CreateSpectrumModel(void)
 {
 	std::vector<double> center_freqs;
@@ -67,7 +78,38 @@ Ptr<const SpectrumModel> PLC_SpectrumModelHelper::GetG3SpectrumModel(void)
 	return this->m_spectrum_model;
 }
 
+////////////////////////////////// PLC_TimeInvariantSpectrumHelper /////////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_TimeInvariantSpectrumHelper);
+
+TypeId
+PLC_TimeInvariantSpectrumHelper::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId ("ns3::PLC_TimeInvariantSpectrumHelper")
+    		.SetParent<Object> ()
+    		;
+	return tid;
+}
+
+PLC_TimeInvariantSpectrumHelper::PLC_TimeInvariantSpectrumHelper(Ptr<const SpectrumModel> sm)
+	: m_spectrum_model(sm)
+{
+	m_power_spectral_density = Create<SpectrumValue> (sm);
+}
+
 ////////////////////////////////// PLC_SincSpectrumHelper /////////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_SincSpectrumHelper);
+
+TypeId
+PLC_SincSpectrumHelper::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId ("ns3::PLC_SincSpectrumHelper")
+    		.SetParent<PLC_TimeInvariantSpectrumHelper> ()
+    		;
+	return tid;
+}
+
 
 PLC_SincSpectrumHelper::PLC_SincSpectrumHelper(double f_c, double main_lobe_bw, double peakPwr, Ptr<const SpectrumModel> sm) : PLC_TimeInvariantSpectrumHelper(sm), m_f_c(f_c), m_main_lobe_bw(main_lobe_bw), m_pwr(peakPwr)
 {
@@ -81,16 +123,5 @@ PLC_SincSpectrumHelper::PLC_SincSpectrumHelper(double f_c, double main_lobe_bw, 
 		}
 	}
 }
-
-////////////////////////////////// PLC_NoiseFloorHelper /////////////////////////////////////////////////
-
-PLC_NoiseFloorHelper::PLC_NoiseFloorHelper(double pwr, Ptr<const SpectrumModel> sm) : PLC_TimeInvariantSpectrumHelper(sm), m_pwr(pwr)
-{
-	Values::iterator v_it;
-	for (v_it = this->m_power_spectral_density->ValuesBegin(); v_it != this->m_power_spectral_density->ValuesEnd(); v_it++) {
-		*v_it = pwr;
-	}
-}
-
 
 } // namespace ns3

@@ -25,7 +25,7 @@ PLC_PhyPacketTag::GetTypeId (void)
 uint32_t
 PLC_PhyPacketTag::GetSerializedSize (void) const
 {
-	return sizeof(ModulationAndCodingType) + sizeof(uint64_t) + sizeof(size_t);
+	return sizeof(ModulationAndCodingType) + sizeof(uint64_t) + sizeof(uint16_t) + sizeof(uint32_t);
 }
 
 void
@@ -33,7 +33,8 @@ PLC_PhyPacketTag::Serialize (TagBuffer i) const
 {
 	i.WriteU8((uint8_t) m_payload_mcs);
 	i.WriteU64(m_duration.ToInteger(Time::GetResolution()));
-	i.WriteU32(m_uncoded_bits);
+	i.WriteU16(m_uncoded_header_bits);
+	i.WriteU32(m_uncoded_payload_bits);
 }
 
 void
@@ -41,7 +42,8 @@ PLC_PhyPacketTag::Deserialize (TagBuffer i)
 {
 	m_payload_mcs = (ModulationAndCodingType) i.ReadU8();
 	m_duration = Time::FromInteger((int64_t) i.ReadU64(), Time::GetResolution());
-	m_uncoded_bits = (uint32_t) i.ReadU32();
+	m_uncoded_header_bits = (uint16_t) i.ReadU16();
+	m_uncoded_payload_bits = (uint32_t) i.ReadU32();
 }
 
 void
@@ -49,7 +51,8 @@ PLC_PhyPacketTag::Print (std::ostream &os) const
 {
 	os << ", Header Modulation and Coding Type = " << m_payload_mcs;
 	os << ", Duration = " << m_duration;
-	os << ", Uncoded bits = " << m_uncoded_bits;
+	os << ", Uncoded header bits = " << m_uncoded_header_bits;
+	os << ", Uncoded payload bits = " << m_uncoded_payload_bits;
 }
 
 TypeId
@@ -75,16 +78,41 @@ PLC_PhyHeader::PLC_PhyHeader(void)
 {
 	// PHY preamble: 10101010
 	m_preamble = 0xaa;
+	m_delimiter_type = NoResponseExpected;
 }
 
 PLC_PhyHeader::~PLC_PhyHeader(void)
 {
 }
 
+void
+PLC_PhyHeader::SetDelimiterType(DelimiterType type)
+{
+	m_delimiter_type = (uint8_t) type;
+}
+
+PLC_PhyHeader::DelimiterType
+PLC_PhyHeader::GetDelimiterType(void)
+{
+	return (PLC_PhyHeader::DelimiterType) m_delimiter_type;
+}
+
+void
+PLC_PhyHeader::SetFrameId(uint32_t id)
+{
+	m_frame_id = id;
+}
+
+uint32_t
+PLC_PhyHeader::GetFrameId(void)
+{
+	return m_frame_id;
+}
+
 uint32_t
 PLC_PhyHeader::GetSerializedSize (void) const
 {
-	return sizeof(m_preamble);
+	return sizeof(m_preamble) + sizeof(m_delimiter_type);
 }
 
 TypeId
@@ -98,6 +126,7 @@ PLC_PhyHeader::Serialize (Buffer::Iterator start) const
 {
 	Buffer::Iterator i = start;
 	i.WriteU8(m_preamble);
+	i.WriteU8(m_delimiter_type);
 }
 
 uint32_t
@@ -105,13 +134,28 @@ PLC_PhyHeader::Deserialize (Buffer::Iterator start)
 {
 	Buffer::Iterator i = start;
 	m_preamble = i.ReadU8();
+	m_delimiter_type = i.ReadU8();
 	return i.GetDistanceFrom(start);
 }
 
 void
 PLC_PhyHeader::Print (std::ostream &os) const
 {
-	os << "preamble = " << m_preamble;
+	os << "preamble = ";
+	uint8_t i;
+	for (i=0; i<8; i++)
+	{
+		if (m_preamble & 0x80>>i)
+		{
+			os << "1";
+		}
+		else
+		{
+			os << "0";
+		}
+	}
+	os << ", ";
+	os << "delimiter type = " << (int) m_delimiter_type;
 }
 
 //////////////////////// PLC_RatelessPhyHeader //////////////////////////

@@ -108,6 +108,8 @@ public:
 	void Unlock(void) { m_mutex.Unlock(); }
 
 protected:
+    // pure virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) = 0;
 	virtual void DoDispose(void);
 
 	mutable PLC_Mutex			m_mutex;
@@ -205,6 +207,8 @@ public:
 	void StartTx(Ptr<Packet> p, Ptr<const SpectrumValue> txPsd, ModulationAndCodingType mcs, Time duration);
 
 private:
+    // virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
 	virtual void DoStart(void);
 	virtual void DoDispose(void);
 
@@ -284,6 +288,8 @@ public:
 	void RxPsdChanged(uint32_t txId, Ptr<SpectrumValue> rxSignal);
 
 private:
+    // virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
 	virtual void DoStart(void);
 	virtual void DoDispose(void);
 

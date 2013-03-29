@@ -21,6 +21,7 @@
 #ifndef PLC_SPECTRUM_HELPER_H
 #define PLC_SPECTRUM_HELPER_H
 
+#include <ns3/object.h>
 #include <ns3/random-variable.h>
 #include <ns3/spectrum-value.h>
 #include <ns3/spectrum-model.h>
@@ -44,9 +45,11 @@ namespace ns3 {
  * Helper class to create spectrum models with equidistant
  * frequency samples
  */
-class PLC_SpectrumModelHelper
+class PLC_SpectrumModelHelper : public Object
 {
 public:
+	static TypeId GetTypeId(void);
+
 	/**
 	 * Create a spectrum model with lower band limit fl,
 	 * higher band limit fh and numbands of subbands
@@ -78,19 +81,16 @@ private:
 	Ptr<SpectrumModel> m_spectrum_model;
 };
 
-
 /**
  *
  */
-class PLC_TimeInvariantSpectrumHelper
+class PLC_TimeInvariantSpectrumHelper : public Object
 {
 public:
-	PLC_TimeInvariantSpectrumHelper(Ptr<const SpectrumModel> sm) : m_spectrum_model(sm)
-	{
-		m_power_spectral_density = Create<SpectrumValue> (sm);
-	}
+	static TypeId GetTypeId(void);
 
-	inline Ptr<SpectrumValue> GetPowerSpectralDensity(void) { return m_power_spectral_density; }
+	PLC_TimeInvariantSpectrumHelper(Ptr<const SpectrumModel> sm);
+	Ptr<SpectrumValue> GetPowerSpectralDensity(void) { return m_power_spectral_density; }
 
 protected:
 	Ptr<const SpectrumModel> 	m_spectrum_model;
@@ -100,19 +100,12 @@ protected:
 class PLC_SincSpectrumHelper : public PLC_TimeInvariantSpectrumHelper
 {
 public:
+	static TypeId GetTypeId(void);
+
 	PLC_SincSpectrumHelper(double f_c, double main_lobe_bw, double peakPwr, Ptr<const SpectrumModel> sm);
 
 private:
 	double m_f_c, m_main_lobe_bw, m_pwr;
-};
-
-class PLC_NoiseFloorHelper : public PLC_TimeInvariantSpectrumHelper
-{
-public:
-	PLC_NoiseFloorHelper(double pwr, Ptr<const SpectrumModel> sm);
-
-private:
-	double m_pwr;
 };
 
 }

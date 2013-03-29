@@ -21,6 +21,8 @@
 #ifndef PLC_DEVICE_HELPER_H_
 #define PLC_DEVICE_HELPER_H_
 
+#include <string>
+#include <ns3/object.h>
 #include <ns3/random-variable.h>
 #include "ns3/plc-node.h"
 #include "ns3/plc-outlet.h"
@@ -34,9 +36,11 @@
 
 namespace ns3 {
 
-class PLC_NetDeviceHelper
+class PLC_NetDeviceHelper : public Object
 {
 public:
+	static TypeId GetTypeId(void);
+
 	PLC_NetDeviceHelper(Ptr<const SpectrumModel> sm, Ptr<SpectrumValue> txPsd, PLC_NodeList& netdevices);
 
 	void DefinePhyType(TypeId tid) { m_phyTid = tid; }
@@ -55,7 +59,9 @@ public:
 
 	void CreateNodes(bool create) { m_create_nodes = create; }
 
-	PLC_NetdeviceMap& GetNetdeviceMap(void) { return m_netdeviceMap; }
+	Ptr<PLC_NetDevice> GetDevice(std::string name);
+
+	PLC_NetdeviceMap GetNetdeviceMap(void) { return m_netdeviceMap; }
 
 private:
 	Ptr<const SpectrumModel> m_spectrum_model;

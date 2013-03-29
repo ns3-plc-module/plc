@@ -27,6 +27,17 @@ namespace ns3 {
 
 ////////////////////////////////// PLC_ImpedanceHelper /////////////////////////////////////////////////
 
+NS_OBJECT_ENSURE_REGISTERED(PLC_ImpedanceHelper);
+
+TypeId
+PLC_ImpedanceHelper::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId("ns3::PLC_ImpedanceHelper")
+    		.SetParent<Object> ()
+    		;
+	return tid;
+}
+
 PLC_ImpedanceHelper::PLC_ImpedanceHelper(Ptr<const SpectrumModel> sm)
 	: m_spectrum_model(sm)
 {
@@ -146,6 +157,17 @@ PLC_ImpedanceHelper::CreateTimeVariantFreqSelectiveImpedance()
 }
 
 ////////////////////////////////// PLC_ChannelHelper /////////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED(PLC_ChannelHelper);
+
+TypeId
+PLC_ChannelHelper::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId("ns3::PLC_ChannelHelper")
+    		.SetParent<Object> ()
+    		;
+	return tid;
+}
 
 PLC_ChannelHelper::PLC_ChannelHelper ()
 {

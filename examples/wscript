@@ -1,48 +1,11 @@
-## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+# -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
 
 def build(bld):
-    # Don't build any examples unless they are enabled.
-    if not bld.env['ENABLE_EXAMPLES']:
-        return;
-   
-    program = bld.create_ns3_program('plc-phy', ['plc', 'network', 'internet', 'test'])
-    program.source = 'plc-phy.cc'
-    program.env.append_value('CXXFLAGS', [
-	'-Wno-deprecated',
-	'-Wno-unused-parameter', 
-	'-fopenmp', 
-	'-D_REENTRANT', 
-	'-g',
-	'-pipe', '-O2', '-Wall', '-W'
-	])
+    obj = bld.create_ns3_program('plc-phy-example', ['plc', 'spectrum'])
+    obj.source = 'plc-phy-example.cc'
 
-    program.env.append_value('LINKFLAGS', ['-fopenmp'])
-    
-    
-    program = bld.create_ns3_program('plc-mac', ['plc', 'network', 'internet', 'test'])
-    program.source = 'plc-mac.cc'
-    program.env.append_value('CXXFLAGS', [
-	'-Wno-deprecated',
-	'-Wno-unused-parameter', 
-	'-fopenmp', 
-	'-D_REENTRANT', 
-	'-g',
-	'-pipe', '-O2', '-Wall', '-W'
-	])
+    obj = bld.create_ns3_program('plc-mac-example', ['plc', 'spectrum'])
+    obj.source = 'plc-mac-example.cc'
 
-    program.env.append_value('LINKFLAGS', ['-fopenmp'])
-    
-    
-    program = bld.create_ns3_program('plc-netdevice', ['plc', 'network', 'internet', 'test'])
-    program.source = 'plc-netdevice.cc'
-    program.env.append_value('CXXFLAGS', [
-	'-Wno-deprecated',
-	'-Wno-unused-parameter', 
-	'-fopenmp', 
-	'-D_REENTRANT', 
-	'-g',
-	'-pipe', '-O2', '-Wall', '-W'
-	])
-
-    program.env.append_value('LINKFLAGS', ['-fopenmp'])
-    
+    obj = bld.create_ns3_program('plc-netdevice-example', ['plc', 'spectrum'])
+    obj.source = 'plc-netdevice-example.cc'

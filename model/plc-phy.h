@@ -22,6 +22,8 @@
 #define PLC_PHY_H_
 
 #include <cmath>
+#include <vector>
+#include <ns3/object.h>
 #include <ns3/nstime.h>
 #include <ns3/traced-value.h>
 #include <ns3/trace-source-accessor.h>
@@ -43,6 +45,8 @@ typedef Callback<void, Ptr<const Packet> > PhyRxEndOkCallback;
 typedef Callback< void > PhyRxEndErrorCallback;
 typedef Callback< void, PLC_PhyCcaResult > PLC_PhyCcaConfirmCallback;
 typedef Callback<void> PLC_PhyDataFrameSentCallback;
+
+typedef std::vector<std::pair<Time, Ptr<const SpectrumValue> > > PLC_SinrTrace;
 
 class PLC_Channel;
 class PLC_ChannelTransferImpl;
@@ -133,10 +137,19 @@ public:
 	 */
 	void SetReceiveErrorCallback (PhyRxEndErrorCallback c);
 
+	/**
+	 * @return Channel transfer implementation to rxPhy
+	 */
 	PLC_ChannelTransferImpl *GetChannelTransferImpl (Ptr<PLC_Phy> rxPhy);
 
 	/**
-	 *
+	 * @return Channel transfer vector to rxPhy
+	 */
+	Ptr<PLC_TransferBase> GetChannelTransferVector(Ptr<PLC_Phy> rxPhy);
+
+
+	/**
+	 *	Notify subclasses that data frame has been sent
 	 */
 	void NotifyDataFrameSent (void);
 
@@ -472,6 +485,7 @@ protected:
 	virtual bool DoStartTx (Ptr<Packet> p);
 	virtual void DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration);
 	virtual void DoUpdateRxPsd (uint32_t txId, Ptr<SpectrumValue> newRxPsd);
+	virtual void NotifySuccessfulReception (void);
 
 	PLC_PhyCcaResult ClearChannelAssessment (void);
 
@@ -488,14 +502,41 @@ protected:
 	Ptr<const Packet> m_uncoded_packet;
 	Ptr<Packet> m_incoming_packet;
 	PLC_RatelessPhyHeader m_rateless_header;
-	uint32_t m_uncoded_rx_bits;
+	uint32_t m_uncoded_payload_bits;
 	bool m_receiving_payload;
 
 	uint16_t m_txDatagramId;
 	uint16_t m_rxDatagramId;
 };
 
-// TODO: PLC_ChaseCombiningPhy, PLC_IncrementalRedundancyPhy
+/**
+ *
+ */
+class PLC_ChaseCombiningPhy : public PLC_InformationRatePhy
+{
+public:
+	static TypeId GetTypeId (void);
+
+	PLC_ChaseCombiningPhy(void);
+
+	void UpdateSinrBase (Ptr<const SpectrumValue> newSinrBase);
+	void TraceSinr(Time t, Ptr<const SpectrumValue> sinr);
+
+protected:
+	virtual void DoStart (void);
+	virtual void DoDispose (void);
+	virtual bool DoStartTx (Ptr<Packet> p);
+	virtual void DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration);
+	virtual void DoUpdateRxPsd (uint32_t txId, Ptr<SpectrumValue> newRxPsd);
+	virtual void NotifySuccessfulReception (void);
+
+private:
+	Time m_rxStartTime;
+	Ptr<const Packet> m_rxPacketRef;
+	PLC_SinrTrace m_sinrBaseTrace;
+};
+
+// TODO: PLC_IncrementalRedundancyPhy
 
 }
 

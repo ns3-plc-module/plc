@@ -56,7 +56,7 @@ PLC_NetDevice::PLC_NetDevice ()
 	// Default Modulation and Coding Scheme
 	m_mcs = BPSK_1_2;
 	m_linkUp = true;
-    m_configComplete = false;
+	m_configComplete = false;
 }
 
 PLC_NetDevice::~PLC_NetDevice ()
@@ -75,7 +75,6 @@ PLC_NetDevice::DoDispose (void)
 	m_plc_node = 0;
 	m_rxImpedance = 0;
 	m_txImpedance = 0;
-    m_configComplete = false;
 	// chain up.
 	NetDevice::DoDispose ();
 }

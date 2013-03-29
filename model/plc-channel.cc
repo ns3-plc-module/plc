@@ -422,6 +422,7 @@ PLC_ChannelTransferImpl::DiscoverBackboneBranches ()
 
 	// indicates direct connection between txInterface and rxInterface
 	if  (this->m_backbone_path.size () == 0) {
+
 		tx_node->Lock ();
 		cur_edge = tx_node->GetEdge (rx_node);
 		tx_node->Unlock ();
@@ -931,6 +932,7 @@ void
 PLC_Channel::InitTransmissionChannels (void)
 {
 	NS_LOG_FUNCTION_NOARGS();
+	NS_ASSERT_MSG (m_graph, "PLC graph not set");
 	this->m_graph->CreatePLCGraph ();
 
 	std::vector<Ptr<PLC_TxInterface> >::iterator tx_it;
@@ -1133,7 +1135,7 @@ PLC_Channel::TransmissionStart (Ptr<Packet> p, uint32_t txId, Ptr<const Spectrum
 		}
 
 		Ptr<Node> rxNode = rx->GetObject<Node> ();
-		NS_ASSERT_MSG(rxNode, "RX Interface not aggregated to instance of ns3::Node");
+		NS_ASSERT_MSG(rxNode, "RX Interface not aggregated to an instance of ns3::Node");
 
 		// Schedule reception
 		Simulator::ScheduleWithContext (rxNode->GetId(), delay, &PLC_RxInterface::StartRx, rx, p, txId, cur_rxPsd, mcs, duration);
@@ -1142,7 +1144,7 @@ PLC_Channel::TransmissionStart (Ptr<Packet> p, uint32_t txId, Ptr<const Spectrum
 	// free the channel after transmission
 	Simulator::Schedule(duration, &PLC_Channel::TransmissionEnd, this, txId, max_delay, mcs);
 
-	// schedule next time slot task for updating rxPsd for active transmissions
+	// schedule next time slot task for updating rxPsds of active transmissions
 	this->ScheduleNextTimeslotTasks ();
 }
 

@@ -126,6 +126,7 @@ void PLC_Graph::CreatePLCGraph (void)
 	boost::property_map<boost::UGraph, boost::vertex_nodeptr_t>::type nodeptr 	= boost::get(boost::vertex_nodeptr, this->m_graph);
 	boost::property_map<boost::UGraph, boost::edge_plc_edgeptr_t>::type plc_edgeptr = boost::get(boost::edge_plc_edgeptr, this->m_graph);
 
+
 	for (it=m_nodes.begin(); it!=m_nodes.end(); it++) {
 		PLC_NodeOutEdgesMap::iterator outEdges_it;
 

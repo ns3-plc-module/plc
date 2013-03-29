@@ -1,12 +1,15 @@
-## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+# -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+# def options(opt):
+#     pass
+
+# def configure(conf):
+#     conf.check_nonfatal(header_name='stdint.h', define_name='HAVE_STDINT_H')
 
 def build(bld):
-    # Create the module with the appropriate name and the list of
-    # modules it depends on.
-    module = bld.create_ns3_module('plc', ['core', 'network', 'spectrum', 'csma', 'applications', 'config-store'])
-    # Set the C++ source files for this module.
+    module = bld.create_ns3_module('plc', ['core'])
     module.source = [
-    'model/plc-simulator-impl.cc',
+        'model/plc-simulator-impl.cc',
 	'model/plc-defs.cc',
 	'model/plc-time.cc',
 	'model/plc-value.cc',
@@ -26,36 +29,20 @@ def build(bld):
 	'model/plc-phy.cc',
 	'model/plc-mac.cc',
 	'model/plc-net-device.cc',
-
-	'helper/plc-spectrum-helper.cc',
 	'helper/plc-helper.cc',
+        'helper/plc-spectrum-helper.cc',
 	'helper/plc-device-helper.cc',
-    ]
-
-    module.env.append_value('CXXFLAGS', ['-fopenmp', '-D_REENTRANT', '-Wno-deprecated', '-Wno-unused-function'])
-    #module.env.append_value('CXXFLAGS', ['-fopenmp', '-D_REENTRANT', '-Wno-deprecated', '-Wno-unused-function', '-DQT_NO_DEBUG', '-DQT_GUI_LIB', '-DQT_SHARED', '-DQT_CORE_LIB', '-DQT_SHARED'])
-    module.env.append_value('LINKFLAGS', ['-fopenmp'])
-    module.env.append_value('INCLUDES', ['/usr/share/qt4/mkspecs/linux-g++', '/usr/include/qt4', '/usr/include/qt4/QtCore', '/usr/include/qt4/QtGui', '/usr/local/qwt-6.0.2-svn/include'])
-    module.env.append_value('LIBPATH', ['/usr/lib', '/usr/local/qwt-6.0.2-svn/lib'])    
-    #module.env.append_value('LIB', ['QtGui', 'QtCore', 'qwt']) 
-    module.env.append_value('OMP_THREAD_LIMIT', ['15'])
-    # Create the module's test library.
-    module_test = bld.create_ns3_module_test_library('plc')
-
-    # Set the C++ source files for the module's test library.
-    module_test.source = [
-        # Uncomment these lines to compile these test suites.
-        #'test/sample-test-suite-1.cc',
-        #'test/sample-test-suite-2.cc',
         ]
 
-    # Make headers be installed for this module.
+    module_test = bld.create_ns3_module_test_library('plc')
+    module_test.source = [
+        'test/plc-test-suite.cc',
+        ]
+
     headers = bld.new_task_gen(features=['ns3header'])
     headers.module = 'plc'
-
-    # Set the C++ header files for this module.
     headers.source = [
-    'model/plc-simulator-impl.h',
+        'model/plc-simulator-impl.h',
 	'model/plc.h',
 	'model/plc-defs.h',
 	'model/plc-time.h',
@@ -78,16 +65,13 @@ def build(bld):
 	'model/plc-phy.h',
 	'model/plc-mac.h',
 	'model/plc-net-device.h',
-
 	'helper/plc-spectrum-helper.h',
 	'helper/plc-helper.h',
 	'helper/plc-device-helper.h',
-    ]
+        ]
 
-    # Uncomment these lines if this module needs a library such as the
-    # real-time (RT) library to be linked in at build time.
-    module.uselib = 'BOOST'
-
-    # Look for examples if they are enabled. 
-    if (bld.env['ENABLE_EXAMPLES']):
+    if bld.env.ENABLE_EXAMPLES:
         bld.add_subdirs('examples')
+
+    bld.ns3_python_bindings()
+

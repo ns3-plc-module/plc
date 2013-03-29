@@ -230,6 +230,8 @@ def register_types(module):
     module.add_class('PLC_Phy', parent=root_module['ns3::Object'])
     ## plc-header.h (module 'plc'): ns3::PLC_PhyHeader [class]
     module.add_class('PLC_PhyHeader', parent=root_module['ns3::Header'])
+    ## plc-header.h (module 'plc'): ns3::PLC_PhyHeader::DelimiterType [enumeration]
+    module.add_enum('DelimiterType', ['NoResponseExpected', 'ResponseExpected', 'ACK', 'NACK'], outer_class=root_module['ns3::PLC_PhyHeader'])
     ## plc-header.h (module 'plc'): ns3::PLC_PhyPacketTag [class]
     module.add_class('PLC_PhyPacketTag', parent=root_module['ns3::Tag'])
     ## plc-header.h (module 'plc'): ns3::PLC_RatelessPhyHeader [class]
@@ -438,6 +440,8 @@ def register_types(module):
     module.add_class('BridgeChannel', import_from_module='ns.bridge', parent=root_module['ns3::Channel'])
     ## bridge-net-device.h (module 'bridge'): ns3::BridgeNetDevice [class]
     module.add_class('BridgeNetDevice', import_from_module='ns.bridge', parent=root_module['ns3::NetDevice'])
+    ## plc-phy.h (module 'plc'): ns3::PLC_ChaseCombiningPhy [class]
+    module.add_class('PLC_ChaseCombiningPhy', parent=root_module['ns3::PLC_InformationRatePhy'])
     ## plc-value.h (module 'plc'): ns3::PLC_ConstValue [class]
     module.add_class('PLC_ConstValue', parent=root_module['ns3::PLC_ValueBase'])
     ## plc-phy.h (module 'plc'): ns3::PLC_ErrorRatePhy [class]
@@ -528,6 +532,9 @@ def register_types(module):
     typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >', 'ns3::PLC_NetdeviceMap')
     typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >*', 'ns3::PLC_NetdeviceMap*')
     typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >&', 'ns3::PLC_NetdeviceMap&')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >', 'ns3::PLC_SinrTrace')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >*', 'ns3::PLC_SinrTrace*')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >&', 'ns3::PLC_SinrTrace&')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >', 'ns3::PLC_NetdeviceList')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >*', 'ns3::PLC_NetdeviceList*')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >&', 'ns3::PLC_NetdeviceList&')
@@ -893,6 +900,7 @@ def register_methods(root_module):
     register_Ns3AddressValue_methods(root_module, root_module['ns3::AddressValue'])
     register_Ns3BridgeChannel_methods(root_module, root_module['ns3::BridgeChannel'])
     register_Ns3BridgeNetDevice_methods(root_module, root_module['ns3::BridgeNetDevice'])
+    register_Ns3PLC_ChaseCombiningPhy_methods(root_module, root_module['ns3::PLC_ChaseCombiningPhy'])
     register_Ns3PLC_ConstValue_methods(root_module, root_module['ns3::PLC_ConstValue'])
     register_Ns3PLC_ErrorRatePhy_methods(root_module, root_module['ns3::PLC_ErrorRatePhy'])
     register_Ns3PLC_FreqSelectiveValue_methods(root_module, root_module['ns3::PLC_FreqSelectiveValue'])
@@ -3877,9 +3885,13 @@ def register_Ns3PLC_Interference_methods(root_module, cls):
     cls.add_method('GetNoiseFloor', 
                    'ns3::Ptr< ns3::SpectrumValue const >', 
                    [])
-    ## plc-interference.h (module 'plc'): ns3::Ptr<ns3::SpectrumValue> ns3::PLC_Interference::GetSINR() [member function]
-    cls.add_method('GetSINR', 
+    ## plc-interference.h (module 'plc'): ns3::Ptr<ns3::SpectrumValue> ns3::PLC_Interference::GetSinr() [member function]
+    cls.add_method('GetSinr', 
                    'ns3::Ptr< ns3::SpectrumValue >', 
+                   [])
+    ## plc-interference.h (module 'plc'): ns3::Ptr<ns3::SpectrumValue const> ns3::PLC_Interference::GetSinrBase() [member function]
+    cls.add_method('GetSinrBase', 
+                   'ns3::Ptr< ns3::SpectrumValue const >', 
                    [])
     ## plc-interference.h (module 'plc'): double ns3::PLC_Interference::GetTotalNoisePower() [member function]
     cls.add_method('GetTotalNoisePower', 
@@ -3902,6 +3914,10 @@ def register_Ns3PLC_Interference_methods(root_module, cls):
     cls.add_method('SetNoiseFloor', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'noiseFloor')])
+    ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::SetSinrBase(ns3::Ptr<ns3::SpectrumValue const> baseSinr) [member function]
+    cls.add_method('SetSinrBase', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'baseSinr')])
     ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::StartRx(ns3::Ptr<ns3::SpectrumValue const> rxPsd) [member function]
     cls.add_method('StartRx', 
                    'void', 
@@ -4013,6 +4029,10 @@ def register_Ns3PLC_LinkPerformanceModel_methods(root_module, cls):
     cls.add_method('SetNoiseFloor', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'noiseFloor')])
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::SetSinrBase(ns3::Ptr<ns3::SpectrumValue const> sinrBase) [member function]
+    cls.add_method('SetSinrBase', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'sinrBase')])
     ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::StartRx(ns3::ModulationAndCodingType mcs, ns3::Ptr<ns3::SpectrumValue const> rxPsd, double requiredInformationBits=0) [member function]
     cls.add_method('StartRx', 
                    'void', 
@@ -4642,6 +4662,10 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
     cls.add_method('GetChannelTransferImpl', 
                    'ns3::PLC_ChannelTransferImpl *', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')])
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_ValueBase> ns3::PLC_Phy::GetChannelTransferVector(ns3::Ptr<ns3::PLC_Phy> rxPhy) [member function]
+    cls.add_method('GetChannelTransferVector', 
+                   'ns3::Ptr< ns3::PLC_ValueBase >', 
+                   [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')])
     ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_Node> ns3::PLC_Phy::GetNode() [member function]
     cls.add_method('GetNode', 
                    'ns3::Ptr< ns3::PLC_Node >', 
@@ -4731,6 +4755,10 @@ def register_Ns3PLC_PhyHeader_methods(root_module, cls):
                    'uint32_t', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_virtual=True)
+    ## plc-header.h (module 'plc'): ns3::PLC_PhyHeader::DelimiterType ns3::PLC_PhyHeader::GetDelimiterType() [member function]
+    cls.add_method('GetDelimiterType', 
+                   'ns3::PLC_PhyHeader::DelimiterType', 
+                   [])
     ## plc-header.h (module 'plc'): ns3::TypeId ns3::PLC_PhyHeader::GetInstanceTypeId() const [member function]
     cls.add_method('GetInstanceTypeId', 
                    'ns3::TypeId', 
@@ -4756,6 +4784,10 @@ def register_Ns3PLC_PhyHeader_methods(root_module, cls):
                    'void', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_const=True, is_virtual=True)
+    ## plc-header.h (module 'plc'): void ns3::PLC_PhyHeader::SetDelimiterType(ns3::PLC_PhyHeader::DelimiterType type) [member function]
+    cls.add_method('SetDelimiterType', 
+                   'void', 
+                   [param('ns3::PLC_PhyHeader::DelimiterType', 'type')])
     return
 
 def register_Ns3PLC_PhyPacketTag_methods(root_module, cls):
@@ -4793,9 +4825,13 @@ def register_Ns3PLC_PhyPacketTag_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-header.h (module 'plc'): uint32_t ns3::PLC_PhyPacketTag::GetUncodedBits() [member function]
-    cls.add_method('GetUncodedBits', 
-                   'uint32_t', 
+    ## plc-header.h (module 'plc'): uint16_t ns3::PLC_PhyPacketTag::GetUncodedHeaderBits() [member function]
+    cls.add_method('GetUncodedHeaderBits', 
+                   'uint16_t', 
+                   [])
+    ## plc-header.h (module 'plc'): uint16_t ns3::PLC_PhyPacketTag::GetUncodedPayloadBits() [member function]
+    cls.add_method('GetUncodedPayloadBits', 
+                   'uint16_t', 
                    [])
     ## plc-header.h (module 'plc'): void ns3::PLC_PhyPacketTag::Print(std::ostream & os) const [member function]
     cls.add_method('Print', 
@@ -4815,10 +4851,14 @@ def register_Ns3PLC_PhyPacketTag_methods(root_module, cls):
     cls.add_method('SetPayloadMcs', 
                    'void', 
                    [param('ns3::ModulationAndCodingType', 'mcs')])
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyPacketTag::SetUncodedBits(uint32_t uncoded_bits) [member function]
-    cls.add_method('SetUncodedBits', 
+    ## plc-header.h (module 'plc'): void ns3::PLC_PhyPacketTag::SetUncodedHeaderBits(uint16_t bits) [member function]
+    cls.add_method('SetUncodedHeaderBits', 
                    'void', 
-                   [param('uint32_t', 'uncoded_bits')])
+                   [param('uint16_t', 'bits')])
+    ## plc-header.h (module 'plc'): void ns3::PLC_PhyPacketTag::SetUncodedPayloadBits(uint16_t bits) [member function]
+    cls.add_method('SetUncodedPayloadBits', 
+                   'void', 
+                   [param('uint16_t', 'bits')])
     return
 
 def register_Ns3PLC_RatelessPhyHeader_methods(root_module, cls):
@@ -7444,6 +7484,11 @@ def register_Ns3PLC_InformationRatePhy_methods(root_module, cls):
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'newRxPsd')], 
                    visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::NotifySuccessfulReception() [member function]
+    cls.add_method('NotifySuccessfulReception', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     ## plc-phy.h (module 'plc'): size_t ns3::PLC_InformationRatePhy::RequiredChunks(size_t num_blocks) [member function]
     cls.add_method('RequiredChunks', 
                    'size_t', 
@@ -8555,6 +8600,56 @@ def register_Ns3BridgeNetDevice_methods(root_module, cls):
                    'void', 
                    [param('ns3::Ptr< ns3::NetDevice >', 'device'), param('ns3::Ptr< ns3::Packet const >', 'packet'), param('uint16_t', 'protocol'), param('ns3::Address const &', 'source'), param('ns3::Address const &', 'destination'), param('ns3::NetDevice::PacketType', 'packetType')], 
                    visibility='protected')
+    return
+
+def register_Ns3PLC_ChaseCombiningPhy_methods(root_module, cls):
+    ## plc-phy.h (module 'plc'): ns3::PLC_ChaseCombiningPhy::PLC_ChaseCombiningPhy(ns3::PLC_ChaseCombiningPhy const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_ChaseCombiningPhy const &', 'arg0')])
+    ## plc-phy.h (module 'plc'): ns3::PLC_ChaseCombiningPhy::PLC_ChaseCombiningPhy() [constructor]
+    cls.add_constructor([])
+    ## plc-phy.h (module 'plc'): static ns3::TypeId ns3::PLC_ChaseCombiningPhy::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::TraceSinr(ns3::Time t, ns3::Ptr<ns3::SpectrumValue const> sinr) [member function]
+    cls.add_method('TraceSinr', 
+                   'void', 
+                   [param('ns3::Time', 't'), param('ns3::Ptr< ns3::SpectrumValue const >', 'sinr')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::UpdateSinrBase(ns3::Ptr<ns3::SpectrumValue const> newSinrBase) [member function]
+    cls.add_method('UpdateSinrBase', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'newSinrBase')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::DoDispose() [member function]
+    cls.add_method('DoDispose', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::DoStart() [member function]
+    cls.add_method('DoStart', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::DoStartRx(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::ModulationAndCodingType mcs, ns3::Time duration) [member function]
+    cls.add_method('DoStartRx', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::ModulationAndCodingType', 'mcs'), param('ns3::Time', 'duration')], 
+                   visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_ChaseCombiningPhy::DoStartTx(ns3::Ptr<ns3::Packet> p) [member function]
+    cls.add_method('DoStartTx', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::DoUpdateRxPsd(uint32_t txId, ns3::Ptr<ns3::SpectrumValue> newRxPsd) [member function]
+    cls.add_method('DoUpdateRxPsd', 
+                   'void', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'newRxPsd')], 
+                   visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::NotifySuccessfulReception() [member function]
+    cls.add_method('NotifySuccessfulReception', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_ConstValue_methods(root_module, cls):

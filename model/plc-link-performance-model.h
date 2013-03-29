@@ -55,6 +55,8 @@ public:
 	void EvaluateChunk(void);
 	bool EndRx(void);
 
+	void SetSinrBase(Ptr<const SpectrumValue> sinrBase);
+
 	Ptr<PLC_Interference> GetInterference(void) { return m_interference; }
 
 protected:
@@ -66,7 +68,9 @@ protected:
 	bool m_receiving;
 	ModulationAndCodingType m_mcs;
 	Time m_lastChangeTime;
-	Ptr<PLC_Interference> m_interference;;
+	Ptr<PLC_Interference> m_interference;
+
+	TracedCallback<Time, Ptr<const SpectrumValue> > m_sinrTracer;
 };
 
 /**

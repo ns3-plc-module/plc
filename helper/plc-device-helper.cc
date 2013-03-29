@@ -53,6 +53,17 @@ IncrementMacAddress(Mac48Address *addr)
 
 ////////////////////////// PLC_NetDeviceHelper ////////////////////////////////////
 
+NS_OBJECT_ENSURE_REGISTERED(PLC_NetDeviceHelper);
+
+TypeId
+PLC_NetDeviceHelper::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId("ns3::PLC_NetDeviceHelper")
+    		.SetParent<Object> ()
+    		;
+	return tid;
+}
+
 PLC_NetDeviceHelper::PLC_NetDeviceHelper(Ptr<const SpectrumModel> sm, Ptr<SpectrumValue> txPsd, PLC_NodeList& deviceNodes)
 	: m_spectrum_model(sm), m_txPsd(txPsd), m_netdevice_nodes(deviceNodes)
 {
@@ -167,6 +178,8 @@ PLC_NetDeviceHelper::Setup(void)
 		{
 			// Create ns-3 node
 			Ptr<Node> node = CreateObject<Node> ();
+
+			// Bind device to ns-3 node
 			node->AddDevice(dev);
 		}
 
@@ -177,5 +190,13 @@ PLC_NetDeviceHelper::Setup(void)
 		m_netdeviceMap[name] = dev;
 	}
 }
+
+Ptr<PLC_NetDevice>
+PLC_NetDeviceHelper::GetDevice(std::string name)
+{
+	NS_ASSERT_MSG(m_netdeviceMap.find(name) != m_netdeviceMap.end(), "Unknown net device");
+	return m_netdeviceMap[name];
+}
+
 
 } // namespace ns3

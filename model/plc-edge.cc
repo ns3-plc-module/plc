@@ -160,9 +160,9 @@ PLC_Edge::InitEdgeTransferFactor (PLC_Node *dst_node, bool time_variant)
 {
 	PLC_LOG_FUNCTION(this << dst_node << time_variant);
 	NS_ASSERT(this->m_edge_transfer_data.find (dst_node) != this->m_edge_transfer_data.end());
+	NS_ASSERT_MSG(m_spectrum_model, "Spectrum model of edge " << this << " not set");
 
 	if (!this->m_edge_transfer_data[dst_node].etf_initialized) {
-
 		g_smartpointer_mutex.Lock ();
 		this->m_edge_transfer_data[dst_node].edge_transfer_unit = CreateObject<PLC_EdgeTransferUnit> (this, dst_node, this->m_spectrum_model, time_variant);
 		g_smartpointer_mutex.Unlock ();

@@ -22,33 +22,12 @@ NS_OBJECT_ENSURE_REGISTERED (PLC_StaticNoiseSource);
 NS_OBJECT_ENSURE_REGISTERED (PLC_ImpulseNoiseSource);
 NS_OBJECT_ENSURE_REGISTERED (PLC_ImpulsiveNoiseSource);
 
-/////////////////////////////// PLC_NoiseFloor ////////////////////////////////////////////
-
-PLC_NoiseFloor::PLC_NoiseFloor (Ptr<const SpectrumModel> sm)
-{
-	this->m_noisePsd = Create<SpectrumValue> (sm);
-}
-
-PLC_NoiseFloor::PLC_NoiseFloor (Ptr<const SpectrumModel> sm, double const_value)
-{
-	this->m_noisePsd = Create<SpectrumValue> (sm);
-	* (this->m_noisePsd) = const_value;
-}
-
-PLC_NoiseFloor::PLC_NoiseFloor (Ptr<SpectrumValue> noisePsd)
-{
-	this->m_noisePsd = noisePsd;
-}
-
-Ptr<SpectrumValue> PLC_NoiseFloor::GetNoisePsd (void)
-{
-	return this->m_noisePsd;
-}
-
 /////////////////////////////// PLC_ColoredNoiseFloor ////////////////////////////////////////////
 
-PLC_ColoredNoiseFloor::PLC_ColoredNoiseFloor (double a, double b, double c, Ptr<const SpectrumModel> sm) : PLC_NoiseFloor (sm)
+PLC_ColoredNoiseFloor::PLC_ColoredNoiseFloor (double a, double b, double c, Ptr<const SpectrumModel> sm)
 {
+	this->m_noisePsd = Create<SpectrumValue> (sm);
+
 	Values::iterator v_it;
 	Bands::const_iterator b_it;
 
@@ -68,6 +47,11 @@ PLC_ColoredNoiseFloor::PLC_ColoredNoiseFloor (double a, double b, double c, Ptr<
 
 		++v_it;
 	}
+}
+
+Ptr<SpectrumValue> PLC_ColoredNoiseFloor::GetNoisePsd (void)
+{
+	return this->m_noisePsd;
 }
 
 /////////////////////////////// PLC_NoiseSource ////////////////////////////////////////////

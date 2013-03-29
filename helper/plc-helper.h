@@ -21,6 +21,7 @@
 #ifndef PLC_HELPER_H
 #define PLC_HELPER_H
 
+#include <ns3/object.h>
 #include <ns3/random-variable.h>
 
 #include "ns3/plc-node.h"
@@ -48,9 +49,11 @@ namespace ns3 {
 /**
  * Helper class for generating random impedance values
  */
-class PLC_ImpedanceHelper
+class PLC_ImpedanceHelper : public Object
 {
 public:
+	static TypeId GetTypeId(void);
+
 	PLC_ImpedanceHelper(Ptr<const SpectrumModel> sm);
 
 	Ptr<PLC_FreqSelectiveImpedance> CreateIdleTransformerImpedance(double R, double C, double L);
@@ -76,9 +79,11 @@ private:
 	double m_RoffsMin, m_RoffsMax, m_QoffsMin, m_QoffsMax, m_f0offsMin, m_f0offsMax, m_RamplMin, m_RamplMax, m_QamplMin, m_QamplMax, m_f0amplMin, m_f0amplMax, m_phiMin, m_phiMax;
 };
 
-class PLC_ChannelHelper
+class PLC_ChannelHelper : public Object
 {
 public:
+	static TypeId GetTypeId(void);
+
 	PLC_ChannelHelper();
 	PLC_ChannelHelper(Ptr<const SpectrumModel> sm);
 
