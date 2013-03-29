@@ -32,11 +32,12 @@ def build(bld):
 	'helper/plc-device-helper.cc',
     ]
 
-    module.env.append_value('CXXFLAGS', ['-fopenmp', '-D_REENTRANT', '-Wno-deprecated', '-Wno-unused-function', '-DQT_NO_DEBUG', '-DQT_GUI_LIB', '-DQT_SHARED', '-DQT_CORE_LIB', '-DQT_SHARED'])
+    module.env.append_value('CXXFLAGS', ['-fopenmp', '-D_REENTRANT', '-Wno-deprecated', '-Wno-unused-function'])
+    #module.env.append_value('CXXFLAGS', ['-fopenmp', '-D_REENTRANT', '-Wno-deprecated', '-Wno-unused-function', '-DQT_NO_DEBUG', '-DQT_GUI_LIB', '-DQT_SHARED', '-DQT_CORE_LIB', '-DQT_SHARED'])
     module.env.append_value('LINKFLAGS', ['-fopenmp'])
     module.env.append_value('INCLUDES', ['/usr/share/qt4/mkspecs/linux-g++', '/usr/include/qt4', '/usr/include/qt4/QtCore', '/usr/include/qt4/QtGui', '/usr/local/qwt-6.0.2-svn/include'])
     module.env.append_value('LIBPATH', ['/usr/lib', '/usr/local/qwt-6.0.2-svn/lib'])    
-    module.env.append_value('LIB', ['QtGui', 'QtCore', 'qwt']) 
+    #module.env.append_value('LIB', ['QtGui', 'QtCore', 'qwt']) 
     module.env.append_value('OMP_THREAD_LIMIT', ['15'])
     # Create the module's test library.
     module_test = bld.create_ns3_module_test_library('plc')
