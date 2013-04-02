@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 113.475177
+%%BoundingBox: 0 0 500 206.185567
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 4.406250 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 2.425000 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
 /rows 4 def
-/cols 3 def
+/cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -178,7 +178,6 @@ boxfont setfont
 (ns3::PLC_ErrorRatePhy) cw
 (ns3::PLC_InformationRatePhy) cw
 (ns3::PLC_ChaseCombiningPhy) cw
-(ns3::PLC_IncrementalRedundancyPhy) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -194,8 +193,7 @@ boundx scalefactor div boundy scalefactor div scale
  (ns3::PLC_Phy) 0.500000 3.000000 box
  (ns3::PLC_ErrorRatePhy) 0.000000 1.000000 box
  (ns3::PLC_InformationRatePhy) 1.000000 1.000000 box
- (ns3::PLC_ChaseCombiningPhy) 0.500000 0.000000 box
- (ns3::PLC_IncrementalRedundancyPhy) 1.500000 0.000000 box
+ (ns3::PLC_ChaseCombiningPhy) 1.000000 0.000000 box
 
 % ----- relations -----
 
@@ -214,8 +212,4 @@ solid
 solid
 1 1.000000 0.250000 out
 solid
-0.500000 1.500000 1.000000 conn
-solid
-0 0.500000 0.750000 in
-solid
-0 1.500000 0.750000 in
+0 1.000000 0.750000 in

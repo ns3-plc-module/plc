@@ -2,7 +2,7 @@ var searchData=
 [
   ['pathexists',['PathExists',['../classns3_1_1PLC__Graph.html#ad0a93aaa9331850a8d5a96355aa7e7f1',1,'ns3::PLC_Graph']]],
   ['plc_5fbackbonebranch',['PLC_BackboneBranch',['../classns3_1_1PLC__BackboneBranch.html#ac3149172bb5f48d090487fa8cec7ac8a',1,'ns3::PLC_BackboneBranch']]],
-  ['plc_5fcable',['PLC_Cable',['../classns3_1_1PLC__Cable.html#ac833486bec03f0903a38e9627aaeadd8',1,'ns3::PLC_Cable::PLC_Cable(Ptr&lt; const SpectrumModel &gt; sm)'],['../classns3_1_1PLC__Cable.html#a732d4298d2e5a93d5265666b98fdd341',1,'ns3::PLC_Cable::PLC_Cable(const PLC_FreqSelectiveResistance &amp;R, const PLC_FreqSelectiveConductance &amp;G, const PLC_FreqSelectiveInductance &amp;L, const PLC_FreqSelectiveCapacitance &amp;C, Ptr&lt; const SpectrumModel &gt; sm)']]],
+  ['plc_5fcable',['PLC_Cable',['../classns3_1_1PLC__Cable.html#a2a854ceb780ea7385ebe956355ae6097',1,'ns3::PLC_Cable::PLC_Cable()'],['../classns3_1_1PLC__Cable.html#ac833486bec03f0903a38e9627aaeadd8',1,'ns3::PLC_Cable::PLC_Cable(Ptr&lt; const SpectrumModel &gt; sm)'],['../classns3_1_1PLC__Cable.html#a732d4298d2e5a93d5265666b98fdd341',1,'ns3::PLC_Cable::PLC_Cable(const PLC_FreqSelectiveResistance &amp;R, const PLC_FreqSelectiveConductance &amp;G, const PLC_FreqSelectiveInductance &amp;L, const PLC_FreqSelectiveCapacitance &amp;C, Ptr&lt; const SpectrumModel &gt; sm)']]],
   ['plc_5fchannel',['PLC_Channel',['../classns3_1_1PLC__Channel.html#a0e9b3acca482aecfea2c9665e6f32ace',1,'ns3::PLC_Channel::PLC_Channel()'],['../classns3_1_1PLC__Channel.html#acef2a8d6dde042ff14746dd8af7762d1',1,'ns3::PLC_Channel::PLC_Channel(Ptr&lt; PLC_Graph &gt; graph)']]],
   ['plc_5fchanneltransferimpl',['PLC_ChannelTransferImpl',['../classns3_1_1PLC__ChannelTransferImpl.html#a17b06fd2fd82ff75ac601dd8c4d1e94d',1,'ns3::PLC_ChannelTransferImpl']]],
   ['plc_5fedge',['PLC_Edge',['../classns3_1_1PLC__Edge.html#a22660fa9d5fa0759b15808662b15d8e0',1,'ns3::PLC_Edge']]],
@@ -19,7 +19,7 @@ var searchData=
   ['plc_5ftwoport',['PLC_TwoPort',['../classns3_1_1PLC__TwoPort.html#a6684e0b1a597e1cb5c8dff4fd8f00e6b',1,'ns3::PLC_TwoPort']]],
   ['plc_5ftxinterface',['PLC_TxInterface',['../classns3_1_1PLC__TxInterface.html#aff6a3c7efa2b90340580e72006525267',1,'ns3::PLC_TxInterface']]],
   ['processtimeslottasks',['ProcessTimeslotTasks',['../classns3_1_1PLC__Channel.html#ad19b881e0302a2a3e0dda571ecf83bf7',1,'ns3::PLC_Channel']]],
-  ['propagationcompleteevent',['PropagationCompleteEvent',['../classns3_1_1PLC__Channel.html#a7a8d3f9a2f2a603db996402b8ffa7efc',1,'ns3::PLC_Channel']]],
+  ['propagationcompleteevent',['PropagationCompleteEvent',['../classns3_1_1PLC__Channel.html#a787ab20c1ee23c65a47de50adb917a68',1,'ns3::PLC_Channel']]],
   ['pulseend',['PulseEnd',['../classns3_1_1PLC__ImpulsiveNoiseSource.html#af90f96c556fc3abff99d1ccee2fd8da6',1,'ns3::PLC_ImpulsiveNoiseSource']]],
   ['pulsestart',['PulseStart',['../classns3_1_1PLC__ImpulsiveNoiseSource.html#a63a45910cd88be1b20ac9875f4a8fe20',1,'ns3::PLC_ImpulsiveNoiseSource']]]
 ];

@@ -115,10 +115,9 @@ Inheritance diagram for ns3::PLC_InformationRatePhy:</div>
  <div class="center">
   <img src="classns3_1_1PLC__InformationRatePhy.png" usemap="#ns3::PLC_InformationRatePhy_map" alt=""/>
   <map id="ns3::PLC_InformationRatePhy_map" name="ns3::PLC_InformationRatePhy_map">
-<area href="classns3_1_1PLC__HalfDuplexOfdmPhy.html" title="Base class for half duplex OFDM PHY devices." alt="ns3::PLC_HalfDuplexOfdmPhy" shape="rect" coords="118,56,345,80"/>
-<area href="classns3_1_1PLC__Phy.html" alt="ns3::PLC_Phy" shape="rect" coords="118,0,345,24"/>
-<area href="classns3_1_1PLC__ChaseCombiningPhy.html" alt="ns3::PLC_ChaseCombiningPhy" shape="rect" coords="0,168,227,192"/>
-<area href="classns3_1_1PLC__IncrementalRedundancyPhy.html" alt="ns3::PLC_IncrementalRedundancyPhy" shape="rect" coords="237,168,464,192"/>
+<area href="classns3_1_1PLC__HalfDuplexOfdmPhy.html" title="Base class for half duplex OFDM PHY devices." alt="ns3::PLC_HalfDuplexOfdmPhy" shape="rect" coords="0,56,186,80"/>
+<area href="classns3_1_1PLC__Phy.html" alt="ns3::PLC_Phy" shape="rect" coords="0,0,186,24"/>
+<area href="classns3_1_1PLC__ChaseCombiningPhy.html" alt="ns3::PLC_ChaseCombiningPhy" shape="rect" coords="0,168,186,192"/>
 </map>
  </div></div>
 
@@ -134,15 +133,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPayloadModulationA
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8b2963fd66fcb0cff550ac447337013"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::GetPayloadModulationAndCodingScheme" ref="aa8b2963fd66fcb0cff550ac447337013" args="(void)" -->
 ModulationAndCodingType&#160;</td><td class="memItemRight" valign="bottom"><b>GetPayloadModulationAndCodingScheme</b> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__InformationRatePhy.html#a84d9f169728aaf4ea913f2588002160c">GetOfdmSymbolsPerCodeBlock</a> (void)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4dfd3765ac9010f984c0d32888f01546"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::SetNoiseFloor" ref="a4dfd3765ac9010f984c0d32888f01546" args="(Ptr&lt; SpectrumValue &gt; noiseFloor)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetNoiseFloor</b> (Ptr&lt; SpectrumValue &gt; noiseFloor)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ptr&lt; const Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__InformationRatePhy.html#a4574798e3cfa52d229ffef1da89aec0d">GetUncodedPacket</a> (void)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa6d95a5a90c712be22bcbfd29a149d5d"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::EndRxHeader" ref="aa6d95a5a90c712be22bcbfd29a149d5d" args="(ModulationAndCodingType mcs, Time duration)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EndRxHeader</b> (ModulationAndCodingType mcs, Time duration)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a483018d01f8b198ad014488e91d32dad"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::EndRxPayload" ref="a483018d01f8b198ad014488e91d32dad" args="(void)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EndRxPayload</b> (void)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0566ea199f12a3b3ba760f0b3930e50b"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::EndRxHeader" ref="a0566ea199f12a3b3ba760f0b3930e50b" args="(Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>EndRxHeader</b> (Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1708b250cf1fc92f5bb520185854bd20"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::EndRxPayload" ref="a1708b250cf1fc92f5bb520185854bd20" args="(Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>EndRxPayload</b> (Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a357bfdcd62ecda47ea1bdf191fe63491"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::ReceptionFailure" ref="a357bfdcd62ecda47ea1bdf191fe63491" args="(void)" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ReceptionFailure</b> (void)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab06fc75e551a2c4929048fde10d631a2"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::SendFrame" ref="ab06fc75e551a2c4929048fde10d631a2" args="(Ptr&lt; Packet &gt; p, Ptr&lt; PLC_TrxMetaInfo &gt; metaInfo)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SendFrame</b> (Ptr&lt; Packet &gt; p, Ptr&lt; <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1abda27b3a61123aadc4a805fab75292"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::PreambleDetectionSuccessful" ref="a1abda27b3a61123aadc4a805fab75292" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>PreambleDetectionSuccessful</b> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa27e24ab2e80873e068ec07fe79ae046"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::GetTypeId" ref="aa27e24ab2e80873e068ec07fe79ae046" args="(void)" -->
@@ -157,12 +157,24 @@ Protected Member Functions</h2></td></tr>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoStart</b> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6cb0013270e368139cf710371cf8c9ff"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::DoDispose" ref="a6cb0013270e368139cf710371cf8c9ff" args="(void)" -->
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoDispose</b> (void)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79700be8272f4156d23ec6356f675be9"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::DoSetNoiseFloor" ref="a79700be8272f4156d23ec6356f675be9" args="(Ptr&lt; const SpectrumValue &gt; noiseFloor)" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoSetNoiseFloor</b> (Ptr&lt; const SpectrumValue &gt; noiseFloor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1746d2858e9596d44e87e5a5c3dcdd73"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::DoStartTx" ref="a1746d2858e9596d44e87e5a5c3dcdd73" args="(Ptr&lt; Packet &gt; p)" -->
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>DoStartTx</b> (Ptr&lt; Packet &gt; p)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a78afcabcd943de4275b9baee0cd6eb74"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::DoStartRx" ref="a78afcabcd943de4275b9baee0cd6eb74" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, ModulationAndCodingType mcs, Time duration)" -->
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoStartRx</b> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, ModulationAndCodingType mcs, Time duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d14bce650ce44e393422441b83ab1a1"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::DoStartRx" ref="a7d14bce650ce44e393422441b83ab1a1" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoStartRx</b> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6bc7022d2f5a664d7b0cb422758af210"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::DoUpdateRxPsd" ref="a6bc7022d2f5a664d7b0cb422758af210" args="(uint32_t txId, Ptr&lt; SpectrumValue &gt; newRxPsd)" -->
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoUpdateRxPsd</b> (uint32_t txId, Ptr&lt; SpectrumValue &gt; newRxPsd)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57c6636bedb4b579414371f12395a8d6"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::StartReception" ref="a57c6636bedb4b579414371f12395a8d6" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>StartReception</b> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab734c72ab9d3d3e60a01438a1114c128"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::NotifySuccessfulReception" ref="ab734c72ab9d3d3e60a01438a1114c128" args="(void)" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>NotifySuccessfulReception</b> (void)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad32af16b7a80bbc11f492092d9f7dd58"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::CreateEncodedPacket" ref="ad32af16b7a80bbc11f492092d9f7dd58" args="(Ptr&lt; PLC_TrxMetaInfo &gt; metaInfo)" -->
+Ptr&lt; Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>CreateEncodedPacket</b> (Ptr&lt; <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a059d1e2ed5a90059c6cf5ed052ae66d9"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::CreateFixedRateEncodedPacket" ref="a059d1e2ed5a90059c6cf5ed052ae66d9" args="(Ptr&lt; PLC_TrxMetaInfo &gt; metaInfo)" -->
+Ptr&lt; Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>CreateFixedRateEncodedPacket</b> (Ptr&lt; <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31133237a6d4ede035ff4969a4b4ffdd"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::CreateRatelessEncodedPacket" ref="a31133237a6d4ede035ff4969a4b4ffdd" args="(Ptr&lt; PLC_TrxMetaInfo &gt; metaInfo)" -->
+Ptr&lt; Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>CreateRatelessEncodedPacket</b> (Ptr&lt; <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9bdb8a8081ba19483616f36eca2b8937"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::ClearChannelAssessment" ref="a9bdb8a8081ba19483616f36eca2b8937" args="(void)" -->
 PLC_PhyCcaResult&#160;</td><td class="memItemRight" valign="bottom"><b>ClearChannelAssessment</b> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1a8ca42e425e7970fb01530fa04c9ee"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::RequiredChunks" ref="ae1a8ca42e425e7970fb01530fa04c9ee" args="(size_t num_blocks)" -->
@@ -177,24 +189,6 @@ Ptr&lt; <a class="el" href="classns3_1_1PLC__InformationRateModel.html">PLC_Info
 ModulationAndCodingType&#160;</td><td class="memItemRight" valign="bottom"><b>m_header_mcs</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06c4f6fd00f2943b53a1eabe57fffe52"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_payload_mcs" ref="a06c4f6fd00f2943b53a1eabe57fffe52" args="" -->
 ModulationAndCodingType&#160;</td><td class="memItemRight" valign="bottom"><b>m_payload_mcs</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae8894eb143b855da04062069150b0d9"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_locked_txId" ref="aae8894eb143b855da04062069150b0d9" args="" -->
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_locked_txId</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3be2597b31d3e7a272ec51e6329728b7"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_rxPsd" ref="a3be2597b31d3e7a272ec51e6329728b7" args="" -->
-Ptr&lt; const SpectrumValue &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_rxPsd</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2759b5176640b092a01e0b939693342a"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_uncoded_packet" ref="a2759b5176640b092a01e0b939693342a" args="" -->
-Ptr&lt; const Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_uncoded_packet</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37f18206753fc41652a6daa2087a5104"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_incoming_packet" ref="a37f18206753fc41652a6daa2087a5104" args="" -->
-Ptr&lt; Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_incoming_packet</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a912b37918ef0f3beadd9d2b0779d8e41"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_rateless_header" ref="a912b37918ef0f3beadd9d2b0779d8e41" args="" -->
-<a class="el" href="classns3_1_1PLC__RatelessPhyHeader.html">PLC_RatelessPhyHeader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_rateless_header</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49a4e41948f9c487788dfcfcb85b0aba"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_uncoded_rx_bits" ref="a49a4e41948f9c487788dfcfcb85b0aba" args="" -->
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_uncoded_rx_bits</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a104f48ec41c96748fc9a4bc4880b7881"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_receiving_payload" ref="a104f48ec41c96748fc9a4bc4880b7881" args="" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_receiving_payload</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8148780bac87d3fd054444b8c77f1408"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_txDatagramId" ref="a8148780bac87d3fd054444b8c77f1408" args="" -->
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_txDatagramId</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8cf71a701c88b0feed2831a5b1b7f55"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::m_rxDatagramId" ref="ab8cf71a701c88b0feed2831a5b1b7f55" args="" -->
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_rxDatagramId</b></td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad811605437ed7f79b619b9f74244aeb9"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::modulation_symbols_per_code_block" ref="ad811605437ed7f79b619b9f74244aeb9" args="" -->
@@ -220,26 +214,6 @@ static double&#160;</td><td class="memItemRight" valign="bottom"><b>rateless_cod
 </div>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>Modulation symbols needed to map one code block </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a4574798e3cfa52d229ffef1da89aec0d"></a><!-- doxytag: member="ns3::PLC_InformationRatePhy::GetUncodedPacket" ref="a4574798e3cfa52d229ffef1da89aec0d" args="(void)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ptr&lt; const Packet &gt; <a class="el" href="classns3_1_1PLC__InformationRatePhy.html#a4574798e3cfa52d229ffef1da89aec0d">ns3::PLC_InformationRatePhy::GetUncodedPacket</a> </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Get pointer to the uncoded packet.</p>
-<p>As there is no actual encoding/decoding simulated, the receiving PHY needs a reference to the uncoded data to deliver to its MAC as soon as the decoding process is supposed to be successful.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Uncoded packet </dd></dl>
 
 </div>
 </div>
@@ -332,7 +306,7 @@ static double&#160;</td><td class="memItemRight" valign="bottom"><b>rateless_cod
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:59 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:41 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

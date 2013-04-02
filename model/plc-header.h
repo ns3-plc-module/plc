@@ -19,55 +19,53 @@
 
 namespace ns3 {
 
-#define MAX_NUM_BLOCKS std::numeric_limits<uint32_t>::max()
+#define MAX_PPDU_SYMBOLS std::numeric_limits<uint16_t>::max()
 
-class PLC_PhyPacketTag : public Tag
+class PLC_Preamble : public Header
 {
 public:
-	  static TypeId GetTypeId (void);
-	  virtual TypeId GetInstanceTypeId (void) const;
+	static TypeId GetTypeId (void);
 
-	  void SetPayloadMcs(ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
-	  ModulationAndCodingType GetPayloadMcs(void) const { return m_payload_mcs; }
-	  void SetPayloadDuration(Time duration) { m_duration = duration; }
-	  Time GetPayloadDuration(void) const { return m_duration; }
-	  void SetUncodedHeaderBits(uint16_t bits) { m_uncoded_header_bits = bits; }
-	  uint16_t GetUncodedHeaderBits(void) { return m_uncoded_header_bits; }
-	  void SetUncodedPayloadBits(uint16_t bits) { m_uncoded_payload_bits = bits; }
-	  uint16_t GetUncodedPayloadBits(void) { return m_uncoded_payload_bits; }
+	PLC_Preamble(void);
+	~PLC_Preamble(void);
 
-	  virtual uint32_t GetSerializedSize (void) const;
-	  virtual void Serialize (TagBuffer i) const;
-	  virtual void Deserialize (TagBuffer i);
-	  virtual void Print (std::ostream &os) const;
+	static void SetDuration (Time duration);
+	static Time GetDuration (void);
+
+	virtual uint32_t GetSerializedSize (void) const;
+	virtual TypeId GetInstanceTypeId (void) const;
+	virtual void Serialize (Buffer::Iterator start) const;
+	virtual uint32_t Deserialize (Buffer::Iterator start);
+	virtual void Print (std::ostream &os) const;
 
 private:
-	  ModulationAndCodingType m_payload_mcs;
-	  Time m_duration;
-	  uint16_t m_uncoded_header_bits;
-	  uint32_t m_uncoded_payload_bits;
+	static Time preamble_duration;
 };
 
-class PLC_PhyHeader : public Header
+class PLC_PhyFrameControlHeader : public Header
 {
 public:
 	enum DelimiterType
 	{
-		NoResponseExpected,
-		ResponseExpected,
+		DATA,
 		ACK,
 		NACK
 	};
 
 	static TypeId GetTypeId (void);
 
-	PLC_PhyHeader(void);
-	~PLC_PhyHeader(void);
+	PLC_PhyFrameControlHeader (void);
+	~PLC_PhyFrameControlHeader (void);
 
-	void SetDelimiterType(DelimiterType type);
-	DelimiterType GetDelimiterType(void);
-	void SetFrameId(uint32_t id);
-	uint32_t GetFrameId(void);
+	void SetDelimiterType (DelimiterType type) { m_delimiter_type = (uint8_t) type; }
+	DelimiterType GetDelimiterType (void) { return (DelimiterType) m_delimiter_type; }
+	void SetPayloadSymbols (uint16_t symbols) { m_payload_symbols = symbols; }
+	uint16_t GetPayloadSymbols (void) { return m_payload_symbols; }
+	void SetPayloadMcs (ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
+	ModulationAndCodingType GetPayloadMcs (void) { return (ModulationAndCodingType) m_payload_mcs; }
+	void SetFccs (uint8_t fccs) { m_fccs = fccs; }
+	uint8_t GetFccs (void) { return m_fccs; }
+
 	virtual uint32_t GetSerializedSize (void) const;
 	virtual TypeId GetInstanceTypeId (void) const;
 	virtual void Serialize (Buffer::Iterator start) const;
@@ -75,30 +73,41 @@ public:
 	virtual void Print (std::ostream &os) const;
 
 private:
-	uint8_t m_preamble;
 	uint8_t m_delimiter_type;
-	uint32_t m_frame_id;
+	uint16_t m_payload_symbols;
+	uint8_t m_payload_mcs;
+	uint8_t m_fccs; // frame control check sequence
 };
 
-class PLC_RatelessPhyHeader : public Header
+std::ostream& operator<<(std::ostream& os, PLC_PhyFrameControlHeader::DelimiterType type);
+
+class PLC_PhyRatelessFrameControlHeader : public Header
 {
 public:
+	enum DelimiterType
+	{
+		DATA,
+		ACK,
+		NACK
+	};
+
 	static TypeId GetTypeId (void);
 
-	PLC_RatelessPhyHeader(void);
-	~PLC_RatelessPhyHeader(void);
+	PLC_PhyRatelessFrameControlHeader (void);
+	~PLC_PhyRatelessFrameControlHeader (void);
 
-	void SetPrngSeed(uint16_t seed);
-	void SetFirstChunkSqn(uint8_t sqn);
-	void SetDatagramId(uint16_t id);
-	void SetNumBlocks(uint32_t length);
-	void SetControlFrame(bool a);
-
-	bool IsControlFrame(void) const;
-	uint16_t GetPrngSeed(void) const;
-	uint16_t GetDatagramId(void) const;
-	uint32_t GetNumBlocks(void) const;
-	uint8_t GetFirstChunkSqn(void) const;
+	void SetDelimiterType (DelimiterType type) { m_delimiter_type = (uint8_t) type; }
+	DelimiterType GetDelimiterType (void) { return (DelimiterType) m_delimiter_type; }
+	void SetPayloadSymbols (uint16_t symbols) { m_payload_symbols = symbols; }
+	uint16_t GetPayloadSymbols (void) { return m_payload_symbols; }
+	void SetPayloadMcs (ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
+	ModulationAndCodingType GetPayloadMcs (void) { return (ModulationAndCodingType) m_payload_mcs; }
+	void SetFccs (uint8_t fccs) { m_fccs = fccs; }
+	uint8_t GetFccs (void) { return m_fccs; }
+	void SetPrngSeed (uint16_t prng_seed) { m_prng_seed = prng_seed; }
+	uint16_t GetPrngSeed (void) { return m_prng_seed; }
+	void SetNumBlocks (uint32_t num_blocks) { m_num_blocks = num_blocks; }
+	uint32_t GetNumBlocks (void) { return m_num_blocks; }
 
 	virtual uint32_t GetSerializedSize (void) const;
 	virtual TypeId GetInstanceTypeId (void) const;
@@ -107,18 +116,17 @@ public:
 	virtual void Print (std::ostream &os) const;
 
 private:
-	uint8_t m_flags;
+	uint8_t m_delimiter_type;
+	uint16_t m_payload_symbols;
+	uint8_t m_payload_mcs;
 	uint16_t m_prng_seed;
-	uint16_t m_datagram_id;
-	uint8_t m_first_chunk_sqn;
 	uint32_t m_num_blocks;
-	uint8_t m_crc;
+	uint8_t m_fccs; // frame control check sequence
 };
 
 class PLC_MacHeader : public Header
 {
 public:
-
 	enum MacHdrType {
 		DATA,
 		ACK,

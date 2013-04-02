@@ -47,12 +47,12 @@
 #include "ns3/plc-outlet.h"
 #include "ns3/plc-noise.h"
 #include "ns3/plc-phy.h"
-#include "ns3/plc-mac.h"
-#include "ns3/plc-net-device.h"
+//#include "ns3/plc-mac.h"
+//#include "ns3/plc-net-device.h"
 
 // plc helper includes
 #include "ns3/plc-helper.h"
-#include "ns3/plc-device-helper.h"
+//#include "ns3/plc-device-helper.h"
 #include "ns3/plc-spectrum-helper.h"
 
 #endif /* PLC_H_ */

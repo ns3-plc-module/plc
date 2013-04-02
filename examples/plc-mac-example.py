@@ -29,13 +29,13 @@ def sendPacket(mac, p, dst):
     mac.Send(p,dst)
 
 def receivedACK():
-    print 'ACK received'
+    print '*** ACK received ***'
 
 def main(dummy_argv):
 
     ## Enable logging  
     ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
-    ns.core.LogComponentEnable('PLC_Mac', ns.core.LOG_LEVEL_INFO)
+    ns.core.LogComponentEnable('PLC_Mac', ns.core.LOG_LEVEL_FUNCTION)
 
     ## Enable packet printing
     ns.network.Packet.EnablePrinting()

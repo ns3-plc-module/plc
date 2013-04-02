@@ -125,30 +125,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00049"></a>00049         <span class="keywordtype">void</span> AddInterferenceSignal (Ptr&lt;const SpectrumValue&gt; spd);
 <a name="l00050"></a>00050         <span class="keywordtype">void</span> RemoveInterferenceSignal (Ptr&lt;const SpectrumValue&gt; spd);
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052         Ptr&lt;SpectrumValue&gt; GetSINR(<span class="keywordtype">void</span>);
+<a name="l00052"></a>00052         Ptr&lt;SpectrumValue&gt; GetSinr(<span class="keywordtype">void</span>);
 <a name="l00053"></a>00053         <span class="keywordtype">double</span> GetTotalRxPower(<span class="keywordtype">void</span>);
 <a name="l00054"></a>00054         <span class="keywordtype">double</span> GetTotalNoisePower(<span class="keywordtype">void</span>);
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="keyword">private</span>:
-<a name="l00057"></a>00057         <span class="keywordtype">void</span> DoDispose ();
+<a name="l00056"></a>00056         <span class="keywordtype">void</span> SetSinrBase(Ptr&lt;const SpectrumValue&gt; baseSinr);
+<a name="l00057"></a>00057         Ptr&lt;const SpectrumValue&gt; GetSinrBase(<span class="keywordtype">void</span>);
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059         <span class="keywordtype">bool</span> m_receiving;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061         Ptr&lt;SpectrumValue&gt;                      m_allSignals;
-<a name="l00062"></a>00062         Ptr&lt;const SpectrumValue&gt;        m_rxSignal;
-<a name="l00063"></a>00063         Ptr&lt;SpectrumValue&gt;                      m_noiseSignals;
-<a name="l00064"></a>00064         Ptr&lt;const SpectrumValue&gt;        m_noiseFloor;
-<a name="l00065"></a>00065         Ptr&lt;SpectrumValue&gt;                      m_sinr;
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_sumSignalTracer;
-<a name="l00068"></a>00068         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_rxSignalTracer;
-<a name="l00069"></a>00069         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_noiseSignalTracer;
-<a name="l00070"></a>00070         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_SinrTracer;
-<a name="l00071"></a>00071 };
+<a name="l00059"></a>00059 <span class="keyword">private</span>:
+<a name="l00060"></a>00060         <span class="keywordtype">void</span> DoDispose ();
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="keywordtype">void</span> CalcSinr(<span class="keywordtype">void</span>);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064         <span class="keywordtype">bool</span> m_receiving;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066         Ptr&lt;SpectrumValue&gt;                      m_allSignals;
+<a name="l00067"></a>00067         Ptr&lt;const SpectrumValue&gt;        m_rxSignal;
+<a name="l00068"></a>00068         Ptr&lt;SpectrumValue&gt;                      m_noiseSignals;
+<a name="l00069"></a>00069         Ptr&lt;const SpectrumValue&gt;        m_noiseFloor;
+<a name="l00070"></a>00070         Ptr&lt;SpectrumValue&gt;                      m_sinr;
+<a name="l00071"></a>00071         Ptr&lt;const SpectrumValue&gt;        m_sinr_base;
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073 }
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075 <span class="preprocessor">#endif </span><span class="comment">/* PLC_INTERFERENCE_H_ */</span>
+<a name="l00073"></a>00073         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_sumSignalTracer;
+<a name="l00074"></a>00074         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_rxSignalTracer;
+<a name="l00075"></a>00075         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_noiseSignalTracer;
+<a name="l00076"></a>00076         TracedCallback&lt;Time, Ptr&lt;const SpectrumValue&gt; &gt; m_SinrTracer;
+<a name="l00077"></a>00077 };
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 }
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081 <span class="preprocessor">#endif </span><span class="comment">/* PLC_INTERFERENCE_H_ */</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -167,7 +173,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:51 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:37 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -1,7 +1,9 @@
 var searchData=
 [
   ['cacheimpedances',['CacheImpedances',['../classns3_1_1PLC__Edge.html#af260164445e2242de25261b185f62f90',1,'ns3::PLC_Edge']]],
+  ['calccharimp',['CalcCharImp',['../classns3_1_1PLC__Cable.html#a7496b6ac6c63ce30273bdec71a1bc98b',1,'ns3::PLC_Cable']]],
   ['calclineinputimpedance',['CalcLineInputImpedance',['../classns3_1_1PLC__Line.html#aaff1b993c3d103d52dde53155fcb1787',1,'ns3::PLC_Line']]],
+  ['calctransconst',['CalcTransConst',['../classns3_1_1PLC__Cable.html#a7747327635fcafdbbe8abe9b0db2e3b0',1,'ns3::PLC_Cable']]],
   ['calctransmissionchannels',['CalcTransmissionChannels',['../classns3_1_1PLC__Channel.html#a2bb68af9c30a3d0c4f7a264c4e90ddab',1,'ns3::PLC_Channel']]],
   ['calculatechannels',['CalculateChannels',['../classns3_1_1PLC__TxInterface.html#a9d5e237a329135b8f73178200f94bbc9',1,'ns3::PLC_TxInterface']]],
   ['calculatechanneltransfervector',['CalculateChannelTransferVector',['../classns3_1_1PLC__ChannelTransferImpl.html#ae2d8f97c7f06512573f6c2ee6df8c89f',1,'ns3::PLC_ChannelTransferImpl']]],

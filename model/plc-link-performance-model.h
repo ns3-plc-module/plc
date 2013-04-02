@@ -137,7 +137,7 @@ public:
 	double GetGatheredMutualInformation(void) { return m_gathered_information_bits; }
 
 private:
-	static McsInfo s_mcs_info[8];
+	static McsInfo s_mcs_info[10];
 
 	void DoStartRx(double requiredInformationBits);
 	void DoEvaluateChunk(void);

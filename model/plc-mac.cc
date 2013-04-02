@@ -343,7 +343,7 @@ PLC_ArqMac::PLC_ArqMac (void)
 	m_awaiting_ack = false;
 	UniformVariable u;
 	m_sequence_number = u.GetInteger(0, 65535);
-	m_timeout = MilliSeconds(1);
+	m_timeout = MilliSeconds(100);
 	m_max_replays = 10;
 	m_replays = 0;
 }
@@ -429,7 +429,9 @@ PLC_ArqMac::DoProcess (Ptr<const Packet> p)
 			m_txPacket = Create<Packet> (0);
 			m_txPacket->AddHeader(m_txHeader);
 
-			StartCsmaCa();
+			m_awaiting_ack = false;
+
+			RequestCca ();
 		}
 		else if (
 				m_awaiting_ack &&
@@ -453,7 +455,6 @@ PLC_ArqMac::DoProcess (Ptr<const Packet> p)
 		PLC_MAC_INFO ("Promiscuous mode, forwarding up...");
 		if (!m_data_callback.IsNull())
 		{
-			PLC_LOG_LOGIC("Forwarding up: " << *m_rxPacket);
 			m_data_callback(m_rxPacket, src_addr, dst_addr);
 		}
 	}
@@ -471,7 +472,7 @@ PLC_ArqMac::DoSetPhy (Ptr<PLC_Phy> phy)
 	m_phy = StaticCast<PLC_HalfDuplexOfdmPhy, PLC_Phy> (phy);
 
 	m_phy->SetReceiveSuccessCallback(MakeCallback(&PLC_Mac::NotifyReceptionEndOk, this));
-	m_phy->SetDataFrameSentCallback(MakeCallback(&PLC_Mac::NotifyTransmissionEnd, this));
+	m_phy->SetFrameSentCallback(MakeCallback(&PLC_Mac::NotifyTransmissionEnd, this));
 	m_phy->SetCcaConfirmCallback(MakeCallback(&PLC_Mac::CcaConfirm, this));
 
 	SetCcaRequestCallback(MakeCallback(&PLC_HalfDuplexOfdmPhy::CcaRequest, m_phy));
@@ -487,7 +488,30 @@ PLC_ArqMac::DoGetPhy (void)
 void
 PLC_ArqMac::NotifyCcaConfirm (PLC_PhyCcaResult status)
 {
-	PLC_MAC_FUNCTION (this);
+	PLC_MAC_FUNCTION (this << status);
+
+	if (!m_csmaca_active && status == CHANNEL_CLEAR)
+	{
+		if (m_phy != NULL)
+		{
+			if (m_txPacket)
+			{
+				PLC_MAC_INFO ("Channel Idle, start sending packet " << m_txPacket);
+				if (!m_phy->StartTx(m_txPacket))
+				{
+					PLC_MAC_LOGIC ("PHY rejected to start transmitting");
+				}
+			}
+			else
+			{
+				PLC_MAC_LOGIC("No packet to send");
+			}
+		}
+		else
+		{
+			NS_LOG_UNCOND ("PHY not set, cannot send datagram");
+		}
+	}
 }
 
 void

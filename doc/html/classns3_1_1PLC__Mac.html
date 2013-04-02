@@ -149,14 +149,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>NotifyCsmaCaC
 <tr><td class="memItemLeft" align="right" valign="top">Mac48Address&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Mac.html#abf48c0bee26b87fb32a860685231bc0f">GetBroadcastAddress</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Mac.html#a8a173ec9203052f75089958938222a82">SetMulticastAddress</a> (Mac48Address addr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Mac48Address&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Mac.html#ad1ec3884c177176da44b1c9aa23ab208">GetMulticastAddress</a> (void)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac544564d0e9e25ab32488227554ab121"></a><!-- doxytag: member="ns3::PLC_Mac::SetBridgePort" ref="ac544564d0e9e25ab32488227554ab121" args="(bool isBridgePort)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetBridgePort</b> (bool isBridgePort)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c4cbe397a9d6753c2061bb51351eeae"></a><!-- doxytag: member="ns3::PLC_Mac::IsBridgePort" ref="a9c4cbe397a9d6753c2061bb51351eeae" args="(void)" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsBridgePort</b> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Mac.html#aa4aa357fb178a286f334983ab851775f">Send</a> (Ptr&lt; Packet &gt; p, Mac48Address dst)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Mac.html#a272d80d76488484bf8c60e87d4e6c423">SendFrom</a> (Ptr&lt; Packet &gt; p, Mac48Address src, Mac48Address dst)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0f93c1216ace18b5c4e382a55e77fb3"></a><!-- doxytag: member="ns3::PLC_Mac::SetPhy" ref="ae0f93c1216ace18b5c4e382a55e77fb3" args="(Ptr&lt; PLC_Phy &gt; phy)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPhy</b> (Ptr&lt; <a class="el" href="classns3_1_1PLC__Phy.html">PLC_Phy</a> &gt; phy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa687f4ae72dd3874ce6bef5ac327ef1"></a><!-- doxytag: member="ns3::PLC_Mac::GetPhy" ref="afa687f4ae72dd3874ce6bef5ac327ef1" args="(void)" -->
-virtual Ptr&lt; <a class="el" href="classns3_1_1PLC__Phy.html">PLC_Phy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPhy</b> (void)</td></tr>
+Ptr&lt; <a class="el" href="classns3_1_1PLC__Phy.html">PLC_Phy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPhy</b> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Mac.html#ab082c6f7b324f3262c8e2da835deac00">NotifyTransmissionEnd</a> (void)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Mac.html#ab32011008a9fa556f61b7a0b31f5c082">NotifyReceptionEndOk</a> (Ptr&lt; const Packet &gt; p)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
@@ -173,6 +171,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoDispose</b>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>DoSendFrom</b> (Ptr&lt; Packet &gt; p, Mac48Address src, Mac48Address dst)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a3165e888c70bf27e5c5f763a66b939"></a><!-- doxytag: member="ns3::PLC_Mac::DoProcess" ref="a3a3165e888c70bf27e5c5f763a66b939" args="(Ptr&lt; const Packet &gt; p)=0" -->
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoProcess</b> (Ptr&lt; const Packet &gt; p)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7788ec2ccb628ceb70d1bc140917a42c"></a><!-- doxytag: member="ns3::PLC_Mac::DoSetPhy" ref="a7788ec2ccb628ceb70d1bc140917a42c" args="(Ptr&lt; PLC_Phy &gt; phy)=0" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoSetPhy</b> (Ptr&lt; <a class="el" href="classns3_1_1PLC__Phy.html">PLC_Phy</a> &gt; phy)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e820429841dc8e9d764d8b42b6fbc53"></a><!-- doxytag: member="ns3::PLC_Mac::DoGetPhy" ref="a6e820429841dc8e9d764d8b42b6fbc53" args="(void)=0" -->
 virtual Ptr&lt; <a class="el" href="classns3_1_1PLC__Phy.html">PLC_Phy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>DoGetPhy</b> (void)=0</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
@@ -187,8 +187,6 @@ Mac48Address&#160;</td><td class="memItemRight" valign="bottom"><b>m_multicast_a
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_csmaca_active</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0719536f0d86f13ec19fc7fe31e8bcf8"></a><!-- doxytag: member="ns3::PLC_Mac::m_promiscuous_mode" ref="a0719536f0d86f13ec19fc7fe31e8bcf8" args="" -->
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_promiscuous_mode</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a014a94b2558746faea19bb9831cf318e"></a><!-- doxytag: member="ns3::PLC_Mac::m_isBridgePort" ref="a014a94b2558746faea19bb9831cf318e" args="" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_isBridgePort</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76d7ccf00276e0659e6a357dceb63788"></a><!-- doxytag: member="ns3::PLC_Mac::m_csmaca_attempts" ref="a76d7ccf00276e0659e6a357dceb63788" args="" -->
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_csmaca_attempts</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acfdf9bc2132f69830749e814bb19ec28"></a><!-- doxytag: member="ns3::PLC_Mac::m_NB" ref="acfdf9bc2132f69830749e814bb19ec28" args="" -->
@@ -568,7 +566,7 @@ Ptr&lt; <a class="el" href="classns3_1_1PLC__Mac.html">PLC_Mac</a> &gt; &gt;&#16
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:56 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:39 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

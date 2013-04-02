@@ -123,7 +123,7 @@ void PLC_StaticNoiseSource::Start (Time duration)
 	PLC_LOG_FUNCTION (this);
 	NS_ASSERT_MSG(m_is_initialized, "Noise Source not initialized! Call Init() before starting noise source!");
 	PLC_NoiseSource::Enable ();
-	m_txInterface->StartTx (NULL, this->m_noisePsd, NONE_MCS, duration);
+	m_txInterface->StartTx (NULL, this->m_noisePsd, duration, NULL);
 }
 
 /////////////////////////////// PLC_TimeVariantNoiseSource ////////////////////////////////////////////
@@ -208,7 +208,7 @@ void PLC_ImpulsiveNoiseSource::PulseStart (void)
 	PLC_LOG_FUNCTION (this);
 	if  (IsEnabled ()) {
 		Time duration = Seconds (this->m_pulse_len->GetValue ());
-		m_txInterface->StartTx (NULL, this->m_noisePsd, NONE_MCS, duration);
+		m_txInterface->StartTx (NULL, this->m_noisePsd, duration, NULL);
 		Simulator::Schedule (duration, &PLC_ImpulsiveNoiseSource::PulseEnd, this);
 	}
 }

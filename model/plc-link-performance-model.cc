@@ -49,7 +49,7 @@ PLC_LinkPerformanceModel::PLC_LinkPerformanceModel ()
 {
 	m_interference = CreateObject<PLC_Interference> ();
 	m_receiving = false;
-	m_mcs = NONE_MCS;
+	m_mcs = BPSK_1_2;
 }
 
 PLC_LinkPerformanceModel::PLC_LinkPerformanceModel (Ptr<const SpectrumValue> noiseFloor)
@@ -268,7 +268,7 @@ PLC_ErrorRateModel::DoEndRx(void)
 NS_OBJECT_ENSURE_REGISTERED (PLC_InformationRateModel);
 
 PLC_InformationRateModel::McsInfo
-PLC_InformationRateModel::s_mcs_info[8] =
+PLC_InformationRateModel::s_mcs_info[10] =
 {
 		{QAM, 2, 1/4}, 		// BPSK_1_4
 		{QAM, 2, 1/2}, 		// BPSK_1_2
@@ -278,6 +278,8 @@ PLC_InformationRateModel::s_mcs_info[8] =
 		{QAM, 2, 0}, 		// BPSK_RATELESS
 		{QAM, 4, 0}, 		// QAM4_RATELESS
 		{QAM, 16, 0}, 		// QAM16_RATELESS
+		{QAM, 32, 0},		// QAM32_RATELESS
+		{QAM, 64, 0},		// QAM64_RATELESS
 };
 
 TypeId

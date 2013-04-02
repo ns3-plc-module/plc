@@ -31,6 +31,8 @@
 #include "plc-simulator-impl.h"
 #include "plc-channel.h"
 
+namespace ns3 {
+
 NS_LOG_COMPONENT_DEFINE ("PLC_Phy");
 
 #define PLC_PHY_LOGIC(msg)\
@@ -73,121 +75,20 @@ NS_LOG_COMPONENT_DEFINE ("PLC_Phy");
 		}\
 	} while(0)
 
-namespace ns3 {
+size_t
+RequiredSymbols (size_t encoded_bits, ModulationAndCodingType mcs, size_t subbands)
+{
+	size_t bits_per_subcarrier = GetBitsPerSymbol (mcs);
+	return ceil((double) encoded_bits / (subbands * bits_per_subcarrier));
+}
 
 Time
-CalculateFixedRateTxDuration(size_t uncoded_bytes, ModulationAndCodingType mcs, size_t subbands)
+CalculateTransmissionDuration(size_t encoded_bits, ModulationAndCodingType mcs, size_t subbands)
 {
-	double code_rate;
-	size_t bits_per_subcarrier;
-	switch (mcs)
-	{
-		case BPSK_1_4:
-		{
-			code_rate = 0.25;
-			bits_per_subcarrier = 1;
-			break;
-		}
-		case BPSK_1_2:
-		{
-			code_rate = 0.5;
-			bits_per_subcarrier = 1;
-			break;
-		}
-		case QPSK_1_2:
-		{
-			code_rate = 0.5;
-			bits_per_subcarrier = 2;
-			break;
-		}
+	size_t num_symbols = RequiredSymbols (encoded_bits, mcs, subbands);
+	NS_LOG_LOGIC("required symbols: " << num_symbols);
 
-		case QAM16_1_2:
-		{
-			code_rate = 0.5;
-			bits_per_subcarrier = 4;
-			break;
-		}
-
-		case QAM64_16_21:
-		{
-			code_rate = (double) 16/21;
-			bits_per_subcarrier = 6;
-			break;
-		}
-
-		default:
-		{
-			NS_ABORT_MSG("Modulation and Coding Scheme " << mcs << " not supported");
-			break;
-		}
-	}
-
-	size_t num_symbols = ceil((uncoded_bytes * 8 / code_rate) / (subbands * bits_per_subcarrier));
-	NS_LOG_LOGIC("num_symbols: " << num_symbols);
-
-	Time duration = Time::FromInteger((PLC_Phy::GetSymbolDuration().GetInteger() * num_symbols), Time::GetResolution());
-
-	return duration;
-}
-
-size_t
-RawBitsPerOfdmSymbol(ModulationAndCodingType mcs, size_t numSubcarriers)
-{
-	switch(mcs)
-	{
-		case BPSK_1_4:
-		case BPSK_1_2:
-		case BPSK_RATELESS:
-		{
-			return numSubcarriers;
-		}
-		case QPSK_1_2:
-		case QAM4_RATELESS:
-		{
-			return 2*numSubcarriers;
-		}
-		case QAM16_1_2:
-		case QAM16_RATELESS:
-		{
-			return 4*numSubcarriers;
-		}
-		case QAM64_16_21:
-		{
-			return 6*numSubcarriers;
-		}
-		default:
-		{
-			NS_ABORT_MSG("Unsupported Modulation and Coding Type");
-			return 0;
-		}
-	}
-}
-
-size_t
-RawBytesInOfdmSymbols(ModulationAndCodingType mcs, size_t numSubcarriers, size_t num_bytes)
-{
-	return ceil(num_bytes * 8 / (double) RawBitsPerOfdmSymbol(mcs, numSubcarriers));
-}
-
-double
-CodeRate (ModulationAndCodingType mcs)
-{
-	switch(mcs)
-	{
-		case BPSK_1_4:
-			return 0.25;
-		case BPSK_1_2:
-		case QPSK_1_2:
-		case QAM16_1_2:
-			return 0.5;
-		case QAM64_16_21:
-			return 16/21;
-		default:
-		{
-			NS_ABORT_MSG("Not a fixed rate code");
-			return 0;
-		}
-	}
+	return Time::FromInteger((PLC_Phy::GetSymbolDuration().GetInteger() * num_symbols), Time::GetResolution());
 }
 
 ////////////////////////////// PLC_Phy /////////////////////////////////////////////
@@ -243,10 +144,10 @@ PLC_Phy::StartTx (Ptr<Packet> p)
 }
 
 void
-PLC_Phy::StartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration)
+PLC_Phy::StartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	NS_LOG_FUNCTION (this << p);
-	DoStartRx (p, txId, rxPsd, mcs, duration);
+	DoStartRx (p, txId, rxPsd, duration, metaInfo);
 }
 
 void
@@ -257,10 +158,10 @@ PLC_Phy::RxPsdChanged (uint32_t txId, Ptr<SpectrumValue> newRxPsd)
 }
 
 void
-PLC_Phy::SetDataFrameSentCallback(PLC_PhyDataFrameSentCallback c)
+PLC_Phy::SetFrameSentCallback(PLC_PhyFrameSentCallback c)
 {
 	PLC_PHY_FUNCTION(this);
-	m_data_frame_sent_callback = c;
+	m_frame_sent_callback = c;
 }
 
 void
@@ -278,11 +179,11 @@ PLC_Phy::SetReceiveErrorCallback(PhyRxEndErrorCallback c)
 }
 
 void
-PLC_Phy::NotifyDataFrameSent (void)
+PLC_Phy::NotifyFrameSent (void)
 {
-	if (!m_data_frame_sent_callback.IsNull())
+	if (!m_frame_sent_callback.IsNull())
 	{
-		m_data_frame_sent_callback();
+		m_frame_sent_callback();
 	}
 }
 
@@ -321,6 +222,7 @@ PLC_HalfDuplexOfdmPhy::GetTypeId (void)
 PLC_HalfDuplexOfdmPhy::PLC_HalfDuplexOfdmPhy()
 {
 	PLC_PHY_FUNCTION(this);
+	m_incoming_packet = 0;
 	m_state = IDLE;
 }
 
@@ -333,7 +235,7 @@ void
 PLC_HalfDuplexOfdmPhy::DoStart(void)
 {
 	PLC_PHY_FUNCTION(this);
-	ChangeState(IDLE);
+	m_state = IDLE;
 	PLC_Phy::DoStart();
 }
 
@@ -351,6 +253,7 @@ PLC_HalfDuplexOfdmPhy::DoDispose ()
 	m_rxImpedance = 0;
 	m_eqRxImpedance = 0;
 	m_eqTxImpedance = 0;
+	m_incoming_packet = 0;
 
 	PLC_Phy::DoDispose();
 }
@@ -465,7 +368,7 @@ PLC_HalfDuplexOfdmPhy::SetShuntImpedance(Ptr<PLC_Impedance> shuntImpedance)
 
 	if (m_outlet)
 	{
-		if (m_state == TX)
+		if (GetState () == TX)
 		{
 			m_outlet->SetImpedance(m_eqTxImpedance);
 		}
@@ -498,7 +401,7 @@ PLC_HalfDuplexOfdmPhy::SetRxImpedance(Ptr<PLC_Impedance> rxImpedance)
 
 	if (m_outlet)
 	{
-		if (m_state == TX)
+		if (GetState () == TX)
 		{
 			m_outlet->SetImpedance(m_eqTxImpedance);
 		}
@@ -531,7 +434,7 @@ PLC_HalfDuplexOfdmPhy::SetTxImpedance(Ptr<PLC_Impedance> txImpedance)
 
 	if (m_outlet)
 	{
-		if (m_state == TX)
+		if (GetState () == TX)
 		{
 			m_outlet->SetImpedance(m_eqTxImpedance);
 		}
@@ -589,7 +492,7 @@ PLC_HalfDuplexOfdmPhy::SwitchImpedance(State state)
 {
 	PLC_PHY_FUNCTION(this);
 
-	if (m_state == state) return;
+	if (GetState () == state) return;
 
 	NS_LOG_LOGIC ("m_eqRxImpedance: " << m_eqRxImpedance);
 	NS_LOG_LOGIC ("m_eqTxImpedance: " << m_eqRxImpedance);
@@ -598,7 +501,7 @@ PLC_HalfDuplexOfdmPhy::SwitchImpedance(State state)
 	{
 		m_outlet->SetImpedance(m_eqTxImpedance);
 	}
-	else if (m_state == TX)
+	else if (GetState () == TX)
 	{
 		m_outlet->SetImpedance(m_eqRxImpedance);
 	}
@@ -640,9 +543,9 @@ void
 PLC_HalfDuplexOfdmPhy::ChangeState(State newState)
 {
 	PLC_PHY_FUNCTION(this);
-	if (newState != m_state)
+	if (newState != GetState ())
 	{
-		PLC_LOG_LOGIC (this << " state: " << m_state << " -> " << newState);
+		PLC_LOG_LOGIC (this << " state: " << GetState () << " -> " << newState);
 		NS_ASSERT_MSG(m_outlet, "PHY's outlet is not set!");
 
 		if (newState == TX)
@@ -689,9 +592,9 @@ PLC_ErrorRatePhy::GetTypeId (void)
 PLC_ErrorRatePhy::PLC_ErrorRatePhy(void)
 {
 	PLC_PHY_FUNCTION(this);
-	m_state = IDLE;
 	m_mcs = BPSK_1_2;
 	m_error_rate_model = CreateObject<PLC_ErrorRateModel> (GetSymbolDuration());
+	ChangeState (IDLE);
 }
 
 void
@@ -705,10 +608,9 @@ void
 PLC_ErrorRatePhy::DoDispose(void)
 {
 	m_rxNoisePsdMap.clear();
-	m_rxPacket = 0;
 	m_error_rate_model = 0;
 	m_ccaConfirmCallback = MakeNullCallback< void, PLC_PhyCcaResult > ();
-	m_data_frame_sent_callback = MakeNullCallback< void > ();
+	m_frame_sent_callback = MakeNullCallback< void > ();
 	PLC_HalfDuplexOfdmPhy::DoDispose();
 }
 
@@ -724,55 +626,75 @@ bool
 PLC_ErrorRatePhy::DoStartTx (Ptr<Packet> p)
 {
 	PLC_PHY_FUNCTION(this << p);
-
-	// Add PHY header
-	PLC_PhyHeader phyHeader;
-	p->AddHeader(phyHeader);
-
-	// Calculate transmission duration
-	Time duration = CalculateTxDuration(p);
-	PLC_PHY_INFO("Calculated tx duration: " << duration);
 	NS_ASSERT_MSG(m_txInterface, "Phy has no tx interface");
 
-	if (m_state == IDLE)
+	// Compose meta information
+	Ptr<PLC_TrxMetaInfo> metaInfo = CreateObject<PLC_TrxMetaInfo> ();
+	metaInfo->SetUncodedMessage(p); // uncoded packet reference
+	metaInfo->SetHeaderMcs(m_mcs); 	// header and
+	metaInfo->SetPayloadMcs(m_mcs);	// payload with same mcs
+
+	// Calculate transmission duration of PPDU p
+	Time duration = CalculateTxDuration(p);
+
+	// Add preamble
+	PLC_Preamble preamble;
+	p->AddHeader(preamble);
+	duration += preamble.GetDuration();
+
+	PLC_PHY_INFO("Calculated tx duration: " << duration);
+
+	if (GetState () == IDLE)
 	{
 		PLC_PHY_INFO("Start sending packet: " << *p);
 		ChangeState(TX);
-		m_txInterface->StartTx(p, m_txPsd, m_mcs, duration);
+		m_txInterface->StartTx(p, m_txPsd, duration, metaInfo);
 		Simulator::Schedule(duration, &PLC_ErrorRatePhy::ChangeState, this, IDLE);
 
-		if (!m_data_frame_sent_callback.IsNull())
+		if (!m_frame_sent_callback.IsNull())
 		{
-			Simulator::Schedule(duration, &PLC_ErrorRatePhy::m_data_frame_sent_callback, this);
+			Simulator::Schedule(duration, &PLC_ErrorRatePhy::m_frame_sent_callback, this);
 		}
 
 		return true;
 	}
 
-	PLC_LOG_INFO("Device not idle, cannot send frame");
+	PLC_LOG_INFO("Phy busy, cannot send frame");
 
 	return false;
 }
 
 void
-PLC_ErrorRatePhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration)
+PLC_ErrorRatePhy::PreambleDetectionSuccessful (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_PHY_FUNCTION(this << p << txId << rxPsd << duration);
+	PLC_PHY_FUNCTION (this << p << txId << rxPsd << duration << metaInfo);
+	PLC_PHY_LOGIC ("Preamble detection successfull");
+	m_locked_txId = txId;
+	m_incoming_packet = p->Copy();
+
+	NS_ASSERT (metaInfo && metaInfo->GetUncodedMessage());
+	size_t uncoded_bits = metaInfo->GetUncodedMessage()->GetSize() * 8;
+	ModulationAndCodingType mcs = metaInfo->GetHeaderMcs();
+	m_error_rate_model->StartRx(mcs, rxPsd, uncoded_bits);
+}
+
+void
+PLC_ErrorRatePhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION(this << p << txId << rxPsd << duration << metaInfo);
 	NS_ASSERT_MSG(m_error_rate_model, "PLC_HalfDuplexOfdmPhy: an error model has to be assigned to the Phy previous to data reception!");
 
 	PLC_PHY_LOGIC ("Receive Power: " << Pwr(*rxPsd));
 
-	if (m_state == IDLE && 	// PHY will only start receiving in IDLE state (TODO: conditional resynchronization to the new signal if PHY is currently in receiving state)
-		mcs == m_mcs && 	// same modulation and coding scheme (preamble detection is supposed to be always successful)
+	if (p &&
+		GetState () == IDLE && 	// PHY will only start receiving in IDLE state (TODO: conditional resynchronization to the new signal if PHY is currently in receiving state)
+		metaInfo && // meta information present
+		metaInfo->GetHeaderMcs() == GetModulationAndCodingScheme() && 	// same modulation and coding scheme (preamble detection is supposed to be always successful)
 		W2dBm(Pwr((*rxPsd)/* / GetTotalNoisePower()*/)) >= PLC_RECEIVER_SENSIVITY) // power is sufficient for synchronization
 	{
-		PLC_LOG_LOGIC (this << " start receiving packet " << *p);
-		m_locked_txId = txId;
-		m_rxPacket = p;
-
-		size_t uncoded_bits = p->GetSize() * 8;
-
-		m_error_rate_model->StartRx(mcs, rxPsd, uncoded_bits);
+		PLC_LOG_LOGIC (this << "Starting preamble detections..." << *p);
+		Simulator::Schedule (PLC_Preamble::GetDuration(), &PLC_ErrorRatePhy::PreambleDetectionSuccessful, this, p, txId, rxPsd, duration, metaInfo);
+		m_locked_txId = 0;
 		ChangeState(RX);
 	}
 	else
@@ -792,7 +714,7 @@ void
 PLC_ErrorRatePhy::DoUpdateRxPsd (uint32_t txId, Ptr<SpectrumValue> rxSignal)
 {
 	PLC_PHY_FUNCTION(this << txId << rxSignal);
-	if (m_state == RX && m_locked_txId == txId)
+	if (GetState () == RX && m_locked_txId == txId)
 	{
 		m_error_rate_model->AlterRxSignal(rxSignal);
 	}
@@ -812,33 +734,35 @@ PLC_ErrorRatePhy::EndRx(uint32_t txId)
 {
 	PLC_PHY_FUNCTION(this << txId);
 
-	if (m_state == RX && m_locked_txId == txId)
+	if (GetState () == RX && m_locked_txId == txId)
 	{
-		NS_ASSERT(m_rxPacket);
+		NS_ASSERT(m_incoming_packet);
 		ChangeState(IDLE);
 
 		if (m_error_rate_model->EndRx ())
 		{
-			PLC_PHY_INFO ("Packet " << m_rxPacket << " successfully received");
-			PLC_PHY_LOGIC("Packet: " << *m_rxPacket);
+			PLC_PHY_INFO ("Packet " << m_incoming_packet << " successfully received");
+			PLC_PHY_LOGIC("Packet: " << *m_incoming_packet);
 
 			if (!m_receive_success_cb.IsNull())
 			{
 				// Remove PHY header and forward packet to MAC layer
-				Ptr<Packet> rxPacket = m_rxPacket->Copy();
-				PLC_PhyHeader phyHeader;
-				rxPacket->RemoveHeader(phyHeader);
+				Ptr<Packet> rxPacket = m_incoming_packet->Copy();
+				PLC_PhyFrameControlHeader fch;
+				rxPacket->RemoveHeader(fch);
 				m_receive_success_cb(rxPacket);
 			}
 		}
 		else
 		{
-			PLC_PHY_INFO ("Packet " << m_rxPacket << " lost");
+			PLC_PHY_INFO ("Packet " << m_incoming_packet << " lost");
 			if (!m_receive_error_cb.IsNull())
 			{
 				m_receive_error_cb();
 			}
 		}
+
+		m_locked_txId = 0;
 	}
 	else
 	{
@@ -862,7 +786,7 @@ PLC_PhyCcaResult
 PLC_ErrorRatePhy::ClearChannelAssessment(void)
 {
 	PLC_PHY_FUNCTION(this);
-	if (m_state == IDLE && m_error_rate_model->GetTotalRxPower() <= CCA_THRESHOLD_POWER)
+	if (GetState () == IDLE && m_error_rate_model->GetTotalRxPower() <= CCA_THRESHOLD_POWER)
 		return CHANNEL_CLEAR;
 	else
 		return CHANNEL_OCCUPIED;
@@ -873,57 +797,42 @@ PLC_ErrorRatePhy::CalculateTxDuration(Ptr<const Packet> p)
 {
 	PLC_PHY_FUNCTION(this << m_mcs);
 	NS_ASSERT_MSG(m_txPsd, "Tx power spectral density has to be set before using PLC_ErrorRatePhy");
+	NS_ASSERT_MSG(m_mcs < BPSK_RATELESS, "Error rate phy model cannot handle rateless mcs");
 
 	// reduce number of subcarriers if not all are used (e.g. some are reserved for pilot transmission)
 	size_t subbands = m_txPsd->GetSpectrumModel()->GetNumBands();
-	return CalculateFixedRateTxDuration(p->GetSize(), m_mcs, subbands);
+	double code_rate = GetCodeRate (m_mcs);
+	size_t encoded_bits = p->GetSize() * 8 / code_rate;
+	return CalculateTransmissionDuration(encoded_bits, m_mcs, subbands);
 }
 
-size_t
-PLC_ErrorRatePhy::GetUncodedBitCnt(ModulationAndCodingType mcs, Ptr<const Packet> p)
+std::ostream&
+operator<<(std::ostream& os, PLC_HalfDuplexOfdmPhy::State state)
 {
-	size_t coded_bits = p->GetSize() * 8;
-	double code_rate;
-
-	switch (m_mcs)
+	switch (state)
 	{
-		case BPSK_1_4:
+	case (PLC_HalfDuplexOfdmPhy::IDLE):
 		{
-			code_rate = 0.25;
+			os << "IDLE";
 			break;
 		}
-		case BPSK_1_2:
+	case (PLC_HalfDuplexOfdmPhy::TX):
 		{
-			code_rate = 0.5;
+			os << "TX";
 			break;
 		}
-
-		case QPSK_1_2:
+	case (PLC_HalfDuplexOfdmPhy::RX):
 		{
-			code_rate = 0.5;
+			os << "RX";
 			break;
 		}
-
-		case QAM16_1_2:
+	default:
 		{
-			code_rate = 0.5;
-			break;
-		}
-
-		case QAM64_16_21:
-		{
-			code_rate = 16/21;
-			break;
-		}
-
-		default:
-		{
-			NS_ABORT_MSG("Modulation and Coding Scheme " << m_mcs << " not supported");
+			os << "INVALID STATE";
 			break;
 		}
 	}
-
-	return (size_t) (ceil(coded_bits * code_rate));
+	return os;
 }
 
 ////////////////////////////// PLC_InformationRatePhy /////////////////////////////////////////////
@@ -946,12 +855,8 @@ PLC_InformationRatePhy::GetTypeId (void)
 PLC_InformationRatePhy::PLC_InformationRatePhy (void)
 {
 	PLC_PHY_FUNCTION(this);
-	m_receiving_payload = false;
 	m_header_mcs = BPSK_1_2;
 	m_payload_mcs = BPSK_1_2;
-	UniformVariable u;
-	m_txDatagramId = u.GetInteger(1, 65535);
-	m_rxDatagramId = 0;
 	m_information_rate_model = CreateObject<PLC_InformationRateModel> ();
 }
 
@@ -972,13 +877,6 @@ PLC_InformationRatePhy::SetRatelessCodingOverhead(double overhead)
 {
 	NS_ASSERT(overhead >= 0);
 	rateless_coding_overhead = overhead;
-}
-
-Ptr<const Packet>
-PLC_InformationRatePhy::GetUncodedPacket(void)
-{
-	PLC_PHY_FUNCTION(this);
-	return m_uncoded_packet;
 }
 
 size_t
@@ -1020,10 +918,7 @@ PLC_InformationRatePhy::DoDispose(void)
 	PLC_PHY_FUNCTION(this);
 	ChangeState(IDLE);
 	m_information_rate_model = 0;
-	m_rxPsd = 0;
-	m_uncoded_packet = 0;
-	m_incoming_packet = 0;
-	m_data_frame_sent_callback = MakeNullCallback<void> ();
+	m_frame_sent_callback = MakeNullCallback<void> ();
 	PLC_HalfDuplexOfdmPhy::DoDispose();
 }
 
@@ -1035,177 +930,99 @@ PLC_InformationRatePhy::DoSetNoiseFloor (Ptr<const SpectrumValue> noiseFloor)
 	m_information_rate_model->SetNoiseFloor(noiseFloor);
 }
 
+void
+PLC_InformationRatePhy::DoUpdateRxPsd (uint32_t txId, Ptr<SpectrumValue> rxSignal)
+{
+	PLC_PHY_FUNCTION(this << txId << rxSignal);
+	if (GetState () == RX && m_locked_txId == txId)
+	{
+		m_information_rate_model->AlterRxSignal(rxSignal);
+	}
+	else
+	{
+		if (m_rxNoisePsdMap.find(txId) != m_rxNoisePsdMap.end())
+		{
+			m_information_rate_model->RemoveNoiseSignal(m_rxNoisePsdMap[txId]);
+			m_information_rate_model->AddNoiseSignal(rxSignal);
+			m_rxNoisePsdMap[txId] = rxSignal;
+		}
+	}
+}
+
 bool
 PLC_InformationRatePhy::DoStartTx (Ptr<Packet> p)
 {
 	PLC_PHY_FUNCTION(this);
 	NS_ASSERT_MSG(m_txPsd, "TxPsd not set!");
-	NS_ASSERT(m_header_mcs < BPSK_RATELESS);
+	NS_ASSERT_MSG(m_header_mcs < BPSK_RATELESS, "Header cannot be encoded rateless");
 
-	m_uncoded_packet = p;
+	// Compose meta information
+	Ptr<PLC_TrxMetaInfo> metaInfo = CreateObject<PLC_TrxMetaInfo> ();
+	metaInfo->SetUncodedMessage(p);
+	metaInfo->SetHeaderMcs(m_header_mcs);
+	metaInfo->SetPayloadMcs(m_payload_mcs);
 
-	PLC_PhyHeader phyHeader;
-	PLC_PhyPacketTag tag;
+	// (Virtually) encode packet
+	Ptr<Packet> encoded_packet = CreateEncodedPacket (metaInfo);
 
-	Ptr<Packet> txPacket;
-	Time duration;
-	Time payload_duration;
-
-	uint16_t uncoded_header_bits;
-	uint32_t uncoded_payload_bits = p->GetSize()*8;
-
-	if (m_payload_mcs < BPSK_RATELESS)
+	if (GetState () == IDLE)
 	{
-		// Fixed rate payload encoding
-		size_t encoded_payload_size = ceil(((double) p->GetSize()) / CodeRate(m_payload_mcs));
-		txPacket = Create<Packet> (encoded_payload_size);
-
-		payload_duration = CalculateFixedRateTxDuration(p->GetSize(), m_payload_mcs, m_numSubcarriers);
-		Time hdr_duration = CalculateFixedRateTxDuration(phyHeader.GetSerializedSize(), m_header_mcs, m_numSubcarriers);
-		duration = hdr_duration + payload_duration;
-		PLC_PHY_LOGIC ("Header duration: " << hdr_duration);
-		PLC_PHY_LOGIC ("Payload duration: " << payload_duration);
-		PLC_PHY_LOGIC ("Frame duration: " << duration);
-
-		// Determine uncoded header bits
-		uncoded_header_bits = phyHeader.GetSerializedSize()*8;
-		PLC_PHY_LOGIC ("Start TX, uncoded header bits: " << uncoded_header_bits);
-	}
-	else
-	{
-		// Rateless payload encoding
-
-		// Get number of bits an OFDM symbol is able to carry (if not all subcarriers are used for transmission m_numSubcarriers should be adjusted)
-		size_t raw_bits_per_symbol = RawBitsPerOfdmSymbol(m_payload_mcs, m_numSubcarriers);
-		PLC_LOG_LOGIC("raw_bits_per_symbol: " << raw_bits_per_symbol);
-
-		// segment packet into blocks
-		size_t num_blocks = ceil(p->GetSize()*8 / (double) (GetOfdmSymbolsPerCodeBlock() * raw_bits_per_symbol));
-
-		NS_ABORT_IF(num_blocks > MAX_NUM_BLOCKS);
-		NS_LOG_LOGIC ("num_blocks: " << num_blocks);
-
-		// estimate how many encoded blocks (chunks) are at least required for successful decoding
-		size_t required_chunks = RequiredChunks(num_blocks);
-		PLC_LOG_LOGIC("required_chunks: " << required_chunks);
-
-		// Calculate the packets length
-		size_t length = ChunksInByte(required_chunks, raw_bits_per_symbol);
-		PLC_LOG_LOGIC("length: " << length);
-
-		// Create packet
-		txPacket = Create<Packet> (length);
-
-		// Determine the number of payload symbols
-		size_t payload_symbols = RawBytesInOfdmSymbols(m_payload_mcs, m_numSubcarriers, length);
-		PLC_LOG_LOGIC("payload_symbols: " << payload_symbols);
-
-		// Append meta-information for rateless decoding
-		PLC_RatelessPhyHeader rlHdr;
-		rlHdr.SetFirstChunkSqn(0);
-		rlHdr.SetDatagramId(m_txDatagramId++);
-		rlHdr.SetControlFrame(false);
-		rlHdr.SetNumBlocks(num_blocks);
-		UniformVariable u;
-		rlHdr.SetPrngSeed(u.GetInteger(1, 65535));
-
-		// Add rateless PHY header
-		txPacket->AddHeader(rlHdr);
-
-		// Determine uncoded header bits
-		uncoded_header_bits = (phyHeader.GetSerializedSize() + rlHdr.GetSerializedSize())*8;
-
-		// Calculate time needed for transmission (the baudrate is supposed to be the same for both modulation types)
-		Time hdr_duration = CalculateFixedRateTxDuration(phyHeader.GetSerializedSize() + rlHdr.GetSerializedSize(), m_header_mcs, m_numSubcarriers);
-		payload_duration = CalculateTxDuration(payload_symbols);
-		PLC_PHY_LOGIC("header duration: " << hdr_duration);
-		PLC_PHY_LOGIC("payload_duration: " << payload_duration);
-
-		duration = hdr_duration + payload_duration;
-		PLC_PHY_INFO("Calculated tx duration: " << duration);
-	}
-
-	// Add PHY header
-	txPacket->AddHeader(phyHeader);
-
-	// Add packet tag to avoid recomputation of payload_duration and uncoded bit amount at the receiver
-	tag.SetPayloadMcs(m_payload_mcs);
-	tag.SetPayloadDuration(payload_duration);
-	tag.SetUncodedHeaderBits(uncoded_header_bits);
-	tag.SetUncodedPayloadBits(uncoded_payload_bits);
-	txPacket->AddPacketTag(tag);
-
-	NS_ASSERT_MSG(m_txInterface, "Phy has no tx interface");
-
-	if (m_state == IDLE)
-	{
-		PLC_PHY_INFO("Start sending packet: " << *p);
-		ChangeState(TX);
-		m_txInterface->StartTx(txPacket, m_txPsd, m_header_mcs, duration);
-		Simulator::Schedule(duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
-		Simulator::Schedule(duration, &PLC_Phy::NotifyDataFrameSent, this);
-
+		PLC_PHY_INFO("Device idle, sending frame: " << *encoded_packet);
+		SendFrame (encoded_packet, metaInfo);
 		return true;
 	}
 
-	PLC_LOG_INFO("Device not idle, cannot send frame");
-
+	PLC_LOG_INFO("Phy busy, cannot send frame");
 	return false;
 }
 
 void
-PLC_InformationRatePhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration)
+PLC_InformationRatePhy::SendFrame (Ptr<Packet> p, Ptr<PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_PHY_FUNCTION(this << p << txId << rxPsd << mcs);
-	PLC_PHY_INFO ("Start receiving");
+	PLC_PHY_FUNCTION (this << p << metaInfo);
+	NS_ASSERT_MSG (m_txInterface, "Phy has no tx interface");
+	NS_ASSERT (metaInfo);
 
-	NS_ASSERT(m_information_rate_model);
+	Time tx_duration = metaInfo->GetHeaderDuration () + metaInfo->GetPayloadDuration ();
+
+	PLC_PHY_LOGIC ("Adding preamble...");
+	PLC_Preamble preamble;
+	p->AddHeader(preamble);
+
+	tx_duration += preamble.GetDuration();
+
+	PLC_PHY_LOGIC ("Start sending frame...");
+	ChangeState(TX);
+	m_txInterface->StartTx(p, m_txPsd, tx_duration, metaInfo);
+	Simulator::Schedule(tx_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
+	Simulator::Schedule(tx_duration, &PLC_Phy::NotifyFrameSent, this);
+}
+
+bool
+PLC_InformationRatePhy::SendRedundancy (void)
+{
+	PLC_PHY_FUNCTION (this);
+	return false;
+}
+
+void
+PLC_InformationRatePhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION(this << p << txId << rxPsd << duration << metaInfo);
+	NS_ASSERT_MSG(m_information_rate_model, "PLC_HalfDuplexOfdmPhy: an error model has to be assigned to the Phy previous to data reception!");
+
+	PLC_PHY_LOGIC ("Receive Power: " << Pwr(*rxPsd));
 
 	if (p &&
-		m_state == IDLE && 	// PHY will only start receiving in IDLE state (TODO: conditional resynchronization to the new signal if PHY is currently in receiving state)
-		mcs == m_header_mcs && // packet header and control frame begin with fixed rate mcs
-		W2dBm(Pwr(*rxPsd)) >= PLC_RECEIVER_SENSIVITY) // power is sufficient for synchronization TODO: take noise level into account
+		GetState () == IDLE && 	// PHY will only start receiving in IDLE state (TODO: conditional resynchronization to the new signal if PHY is currently in receiving state)
+		metaInfo && // meta information present
+		metaInfo->GetHeaderMcs() == GetHeaderModulationAndCodingScheme() && 	// same modulation and coding scheme (preamble detection is supposed to be always successful)
+		W2dBm(Pwr((*rxPsd)/* / GetTotalNoisePower()*/)) >= PLC_RECEIVER_SENSIVITY) // power is sufficient for synchronization
 	{
-		// receive header
+		PLC_LOG_LOGIC (this << "Starting preamble detection..." << *p);
+		Simulator::Schedule (PLC_Preamble::GetDuration(), &PLC_InformationRatePhy::PreambleDetectionSuccessful, this, p, txId, rxPsd, duration, metaInfo);
+		m_locked_txId = 0;
 		ChangeState(RX);
-
-		PLC_PHY_INFO ("Locked on incoming signal");
-		PLC_PHY_LOGIC("Incoming frame: " << *p);
-
-		m_locked_txId = txId;
-		m_rxPsd = rxPsd;
-		m_incoming_packet = p->Copy();
-
-		PLC_PhyHeader phyHeader;
-		m_incoming_packet->RemoveHeader(phyHeader);
-
-		PLC_PhyPacketTag tag;
-		NS_ASSERT_MSG(m_incoming_packet->RemovePacketTag(tag), "Packet is not tagged, something went wrong...");
-		ModulationAndCodingType payload_mcs = tag.GetPayloadMcs();
-		Time payload_duration = tag.GetPayloadDuration();
-		m_uncoded_payload_bits = tag.GetUncodedPayloadBits();
-
-		PLC_PHY_LOGIC ("Payload duration: " << payload_duration);
-
-		size_t uncoded_header_bits;
-		if (m_payload_mcs >= BPSK_RATELESS)
-		{
-			// Rateless encoded payload
-			// Remove rateless header
-			m_incoming_packet->RemoveHeader(m_rateless_header);
-			uncoded_header_bits = (phyHeader.GetSerializedSize() + m_rateless_header.GetSerializedSize()) * 8;
-			PLC_PHY_LOGIC ("Start RX, uncoded header bits: " << uncoded_header_bits);
-		}
-		else
-		{
-			// fixed rate encoded payload
-			uncoded_header_bits = phyHeader.GetSerializedSize() * 8;
-		}
-		PLC_PHY_LOGIC("Uncoded header bits: " << uncoded_header_bits);
-
-		Time hdr_duration = duration - payload_duration;
-		m_information_rate_model->StartRx(mcs, m_rxPsd, uncoded_header_bits);
-		Simulator::Schedule(hdr_duration, &PLC_InformationRatePhy::EndRxHeader, this, payload_mcs, payload_duration);
 	}
 	else
 	{
@@ -1221,67 +1038,129 @@ PLC_InformationRatePhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<Spect
 }
 
 void
-PLC_InformationRatePhy::DoUpdateRxPsd (uint32_t txId, Ptr<SpectrumValue> rxSignal)
+PLC_InformationRatePhy::PreambleDetectionSuccessful (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_PHY_FUNCTION(this << txId << rxSignal);
-	if (m_state == RX && m_locked_txId == txId)
-	{
-		m_information_rate_model->AlterRxSignal(rxSignal);
-	}
-	else
-	{
-		if (m_rxNoisePsdMap.find(txId) != m_rxNoisePsdMap.end())
-		{
-			m_information_rate_model->RemoveNoiseSignal(m_rxNoisePsdMap[txId]);
-			m_information_rate_model->AddNoiseSignal(rxSignal);
-			m_rxNoisePsdMap[txId] = rxSignal;
-		}
-	}
+	PLC_PHY_FUNCTION (this << p << txId << rxPsd << duration << metaInfo);
+	PLC_PHY_INFO ("Preamble detection successful");
+	NS_ASSERT (GetState() == RX);
+	NS_ASSERT (metaInfo && metaInfo->GetUncodedMessage());
+
+	m_locked_txId = txId;
+	m_incoming_packet = p->Copy();
+
+	PLC_PHY_LOGIC ("Locked on incoming signal");
+	PLC_PHY_LOGIC("Incoming frame: " << *m_incoming_packet);
+
+	// Remove preamble
+	PLC_Preamble preamble;
+	m_incoming_packet->RemoveHeader(preamble);
+
+	// Start frame reception
+	StartReception(p, txId, rxPsd, duration, metaInfo);
 }
 
 void
-PLC_InformationRatePhy::EndRxHeader(ModulationAndCodingType mcs, Time duration)
+PLC_InformationRatePhy::StartReception (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_PHY_FUNCTION(this << mcs << duration);
-	NS_ASSERT(m_state == RX);
+	PLC_PHY_FUNCTION (this << p << txId << rxPsd << duration << metaInfo);
+	PLC_PHY_INFO ("Starting frame reception...");
 
-	if (mcs == m_payload_mcs && m_information_rate_model->EndRx())
+	// Determine uncoded header bits
+	size_t uncoded_header_bits;
+	ModulationAndCodingType header_mcs = metaInfo->GetHeaderMcs ();
+	if (header_mcs >= BPSK_RATELESS)
 	{
-		PLC_PHY_INFO("Successfully received header, starting payload reception");
-		PLC_PHY_INFO("Remaining rx time: " << duration);
-
-		m_receiving_payload = true;
-		m_information_rate_model->StartRx(mcs, m_rxPsd, m_uncoded_payload_bits);
-		Simulator::Schedule(duration, &PLC_InformationRatePhy::EndRxPayload, this);
-		Simulator::Schedule(duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
+		// rateless phy frame control header
+		PLC_PhyRatelessFrameControlHeader fch;
+		NS_ASSERT_MSG(m_incoming_packet->PeekHeader(fch), "Rateless encoded packet without rateless frame control header");
+		uncoded_header_bits = fch.GetSerializedSize();
 	}
 	else
 	{
-		PLC_PHY_INFO ("Header reception failed, remaining signal treated as interference");
-		// header reception failed -> payload signal treated as interference
-		m_information_rate_model->AddNoiseSignal(m_rxPsd);
-		Simulator::Schedule(duration, &PLC_InformationRateModel::RemoveNoiseSignal, m_information_rate_model, m_rxPsd);
-		Simulator::Schedule(duration, &PLC_InformationRatePhy::ReceptionFailure, this);
+		// phy frame control header
+		PLC_PhyFrameControlHeader fch;
+		NS_ASSERT_MSG(m_incoming_packet->PeekHeader(fch), "Packet without frame control header");
+		uncoded_header_bits = fch.GetSerializedSize();
+	}
+
+	// Receive header
+	Time header_duration = metaInfo->GetHeaderDuration();
+	m_information_rate_model->StartRx(header_mcs, rxPsd, uncoded_header_bits);
+	Simulator::Schedule (header_duration, &PLC_InformationRatePhy::EndRxHeader, this, rxPsd, metaInfo);
+}
+
+void
+PLC_InformationRatePhy::EndRxHeader(Ptr<SpectrumValue>& rxPsd, Ptr<const PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION (this << metaInfo);
+	NS_ASSERT(GetState () == RX);
+
+	ModulationAndCodingType payload_mcs = metaInfo->GetPayloadMcs ();
+	Time payload_duration = metaInfo->GetPayloadDuration ();
+
+	if (payload_mcs == GetPayloadModulationAndCodingScheme ())
+	{
+		if (m_information_rate_model->EndRx ())
+		{
+			PLC_PHY_INFO("Successfully received header, starting payload reception");
+
+			ModulationAndCodingType payload_mcs = metaInfo->GetPayloadMcs();
+			size_t uncoded_payload_bits = metaInfo->GetUncodedMessage()->GetSize() * 8;
+
+			// Remove frame control header
+			if (payload_mcs >= BPSK_RATELESS)
+			{
+				// rateless phy frame control header
+				PLC_PhyRatelessFrameControlHeader fch;
+				NS_ASSERT_MSG(m_incoming_packet->RemoveHeader(fch), "Rateless encoded packet without rateless frame control header");
+			}
+			else
+			{
+				PLC_PhyFrameControlHeader fch;
+				NS_ASSERT_MSG(m_incoming_packet->RemoveHeader(fch), "Packet without frame control header");
+			}
+
+			PLC_PHY_INFO("Remaining rx time: " << payload_duration);
+
+			m_information_rate_model->StartRx(payload_mcs, rxPsd, uncoded_payload_bits);
+			Simulator::Schedule(payload_duration, &PLC_InformationRatePhy::EndRxPayload, this, metaInfo);
+			Simulator::Schedule(payload_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
+		}
+		else
+		{
+			PLC_PHY_INFO ("Header reception failed, remaining signal treated as interference");
+			m_information_rate_model->AddNoiseSignal(rxPsd);
+			Simulator::Schedule(payload_duration, &PLC_InformationRateModel::RemoveNoiseSignal, m_information_rate_model, rxPsd);
+			Simulator::Schedule(payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
+			ChangeState(IDLE);
+		}
+	}
+	else
+	{
+		PLC_PHY_INFO ("Different modulation and coding scheme: PHY (" <<GetPayloadModulationAndCodingScheme () << "), message (" << payload_mcs << ")");
+		m_information_rate_model->AddNoiseSignal(rxPsd);
+		Simulator::Schedule(payload_duration, &PLC_InformationRateModel::RemoveNoiseSignal, m_information_rate_model, rxPsd);
+		Simulator::Schedule(payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
 		ChangeState(IDLE);
 	}
 }
 
 void
-PLC_InformationRatePhy::EndRxPayload(void)
+PLC_InformationRatePhy::EndRxPayload(Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_PHY_FUNCTION(this);
 	if (m_information_rate_model->EndRx())
 	{
-		// Get uncoded packet reference
-		Ptr<PLC_Phy> txPhy = GetRxInterface()->GetChannel()->GetTxInterface(m_locked_txId)->GetPhy();
-		m_uncoded_packet = (static_cast<PLC_InformationRatePhy *> (PeekPointer(txPhy)))->GetUncodedPacket();
+		// Successful payload reception
+		// (Virtually) decode packet
+		Ptr<Packet> decoded_packet = metaInfo->GetUncodedMessage()->Copy();
 
 		PLC_PHY_INFO("Message successfully decoded");
-		PLC_PHY_LOGIC("Uncoded packet: " << *m_uncoded_packet);
+		PLC_PHY_LOGIC("Decoded packet: " << *decoded_packet);
 
 		if (!m_receive_success_cb.IsNull())
 		{
-			m_receive_success_cb(m_uncoded_packet);
+			m_receive_success_cb(decoded_packet);
 		}
 
 		NotifySuccessfulReception();
@@ -1291,10 +1170,7 @@ PLC_InformationRatePhy::EndRxPayload(void)
 		PLC_PHY_INFO("Not able to decode datagram");
 		ReceptionFailure();
 	}
-
-	m_receiving_payload = false;
 }
-
 
 void
 PLC_InformationRatePhy::SetHeaderModulationAndCodingScheme(ModulationAndCodingType mcs)
@@ -1329,7 +1205,7 @@ PLC_PhyCcaResult
 PLC_InformationRatePhy::ClearChannelAssessment(void)
 {
 	PLC_PHY_FUNCTION(this);
-	if (m_state == IDLE && m_information_rate_model->GetTotalRxPower() <= CCA_THRESHOLD_POWER)
+	if (GetState () == IDLE && m_information_rate_model->GetTotalRxPower() <= CCA_THRESHOLD_POWER)
 		return CHANNEL_CLEAR;
 	else
 		return CHANNEL_OCCUPIED;
@@ -1339,6 +1215,140 @@ void
 PLC_InformationRatePhy::NotifySuccessfulReception (void)
 {
 	PLC_PHY_FUNCTION (this);
+}
+
+Ptr<Packet>
+PLC_InformationRatePhy::CreateEncodedPacket (Ptr<PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION (this << metaInfo);
+	NS_ASSERT (metaInfo);
+
+	if (metaInfo->GetPayloadMcs() < BPSK_RATELESS)
+	{
+		// Fixed rate payload encoding
+		return CreateFixedRateEncodedFrame (metaInfo);
+	}
+	else
+	{
+		// Rateless payload encoding
+		return CreateRatelessEncodedFrame (metaInfo);
+	}
+}
+
+Ptr<Packet>
+PLC_InformationRatePhy::CreateFixedRateEncodedFrame (Ptr<PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION (this << metaInfo);
+	NS_ASSERT (metaInfo);
+
+	Ptr<Packet> encoded_packet;
+
+	// Read mcs info
+	ModulationAndCodingType header_mcs = metaInfo->GetHeaderMcs();
+	ModulationAndCodingType payload_mcs = metaInfo->GetPayloadMcs();
+
+	// Create frame control header
+	PLC_PhyFrameControlHeader fch;
+	fch.SetDelimiterType(PLC_PhyFrameControlHeader::DATA);
+	fch.SetPayloadMcs(payload_mcs);
+
+	NS_ASSERT_MSG (header_mcs < BPSK_RATELESS, "Phy header cannot be encoded rateless");
+
+	// Determine header size
+	size_t uncoded_header_size = fch.GetSerializedSize();
+	size_t encoded_header_size = ceil(((double) uncoded_header_size) / GetCodeRate(header_mcs));
+
+	// Determine size of phy protocol data unit (ppdu)
+	size_t uncoded_ppdu_size = metaInfo->GetUncodedMessage()->GetSize();
+	size_t encoded_ppdu_size = ceil(((double) uncoded_ppdu_size) / GetCodeRate(payload_mcs));
+
+	// Determine payload symbols
+	size_t payload_symbols = RequiredSymbols (encoded_ppdu_size*8, payload_mcs, m_numSubcarriers);
+	NS_ASSERT_MSG (payload_symbols <= MAX_PPDU_SYMBOLS, "Number of payload symbols currently restricted to " << MAX_PPDU_SYMBOLS);
+	fch.SetPayloadSymbols ((uint16_t) payload_symbols);
+
+	// Calculate tx duration of packet segments
+	Time header_duration 	= CalculateTransmissionDuration (encoded_header_size*8, header_mcs, m_numSubcarriers);
+	Time payload_duration 	= CalculateTransmissionDuration (encoded_ppdu_size*8, payload_mcs, m_numSubcarriers);
+
+	// Complete meta information
+	metaInfo->SetHeaderDuration (header_duration);
+	metaInfo->SetPayloadDuration (payload_duration);
+
+	// Create packet
+	encoded_packet = Create<Packet> (encoded_ppdu_size);
+
+	// Add frame control header
+	encoded_packet->AddHeader(fch);
+
+	PLC_PHY_LOGIC ("Created fixed rate encoded packet: " << *encoded_packet);
+
+	return encoded_packet;
+}
+
+Ptr<Packet>
+PLC_InformationRatePhy::CreateRatelessEncodedFrame (Ptr<PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION (this << metaInfo);
+	NS_ASSERT (metaInfo);
+
+	Ptr<const Packet> uncoded_packet = metaInfo->GetUncodedMessage();
+	Ptr<Packet> encoded_packet;
+
+	// Read mcs info
+	ModulationAndCodingType header_mcs = metaInfo->GetHeaderMcs();
+	ModulationAndCodingType payload_mcs = metaInfo->GetPayloadMcs();
+	NS_ASSERT_MSG (header_mcs < BPSK_RATELESS, "Phy header cannot be encoded rateless");
+
+	// Create frame control header
+	PLC_PhyRatelessFrameControlHeader fch;
+	fch.SetDelimiterType(PLC_PhyRatelessFrameControlHeader::DATA);
+	fch.SetPayloadMcs(payload_mcs);
+
+	// Get number of raw bits an OFDM header/payload symbol is able to carry
+	// (if not all subcarriers are used for transmission m_numSubcarriers should be adjusted)
+	size_t bitsPerOfdmHeaderSymbol	= GetBitsPerSymbol(header_mcs) * m_numSubcarriers;
+	size_t bitsPerOfdmPayloadSymbol	= GetBitsPerSymbol(payload_mcs) * m_numSubcarriers;
+
+	PLC_LOG_LOGIC("Raw bits per ofdm header symbol: " << bitsPerOfdmHeaderSymbol);
+	PLC_LOG_LOGIC("Raw bits per ofdm payload symbol: " << bitsPerOfdmPayloadSymbol);
+
+	// Segment ppdu into blocks
+	size_t num_blocks = ceil(uncoded_packet->GetSize()*8 / (double) (GetOfdmSymbolsPerCodeBlock() * bitsPerOfdmPayloadSymbol));
+	fch.SetNumBlocks(num_blocks);
+	NS_LOG_LOGIC ("Blocks: " << num_blocks);
+
+	// Estimate how many encoded blocks (chunks) are at least required for successful decoding
+	size_t required_chunks = RequiredChunks(num_blocks);
+	PLC_LOG_LOGIC("Required chunks: " << required_chunks);
+
+	// Calculate length of the encoded packet
+	size_t encoded_payload_size = ChunksInByte(required_chunks, bitsPerOfdmPayloadSymbol);
+	PLC_LOG_LOGIC("Encoded payload size: " << encoded_payload_size);
+
+	// Determine payload symbols
+	size_t payload_symbols = RequiredSymbols (encoded_payload_size*8, payload_mcs, m_numSubcarriers);
+	fch.SetPayloadSymbols(payload_symbols);
+
+	// Determine header size
+	size_t uncoded_header_size = fch.GetSerializedSize();
+	size_t encoded_header_size = ceil(((double) uncoded_header_size) / GetCodeRate(header_mcs));
+
+	// Calculate tx duration of packet segments
+	Time header_duration 	= CalculateTransmissionDuration (encoded_header_size*8, header_mcs, m_numSubcarriers);
+	Time payload_duration 	= CalculateTransmissionDuration (encoded_payload_size*8, payload_mcs, m_numSubcarriers);
+
+	// Complete meta information
+	metaInfo->SetHeaderDuration (header_duration);
+	metaInfo->SetPayloadDuration (payload_duration);
+
+	// Create packet
+	encoded_packet = Create<Packet> (encoded_payload_size);
+
+	// Add frame control header
+	encoded_packet->AddHeader(fch);
+
+	return encoded_packet;
 }
 
 ////////////////////////////// PLC_ChaseCombiningPhy /////////////////////////////////////////////
@@ -1357,6 +1367,7 @@ PLC_ChaseCombiningPhy::GetTypeId (void)
 
 PLC_ChaseCombiningPhy::PLC_ChaseCombiningPhy (void)
 {
+	m_txPacket = 0;
 	m_rxPacketRef = 0;
 	m_information_rate_model->TraceConnectWithoutContext ("SinrTrace", MakeCallback (&PLC_ChaseCombiningPhy::TraceSinr, this));
 }
@@ -1381,6 +1392,7 @@ void
 PLC_ChaseCombiningPhy::DoStart (void)
 {
 	PLC_PHY_FUNCTION(this);
+	m_txPacket = 0;
 	m_rxPacketRef = 0;
 	PLC_InformationRatePhy::DoStart();
 }
@@ -1389,36 +1401,96 @@ void
 PLC_ChaseCombiningPhy::DoDispose(void)
 {
 	PLC_PHY_FUNCTION(this);
+	m_txPacket = 0;
 	m_rxPacketRef = 0;
 	m_sinrBaseTrace.clear();
 	PLC_InformationRatePhy::DoDispose();
 }
 
 bool
+PLC_ChaseCombiningPhy::SendRedundancy (void)
+{
+	PLC_PHY_FUNCTION (this);
+	NS_ASSERT_MSG (m_txPacket, "No previous tx packet, cannot send redundancy");
+	NS_ASSERT_MSG (m_txMetaInfo, "Meta information of tx packet not set, cannot send redundancy");
+
+	if (GetState () == IDLE)
+	{
+		PLC_PHY_INFO ("Sending redundancy frame...");
+		SendFrame (m_txPacket, m_txMetaInfo);
+		return true;
+	}
+	else
+	{
+		PLC_PHY_INFO ("PHY not idle, cannot send redundancy frame");
+		return false;
+	}
+}
+
+bool
 PLC_ChaseCombiningPhy::DoStartTx (Ptr<Packet> p)
 {
-	PLC_PHY_FUNCTION(this << p);
-	return PLC_InformationRatePhy::DoStartTx (p);
+	PLC_PHY_FUNCTION(this);
+	NS_ASSERT_MSG(m_txPsd, "TxPsd not set!");
+	NS_ASSERT_MSG(m_header_mcs < BPSK_RATELESS, "Header cannot be encoded rateless");
+
+	// Compose meta information
+	m_txMetaInfo = CreateObject<PLC_TrxMetaInfo> ();
+	m_txMetaInfo->SetUncodedMessage(p);
+	m_txMetaInfo->SetHeaderMcs(m_header_mcs);
+	m_txMetaInfo->SetPayloadMcs(m_payload_mcs);
+
+	// (Virtually) encode packet
+	Ptr<Packet> encoded_packet = CreateEncodedPacket (m_txMetaInfo);
+
+	if (GetState () == IDLE)
+	{
+		PLC_PHY_INFO("Device idle, sending frame: " << *encoded_packet);
+		m_txPacket = encoded_packet;
+		SendFrame (encoded_packet, m_txMetaInfo);
+		return true;
+	}
+
+	PLC_LOG_INFO("Phy busy, cannot send frame");
+	return false;
 }
 
 void
-PLC_ChaseCombiningPhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration)
+PLC_ChaseCombiningPhy::StartReception (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_PHY_FUNCTION(this << p << txId << rxPsd << mcs << duration);
+	PLC_PHY_FUNCTION(this << p << txId << rxPsd << duration << metaInfo);
+	NS_ASSERT (metaInfo);
 
-	PLC_PhyHeader phyHdr;
-	p->PeekHeader(phyHdr);
-
-	if (phyHdr.GetDelimiterType() < PLC_PhyHeader::ACK)
+	// Determine delimiter type
+	bool isDataFrame = false;
+	if (metaInfo->GetPayloadMcs() >= BPSK_RATELESS)
 	{
-		// Is data frame
+		PLC_PhyRatelessFrameControlHeader fch;
+		NS_ASSERT_MSG(p->PeekHeader (fch), "Rateless encoded packet without rateless frame control header");
+		if (fch.GetDelimiterType() == PLC_PhyRatelessFrameControlHeader::DATA)
+		{
+			isDataFrame = true;
+		}
+	}
+	else
+	{
+		PLC_PhyRatelessFrameControlHeader fch;
+		NS_ASSERT_MSG(p->PeekHeader (fch), "Packet without frame control header");
+		if (fch.GetDelimiterType() == PLC_PhyRatelessFrameControlHeader::DATA)
+		{
+			isDataFrame = true;
+		}
+	}
+
+	if (isDataFrame)
+	{
 		PLC_PHY_INFO ("Starting reception of data frame " << p);
 
 		m_rxStartTime = Now();
+		Ptr<const Packet> packetRef = metaInfo->GetUncodedMessage();
 
-		Ptr<PLC_Phy> txPhy = GetRxInterface()->GetChannel()->GetTxInterface(m_locked_txId)->GetPhy();
-		Ptr<const Packet> packetRef = (static_cast<PLC_InformationRatePhy *> (PeekPointer(txPhy)))->GetUncodedPacket();
-
+		// Test if packet is redundancy
+		// TODO: redundancy packet recognition via PHY frame control header
 		if (packetRef == m_rxPacketRef)
 		{
 			// Is redundancy packet
@@ -1447,14 +1519,7 @@ PLC_ChaseCombiningPhy::DoStartRx (Ptr<const Packet> p, uint32_t txId, Ptr<Spectr
 		m_sinrBaseTrace.clear();
 	}
 
-	PLC_InformationRatePhy::DoStartRx (p, txId, rxPsd, mcs, duration);
-}
-
-void
-PLC_ChaseCombiningPhy::DoUpdateRxPsd (uint32_t txId, Ptr<SpectrumValue> newRxPsd)
-{
-	PLC_PHY_FUNCTION(this << txId << newRxPsd);
-	PLC_InformationRatePhy::DoUpdateRxPsd(txId, newRxPsd);
+	PLC_InformationRatePhy::StartReception (p, txId, rxPsd, duration, metaInfo);
 }
 
 void
@@ -1463,6 +1528,283 @@ PLC_ChaseCombiningPhy::NotifySuccessfulReception (void)
 	PLC_PHY_FUNCTION (this);
 	m_rxPacketRef = 0;
 	m_sinrBaseTrace.clear();
+}
+
+////////////////////////////// PLC_IncrementalRedundancyPhy /////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_IncrementalRedundancyPhy);
+
+Time PLC_IncrementalRedundancyPhy::reception_failure_timeout = MicroSeconds (100);
+
+TypeId
+PLC_IncrementalRedundancyPhy::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_IncrementalRedundancyPhy")
+	.SetParent<PLC_InformationRatePhy> ()
+	.AddConstructor<PLC_IncrementalRedundancyPhy> ()
+    ;
+  return tid;
+}
+
+PLC_IncrementalRedundancyPhy::PLC_IncrementalRedundancyPhy (void)
+{
+	m_awaiting_redundancy = false;
+	m_uncoded_msg = 0;
+	m_redundancy_chunks = 20;
+	m_remaining_bits = 0;
+}
+
+void
+PLC_IncrementalRedundancyPhy::DoStart (void)
+{
+	PLC_PHY_FUNCTION(this);
+	m_awaiting_redundancy = false;
+	m_uncoded_msg = 0;
+	m_redundancy_chunks = 20;
+	m_remaining_bits = 0;
+	PLC_InformationRatePhy::DoStart();
+}
+
+void
+PLC_IncrementalRedundancyPhy::DoDispose(void)
+{
+	PLC_PHY_FUNCTION (this);
+	m_uncoded_msg = 0;
+	m_receptionFailureTimeoutEvent.Cancel ();
+	PLC_InformationRatePhy::DoDispose ();
+}
+
+bool
+PLC_IncrementalRedundancyPhy::DoStartTx (Ptr<Packet> p)
+{
+	PLC_PHY_FUNCTION (this << p);
+
+	if (m_awaiting_redundancy)
+	{
+		PLC_PHY_INFO ("Still awaiting redundancy of last message, cannot send frame");
+		return false;
+	}
+
+	// Remember message to be sent
+	m_uncoded_msg = p;
+
+	// Create meta information
+	Ptr<PLC_TrxMetaInfo> metaInfo = CreateObject<PLC_TrxMetaInfo> ();
+	metaInfo->SetUncodedMessage (p);
+	metaInfo->SetHeaderMcs (m_header_mcs);
+	metaInfo->SetPayloadMcs (m_payload_mcs);
+
+	// Create first rateless encoded frame of message
+	Ptr<Packet> frame = CreateRatelessEncodedFrame (metaInfo);
+
+	if (GetState () == IDLE)
+	{
+		PLC_PHY_INFO("PHY idle, sending frame: " << *frame);
+		SendFrame (frame, metaInfo);
+		return true;
+	}
+
+	PLC_PHY_INFO ("Phy busy, cannot send frame");
+	return false;
+}
+
+bool
+PLC_IncrementalRedundancyPhy::SendRedundancy (void)
+{
+	PLC_PHY_FUNCTION (this);
+
+	if (!m_uncoded_msg)
+	{
+		PLC_PHY_INFO ("No previous sent message, cannot send redundancy");
+		return false;
+	}
+
+	// Create meta information
+	Ptr<PLC_TrxMetaInfo> metaInfo = CreateObject<PLC_TrxMetaInfo> ();
+	metaInfo->SetUncodedMessage (m_uncoded_msg);
+	metaInfo->SetHeaderMcs (m_header_mcs);
+	metaInfo->SetPayloadMcs (m_payload_mcs);
+
+	// Create redundancy frame
+	PLC_PHY_LOGIC ("Creating redundancy frame with " << m_redundancy_chunks << " chunks");
+	Ptr<Packet> frame = CreateRedundancyFrame (m_redundancy_chunks, metaInfo);
+
+	if (GetState () == IDLE)
+	{
+		PLC_PHY_INFO ("Sending redundancy frame...");
+		SendFrame (frame, metaInfo);
+		return true;
+	}
+	else
+	{
+		PLC_PHY_INFO ("PHY not idle, cannot send redundancy frame");
+		return false;
+	}
+}
+
+Ptr<Packet>
+PLC_IncrementalRedundancyPhy::CreateRedundancyFrame (size_t chunks, Ptr<PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION (this << metaInfo);
+	NS_ASSERT (metaInfo);
+
+	// Calculate length of redundancy frame
+	ModulationAndCodingType payload_mcs = metaInfo->GetPayloadMcs ();
+	size_t bitsPerOfdmPayloadSymbol	= GetBitsPerSymbol (payload_mcs) * m_numSubcarriers;
+	size_t length = ChunksInByte(chunks, bitsPerOfdmPayloadSymbol);
+	PLC_LOG_LOGIC("Redundancy frame length: " << length);
+
+	// Complete meta information
+	Time payload_duration = CalculateTransmissionDuration (length*8, payload_mcs, m_numSubcarriers);
+	metaInfo->SetHeaderDuration (Seconds(0));
+	metaInfo->SetPayloadDuration (payload_duration);
+
+	return Create<Packet> (length);
+}
+
+void
+PLC_IncrementalRedundancyPhy::StartReception (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION (this << p << txId << rxPsd << duration << metaInfo);
+	NS_ASSERT(PLC_HalfDuplexOfdmPhy::GetState() == PLC_HalfDuplexOfdmPhy::RX);
+	NS_ASSERT (metaInfo);
+	NS_ASSERT_MSG (metaInfo->GetPayloadMcs() >= BPSK_RATELESS, "Packet not rateless encoded");
+
+	PLC_PHY_LOGIC ("Starting frame reception...");
+
+	if (m_awaiting_redundancy)
+	{
+		PLC_PHY_LOGIC ("Continue incremental redundancy reception");
+		Time payload_duration = metaInfo->GetPayloadDuration();
+		m_information_rate_model->StartRx(metaInfo->GetPayloadMcs(), rxPsd, m_remaining_bits);
+		Simulator::Schedule(payload_duration, &PLC_IncrementalRedundancyPhy::EndRxPayload, this, metaInfo);
+		Simulator::Schedule(payload_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
+	}
+	else
+	{
+		PLC_PHY_LOGIC ("Receiving fch header of new message");
+		// Determine uncoded header bits
+		size_t uncoded_header_bits;
+		ModulationAndCodingType header_mcs = metaInfo->GetHeaderMcs ();
+
+		// rateless phy frame control header
+		PLC_PhyRatelessFrameControlHeader fch;
+		NS_ASSERT_MSG(m_incoming_packet->PeekHeader(fch), "Missing PLC_PhyRatelessFrameControlHeader in new message");
+		uncoded_header_bits = fch.GetSerializedSize();
+
+		// Receive header
+		Time header_duration = metaInfo->GetHeaderDuration();
+		m_information_rate_model->StartRx(header_mcs, rxPsd, uncoded_header_bits);
+		Simulator::Schedule (header_duration, &PLC_InformationRatePhy::EndRxHeader, this, rxPsd, metaInfo);
+	}
+}
+
+void
+PLC_IncrementalRedundancyPhy::EndRxHeader(Ptr<SpectrumValue>& rxPsd, Ptr<const PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION (this << metaInfo);
+	NS_ASSERT(PLC_HalfDuplexOfdmPhy::GetState() == PLC_HalfDuplexOfdmPhy::RX);
+
+	ModulationAndCodingType payload_mcs = metaInfo->GetPayloadMcs ();
+	Time payload_duration = metaInfo->GetPayloadDuration ();
+
+	if (payload_mcs == GetPayloadModulationAndCodingScheme ())
+	{
+		if (m_information_rate_model->EndRx ())
+		{
+			PLC_PHY_INFO("Successfully received header, beginning incremental redundancy reception...");
+
+			m_remaining_bits = metaInfo->GetUncodedMessage()->GetSize() * 8;
+
+			// Remove frame control header
+			PLC_PhyRatelessFrameControlHeader fch;
+			NS_ASSERT_MSG(m_incoming_packet->PeekHeader(fch), "Missing PLC_PhyRatelessFrameControlHeader in new message");
+
+			m_information_rate_model->StartRx(payload_mcs, rxPsd, m_remaining_bits);
+			Simulator::Schedule(payload_duration, &PLC_IncrementalRedundancyPhy::EndRxPayload, this, metaInfo);
+			Simulator::Schedule(payload_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, PLC_HalfDuplexOfdmPhy::IDLE);
+		}
+		else
+		{
+			PLC_PHY_INFO ("Header reception failed, remaining signal treated as interference");
+			m_information_rate_model->AddNoiseSignal(rxPsd);
+			Simulator::Schedule(payload_duration, &PLC_InformationRateModel::RemoveNoiseSignal, m_information_rate_model, rxPsd);
+			PLC_HalfDuplexOfdmPhy::ChangeState(PLC_HalfDuplexOfdmPhy::IDLE);
+		}
+	}
+	else
+	{
+		PLC_PHY_INFO ("Different modulation and coding scheme: PHY ("
+				<< GetPayloadModulationAndCodingScheme () << "), message ("
+				<< payload_mcs << "), remaining signal treated as interference");
+		m_information_rate_model->AddNoiseSignal(rxPsd);
+		Simulator::Schedule(payload_duration, &PLC_InformationRateModel::RemoveNoiseSignal, m_information_rate_model, rxPsd);
+		Simulator::Schedule(payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
+		ChangeState(PLC_HalfDuplexOfdmPhy::IDLE);
+	}
+}
+
+void
+PLC_IncrementalRedundancyPhy::EndRxPayload(Ptr<const PLC_TrxMetaInfo> metaInfo)
+{
+	PLC_PHY_FUNCTION(this);
+	if (m_information_rate_model->EndRx())
+	{
+		// Successful payload reception
+		// (Virtually) decode packet
+		Ptr<Packet> decoded_packet = metaInfo->GetUncodedMessage()->Copy();
+
+		PLC_PHY_INFO("Message successfully decoded");
+
+		m_uncoded_msg = 0;
+		m_remaining_bits = 0;
+		m_receptionFailureTimeoutEvent.Cancel();
+		m_awaiting_redundancy = false;
+
+		PLC_PHY_LOGIC("Decoded packet: " << *decoded_packet);
+
+		if (!m_receive_success_cb.IsNull())
+		{
+			m_receive_success_cb(decoded_packet);
+		}
+	}
+	else
+	{
+		PLC_PHY_INFO("Not able to decode datagram, waiting for redundancy");
+		m_awaiting_redundancy = true;
+
+		size_t gathered_bits = m_information_rate_model->GetGatheredMutualInformation();
+		NS_ASSERT (m_remaining_bits > gathered_bits);
+		m_remaining_bits -= gathered_bits;
+
+		PLC_PHY_LOGIC ("Gathered bits: " << gathered_bits << ", Remaining bits: " << m_remaining_bits << ")");
+		PLC_PHY_LOGIC ("Resetting reception failure timeout clock");
+		m_receptionFailureTimeoutEvent.Cancel ();
+		m_receptionFailureTimeoutEvent = Simulator::Schedule (reception_failure_timeout, &PLC_IncrementalRedundancyPhy::ReceptionFailureTimeout, this);
+	}
+}
+
+void
+PLC_IncrementalRedundancyPhy::SetReceptionFailureTimeout (Time timeout)
+{
+	reception_failure_timeout = timeout;
+}
+
+Time
+PLC_IncrementalRedundancyPhy::GetReceptionFailureTimeout (void)
+{
+	return reception_failure_timeout;
+}
+
+void
+PLC_IncrementalRedundancyPhy::ReceptionFailureTimeout (void)
+{
+	PLC_PHY_FUNCTION (this);
+	PLC_PHY_INFO ("Incremental redundancy reception failed");
+	m_uncoded_msg = 0;
+	m_remaining_bits = 0;
+	m_awaiting_redundancy = false;
+	ReceptionFailure ();
 }
 
 }

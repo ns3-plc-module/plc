@@ -39,7 +39,7 @@ std\-::list$<$ \hyperlink{classns3_1_1PLC__BackboneBranch}{\-P\-L\-C\-\_\-\-Back
 \item 
 \-P\-L\-C\-\_\-\-Backbone\-Path\-::iterator \hyperlink{classns3_1_1PLC__TxInterface_abef68692750f3bb5a11bf6c37d1b3af6}{\-Backbone\-Path\-End} (\hyperlink{classns3_1_1PLC__RxInterface}{\-P\-L\-C\-\_\-\-Rx\-Interface} $\ast$sink)
 \item 
-void \hyperlink{classns3_1_1PLC__TxInterface_a35e0b32414508038c169efc345dbd1e2}{\-Start\-Tx} (\-Ptr$<$ \-Packet $>$ p, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)
+void \hyperlink{classns3_1_1PLC__TxInterface_ac45fd62e1c2e924026df7b04acb6d0b4}{\-Start\-Tx} (\-Ptr$<$ const \-Packet $>$ p, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)
 \end{DoxyCompactItemize}
 \subsection*{\-Static \-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
@@ -189,27 +189,23 @@ void \hyperlink{classns3_1_1PLC__TxInterface_a35e0b32414508038c169efc345dbd1e2}{
 {\em idx} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classns3_1_1PLC__TxInterface_a35e0b32414508038c169efc345dbd1e2}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Start\-Tx@{\-Start\-Tx}}
+\hypertarget{classns3_1_1PLC__TxInterface_ac45fd62e1c2e924026df7b04acb6d0b4}{\index{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}!\-Start\-Tx@{\-Start\-Tx}}
 \index{\-Start\-Tx@{\-Start\-Tx}!ns3::PLC_TxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface}}
 \subsubsection[{\-Start\-Tx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Tx\-Interface\-::\-Start\-Tx} (
 \begin{DoxyParamCaption}
-\item[{\-Ptr$<$ \-Packet $>$}]{p, }
+\item[{\-Ptr$<$ const \-Packet $>$}]{p, }
 \item[{\-Ptr$<$ const \-Spectrum\-Value $>$}]{tx\-Psd, }
-\item[{\-Modulation\-And\-Coding\-Type}]{mcs, }
-\item[{\-Time}]{duration}
+\item[{\-Time}]{duration, }
+\item[{\-Ptr$<$ const {\bf \-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$}]{meta\-Info}
 \end{DoxyParamCaption}
-)}}\label{classns3_1_1PLC__TxInterface_a35e0b32414508038c169efc345dbd1e2}
+)}}\label{classns3_1_1PLC__TxInterface_ac45fd62e1c2e924026df7b04acb6d0b4}
 \-Start transmission from this tx interface
 
 
 \begin{DoxyParams}{\-Parameters}
 {\em p} & \-Packet to be transmitted or \-N\-U\-L\-L for noise signal \\
 \hline
-{\em tx\-Psd} & \-Spectral power density to be used for the transmission \\
-\hline
-{\em st} & \-Spectrum type of the signal to distinguish between different modulation types or noise respectively \\
-\hline
-{\em duration} & \-Transmission duration \\
+{\em meta\-Info} & \-Meta information for link performance emulation \\
 \hline
 \end{DoxyParams}
 

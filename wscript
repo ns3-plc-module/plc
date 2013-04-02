@@ -7,9 +7,9 @@
 #     conf.check_nonfatal(header_name='stdint.h', define_name='HAVE_STDINT_H')
 
 def build(bld):
-    module = bld.create_ns3_module('plc', ['core'])
+    module = bld.create_ns3_module('plc', ['core', 'spectrum', 'network'])
     module.source = [
-        'model/plc-simulator-impl.cc',
+    'model/plc-simulator-impl.cc',
 	'model/plc-defs.cc',
 	'model/plc-time.cc',
 	'model/plc-value.cc',
@@ -30,7 +30,7 @@ def build(bld):
 	'model/plc-mac.cc',
 	'model/plc-net-device.cc',
 	'helper/plc-helper.cc',
-        'helper/plc-spectrum-helper.cc',
+    'helper/plc-spectrum-helper.cc',
 	'helper/plc-device-helper.cc',
         ]
 
@@ -42,7 +42,7 @@ def build(bld):
     headers = bld.new_task_gen(features=['ns3header'])
     headers.module = 'plc'
     headers.source = [
-        'model/plc-simulator-impl.h',
+    'model/plc-simulator-impl.h',
 	'model/plc.h',
 	'model/plc-defs.h',
 	'model/plc-time.h',

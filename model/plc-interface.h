@@ -45,6 +45,7 @@ class PLC_BackboneBranch;
 class PLC_ChannelTransferImpl;
 class PLC_Channel;
 class PLC_Phy;
+class PLC_TrxMetaInfo;
 
 /**
  * \class PLC_Interface
@@ -199,12 +200,9 @@ public:
 	 * Start transmission from this tx interface
 	 *
 	 * @param p Packet to be transmitted or NULL for noise signal
-	 * @param txPsd Spectral power density to be used for the transmission
-	 * @param st Spectrum type of the signal to distinguish between different
-	 * modulation types or noise respectively
-	 * @param duration Transmission duration
+	 * @param metaInfo Meta information for link performance emulation
 	 */
-	void StartTx(Ptr<Packet> p, Ptr<const SpectrumValue> txPsd, ModulationAndCodingType mcs, Time duration);
+	void StartTx(Ptr<const Packet> p, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 private:
     // virtual dummy function to keep pybindgen happy
@@ -273,12 +271,10 @@ public:
 	 * Start receiving. Called by PLC_Channel::TransmissionStart()
 	 *
 	 * @param p Packet associated with the incoming waveform or NULL for noise
-	 * @param txId txInterface index
 	 * @param rxPsd received power spectral density
-	 * @param st Spectrum type of the signal (emulates modulation scheme)
-	 * @param duration Time duration rxPsd is active on rxInterface
-	 */
-	void StartRx(Ptr<Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration);
+	 * @param metaInfo meta information for link performance emulation
+	 **/
+	void StartRx(Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 	/**
 	 * Called when rxPsd changes due to channel evolution

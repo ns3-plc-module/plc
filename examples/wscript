@@ -4,8 +4,8 @@ def build(bld):
     obj = bld.create_ns3_program('plc-phy-example', ['plc', 'spectrum'])
     obj.source = 'plc-phy-example.cc'
 
-    obj = bld.create_ns3_program('plc-mac-example', ['plc', 'spectrum'])
-    obj.source = 'plc-mac-example.cc'
+ #   obj = bld.create_ns3_program('plc-mac-example', ['plc', 'spectrum'])
+ #   obj.source = 'plc-mac-example.cc'
 
-    obj = bld.create_ns3_program('plc-netdevice-example', ['plc', 'spectrum'])
-    obj.source = 'plc-netdevice-example.cc'
+ #   obj = bld.create_ns3_program('plc-netdevice-example', ['plc', 'spectrum'])
+ #   obj.source = 'plc-netdevice-example.cc'

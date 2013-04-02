@@ -91,8 +91,13 @@ enum ModulationAndCodingType
 	BPSK_RATELESS,
 	QAM4_RATELESS,
 	QAM16_RATELESS,
-	NONE_MCS // for distinguishing noise signals
+	QAM32_RATELESS,
+	QAM64_RATELESS
 };
+
+std::ostream& operator<<(std::ostream& os, ModulationAndCodingType type);
+double GetCodeRate (ModulationAndCodingType mcs);
+size_t GetBitsPerSymbol (ModulationAndCodingType mcs);
 
 #define PLC_LOG_ENABLE(PLC_LOG_LEVEL)\
 	do {\

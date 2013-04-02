@@ -98,22 +98,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">ns3::PLC_ColoredNoiseFloor Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="ns3::PLC_ColoredNoiseFloor" --><!-- doxytag: inherits="ns3::PLC_NoiseFloor" -->
+<!-- doxytag: class="ns3::PLC_ColoredNoiseFloor" -->
 <p><code>#include &lt;<a class="el" href="plc-noise_8h_source.html">plc-noise.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for ns3::PLC_ColoredNoiseFloor:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classns3_1_1PLC__ColoredNoiseFloor.png" usemap="#ns3::PLC_ColoredNoiseFloor_map" alt=""/>
-  <map id="ns3::PLC_ColoredNoiseFloor_map" name="ns3::PLC_ColoredNoiseFloor_map">
-<area href="classns3_1_1PLC__NoiseFloor.html" alt="ns3::PLC_NoiseFloor" shape="rect" coords="0,0,176,24"/>
-</map>
- </div></div>
 
 <p><a href="classns3_1_1PLC__ColoredNoiseFloor-members.html">List of all members.</a></p>
 <table class="memberdecls">
@@ -121,6 +113,12 @@ Inheritance diagram for ns3::PLC_ColoredNoiseFloor:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab858fcfc40d2125f8689445ede999b30"></a><!-- doxytag: member="ns3::PLC_ColoredNoiseFloor::PLC_ColoredNoiseFloor" ref="ab858fcfc40d2125f8689445ede999b30" args="(double a, double b, double c, Ptr&lt; const SpectrumModel &gt; sm)" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>PLC_ColoredNoiseFloor</b> (double a, double b, double c, Ptr&lt; const SpectrumModel &gt; sm)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2aa0978aca331068e4cbb36a2d521d4d"></a><!-- doxytag: member="ns3::PLC_ColoredNoiseFloor::GetNoisePsd" ref="a2aa0978aca331068e4cbb36a2d521d4d" args="(void)" -->
+Ptr&lt; SpectrumValue &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetNoisePsd</b> (void)</td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2da0e6d409fb21fcc291b8067d9e7526"></a><!-- doxytag: member="ns3::PLC_ColoredNoiseFloor::m_noisePsd" ref="a2da0e6d409fb21fcc291b8067d9e7526" args="" -->
+Ptr&lt; SpectrumValue &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_noisePsd</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Helper class for colored noise generation with a simple three parameter model proposed in:</p>
@@ -149,7 +147,7 @@ Public Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:57 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:40 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

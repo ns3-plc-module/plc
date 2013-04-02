@@ -119,11 +119,10 @@ Inheritance diagram for ns3::PLC_HalfDuplexOfdmPhy:</div>
  <div class="center">
   <img src="classns3_1_1PLC__HalfDuplexOfdmPhy.png" usemap="#ns3::PLC_HalfDuplexOfdmPhy_map" alt=""/>
   <map id="ns3::PLC_HalfDuplexOfdmPhy_map" name="ns3::PLC_HalfDuplexOfdmPhy_map">
-<area href="classns3_1_1PLC__Phy.html" alt="ns3::PLC_Phy" shape="rect" coords="118,0,345,24"/>
-<area href="classns3_1_1PLC__ErrorRatePhy.html" alt="ns3::PLC_ErrorRatePhy" shape="rect" coords="0,112,227,136"/>
-<area href="classns3_1_1PLC__InformationRatePhy.html" alt="ns3::PLC_InformationRatePhy" shape="rect" coords="237,112,464,136"/>
-<area href="classns3_1_1PLC__ChaseCombiningPhy.html" alt="ns3::PLC_ChaseCombiningPhy" shape="rect" coords="118,168,345,192"/>
-<area href="classns3_1_1PLC__IncrementalRedundancyPhy.html" alt="ns3::PLC_IncrementalRedundancyPhy" shape="rect" coords="355,168,582,192"/>
+<area href="classns3_1_1PLC__Phy.html" alt="ns3::PLC_Phy" shape="rect" coords="98,0,284,24"/>
+<area href="classns3_1_1PLC__ErrorRatePhy.html" alt="ns3::PLC_ErrorRatePhy" shape="rect" coords="0,112,186,136"/>
+<area href="classns3_1_1PLC__InformationRatePhy.html" alt="ns3::PLC_InformationRatePhy" shape="rect" coords="196,112,382,136"/>
+<area href="classns3_1_1PLC__ChaseCombiningPhy.html" alt="ns3::PLC_ChaseCombiningPhy" shape="rect" coords="196,168,382,192"/>
 </map>
  </div></div>
 
@@ -150,6 +149,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ptr&lt; <a class="el" href="classns3_1_1PLC__ValueBase.html">PLC_Impedance</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__HalfDuplexOfdmPhy.html#a22702ed1d5c608d1ba3a080df7cfedd5">GetShuntImpedance</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ptr&lt; <a class="el" href="classns3_1_1PLC__ValueBase.html">PLC_Impedance</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__HalfDuplexOfdmPhy.html#a389c21538679bec18de4c624dd28c61f">GetRxImpedance</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ptr&lt; <a class="el" href="classns3_1_1PLC__ValueBase.html">PLC_Impedance</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__HalfDuplexOfdmPhy.html#ab5b12c099c8f65bef93a85e2c48bd4c6">GetTxImpedance</a> (void)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8493b46e07deed0d6ab6ba91617558df"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::SetNoiseFloor" ref="a8493b46e07deed0d6ab6ba91617558df" args="(Ptr&lt; const SpectrumValue &gt; noiseFloor)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetNoiseFloor</b> (Ptr&lt; const SpectrumValue &gt; noiseFloor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__HalfDuplexOfdmPhy.html#aedcd8f1a9400e8a671736fb62fafd340">CcaRequest</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__HalfDuplexOfdmPhy.html#a16299517e55127bc575d52d6f809ed7b">CancelCca</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__HalfDuplexOfdmPhy.html#af33d069bbe8515210d3d4417dd5bccbd">EndCca</a> (void)</td></tr>
@@ -171,6 +172,8 @@ Protected Member Functions</h2></td></tr>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoStart</b> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4426554b2fc88ca89ebe521b1229dd01"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::DoDispose" ref="a4426554b2fc88ca89ebe521b1229dd01" args="(void)" -->
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoDispose</b> (void)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad83e7c2c13d9c39fd3c0edf6d9fef730"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::DoSetNoiseFloor" ref="ad83e7c2c13d9c39fd3c0edf6d9fef730" args="(Ptr&lt; const SpectrumValue &gt; noiseFloor)=0" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoSetNoiseFloor</b> (Ptr&lt; const SpectrumValue &gt; noiseFloor)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a45fe71a9301d4e0824729664f7cf69f0"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::DoGetChannelTransferImpl" ref="a45fe71a9301d4e0824729664f7cf69f0" args="(Ptr&lt; PLC_Phy &gt; rxPhy)" -->
 virtual <a class="el" href="classns3_1_1PLC__ChannelTransferImpl.html">PLC_ChannelTransferImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>DoGetChannelTransferImpl</b> (Ptr&lt; <a class="el" href="classns3_1_1PLC__Phy.html">PLC_Phy</a> &gt; rxPhy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a90f00571701cf79b3c3ee3d61d48b4cb"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::ComputeEquivalentImpedances" ref="a90f00571701cf79b3c3ee3d61d48b4cb" args="(void)" -->
@@ -202,6 +205,10 @@ Ptr&lt; <a class="el" href="classns3_1_1PLC__ValueBase.html">PLC_Impedance</a> &
 Ptr&lt; <a class="el" href="classns3_1_1PLC__ValueBase.html">PLC_Impedance</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_eqTxImpedance</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21275e992aeaab6db7ff1d5f64642c89"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::m_numSubcarriers" ref="a21275e992aeaab6db7ff1d5f64642c89" args="" -->
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_numSubcarriers</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48d7b548415d35b20310a9e94740a69e"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::m_locked_txId" ref="a48d7b548415d35b20310a9e94740a69e" args="" -->
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_locked_txId</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a710307e53b6eb64d73d2f494a0dd662b"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::m_incoming_packet" ref="a710307e53b6eb64d73d2f494a0dd662b" args="" -->
+Ptr&lt; Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_incoming_packet</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6f4ab3078f989d354c3d85acf345d07"></a><!-- doxytag: member="ns3::PLC_HalfDuplexOfdmPhy::m_rxNoisePsdMap" ref="ad6f4ab3078f989d354c3d85acf345d07" args="" -->
 std::map&lt; uint32_t, Ptr&lt; const <br class="typebreak"/>
 SpectrumValue &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_rxNoisePsdMap</b></td></tr>
@@ -713,7 +720,7 @@ static Time&#160;</td><td class="memItemRight" valign="bottom"><b>guard_interval
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:58 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:41 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
