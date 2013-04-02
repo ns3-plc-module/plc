@@ -47,7 +47,7 @@
 #include "ns3/plc-outlet.h"
 #include "ns3/plc-noise.h"
 #include "ns3/plc-phy.h"
-//#include "ns3/plc-mac.h"
+#include "ns3/plc-mac.h"
 //#include "ns3/plc-net-device.h"
 
 // plc helper includes

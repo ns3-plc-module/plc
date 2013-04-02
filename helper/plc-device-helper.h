@@ -43,8 +43,8 @@ public:
 
 	PLC_NetDeviceHelper(Ptr<const SpectrumModel> sm, Ptr<SpectrumValue> txPsd, PLC_NodeList& netdevices);
 
-	void DefinePhyType(TypeId tid) { m_phyTid = tid; }
-	void DefineMacType(TypeId tid) { m_macTid = tid; }
+	void DefinePhyType(TypeId tid);
+	void DefineMacType(TypeId tid);
 
 	void SetNoiseFloor(Ptr<const SpectrumValue> psd) { m_noiseFloor = psd; }
 	void SetTxPowerSpectralDensity(Ptr<SpectrumValue> txPsd) { m_txPsd = txPsd; }
@@ -52,7 +52,7 @@ public:
 	void SetTxImpedance(Ptr<PLC_Impedance> txImpedance);
 	Ptr<PLC_Impedance> GetRxImpedance(void) { return m_rxImpedance; }
 	Ptr<PLC_Impedance> GetTxImpedance(void) { return m_txImpedance; }
-	void SetDefaultModulationAndCodingScheme(ModulationAndCodingType mcs) { m_default_mcs = mcs; }
+	void SetHeaderModulationAndCodingScheme(ModulationAndCodingType mcs) { m_header_mcs = mcs; }
 	void SetPayloadModulationAndCodingScheme(ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
 
 	void Setup(void);
@@ -71,7 +71,7 @@ private:
 	Ptr<const SpectrumValue> m_noiseFloor;
 	Ptr<PLC_Impedance> m_rxImpedance;
 	Ptr<PLC_Impedance> m_txImpedance;
-	ModulationAndCodingType m_default_mcs;
+	ModulationAndCodingType m_header_mcs;
 	ModulationAndCodingType m_payload_mcs;
 	TypeId m_phyTid;
 	TypeId m_macTid;

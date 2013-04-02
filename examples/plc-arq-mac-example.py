@@ -18,34 +18,30 @@
 #  * Authors: Alexander Schloegl <alexander.schloegl@gmx.de>
 #  */
 
-# Python version of plc-netdevice-example.cc
+# Python version of plc-mac-example.cc
 
 import ns.plc
 import ns.core
 import ns.spectrum
 import ns.network
 
-def send(dev, p, dst, proto):
-    dev.Send(p,dst,proto)
-
-def receivedMsg(dev, p, llc, addr):
-    print '\n*** Message received ***\n'
+def sendPacket(mac, p, dst):
+    mac.Send(p,dst)
 
 def receivedACK():
-    print '\n*** ACK received ***\n'
+    print '*** ACK received ***'
 
 def main(dummy_argv):
 
     ## Enable logging  
     ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
-    ns.core.LogComponentEnable('PLC_Mac', ns.core.LOG_LEVEL_INFO)
-    ns.core.LogComponentEnable('PLC_NetDevice', ns.core.LOG_LEVEL_INFO)
+    ns.core.LogComponentEnable('PLC_Mac', ns.core.LOG_LEVEL_FUNCTION)
 
     ## Enable packet printing
     ns.network.Packet.EnablePrinting()
 
     ## Define spectrum model
-    sm = ns.plc.PLC_SpectrumModelHelper().GetG3SpectrumModel()
+    sm = ns.plc.PLC_SpectrumModelHelper().GetSpectrumModel(0,10e6,100)
 
     ## Define transmit power spectral density
     txPsd = ns.spectrum.SpectrumValue(sm)
@@ -71,31 +67,51 @@ def main(dummy_argv):
     channelHelper.Install(nodes)
     channel = channelHelper.GetChannel()
 
-    ## Create net devices
-    deviceHelper = ns.plc.PLC_NetDeviceHelper(sm, txPsd, nodes)
-    deviceHelper.DefinePhyType(ns.plc.PLC_IncrementalRedundancyPhy.GetTypeId())
-    deviceHelper.SetPayloadModulationAndCodingScheme(ns.plc.QAM64_RATELESS)
-    deviceHelper.Setup()
-                   
-    ## Calculate channel
+    ## Create outlets
+    o1 = ns.plc.PLC_Outlet(n1)
+    o2 = ns.plc.PLC_Outlet(n2)
+
+    ## Create PHYs
+    phy1 = ns.plc.PLC_InformationRatePhy()
+    phy2 = ns.plc.PLC_InformationRatePhy()
+    phy1.CreateInterfaces(o1,txPsd)
+    phy2.CreateInterfaces(o2,txPsd)
+
+    ## Set background noise
+    noiseFloor = ns.plc.PLC_ColoredNoiseFloor(-140,38.75,-0.72,sm).GetNoisePsd()
+    phy1.SetNoiseFloor(noiseFloor)
+    phy2.SetNoiseFloor(noiseFloor)
+
+    ## Set modulation and coding scheme
+    phy1.SetHeaderModulationAndCodingScheme(ns.plc.BPSK_1_2)
+    phy2.SetHeaderModulationAndCodingScheme(ns.plc.BPSK_1_2)
+    phy1.SetPayloadModulationAndCodingScheme(ns.plc.BPSK_RATELESS)
+    phy2.SetPayloadModulationAndCodingScheme(ns.plc.BPSK_RATELESS)
+
+    ## Aggregate RX-Interfaces to ns3 nodes
+    phy1.GetRxInterface().AggregateObject(ns.network.Node())
+    phy2.GetRxInterface().AggregateObject(ns.network.Node())
+
+    ## Create MAC layers
+    mac1 = ns.plc.PLC_ArqMac()
+    mac2 = ns.plc.PLC_ArqMac()
+    mac1.SetPhy(phy1)
+    mac2.SetPhy(phy2)
+    mac1.SetAddress(ns.network.Mac48Address('00:00:00:00:00:01'))
+    mac2.SetAddress(ns.network.Mac48Address('00:00:00:00:00:02'))
+
+    ## Set callback function to be called when ACK is received
+    mac1.SetMacAcknowledgementCallback(receivedACK)
+
+    ## Calculate channels
     channel.InitTransmissionChannels()
     channel.CalcTransmissionChannels()
 
     ## Create packet to send
     p = ns.network.Packet(1024)
 
-    ## Get devices
-    txDev = deviceHelper.GetDevice('Node1')
-    rxDev = deviceHelper.GetDevice('Node2')
-
-    ## Get address of rx device
-    rxAddr = rxDev.GetAddress() 
-
-    ## Set callback for data reception
-    rxDev.SetReceiveCallback(receivedMsg)
-
-    ## Schedule transmission of packet p
-    ns.core.Simulator.Schedule(ns.core.Seconds(1), send, txDev, p, rxAddr, 0)
+    ## Schedule transmission of packet p from phy0 to phy1 to begin at 1s simulation time
+    ns.core.Simulator.Schedule(ns.core.Seconds(1), sendPacket, mac1, p, ns.network.Mac48Address('00:00:00:00:00:02'))
 
     ## Start simulation
     ns.core.Simulator.Run()

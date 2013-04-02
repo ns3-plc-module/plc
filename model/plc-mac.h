@@ -42,7 +42,7 @@ typedef enum
 typedef Callback<void, Ptr<Packet> , Mac48Address, Mac48Address > PLC_MacDataCallback;
 typedef Callback<void> PLC_MacAcknowledgementCallback;
 typedef Callback<void> PLC_MacTransmissionFailedCallback;
-typedef Callback< void > PLC_CcaRequestCallback; // This method informs MAC that channel is idle or busy
+typedef Callback< void > PLC_CcaRequestCallback; // This method informs MAC whether the channel is idle or busy
 
 /**
  * \class PLC_Mac
@@ -234,7 +234,52 @@ private:
 	size_t m_replays;
 };
 
-// TODO: PLC_HarqMac, PLC_Relay
+/**
+ * HARQ Type I MAC layer implementation
+ */
+class PLC_HarqMac : public PLC_Mac
+{
+public:
+	static TypeId GetTypeId (void);
+
+	PLC_HarqMac (void);
+
+	void SetAcknowledgementTimeout (Time timeout) { m_acknowledgement_timeout = timeout; }
+	Time GetAcknowledgementTimeout (void) { return m_acknowledgement_timeout; }
+
+	void SetMaxRedundancyFrames (size_t max_frames) { m_max_redundancy_frames = max_frames; }
+	size_t GetMaxRedundancyFrames (void) { return m_max_redundancy_frames; }
+
+	virtual void NotifyCcaConfirm (PLC_PhyCcaResult status);
+	virtual void NotifyCsmaCaConfirm (PLC_CsmaCaState state);
+	virtual void NotifyTransmissionEnd (void);
+
+	void AcknowledgementTimeout (void);
+
+private:
+	virtual void DoStart (void);
+	virtual void DoDispose (void);
+	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
+	virtual void DoProcess (Ptr<const Packet> p);
+	virtual void DoSetPhy (Ptr<PLC_Phy> phy);
+	virtual Ptr<PLC_Phy> DoGetPhy (void);
+
+	Ptr<PLC_InformationRatePhy> m_phy;
+
+	Ptr<Packet> m_txPacket;
+	Ptr<Packet> m_rxPacket;
+	PLC_MacHeader m_txHeader;
+	PLC_MacHeader m_rxHeader;
+	uint16_t m_sequence_number;
+
+	bool m_awaiting_ack;
+	Time m_acknowledgement_timeout;
+	EventId m_acknowledgementTimeoutEvent;
+	size_t m_max_redundancy_frames;
+	size_t m_sent_redundancy_frames;
+};
+
+// TODO: PLC_Relay
 
 }
 

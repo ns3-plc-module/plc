@@ -68,7 +68,7 @@ PLC_NetDeviceHelper::PLC_NetDeviceHelper(Ptr<const SpectrumModel> sm, Ptr<Spectr
 	: m_spectrum_model(sm), m_txPsd(txPsd), m_netdevice_nodes(deviceNodes)
 {
 	// Modulation and Coding Schemes
-	m_default_mcs = BPSK_1_2;
+	m_header_mcs = BPSK_1_2;
 	m_payload_mcs = BPSK_1_2;
 
 	// Default phy model to be used
@@ -78,6 +78,18 @@ PLC_NetDeviceHelper::PLC_NetDeviceHelper(Ptr<const SpectrumModel> sm, Ptr<Spectr
 
 	// Create ns3::Node for this NetDevice by default
 	m_create_nodes = true;
+}
+
+void
+PLC_NetDeviceHelper::DefinePhyType(TypeId tid)
+{
+	m_phyTid = tid;
+}
+
+void
+PLC_NetDeviceHelper::DefineMacType(TypeId tid)
+{
+	m_macTid = tid;
 }
 
 void
@@ -115,6 +127,12 @@ PLC_NetDeviceHelper::Setup(void)
 {
 	NS_ASSERT_MSG(m_txPsd, "TX psd not set!");
 
+	// Test if payload mcs is compatible
+	if (m_phyTid == PLC_IncrementalRedundancyPhy::GetTypeId())
+	{
+		NS_ASSERT_MSG (m_payload_mcs >= BPSK_RATELESS, "Payload modulation and coding type (" << m_payload_mcs << ") not compatible with PLC_IncrementalRedundancyPhy");
+	}
+
 	if (m_noiseFloor == NULL)
 	{
 		m_noiseFloor = CreateBestCaseBgNoise(m_spectrum_model)->GetNoisePsd();
@@ -147,16 +165,21 @@ PLC_NetDeviceHelper::Setup(void)
 
 		if (phy->GetInstanceTypeId() == PLC_ErrorRatePhy::GetTypeId())
 		{
-			(StaticCast<PLC_ErrorRatePhy, PLC_Phy> (phy))->SetModulationAndCodingScheme(m_default_mcs);
+			NS_ASSERT_MSG (m_header_mcs == m_payload_mcs, "Header and payload modulation and coding schemes have to be identical for PLC_ErrorRatePhy");
+			NS_ASSERT_MSG (m_header_mcs < BPSK_RATELESS, "Rateless encoding not supported by PLC_ErrorRatePhy");
+			(StaticCast<PLC_ErrorRatePhy, PLC_Phy> (phy))->SetModulationAndCodingScheme(m_header_mcs);
 		}
-		else if (phy->GetInstanceTypeId() == PLC_InformationRatePhy::GetTypeId())
+		else if (
+				phy->GetInstanceTypeId() == PLC_InformationRatePhy::GetTypeId () ||
+				phy->GetInstanceTypeId().IsChildOf(PLC_InformationRatePhy::GetTypeId ())
+				 )
 		{
-			(StaticCast<PLC_InformationRatePhy, PLC_Phy> (phy))->SetHeaderModulationAndCodingScheme(m_default_mcs);
-			(StaticCast<PLC_InformationRatePhy, PLC_Phy> (phy))->SetPayloadModulationAndCodingScheme(m_default_mcs);
+			(StaticCast<PLC_InformationRatePhy, PLC_Phy> (phy))->SetHeaderModulationAndCodingScheme(m_header_mcs);
+			(StaticCast<PLC_InformationRatePhy, PLC_Phy> (phy))->SetPayloadModulationAndCodingScheme(m_payload_mcs);
 		}
 		else
 		{
-			NS_ABORT_MSG("Incompatible phy type!");
+			NS_ABORT_MSG("Incompatible PHY type!");
 		}
 
 		// Create MAC

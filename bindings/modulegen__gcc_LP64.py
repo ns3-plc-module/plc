@@ -390,6 +390,8 @@ def register_types(module):
     module.add_class('PLC_HalfDuplexOfdmPhy', parent=root_module['ns3::PLC_Phy'])
     ## plc-phy.h (module 'plc'): ns3::PLC_HalfDuplexOfdmPhy::State [enumeration]
     module.add_enum('State', ['IDLE', 'TX', 'RX'], outer_class=root_module['ns3::PLC_HalfDuplexOfdmPhy'])
+    ## plc-mac.h (module 'plc'): ns3::PLC_HarqMac [class]
+    module.add_class('PLC_HarqMac', parent=root_module['ns3::PLC_Mac'])
     ## plc-noise.h (module 'plc'): ns3::PLC_ImpulseNoiseSource [class]
     module.add_class('PLC_ImpulseNoiseSource', parent=root_module['ns3::PLC_NoiseSource'])
     ## plc-noise.h (module 'plc'): ns3::PLC_ImpulsiveNoiseSource [class]
@@ -881,6 +883,7 @@ def register_methods(root_module):
     register_Ns3PLC_ColoredNoiseFloor_methods(root_module, root_module['ns3::PLC_ColoredNoiseFloor'])
     register_Ns3PLC_ErrorRateModel_methods(root_module, root_module['ns3::PLC_ErrorRateModel'])
     register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, root_module['ns3::PLC_HalfDuplexOfdmPhy'])
+    register_Ns3PLC_HarqMac_methods(root_module, root_module['ns3::PLC_HarqMac'])
     register_Ns3PLC_ImpulseNoiseSource_methods(root_module, root_module['ns3::PLC_ImpulseNoiseSource'])
     register_Ns3PLC_ImpulsiveNoiseSource_methods(root_module, root_module['ns3::PLC_ImpulsiveNoiseSource'])
     register_Ns3PLC_InformationRateModel_methods(root_module, root_module['ns3::PLC_InformationRateModel'])
@@ -4367,8 +4370,8 @@ def register_Ns3PLC_NetDeviceHelper_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetDefaultModulationAndCodingScheme(ns3::ModulationAndCodingType mcs) [member function]
-    cls.add_method('SetDefaultModulationAndCodingScheme', 
+    ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetHeaderModulationAndCodingScheme(ns3::ModulationAndCodingType mcs) [member function]
+    cls.add_method('SetHeaderModulationAndCodingScheme', 
                    'void', 
                    [param('ns3::ModulationAndCodingType', 'mcs')])
     ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetNoiseFloor(ns3::Ptr<ns3::SpectrumValue const> psd) [member function]
@@ -7341,6 +7344,83 @@ def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
                    'void', 
                    [param('ns3::PLC_HalfDuplexOfdmPhy::State', 'state')], 
                    visibility='protected')
+    return
+
+def register_Ns3PLC_HarqMac_methods(root_module, cls):
+    ## plc-mac.h (module 'plc'): ns3::PLC_HarqMac::PLC_HarqMac(ns3::PLC_HarqMac const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_HarqMac const &', 'arg0')])
+    ## plc-mac.h (module 'plc'): ns3::PLC_HarqMac::PLC_HarqMac() [constructor]
+    cls.add_constructor([])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::AcknowledgementTimeout() [member function]
+    cls.add_method('AcknowledgementTimeout', 
+                   'void', 
+                   [])
+    ## plc-mac.h (module 'plc'): ns3::Time ns3::PLC_HarqMac::GetAcknowledgementTimeout() [member function]
+    cls.add_method('GetAcknowledgementTimeout', 
+                   'ns3::Time', 
+                   [])
+    ## plc-mac.h (module 'plc'): size_t ns3::PLC_HarqMac::GetMaxRedundancyFrames() [member function]
+    cls.add_method('GetMaxRedundancyFrames', 
+                   'size_t', 
+                   [])
+    ## plc-mac.h (module 'plc'): static ns3::TypeId ns3::PLC_HarqMac::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::NotifyCcaConfirm(ns3::PLC_PhyCcaResult status) [member function]
+    cls.add_method('NotifyCcaConfirm', 
+                   'void', 
+                   [param('ns3::PLC_PhyCcaResult', 'status')], 
+                   is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::NotifyCsmaCaConfirm(ns3::PLC_CsmaCaState state) [member function]
+    cls.add_method('NotifyCsmaCaConfirm', 
+                   'void', 
+                   [param('ns3::PLC_CsmaCaState', 'state')], 
+                   is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::NotifyTransmissionEnd() [member function]
+    cls.add_method('NotifyTransmissionEnd', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::SetAcknowledgementTimeout(ns3::Time timeout) [member function]
+    cls.add_method('SetAcknowledgementTimeout', 
+                   'void', 
+                   [param('ns3::Time', 'timeout')])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::SetMaxRedundancyFrames(size_t max_frames) [member function]
+    cls.add_method('SetMaxRedundancyFrames', 
+                   'void', 
+                   [param('size_t', 'max_frames')])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoDispose() [member function]
+    cls.add_method('DoDispose', 
+                   'void', 
+                   [], 
+                   visibility='private', is_virtual=True)
+    ## plc-mac.h (module 'plc'): ns3::Ptr<ns3::PLC_Phy> ns3::PLC_HarqMac::DoGetPhy() [member function]
+    cls.add_method('DoGetPhy', 
+                   'ns3::Ptr< ns3::PLC_Phy >', 
+                   [], 
+                   visibility='private', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoProcess(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('DoProcess', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')], 
+                   visibility='private', is_virtual=True)
+    ## plc-mac.h (module 'plc'): bool ns3::PLC_HarqMac::DoSendFrom(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
+    cls.add_method('DoSendFrom', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')], 
+                   visibility='private', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoSetPhy(ns3::Ptr<ns3::PLC_Phy> phy) [member function]
+    cls.add_method('DoSetPhy', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
+                   visibility='private', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoStart() [member function]
+    cls.add_method('DoStart', 
+                   'void', 
+                   [], 
+                   visibility='private', is_virtual=True)
     return
 
 def register_Ns3PLC_ImpulseNoiseSource_methods(root_module, cls):

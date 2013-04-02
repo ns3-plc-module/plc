@@ -1534,7 +1534,7 @@ PLC_ChaseCombiningPhy::NotifySuccessfulReception (void)
 
 NS_OBJECT_ENSURE_REGISTERED (PLC_IncrementalRedundancyPhy);
 
-Time PLC_IncrementalRedundancyPhy::reception_failure_timeout = MicroSeconds (100);
+Time PLC_IncrementalRedundancyPhy::reception_failure_timeout = MilliSeconds (50);
 
 TypeId
 PLC_IncrementalRedundancyPhy::GetTypeId (void)
@@ -1675,6 +1675,7 @@ PLC_IncrementalRedundancyPhy::StartReception (Ptr<const Packet> p, uint32_t txId
 	if (m_awaiting_redundancy)
 	{
 		PLC_PHY_LOGIC ("Continue incremental redundancy reception");
+		m_receptionFailureTimeoutEvent.Cancel ();
 		Time payload_duration = metaInfo->GetPayloadDuration();
 		m_information_rate_model->StartRx(metaInfo->GetPayloadMcs(), rxPsd, m_remaining_bits);
 		Simulator::Schedule(payload_duration, &PLC_IncrementalRedundancyPhy::EndRxPayload, this, metaInfo);
