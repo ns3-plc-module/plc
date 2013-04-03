@@ -238,8 +238,6 @@ def register_types(module):
     module.add_enum('DelimiterType', ['DATA', 'ACK', 'NACK'], outer_class=root_module['ns3::PLC_PhyRatelessFrameControlHeader'])
     ## plc-header.h (module 'plc'): ns3::PLC_Preamble [class]
     module.add_class('PLC_Preamble', parent=root_module['ns3::Header'])
-    ## plc-relay.h (module 'plc'): ns3::PLC_Relay [class]
-    module.add_class('PLC_Relay', parent=root_module['ns3::Object'])
     ## plc-interface.h (module 'plc'): ns3::PLC_RxInterface [class]
     module.add_class('PLC_RxInterface', parent=root_module['ns3::PLC_Interface'])
     ## plc-spectrum-helper.h (module 'plc'): ns3::PLC_SpectrumModelHelper [class]
@@ -384,8 +382,6 @@ def register_types(module):
     module.add_class('PLC_Channel', parent=root_module['ns3::Channel'])
     ## plc-noise.h (module 'plc'): ns3::PLC_ColoredNoiseFloor [class]
     module.add_class('PLC_ColoredNoiseFloor', parent=root_module['ns3::SimpleRefCount< ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >'])
-    ## plc-relay.h (module 'plc'): ns3::PLC_CooperativeRelay [class]
-    module.add_class('PLC_CooperativeRelay', parent=root_module['ns3::PLC_Relay'])
     ## plc-link-performance-model.h (module 'plc'): ns3::PLC_ErrorRateModel [class]
     module.add_class('PLC_ErrorRateModel', parent=root_module['ns3::PLC_LinkPerformanceModel'])
     ## plc-link-performance-model.h (module 'plc'): ns3::PLC_ErrorRateModel::ChannelCondition [enumeration]
@@ -816,7 +812,6 @@ def register_methods(root_module):
     register_Ns3PLC_PhyFrameControlHeader_methods(root_module, root_module['ns3::PLC_PhyFrameControlHeader'])
     register_Ns3PLC_PhyRatelessFrameControlHeader_methods(root_module, root_module['ns3::PLC_PhyRatelessFrameControlHeader'])
     register_Ns3PLC_Preamble_methods(root_module, root_module['ns3::PLC_Preamble'])
-    register_Ns3PLC_Relay_methods(root_module, root_module['ns3::PLC_Relay'])
     register_Ns3PLC_RxInterface_methods(root_module, root_module['ns3::PLC_RxInterface'])
     register_Ns3PLC_SpectrumModelHelper_methods(root_module, root_module['ns3::PLC_SpectrumModelHelper'])
     register_Ns3PLC_StaticNoiseSource_methods(root_module, root_module['ns3::PLC_StaticNoiseSource'])
@@ -886,7 +881,6 @@ def register_methods(root_module):
     register_Ns3PLC_ArqMac_methods(root_module, root_module['ns3::PLC_ArqMac'])
     register_Ns3PLC_Channel_methods(root_module, root_module['ns3::PLC_Channel'])
     register_Ns3PLC_ColoredNoiseFloor_methods(root_module, root_module['ns3::PLC_ColoredNoiseFloor'])
-    register_Ns3PLC_CooperativeRelay_methods(root_module, root_module['ns3::PLC_CooperativeRelay'])
     register_Ns3PLC_ErrorRateModel_methods(root_module, root_module['ns3::PLC_ErrorRateModel'])
     register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, root_module['ns3::PLC_HalfDuplexOfdmPhy'])
     register_Ns3PLC_HarqMac_methods(root_module, root_module['ns3::PLC_HarqMac'])
@@ -4964,45 +4958,6 @@ def register_Ns3PLC_Preamble_methods(root_module, cls):
                    is_static=True)
     return
 
-def register_Ns3PLC_Relay_methods(root_module, cls):
-    ## plc-relay.h (module 'plc'): ns3::PLC_Relay::PLC_Relay(ns3::PLC_Relay const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_Relay const &', 'arg0')])
-    ## plc-relay.h (module 'plc'): ns3::PLC_Relay::PLC_Relay() [constructor]
-    cls.add_constructor([])
-    ## plc-relay.h (module 'plc'): ns3::Ptr<ns3::PLC_Mac> ns3::PLC_Relay::GetMac() [member function]
-    cls.add_method('GetMac', 
-                   'ns3::Ptr< ns3::PLC_Mac >', 
-                   [])
-    ## plc-relay.h (module 'plc'): static ns3::TypeId ns3::PLC_Relay::GetTypeId() [member function]
-    cls.add_method('GetTypeId', 
-                   'ns3::TypeId', 
-                   [], 
-                   is_static=True)
-    ## plc-relay.h (module 'plc'): void ns3::PLC_Relay::Process(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
-    cls.add_method('Process', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')])
-    ## plc-relay.h (module 'plc'): void ns3::PLC_Relay::SetMac(ns3::Ptr<ns3::PLC_Mac> mac) [member function]
-    cls.add_method('SetMac', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::PLC_Mac >', 'mac')])
-    ## plc-relay.h (module 'plc'): void ns3::PLC_Relay::DoDispose() [member function]
-    cls.add_method('DoDispose', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
-    ## plc-relay.h (module 'plc'): void ns3::PLC_Relay::DoProcess(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
-    cls.add_method('DoProcess', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')], 
-                   is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-relay.h (module 'plc'): void ns3::PLC_Relay::DoStart() [member function]
-    cls.add_method('DoStart', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
-    return
-
 def register_Ns3PLC_RxInterface_methods(root_module, cls):
     ## plc-interface.h (module 'plc'): ns3::PLC_RxInterface::PLC_RxInterface(ns3::PLC_RxInterface const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_RxInterface const &', 'arg0')])
@@ -7206,37 +7161,6 @@ def register_Ns3PLC_ColoredNoiseFloor_methods(root_module, cls):
     cls.add_method('GetNoisePsd', 
                    'ns3::Ptr< ns3::SpectrumValue >', 
                    [])
-    return
-
-def register_Ns3PLC_CooperativeRelay_methods(root_module, cls):
-    ## plc-relay.h (module 'plc'): ns3::PLC_CooperativeRelay::PLC_CooperativeRelay(ns3::PLC_CooperativeRelay const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_CooperativeRelay const &', 'arg0')])
-    ## plc-relay.h (module 'plc'): ns3::PLC_CooperativeRelay::PLC_CooperativeRelay() [constructor]
-    cls.add_constructor([])
-    ## plc-relay.h (module 'plc'): void ns3::PLC_CooperativeRelay::AddAcceptedAddress(ns3::Mac48Address addr) [member function]
-    cls.add_method('AddAcceptedAddress', 
-                   'void', 
-                   [param('ns3::Mac48Address', 'addr')])
-    ## plc-relay.h (module 'plc'): static ns3::TypeId ns3::PLC_CooperativeRelay::GetTypeId() [member function]
-    cls.add_method('GetTypeId', 
-                   'ns3::TypeId', 
-                   [], 
-                   is_static=True)
-    ## plc-relay.h (module 'plc'): void ns3::PLC_CooperativeRelay::DoDispose() [member function]
-    cls.add_method('DoDispose', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
-    ## plc-relay.h (module 'plc'): void ns3::PLC_CooperativeRelay::DoProcess(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
-    cls.add_method('DoProcess', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')], 
-                   visibility='protected', is_virtual=True)
-    ## plc-relay.h (module 'plc'): void ns3::PLC_CooperativeRelay::DoStart() [member function]
-    cls.add_method('DoStart', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_ErrorRateModel_methods(root_module, cls):
