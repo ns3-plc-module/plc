@@ -40,6 +40,8 @@ def main(dummy_argv):
     ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
     ns.core.LogComponentEnable('PLC_Mac', ns.core.LOG_LEVEL_INFO)
     ns.core.LogComponentEnable('PLC_NetDevice', ns.core.LOG_LEVEL_INFO)
+    ns.core.LogComponentEnable('PLC_LinkPerformanceModel', ns.core.LOG_LEVEL_LOGIC)
+    ns.core.LogComponentEnable('PLC_Outlet', ns.core.LOG_LEVEL_LOGIC)
 
     ## Enable packet printing
     ns.network.Packet.EnablePrinting()
@@ -96,6 +98,12 @@ def main(dummy_argv):
 
     ## Schedule transmission of packet p
     ns.core.Simulator.Schedule(ns.core.Seconds(1), send, txDev, p, rxAddr, 0)
+
+    rxOutlet = rxDev.GetOutlet()
+    imp = ns.plc.PLC_ConstImpedance(sm, 5)
+    ns.core.Simulator.Schedule(ns.core.Seconds(1.3), rxOutlet.SetImpedance, imp, 1)
+
+    rxPhy = rxDev.GetPhy()
 
     ## Start simulation
     ns.core.Simulator.Run()

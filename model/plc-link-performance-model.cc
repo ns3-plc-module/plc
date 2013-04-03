@@ -24,6 +24,7 @@
 #include <ns3/simulator.h>
 #include <ns3/random-variable.h>
 #include "plc-link-performance-model.h"
+#include "plc-phy.h"
 
 NS_LOG_COMPONENT_DEFINE ("PLC_LinkPerformanceModel");
 
@@ -293,17 +294,13 @@ PLC_InformationRateModel::GetTypeId (void)
 }
 
 PLC_InformationRateModel::PLC_InformationRateModel()
-	: m_ineffective_time_proportion(0), m_gathered_information_bits(0)
 {
 	NS_LOG_FUNCTION(this);
-}
-
-void
-PLC_InformationRateModel::SetIneffectiveTimeProportion(double prop)
-{
-	NS_LOG_FUNCTION(this << prop);
-	NS_ASSERT_MSG(prop < 1, "Ineffective time proportion has to be less than 1");
-	m_ineffective_time_proportion = prop;
+	m_gathered_information_bits = 0;
+	m_required_information_bits = 0;
+	m_last_symbol_residual = 0;
+	m_symbol_duration = Seconds (0);
+	m_guard_interval_duration = Seconds (0);
 }
 
 void
@@ -315,7 +312,78 @@ PLC_InformationRateModel::DoStartRx(double requiredInformationBits)
 
 	m_required_information_bits = requiredInformationBits;
 	m_gathered_information_bits = 0;
-	m_lastChangeTime = Now();
+	m_lastChangeTime = Now ();
+}
+
+double
+PLC_InformationRateModel::CalculateChunkGuardIntervals (Time chunk_duration)
+{
+	NS_LOG_FUNCTION(this);
+	NS_ASSERT (m_symbol_duration > m_guard_interval_duration);
+
+	int64_t symbol_residual = chunk_duration.GetInteger() % m_symbol_duration.GetInteger();
+
+	NS_LOG_LOGIC ("Chunk duration: " << chunk_duration  << " (" << chunk_duration.GetInteger() << ")");
+	NS_LOG_LOGIC ("Symbol duration: " << m_symbol_duration << " (" << m_symbol_duration.GetInteger() << ")");
+	NS_LOG_LOGIC ("Guard interval duration: " << m_guard_interval_duration << " (" << m_guard_interval_duration.GetInteger() << ")");
+	NS_LOG_LOGIC ("Last symbol residual: " << m_last_symbol_residual);
+	NS_LOG_LOGIC ("New symbol residual: " << symbol_residual);
+
+	double chunk_guard_intervals = 0;
+	if (m_last_symbol_residual < m_guard_interval_duration.GetInteger())
+	{
+		NS_LOG_LOGIC ("Consider remaining guard interval fraction of first symbol");
+
+		int64_t first_guard_interval_residual = m_guard_interval_duration.GetInteger() - m_last_symbol_residual;
+		NS_LOG_LOGIC ("First guard interval residual: " << first_guard_interval_residual);
+
+		if (first_guard_interval_residual > chunk_duration.GetInteger())
+		{
+			NS_LOG_LOGIC ("Guard interval of first symbol is not completed with current chunk");
+			chunk_guard_intervals += (double) chunk_duration.GetInteger() / m_guard_interval_duration.GetInteger();
+		}
+		else
+		{
+			NS_LOG_LOGIC ("Considering guard intervals of completed chunk symbols");
+			chunk_guard_intervals += (double) first_guard_interval_residual / m_guard_interval_duration.GetInteger();
+			chunk_guard_intervals += chunk_duration.GetInteger() / m_symbol_duration.GetInteger();
+
+			if (symbol_residual >= m_guard_interval_duration.GetInteger())
+			{
+				NS_LOG_LOGIC ("Guard interval of last chunk symbol complete");
+				chunk_guard_intervals += 1;
+			}
+			else
+			{
+				NS_LOG_LOGIC ("Guard interval of last chunk not complete");
+				chunk_guard_intervals += (double) symbol_residual / m_guard_interval_duration.GetInteger();
+			}
+		}
+	}
+	else if (chunk_duration > m_symbol_duration - m_guard_interval_duration)
+	{
+		NS_LOG_LOGIC ("Considering guard intervals of completed chunk symbols");
+		chunk_guard_intervals += chunk_duration.GetInteger() / m_symbol_duration.GetInteger();
+
+		if (symbol_residual >= m_guard_interval_duration.GetInteger())
+		{
+			NS_LOG_LOGIC ("Guard interval of last chunk symbol complete");
+			chunk_guard_intervals += 1;
+		}
+		else
+		{
+			NS_LOG_LOGIC ("Guard interval of last chunk not complete");
+			chunk_guard_intervals += (double) symbol_residual / m_guard_interval_duration.GetInteger();
+		}
+
+	}
+	m_last_symbol_residual = symbol_residual;
+
+	NS_LOG_LOGIC ("chunk_duration_s: " << chunk_duration.GetSeconds());
+	NS_LOG_LOGIC ("guard_interval_duration_s: " << m_guard_interval_duration.GetSeconds());
+	NS_LOG_LOGIC ("chunk guard intervals: " << chunk_guard_intervals);
+
+	return chunk_duration.GetSeconds() - (m_guard_interval_duration.GetSeconds()*chunk_guard_intervals);
 }
 
 void
@@ -323,7 +391,16 @@ PLC_InformationRateModel::DoEvaluateChunk(void)
 {
 	NS_LOG_FUNCTION(this);
 
-	double effective_duration_s = ((Now() - m_lastChangeTime).GetSeconds())*(1-m_ineffective_time_proportion);
+	Time chunk_duration = Now () - m_lastChangeTime;
+	double effective_duration_s = chunk_duration.GetSeconds();
+
+	if (m_guard_interval_duration > Seconds(0))
+	{
+		// Determine effective rx duration, i.e. (virtually) remove guard intervals
+		double chunk_guard_intervals = CalculateChunkGuardIntervals (chunk_duration);
+		effective_duration_s -= m_guard_interval_duration.GetSeconds() * chunk_guard_intervals;
+	}
+
 	NS_LOG_LOGIC ("Effective duration: " << effective_duration_s);
 
 	Ptr<SpectrumValue> sinr = m_interference->GetSinr();

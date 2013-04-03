@@ -208,7 +208,7 @@ PLC_Phy::GetChannelTransferVector(Ptr<PLC_Phy> rxPhy)
 
 NS_OBJECT_ENSURE_REGISTERED (PLC_HalfDuplexOfdmPhy);
 
-Time PLC_HalfDuplexOfdmPhy::guard_interval_duration = Seconds(0);
+Time PLC_HalfDuplexOfdmPhy::guard_interval_duration = MicroSeconds(20);
 
 TypeId
 PLC_HalfDuplexOfdmPhy::GetTypeId (void)
@@ -858,6 +858,8 @@ PLC_InformationRatePhy::PLC_InformationRatePhy (void)
 	m_header_mcs = BPSK_1_2;
 	m_payload_mcs = BPSK_1_2;
 	m_information_rate_model = CreateObject<PLC_InformationRateModel> ();
+	m_information_rate_model->SetSymbolDuration(GetSymbolDuration());
+	m_information_rate_model->SetGuardIntervalDuration(GetGuardIntervalDuration());
 }
 
 void
