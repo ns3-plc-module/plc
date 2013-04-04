@@ -50,6 +50,32 @@ class PLC_Phy;
 class PLC_TxInterface;
 class PLC_RxInterface;;
 
+class PLC_TrxMetaInfo : public Object
+{
+public:
+	static TypeId GetTypeId (void);
+
+	PLC_TrxMetaInfo (void);
+
+	void SetUncodedMessage (Ptr<const Packet> p) { m_uncoded_packet = p; }
+	Ptr<const Packet> GetUncodedMessage (void) const { return m_uncoded_packet; }
+	void SetHeaderMcs (ModulationAndCodingType mcs) { m_header_mcs = mcs; }
+	ModulationAndCodingType GetHeaderMcs (void) const { return m_header_mcs; }
+	void SetPayloadMcs (ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
+	ModulationAndCodingType GetPayloadMcs (void) const { return m_payload_mcs; }
+	void SetHeaderDuration (Time duration) { m_header_duration = duration; }
+	Time GetHeaderDuration (void) const { return m_header_duration; }
+	void SetPayloadDuration (Time duration) { m_payload_duration = duration; }
+	Time GetPayloadDuration (void) const { return m_payload_duration; }
+
+private:
+	Ptr<const Packet> m_uncoded_packet;
+	ModulationAndCodingType m_header_mcs;
+	ModulationAndCodingType m_payload_mcs;
+	Time m_header_duration;
+	Time m_payload_duration;
+};
+
 /**
  * PLC_EdgeTransferUnit holds the transfer function of a single edge of the PLC_Graph.
  * The channel transfer function for a (tx,rx) tupel is the product of the path's PLC_EdgeTransferData.
@@ -434,7 +460,7 @@ public:
 	* transmit on the channel.
 	* \param st Spectrum Type of txPsd to emulate different modulations
 	*/
-	void TransmissionStart(Ptr<Packet> p, uint32_t txId, Ptr<const SpectrumValue> txPsd, ModulationAndCodingType mcs, Time duration);
+	void TransmissionStart(Ptr<const Packet> p, uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 	/**
 	* \brief Indicates that the txInterface has finished transmitting over the channel
@@ -449,7 +475,7 @@ public:
 	* \return Returns true unless the source was detached before it
 	* completed its transmission.
 	*/
-	bool TransmissionEnd(uint32_t srcId, Time propagation_delay, ModulationAndCodingType mcs);
+	bool TransmissionEnd(uint32_t txId, Time propagation_delay);
 
 	/**
 	* \brief Indicates that the channel has finished propagating the
@@ -458,7 +484,7 @@ public:
 	* Calls the receive function of every active rx Interface that is
 	* attached to the channel.
 	*/
-	void PropagationCompleteEvent(uint32_t srcId, ModulationAndCodingType mcs);
+	void PropagationCompleteEvent(uint32_t txId);
 
 	/**
 	 * Get the current timeslot

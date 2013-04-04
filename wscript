@@ -7,7 +7,7 @@
 #     conf.check_nonfatal(header_name='stdint.h', define_name='HAVE_STDINT_H')
 
 def build(bld):
-    module = bld.create_ns3_module('plc', ['core', 'spectrum'])
+    module = bld.create_ns3_module('plc', ['core', 'spectrum', 'network'])
     module.source = [
         'model/plc-simulator-impl.cc',
 	'model/plc-defs.cc',

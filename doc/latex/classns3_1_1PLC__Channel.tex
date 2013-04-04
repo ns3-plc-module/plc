@@ -40,11 +40,11 @@ void \hyperlink{classns3_1_1PLC__Channel_a2bb68af9c30a3d0c4f7a264c4e90ddab}{\-Ca
 \item 
 \-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Transfer\-Base} $>$ \hyperlink{classns3_1_1PLC__Channel_ae0ccd3520dbb21ed05cb006f817a89c7}{\-Get\-Channel\-Transfer\-Data} (uint32\-\_\-t tx\-Id, uint32\-\_\-t rx\-Id)
 \item 
-void \hyperlink{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}{\-Transmission\-Start} (\-Ptr$<$ \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)
+void \hyperlink{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}{\-Transmission\-Start} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)
 \begin{DoxyCompactList}\small\item\em \-Start transmitting a packet over the channel. \end{DoxyCompactList}\item 
-bool \hyperlink{classns3_1_1PLC__Channel_a55062b28eb83414f99f9941d093ee02d}{\-Transmission\-End} (uint32\-\_\-t src\-Id, \-Time propagation\-\_\-delay, \-Modulation\-And\-Coding\-Type mcs)
+bool \hyperlink{classns3_1_1PLC__Channel_ab856d23667e7f0ac87a2c95a482a695c}{\-Transmission\-End} (uint32\-\_\-t tx\-Id, \-Time propagation\-\_\-delay)
 \begin{DoxyCompactList}\small\item\em \-Indicates that the tx\-Interface has finished transmitting over the channel. \end{DoxyCompactList}\item 
-void \hyperlink{classns3_1_1PLC__Channel_a7a8d3f9a2f2a603db996402b8ffa7efc}{\-Propagation\-Complete\-Event} (uint32\-\_\-t src\-Id, \-Modulation\-And\-Coding\-Type mcs)
+void \hyperlink{classns3_1_1PLC__Channel_a787ab20c1ee23c65a47de50adb917a68}{\-Propagation\-Complete\-Event} (uint32\-\_\-t tx\-Id)
 \begin{DoxyCompactList}\small\item\em \-Indicates that the channel has finished propagating the current packet. \-The channel is released and becomes free. \end{DoxyCompactList}\item 
 \-Timeslot \hyperlink{classns3_1_1PLC__Channel_a98aa64e61af6c58a7cfbcb40570237b1}{\-Get\-Current\-Timeslot} (void)
 \item 
@@ -267,14 +267,13 @@ one of the \-Tx\-Interfaces connected to this channel.
 \item[{\-Timeslot}]{timeslot}
 \end{DoxyParamCaption}
 )}}\label{classns3_1_1PLC__Channel_ad19b881e0302a2a3e0dda571ecf83bf7}
-\-Process periodic tasks, i.\-e. update receive power spectral densities of all active transmission when a new timeslot starts \hypertarget{classns3_1_1PLC__Channel_a7a8d3f9a2f2a603db996402b8ffa7efc}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Propagation\-Complete\-Event@{\-Propagation\-Complete\-Event}}
+\-Process periodic tasks, i.\-e. update receive power spectral densities of all active transmission when a new timeslot starts \hypertarget{classns3_1_1PLC__Channel_a787ab20c1ee23c65a47de50adb917a68}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Propagation\-Complete\-Event@{\-Propagation\-Complete\-Event}}
 \index{\-Propagation\-Complete\-Event@{\-Propagation\-Complete\-Event}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
 \subsubsection[{\-Propagation\-Complete\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Propagation\-Complete\-Event} (
 \begin{DoxyParamCaption}
-\item[{uint32\-\_\-t}]{src\-Id, }
-\item[{\-Modulation\-And\-Coding\-Type}]{mcs}
+\item[{uint32\-\_\-t}]{tx\-Id}
 \end{DoxyParamCaption}
-)}}\label{classns3_1_1PLC__Channel_a7a8d3f9a2f2a603db996402b8ffa7efc}
+)}}\label{classns3_1_1PLC__Channel_a787ab20c1ee23c65a47de50adb917a68}
 
 
 \-Indicates that the channel has finished propagating the current packet. \-The channel is released and becomes free. 
@@ -298,15 +297,14 @@ one of the \-Tx\-Interfaces connected to this channel.
 {\em graph} & \hyperlink{classns3_1_1PLC__Graph}{\-P\-L\-C\-\_\-\-Graph} \\
 \hline
 \end{DoxyParams}
-\hypertarget{classns3_1_1PLC__Channel_a55062b28eb83414f99f9941d093ee02d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-End@{\-Transmission\-End}}
+\hypertarget{classns3_1_1PLC__Channel_ab856d23667e7f0ac87a2c95a482a695c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-End@{\-Transmission\-End}}
 \index{\-Transmission\-End@{\-Transmission\-End}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
 \subsubsection[{\-Transmission\-End}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-End} (
 \begin{DoxyParamCaption}
-\item[{uint32\-\_\-t}]{src\-Id, }
-\item[{\-Time}]{propagation\-\_\-delay, }
-\item[{\-Modulation\-And\-Coding\-Type}]{mcs}
+\item[{uint32\-\_\-t}]{tx\-Id, }
+\item[{\-Time}]{propagation\-\_\-delay}
 \end{DoxyParamCaption}
-)}}\label{classns3_1_1PLC__Channel_a55062b28eb83414f99f9941d093ee02d}
+)}}\label{classns3_1_1PLC__Channel_ab856d23667e7f0ac87a2c95a482a695c}
 
 
 \-Indicates that the tx\-Interface has finished transmitting over the channel. 
@@ -316,17 +314,17 @@ one of the \-Tx\-Interfaces connected to this channel.
 \begin{DoxyReturn}{\-Returns}
 \-Returns true unless the source was detached before it completed its transmission. 
 \end{DoxyReturn}
-\hypertarget{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-Start@{\-Transmission\-Start}}
+\hypertarget{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-Start@{\-Transmission\-Start}}
 \index{\-Transmission\-Start@{\-Transmission\-Start}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
 \subsubsection[{\-Transmission\-Start}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-Start} (
 \begin{DoxyParamCaption}
-\item[{\-Ptr$<$ \-Packet $>$}]{p, }
+\item[{\-Ptr$<$ const \-Packet $>$}]{p, }
 \item[{uint32\-\_\-t}]{tx\-Id, }
 \item[{\-Ptr$<$ const \-Spectrum\-Value $>$}]{tx\-Psd, }
-\item[{\-Modulation\-And\-Coding\-Type}]{mcs, }
-\item[{\-Time}]{duration}
+\item[{\-Time}]{duration, }
+\item[{\-Ptr$<$ const {\bf \-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$}]{meta\-Info}
 \end{DoxyParamCaption}
-)}}\label{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}
+)}}\label{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}
 
 
 \-Start transmitting a packet over the channel. 

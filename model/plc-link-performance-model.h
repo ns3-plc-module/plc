@@ -133,17 +133,26 @@ public:
 
 	PLC_InformationRateModel();
 
-	void SetIneffectiveTimeProportion(double prop);
+	void SetSymbolDuration (Time duration) { m_symbol_duration = duration; }
+	Time GetSymbolDuration (void) { return m_symbol_duration; }
+	void SetGuardIntervalDuration (Time duration) { m_guard_interval_duration = duration; }
+	Time GetGuardIntervalDuration (void) { return m_symbol_duration; }
+
 	double GetGatheredMutualInformation(void) { return m_gathered_information_bits; }
 
 private:
-	static McsInfo s_mcs_info[8];
+	static McsInfo s_mcs_info[10];
 
 	void DoStartRx(double requiredInformationBits);
 	void DoEvaluateChunk(void);
 	bool DoEndRx(void);
 
-	double m_ineffective_time_proportion;
+	double CalculateChunkGuardIntervals (Time chunk_duration);
+
+	Time m_symbol_duration;
+	Time m_guard_interval_duration;
+	int64_t m_last_symbol_residual;
+
 	double m_required_information_bits;
 	double m_gathered_information_bits;
 };

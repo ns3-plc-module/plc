@@ -128,12 +128,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a9210af0d915d96817f77e21000deb5a5">InitTransmissionChannels</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a2bb68af9c30a3d0c4f7a264c4e90ddab">CalcTransmissionChannels</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ptr&lt; <a class="el" href="classns3_1_1PLC__ValueBase.html">PLC_TransferBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#ae0ccd3520dbb21ed05cb006f817a89c7">GetChannelTransferData</a> (uint32_t txId, uint32_t rxId)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#ab228999eedede7397bca8f26d2877fba">TransmissionStart</a> (Ptr&lt; Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, ModulationAndCodingType mcs, Time duration)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Start transmitting a packet over the channel.  <a href="#ab228999eedede7397bca8f26d2877fba"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a55062b28eb83414f99f9941d093ee02d">TransmissionEnd</a> (uint32_t srcId, Time propagation_delay, ModulationAndCodingType mcs)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the txInterface has finished transmitting over the channel.  <a href="#a55062b28eb83414f99f9941d093ee02d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a7a8d3f9a2f2a603db996402b8ffa7efc">PropagationCompleteEvent</a> (uint32_t srcId, ModulationAndCodingType mcs)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the channel has finished propagating the current packet. The channel is released and becomes free.  <a href="#a7a8d3f9a2f2a603db996402b8ffa7efc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6">TransmissionStart</a> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Start transmitting a packet over the channel.  <a href="#adeb6bba5a291bd4508c20dae60d46ce6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#ab856d23667e7f0ac87a2c95a482a695c">TransmissionEnd</a> (uint32_t txId, Time propagation_delay)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the txInterface has finished transmitting over the channel.  <a href="#ab856d23667e7f0ac87a2c95a482a695c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a787ab20c1ee23c65a47de50adb917a68">PropagationCompleteEvent</a> (uint32_t txId)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the channel has finished propagating the current packet. The channel is released and becomes free.  <a href="#a787ab20c1ee23c65a47de50adb917a68"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Timeslot&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a98aa64e61af6c58a7cfbcb40570237b1">GetCurrentTimeslot</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#acf2ae112a813063d27798f9ac196fa02">GetRemainingSlotTime</a> (Time t)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#ad19b881e0302a2a3e0dda571ecf83bf7">ProcessTimeslotTasks</a> (Timeslot timeslot)</td></tr>
@@ -562,26 +562,16 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 
 </div>
 </div>
-<a class="anchor" id="a7a8d3f9a2f2a603db996402b8ffa7efc"></a><!-- doxytag: member="ns3::PLC_Channel::PropagationCompleteEvent" ref="a7a8d3f9a2f2a603db996402b8ffa7efc" args="(uint32_t srcId, ModulationAndCodingType mcs)" -->
+<a class="anchor" id="a787ab20c1ee23c65a47de50adb917a68"></a><!-- doxytag: member="ns3::PLC_Channel::PropagationCompleteEvent" ref="a787ab20c1ee23c65a47de50adb917a68" args="(uint32_t txId)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classns3_1_1PLC__Channel.html#a7a8d3f9a2f2a603db996402b8ffa7efc">ns3::PLC_Channel::PropagationCompleteEvent</a> </td>
+          <td class="memname">void <a class="el" href="classns3_1_1PLC__Channel.html#a787ab20c1ee23c65a47de50adb917a68">ns3::PLC_Channel::PropagationCompleteEvent</a> </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>srcId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>txId</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">ModulationAndCodingType&#160;</td>
-          <td class="paramname"><em>mcs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -634,27 +624,21 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 
 </div>
 </div>
-<a class="anchor" id="a55062b28eb83414f99f9941d093ee02d"></a><!-- doxytag: member="ns3::PLC_Channel::TransmissionEnd" ref="a55062b28eb83414f99f9941d093ee02d" args="(uint32_t srcId, Time propagation_delay, ModulationAndCodingType mcs)" -->
+<a class="anchor" id="ab856d23667e7f0ac87a2c95a482a695c"></a><!-- doxytag: member="ns3::PLC_Channel::TransmissionEnd" ref="ab856d23667e7f0ac87a2c95a482a695c" args="(uint32_t txId, Time propagation_delay)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classns3_1_1PLC__Channel.html#a55062b28eb83414f99f9941d093ee02d">ns3::PLC_Channel::TransmissionEnd</a> </td>
+          <td class="memname">bool <a class="el" href="classns3_1_1PLC__Channel.html#ab856d23667e7f0ac87a2c95a482a695c">ns3::PLC_Channel::TransmissionEnd</a> </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>srcId</em>, </td>
+          <td class="paramname"><em>txId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Time&#160;</td>
-          <td class="paramname"><em>propagation_delay</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ModulationAndCodingType&#160;</td>
-          <td class="paramname"><em>mcs</em>&#160;</td>
+          <td class="paramname"><em>propagation_delay</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -671,14 +655,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 
 </div>
 </div>
-<a class="anchor" id="ab228999eedede7397bca8f26d2877fba"></a><!-- doxytag: member="ns3::PLC_Channel::TransmissionStart" ref="ab228999eedede7397bca8f26d2877fba" args="(Ptr&lt; Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, ModulationAndCodingType mcs, Time duration)" -->
+<a class="anchor" id="adeb6bba5a291bd4508c20dae60d46ce6"></a><!-- doxytag: member="ns3::PLC_Channel::TransmissionStart" ref="adeb6bba5a291bd4508c20dae60d46ce6" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classns3_1_1PLC__Channel.html#ab228999eedede7397bca8f26d2877fba">ns3::PLC_Channel::TransmissionStart</a> </td>
+          <td class="memname">void <a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6">ns3::PLC_Channel::TransmissionStart</a> </td>
           <td>(</td>
-          <td class="paramtype">Ptr&lt; Packet &gt;&#160;</td>
+          <td class="paramtype">Ptr&lt; const Packet &gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
@@ -696,14 +680,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ModulationAndCodingType&#160;</td>
-          <td class="paramname"><em>mcs</em>, </td>
+          <td class="paramtype">Time&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Time&#160;</td>
-          <td class="paramname"><em>duration</em>&#160;</td>
+          <td class="paramtype">Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt;&#160;</td>
+          <td class="paramname"><em>metaInfo</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -783,7 +767,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:53 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:38 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

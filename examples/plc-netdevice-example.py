@@ -28,20 +28,26 @@ import ns.network
 def send(dev, p, dst, proto):
     dev.Send(p,dst,proto)
 
+def receivedMsg(dev, p, llc, addr):
+    print '\n*** Message received ***\n'
+
 def receivedACK():
-    print 'ACK received'
+    print '\n*** ACK received ***\n'
 
 def main(dummy_argv):
 
     ## Enable logging  
     ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
     ns.core.LogComponentEnable('PLC_Mac', ns.core.LOG_LEVEL_INFO)
+    ns.core.LogComponentEnable('PLC_NetDevice', ns.core.LOG_LEVEL_INFO)
+    ns.core.LogComponentEnable('PLC_LinkPerformanceModel', ns.core.LOG_LEVEL_LOGIC)
+    ns.core.LogComponentEnable('PLC_Outlet', ns.core.LOG_LEVEL_LOGIC)
 
     ## Enable packet printing
     ns.network.Packet.EnablePrinting()
 
     ## Define spectrum model
-    sm = ns.plc.PLC_SpectrumModelHelper().GetSpectrumModel(0,10e6,100)
+    sm = ns.plc.PLC_SpectrumModelHelper().GetG3SpectrumModel()
 
     ## Define transmit power spectral density
     txPsd = ns.spectrum.SpectrumValue(sm)
@@ -67,33 +73,37 @@ def main(dummy_argv):
     channelHelper.Install(nodes)
     channel = channelHelper.GetChannel()
 
-    ## Create outlets
-    o1 = ns.plc.PLC_Outlet(n1)
-    o2 = ns.plc.PLC_Outlet(n2)
-
-    ## Create PHYs
-    phy1 = ns.plc.PLC_InformationRatePhy()
-    phy2 = ns.plc.PLC_InformationRatePhy()
-
     ## Create net devices
     deviceHelper = ns.plc.PLC_NetDeviceHelper(sm, txPsd, nodes)
+    deviceHelper.DefinePhyType(ns.plc.PLC_IncrementalRedundancyPhy.GetTypeId())
+    deviceHelper.SetPayloadModulationAndCodingScheme(ns.plc.QAM64_RATELESS)
     deviceHelper.Setup()
                    
-    ## Calculate channels
+    ## Calculate channel
     channel.InitTransmissionChannels()
     channel.CalcTransmissionChannels()
 
     ## Create packet to send
     p = ns.network.Packet(1024)
 
-    ## Get tx device
+    ## Get devices
     txDev = deviceHelper.GetDevice('Node1')
+    rxDev = deviceHelper.GetDevice('Node2')
 
     ## Get address of rx device
-    rxAddr = deviceHelper.GetDevice('Node2').GetAddress() 
+    rxAddr = rxDev.GetAddress() 
+
+    ## Set callback for data reception
+    rxDev.SetReceiveCallback(receivedMsg)
 
     ## Schedule transmission of packet p
     ns.core.Simulator.Schedule(ns.core.Seconds(1), send, txDev, p, rxAddr, 0)
+
+    rxOutlet = rxDev.GetOutlet()
+    imp = ns.plc.PLC_ConstImpedance(sm, 5)
+    ns.core.Simulator.Schedule(ns.core.Seconds(1.3), rxOutlet.SetImpedance, imp, 1)
+
+    rxPhy = rxDev.GetPhy()
 
     ## Start simulation
     ns.core.Simulator.Run()

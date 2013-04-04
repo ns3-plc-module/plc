@@ -20,7 +20,7 @@ void \hyperlink{classns3_1_1PLC__RxInterface_ad7659f89d745e25b469beb2dfcc475d1}{
 \item 
 \-Ptr$<$ \hyperlink{classns3_1_1PLC__Outlet}{\-P\-L\-C\-\_\-\-Outlet} $>$ \hyperlink{classns3_1_1PLC__RxInterface_a51921ebe8b6889afe7df65329a272d47}{\-Get\-Outlet} (void)
 \item 
-void \hyperlink{classns3_1_1PLC__RxInterface_aaad8e59970851ef619f4f4109bcde74c}{\-Start\-Rx} (\-Ptr$<$ \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)
+void \hyperlink{classns3_1_1PLC__RxInterface_a8dfc9936531323a25d3625d0e9a2a707}{\-Start\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)
 \item 
 void \hyperlink{classns3_1_1PLC__RxInterface_a5ed074ad9563a148975b3b5b3e15eb40}{\-Rx\-Psd\-Changed} (uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ rx\-Signal)
 \end{DoxyCompactItemize}
@@ -110,30 +110,26 @@ void \hyperlink{classns3_1_1PLC__RxInterface_a5ed074ad9563a148975b3b5b3e15eb40}{
 {\em outlet} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classns3_1_1PLC__RxInterface_aaad8e59970851ef619f4f4109bcde74c}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Start\-Rx@{\-Start\-Rx}}
+\hypertarget{classns3_1_1PLC__RxInterface_a8dfc9936531323a25d3625d0e9a2a707}{\index{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}!\-Start\-Rx@{\-Start\-Rx}}
 \index{\-Start\-Rx@{\-Start\-Rx}!ns3::PLC_RxInterface@{ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface}}
 \subsubsection[{\-Start\-Rx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Rx\-Interface\-::\-Start\-Rx} (
 \begin{DoxyParamCaption}
-\item[{\-Ptr$<$ \-Packet $>$}]{p, }
+\item[{\-Ptr$<$ const \-Packet $>$}]{p, }
 \item[{uint32\-\_\-t}]{tx\-Id, }
 \item[{\-Ptr$<$ \-Spectrum\-Value $>$ \&}]{rx\-Psd, }
-\item[{\-Modulation\-And\-Coding\-Type}]{mcs, }
-\item[{\-Time}]{duration}
+\item[{\-Time}]{duration, }
+\item[{\-Ptr$<$ const {\bf \-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$}]{meta\-Info}
 \end{DoxyParamCaption}
-)}}\label{classns3_1_1PLC__RxInterface_aaad8e59970851ef619f4f4109bcde74c}
-\-Start receiving. \-Called by \hyperlink{classns3_1_1PLC__Channel_ab228999eedede7397bca8f26d2877fba}{\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-Start()}
+)}}\label{classns3_1_1PLC__RxInterface_a8dfc9936531323a25d3625d0e9a2a707}
+\-Start receiving. \-Called by \hyperlink{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}{\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-Start()}
 
 
 \begin{DoxyParams}{\-Parameters}
 {\em p} & \-Packet associated with the incoming waveform or \-N\-U\-L\-L for noise \\
 \hline
-{\em tx\-Id} & tx\-Interface index \\
-\hline
 {\em rx\-Psd} & received power spectral density \\
 \hline
-{\em st} & \-Spectrum type of the signal (emulates modulation scheme) \\
-\hline
-{\em duration} & \-Time duration rx\-Psd is active on rx\-Interface \\
+{\em meta\-Info} & meta information for link performance emulation \\
 \hline
 \end{DoxyParams}
 

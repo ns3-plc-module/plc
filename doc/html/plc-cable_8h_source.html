@@ -138,159 +138,141 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00058"></a>00058 <span class="preprocessor"></span><span class="preprocessor">#define AL3X95XLPE_R_I          9.52e-3</span>
 <a name="l00059"></a>00059 <span class="preprocessor"></span><span class="preprocessor">#define AL3X95XLPE_TAND         0.004</span>
 <a name="l00060"></a>00060 <span class="preprocessor"></span>
-<a name="l00061"></a>00061 <span class="comment">//#define NAYY50SE_RADIUS                                       9.4e-3</span>
-<a name="l00062"></a>00062 <span class="comment">//#define NAYY50SE_CONDUCTOR_DISTANCE           2.8e-3</span>
-<a name="l00063"></a>00063 <span class="comment">//#define NAYY50SE_EPSILON_R                            4</span>
-<a name="l00064"></a>00064 <span class="comment">//#define NAYY50SE_RHO                                  2.82e-8</span>
-<a name="l00065"></a>00065 <span class="comment">//#define NAYY50SE_TAN_LOSS_ANGLE                       0.02</span>
+<a name="l00061"></a>00061 <span class="preprocessor">#define COPPER_CONDUCTIVITY     5.96e7 // (S/m) at 20 degree celcius</span>
+<a name="l00062"></a>00062 <span class="preprocessor"></span><span class="preprocessor">#define NYCY70SM35_R_O 8.448e-3 // radius to outer conductor</span>
+<a name="l00063"></a>00063 <span class="preprocessor"></span><span class="preprocessor">#define NYCY70SM35_R_I 7.048e-3 // inner conductor radius</span>
+<a name="l00064"></a>00064 <span class="preprocessor"></span>
+<a name="l00065"></a>00065 <span class="keyword">namespace </span>ns3 {
 <a name="l00066"></a>00066 
-<a name="l00067"></a>00067 <span class="preprocessor">#define COPPER_CONDUCTIVITY     5.96e7 // (S/m) at 20 degree celcius</span>
-<a name="l00068"></a>00068 <span class="preprocessor"></span><span class="preprocessor">#define NYCY70SM35_R_O 8.448e-3 // radius to outer conductor</span>
-<a name="l00069"></a>00069 <span class="preprocessor"></span><span class="preprocessor">#define NYCY70SM35_R_I 7.048e-3 // inner conductor radius</span>
-<a name="l00070"></a>00070 <span class="preprocessor"></span>
-<a name="l00071"></a>00071 <span class="keyword">namespace </span>ns3 {
-<a name="l00072"></a>00072 
-<a name="l00078"></a><a class="code" href="classns3_1_1PLC__Cable.html">00078</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a> : <span class="keyword">public</span> Object
-<a name="l00079"></a>00079 {
-<a name="l00080"></a>00080 <span class="keyword">public</span>:
-<a name="l00081"></a>00081         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083         <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a> () {}
-<a name="l00088"></a>00088         <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00072"></a><a class="code" href="classns3_1_1PLC__Cable.html">00072</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a> : <span class="keyword">public</span> Object
+<a name="l00073"></a>00073 {
+<a name="l00074"></a>00074 <span class="keyword">public</span>:
+<a name="l00075"></a>00075         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00076"></a>00076 
+<a name="l00080"></a><a class="code" href="classns3_1_1PLC__Cable.html#a2a854ceb780ea7385ebe956355ae6097">00080</a>         <a class="code" href="classns3_1_1PLC__Cable.html#a2a854ceb780ea7385ebe956355ae6097">PLC_Cable</a> () {}
+<a name="l00081"></a>00081 
+<a name="l00086"></a>00086         <a class="code" href="classns3_1_1PLC__Cable.html#a2a854ceb780ea7385ebe956355ae6097">PLC_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Calculate() = 0;
 <a name="l00089"></a>00089 
-<a name="l00090"></a>00090         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Calculate() = 0;
-<a name="l00091"></a>00091 
-<a name="l00100"></a>00100         <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>(<span class="keyword">const</span> PLC_FreqSelectiveResistance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">R</a>, <span class="keyword">const</span> PLC_FreqSelectiveConductance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">G</a>, <span class="keyword">const</span> PLC_FreqSelectiveInductance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#a721d49ba4225f914d773d085c2d1f911">L</a>, <span class="keyword">const</span> PLC_FreqSelectiveCapacitance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#a2443b8723d75123547011498d535fe48">C</a>, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102         <span class="keywordtype">void</span> SetSpectrumModel(Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104         Ptr&lt;const SpectrumModel&gt; GetSpectrumModel(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> m_spectrum_model; }
-<a name="l00105"></a>00105 
-<a name="l00110"></a>00110         Ptr&lt;const PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#a69891ab8cc93ca879bcdb45c3186c37e">GetCharImp</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00111"></a>00111 
-<a name="l00116"></a>00116         Ptr&lt;const PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#afbb84efd3e13af6c5bc0f937045e1580">GetTransConst</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00117"></a>00117 
-<a name="l00123"></a><a class="code" href="classns3_1_1PLC__Cable.html#a2261f8fa8054aadacbf274ac440f26bd">00123</a>         <span class="keywordtype">double</span> <a class="code" href="classns3_1_1PLC__Cable.html#a2261f8fa8054aadacbf274ac440f26bd">GetPropSpeedApprox</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> <a class="code" href="classns3_1_1PLC__Cable.html#abbc2c9cb7b669f4c30c5a15669b9d3ea">v</a>; }
-<a name="l00124"></a>00124 
-<a name="l00129"></a><a class="code" href="classns3_1_1PLC__Cable.html#a0cae55f20d768e2aba32af7bb4afb18a">00129</a>         Ptr&lt;const SpectrumModel&gt; <a class="code" href="classns3_1_1PLC__Cable.html#a0cae55f20d768e2aba32af7bb4afb18a">GetSpectrumModel</a>(<span class="keywordtype">void</span>)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_spectrum_model; }
-<a name="l00130"></a>00130 
-<a name="l00134"></a><a class="code" href="classns3_1_1PLC__Cable.html#a684124d04e51bb5129a40eb91acd9325">00134</a>         <span class="keywordtype">void</span> <a class="code" href="classns3_1_1PLC__Cable.html#a684124d04e51bb5129a40eb91acd9325">Lock</a>()             { m_cable_mutex.Lock(); }
-<a name="l00135"></a>00135         <span class="keywordtype">void</span> Unlock()   { m_cable_mutex.Unlock(); }
-<a name="l00136"></a>00136 
-<a name="l00141"></a><a class="code" href="classns3_1_1PLC__Cable.html#a6d56a49753e96196990474f68a2d4ee5">00141</a>         PLC_FreqSelectiveResistance *<a class="code" href="classns3_1_1PLC__Cable.html#a6d56a49753e96196990474f68a2d4ee5">GetDistResRef</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> &amp;<a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">R</a>; }
-<a name="l00142"></a>00142 
-<a name="l00147"></a><a class="code" href="classns3_1_1PLC__Cable.html#a5e917bd164a75c139c4c20e55cd55a7f">00147</a>         PLC_FreqSelectiveResistance *<a class="code" href="classns3_1_1PLC__Cable.html#a5e917bd164a75c139c4c20e55cd55a7f">GetDistConRef</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> &amp;<a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">G</a>; }
+<a name="l00098"></a>00098         <a class="code" href="classns3_1_1PLC__Cable.html#a2a854ceb780ea7385ebe956355ae6097">PLC_Cable</a>(<span class="keyword">const</span> PLC_FreqSelectiveResistance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">R</a>, <span class="keyword">const</span> PLC_FreqSelectiveConductance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">G</a>, <span class="keyword">const</span> PLC_FreqSelectiveInductance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#a721d49ba4225f914d773d085c2d1f911">L</a>, <span class="keyword">const</span> PLC_FreqSelectiveCapacitance&amp; <a class="code" href="classns3_1_1PLC__Cable.html#a2443b8723d75123547011498d535fe48">C</a>, Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100         <span class="keywordtype">void</span> SetSpectrumModel(Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00101"></a>00101         Ptr&lt;const SpectrumModel&gt; GetSpectrumModel(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> m_spectrum_model; }
+<a name="l00102"></a>00102 
+<a name="l00107"></a>00107         Ptr&lt;const PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#a69891ab8cc93ca879bcdb45c3186c37e">GetCharImp</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00108"></a>00108 
+<a name="l00113"></a>00113         Ptr&lt;const PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#afbb84efd3e13af6c5bc0f937045e1580">GetTransConst</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00114"></a>00114 
+<a name="l00120"></a><a class="code" href="classns3_1_1PLC__Cable.html#a2261f8fa8054aadacbf274ac440f26bd">00120</a>         <span class="keywordtype">double</span> <a class="code" href="classns3_1_1PLC__Cable.html#a2261f8fa8054aadacbf274ac440f26bd">GetPropSpeedApprox</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> <a class="code" href="classns3_1_1PLC__Cable.html#abbc2c9cb7b669f4c30c5a15669b9d3ea">v</a>; }
+<a name="l00121"></a>00121 
+<a name="l00126"></a><a class="code" href="classns3_1_1PLC__Cable.html#a0cae55f20d768e2aba32af7bb4afb18a">00126</a>         Ptr&lt;const SpectrumModel&gt; <a class="code" href="classns3_1_1PLC__Cable.html#a0cae55f20d768e2aba32af7bb4afb18a">GetSpectrumModel</a>(<span class="keywordtype">void</span>)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_spectrum_model; }
+<a name="l00127"></a>00127 
+<a name="l00131"></a><a class="code" href="classns3_1_1PLC__Cable.html#a684124d04e51bb5129a40eb91acd9325">00131</a>         <span class="keywordtype">void</span> <a class="code" href="classns3_1_1PLC__Cable.html#a684124d04e51bb5129a40eb91acd9325">Lock</a>()             { m_cable_mutex.Lock(); }
+<a name="l00132"></a>00132         <span class="keywordtype">void</span> Unlock()   { m_cable_mutex.Unlock(); }
+<a name="l00133"></a>00133 
+<a name="l00138"></a><a class="code" href="classns3_1_1PLC__Cable.html#a6d56a49753e96196990474f68a2d4ee5">00138</a>         PLC_FreqSelectiveResistance *<a class="code" href="classns3_1_1PLC__Cable.html#a6d56a49753e96196990474f68a2d4ee5">GetDistResRef</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> &amp;<a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">R</a>; }
+<a name="l00139"></a>00139 
+<a name="l00144"></a><a class="code" href="classns3_1_1PLC__Cable.html#a5e917bd164a75c139c4c20e55cd55a7f">00144</a>         PLC_FreqSelectiveResistance *<a class="code" href="classns3_1_1PLC__Cable.html#a5e917bd164a75c139c4c20e55cd55a7f">GetDistConRef</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> &amp;<a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">G</a>; }
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146 <span class="keyword">private</span>:
+<a name="l00147"></a>00147         <span class="keyword">mutable</span> <a class="code" href="structns3_1_1PLC__Mutex.html">PLC_Mutex</a>                       m_cable_mutex;
 <a name="l00148"></a>00148 
-<a name="l00149"></a>00149 <span class="comment">//      /**</span>
-<a name="l00150"></a>00150 <span class="comment">//       *</span>
-<a name="l00151"></a>00151 <span class="comment">//       * @return Distributed capacitance</span>
-<a name="l00152"></a>00152 <span class="comment">//       */</span>
-<a name="l00153"></a>00153 <span class="comment">//      double GetDistCap(void) { return C; }</span>
-<a name="l00154"></a>00154 <span class="comment">//</span>
-<a name="l00155"></a>00155 <span class="comment">//      /**</span>
-<a name="l00156"></a>00156 <span class="comment">//       *</span>
-<a name="l00157"></a>00157 <span class="comment">//       * @return Distributed inductance</span>
-<a name="l00158"></a>00158 <span class="comment">//       */</span>
-<a name="l00159"></a>00159 <span class="comment">//      double GetDistInd(void) { return L; }</span>
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161 <span class="keyword">private</span>:
-<a name="l00162"></a>00162         <span class="keyword">mutable</span> <a class="code" href="structns3_1_1PLC__Mutex.html">PLC_Mutex</a>                       m_cable_mutex;
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164 <span class="keyword">protected</span>:
-<a name="l00165"></a>00165         <span class="keyword">virtual</span> <span class="keywordtype">void</span> DoDispose();
-<a name="l00166"></a>00166 
-<a name="l00167"></a>00167         Ptr&lt;const SpectrumModel&gt;        m_spectrum_model;
-<a name="l00168"></a>00168 
-<a name="l00172"></a><a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">00172</a>         PLC_FreqSelectiveResistance <a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">R</a>;
-<a name="l00176"></a><a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">00176</a>         PLC_FreqSelectiveConductance <a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">G</a>;
-<a name="l00180"></a><a class="code" href="classns3_1_1PLC__Cable.html#a721d49ba4225f914d773d085c2d1f911">00180</a>         PLC_FreqSelectiveInductance <a class="code" href="classns3_1_1PLC__Cable.html#a721d49ba4225f914d773d085c2d1f911">L</a>;
-<a name="l00184"></a><a class="code" href="classns3_1_1PLC__Cable.html#a2443b8723d75123547011498d535fe48">00184</a>         PLC_FreqSelectiveCapacitance <a class="code" href="classns3_1_1PLC__Cable.html#a2443b8723d75123547011498d535fe48">C</a>;
-<a name="l00188"></a><a class="code" href="classns3_1_1PLC__Cable.html#a510fc016469182d4a8d0864f291f5968">00188</a>         Ptr&lt;PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#a510fc016469182d4a8d0864f291f5968">z_c</a>;
-<a name="l00192"></a><a class="code" href="classns3_1_1PLC__Cable.html#aef9b830c80f3a26988eebe1970e942d8">00192</a>         Ptr&lt;PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#aef9b830c80f3a26988eebe1970e942d8">gamma</a>;
-<a name="l00193"></a>00193 
-<a name="l00199"></a><a class="code" href="classns3_1_1PLC__Cable.html#abbc2c9cb7b669f4c30c5a15669b9d3ea">00199</a>         <span class="keywordtype">double</span> <a class="code" href="classns3_1_1PLC__Cable.html#abbc2c9cb7b669f4c30c5a15669b9d3ea">v</a>;
-<a name="l00200"></a>00200 
-<a name="l00204"></a>00204         <span class="keywordtype">void</span> CalcCharImp(<span class="keywordtype">void</span>);
+<a name="l00149"></a>00149 <span class="keyword">protected</span>:
+<a name="l00150"></a>00150         <span class="keyword">virtual</span> <span class="keywordtype">void</span> DoDispose();
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152         Ptr&lt;const SpectrumModel&gt;        m_spectrum_model;
+<a name="l00153"></a>00153 
+<a name="l00157"></a><a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">00157</a>         PLC_FreqSelectiveResistance <a class="code" href="classns3_1_1PLC__Cable.html#a1770f66065636bde27fa4d8e35c8a534">R</a>;
+<a name="l00161"></a><a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">00161</a>         PLC_FreqSelectiveConductance <a class="code" href="classns3_1_1PLC__Cable.html#af2c7882c896e9bc7f98121f7a3f25b53">G</a>;
+<a name="l00165"></a><a class="code" href="classns3_1_1PLC__Cable.html#a721d49ba4225f914d773d085c2d1f911">00165</a>         PLC_FreqSelectiveInductance <a class="code" href="classns3_1_1PLC__Cable.html#a721d49ba4225f914d773d085c2d1f911">L</a>;
+<a name="l00169"></a><a class="code" href="classns3_1_1PLC__Cable.html#a2443b8723d75123547011498d535fe48">00169</a>         PLC_FreqSelectiveCapacitance <a class="code" href="classns3_1_1PLC__Cable.html#a2443b8723d75123547011498d535fe48">C</a>;
+<a name="l00173"></a><a class="code" href="classns3_1_1PLC__Cable.html#a510fc016469182d4a8d0864f291f5968">00173</a>         Ptr&lt;PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#a510fc016469182d4a8d0864f291f5968">z_c</a>;
+<a name="l00177"></a><a class="code" href="classns3_1_1PLC__Cable.html#aef9b830c80f3a26988eebe1970e942d8">00177</a>         Ptr&lt;PLC_FreqSelectiveImpedance&gt; <a class="code" href="classns3_1_1PLC__Cable.html#aef9b830c80f3a26988eebe1970e942d8">gamma</a>;
+<a name="l00178"></a>00178 
+<a name="l00184"></a><a class="code" href="classns3_1_1PLC__Cable.html#abbc2c9cb7b669f4c30c5a15669b9d3ea">00184</a>         <span class="keywordtype">double</span> <a class="code" href="classns3_1_1PLC__Cable.html#abbc2c9cb7b669f4c30c5a15669b9d3ea">v</a>;
+<a name="l00185"></a>00185 
+<a name="l00189"></a>00189         <span class="keywordtype">void</span> <a class="code" href="classns3_1_1PLC__Cable.html#a7496b6ac6c63ce30273bdec71a1bc98b">CalcCharImp</a>(<span class="keywordtype">void</span>);
+<a name="l00190"></a>00190 
+<a name="l00194"></a>00194         <span class="keywordtype">void</span> <a class="code" href="classns3_1_1PLC__Cable.html#a7747327635fcafdbbe8abe9b0db2e3b0">CalcTransConst</a>(<span class="keywordtype">void</span>);
+<a name="l00195"></a>00195 };
+<a name="l00196"></a>00196 
+<a name="l00201"></a><a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">00201</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>
+<a name="l00202"></a>00202 {
+<a name="l00203"></a>00203 <span class="keyword">public</span>:
+<a name="l00204"></a>00204         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
 <a name="l00205"></a>00205 
-<a name="l00209"></a>00209         <span class="keywordtype">void</span> CalcTransConst(<span class="keywordtype">void</span>);
-<a name="l00210"></a>00210 };
-<a name="l00211"></a>00211 
-<a name="l00216"></a><a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">00216</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>
-<a name="l00217"></a>00217 {
-<a name="l00218"></a>00218 <span class="keyword">public</span>:
-<a name="l00219"></a>00219         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00206"></a>00206         <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>() : <a class="code" href="classns3_1_1PLC__Cable.html#a2a854ceb780ea7385ebe956355ae6097">PLC_Cable</a>() {}
+<a name="l00207"></a>00207 
+<a name="l00208"></a>00208         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Calculate() = 0;
+<a name="l00209"></a>00209 
+<a name="l00219"></a>00219         <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>(<span class="keywordtype">double</span> eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, <span class="keywordtype">double</span> tand, Ptr&lt;const SpectrumModel&gt; sm);
 <a name="l00220"></a>00220 
-<a name="l00221"></a>00221         <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>() : <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>() {}
+<a name="l00221"></a>00221         <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>(PLC_FreqSelectiveRealValue eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, PLC_FreqSelectiveRealValue tand, Ptr&lt;const SpectrumModel&gt; sm);
 <a name="l00222"></a>00222 
-<a name="l00223"></a>00223         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Calculate() = 0;
-<a name="l00224"></a>00224 
-<a name="l00234"></a>00234         <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>(<span class="keywordtype">double</span> eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, <span class="keywordtype">double</span> tand, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00235"></a>00235 
-<a name="l00236"></a>00236         <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>(PLC_FreqSelectiveRealValue eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, PLC_FreqSelectiveRealValue tand, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00237"></a>00237 
-<a name="l00238"></a>00238         <span class="keywordtype">void</span> Calculate(<span class="keywordtype">double</span> eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, <span class="keywordtype">double</span> tand, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00239"></a>00239         <span class="keywordtype">void</span> Calculate(PLC_FreqSelectiveRealValue eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, PLC_FreqSelectiveRealValue tand, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00240"></a>00240 };
-<a name="l00241"></a>00241 
-<a name="l00245"></a><a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">00245</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>
-<a name="l00246"></a>00246 {
-<a name="l00247"></a>00247 <span class="keyword">public</span>:
-<a name="l00248"></a>00248         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00223"></a>00223         <span class="keywordtype">void</span> Calculate(<span class="keywordtype">double</span> eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, <span class="keywordtype">double</span> tand, Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00224"></a>00224         <span class="keywordtype">void</span> Calculate(PLC_FreqSelectiveRealValue eps_r, <span class="keywordtype">double</span> kappa, <span class="keywordtype">double</span> r_a, <span class="keywordtype">double</span> r_i, PLC_FreqSelectiveRealValue tand, Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00225"></a>00225 };
+<a name="l00226"></a>00226 
+<a name="l00230"></a><a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">00230</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>
+<a name="l00231"></a>00231 {
+<a name="l00232"></a>00232 <span class="keyword">public</span>:
+<a name="l00233"></a>00233         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00234"></a>00234 
+<a name="l00235"></a>00235         <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>() : <a class="code" href="classns3_1_1PLC__Cable.html#a2a854ceb780ea7385ebe956355ae6097">PLC_Cable</a>() {}
+<a name="l00236"></a>00236 
+<a name="l00237"></a>00237         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Calculate() = 0;
+<a name="l00238"></a>00238 
+<a name="l00247"></a>00247         <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, <span class="keywordtype">double</span> tan_loss_angle, <span class="keywordtype">double</span> epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00248"></a>00248         <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, PLC_FreqSelectiveRealValue tan_loss_angle, PLC_FreqSelectiveRealValue epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
 <a name="l00249"></a>00249 
-<a name="l00250"></a>00250         <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>() : <a class="code" href="classns3_1_1PLC__Cable.html">PLC_Cable</a>() {}
-<a name="l00251"></a>00251 
-<a name="l00252"></a>00252         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Calculate() = 0;
+<a name="l00250"></a>00250         <span class="keywordtype">void</span> Calculate(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, <span class="keywordtype">double</span> tan_loss_angle, <span class="keywordtype">double</span> epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00251"></a>00251         <span class="keywordtype">void</span> Calculate(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, PLC_FreqSelectiveRealValue tan_loss_angle, PLC_FreqSelectiveRealValue epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00252"></a>00252 };
 <a name="l00253"></a>00253 
-<a name="l00263"></a>00263         <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, <span class="keywordtype">double</span> tan_loss_angle, <span class="keywordtype">double</span> epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00264"></a>00264         <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, PLC_FreqSelectiveRealValue tan_loss_angle, PLC_FreqSelectiveRealValue epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00265"></a>00265 
-<a name="l00266"></a>00266         <span class="keywordtype">void</span> Calculate(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, <span class="keywordtype">double</span> tan_loss_angle, <span class="keywordtype">double</span> epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00267"></a>00267         <span class="keywordtype">void</span> Calculate(<span class="keywordtype">double</span> radius, <span class="keywordtype">double</span> conductor_distance, PLC_FreqSelectiveRealValue tan_loss_angle, PLC_FreqSelectiveRealValue epsilon_r, <span class="keywordtype">double</span> rho, Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00268"></a>00268 };
-<a name="l00269"></a>00269 
-<a name="l00273"></a><a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">00273</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">PLC_NAYY150SE_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>
-<a name="l00274"></a>00274 {
-<a name="l00275"></a>00275 <span class="keyword">public</span>:
-<a name="l00276"></a>00276         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
-<a name="l00277"></a>00277 
-<a name="l00278"></a>00278         <a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">PLC_NAYY150SE_Cable</a>() : <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>() {}
-<a name="l00279"></a>00279         <a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">PLC_NAYY150SE_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00280"></a>00280         <span class="keywordtype">void</span> Calculate();
-<a name="l00281"></a>00281 };
-<a name="l00282"></a>00282 
-<a name="l00286"></a><a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">00286</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">PLC_NAYY50SE_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>
-<a name="l00287"></a>00287 {
-<a name="l00288"></a>00288 <span class="keyword">public</span>:
-<a name="l00289"></a>00289         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
-<a name="l00290"></a>00290 
-<a name="l00291"></a>00291         <a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">PLC_NAYY50SE_Cable</a>() : <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>() {}
-<a name="l00292"></a>00292         <a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">PLC_NAYY50SE_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00293"></a>00293         <span class="keywordtype">void</span> Calculate();
-<a name="l00294"></a>00294 };
-<a name="l00295"></a>00295 
-<a name="l00299"></a><a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">00299</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">PLC_AL3x95XLPE_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>
-<a name="l00300"></a>00300 {
-<a name="l00301"></a>00301 <span class="keyword">public</span>:
-<a name="l00302"></a>00302         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
-<a name="l00303"></a>00303 
-<a name="l00304"></a>00304         <a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">PLC_AL3x95XLPE_Cable</a>() : <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>() {}
-<a name="l00305"></a>00305         <a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">PLC_AL3x95XLPE_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00306"></a>00306         <span class="keywordtype">void</span> Calculate();
-<a name="l00307"></a>00307 };
-<a name="l00308"></a>00308 
-<a name="l00312"></a><a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">00312</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">PLC_NYCY70SM35_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>
-<a name="l00313"></a>00313 {
-<a name="l00314"></a>00314 <span class="keyword">public</span>:
-<a name="l00315"></a>00315         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
-<a name="l00316"></a>00316 
-<a name="l00317"></a>00317         <a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">PLC_NYCY70SM35_Cable</a>() : <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>() {}
-<a name="l00318"></a>00318         <a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">PLC_NYCY70SM35_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
-<a name="l00319"></a>00319         <span class="keywordtype">void</span> Calculate();
-<a name="l00320"></a>00320 };
-<a name="l00321"></a>00321 
-<a name="l00322"></a>00322 }
-<a name="l00323"></a>00323 
-<a name="l00324"></a>00324 <span class="preprocessor">#endif </span><span class="comment">/* PLC_CABLE_H_ */</span>
+<a name="l00257"></a><a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">00257</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">PLC_NAYY150SE_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>
+<a name="l00258"></a>00258 {
+<a name="l00259"></a>00259 <span class="keyword">public</span>:
+<a name="l00260"></a>00260         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00261"></a>00261 
+<a name="l00262"></a>00262         <a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">PLC_NAYY150SE_Cable</a>() : <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>() {}
+<a name="l00263"></a>00263         <a class="code" href="classns3_1_1PLC__NAYY150SE__Cable.html">PLC_NAYY150SE_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00264"></a>00264         <span class="keywordtype">void</span> Calculate();
+<a name="l00265"></a>00265 };
+<a name="l00266"></a>00266 
+<a name="l00270"></a><a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">00270</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">PLC_NAYY50SE_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>
+<a name="l00271"></a>00271 {
+<a name="l00272"></a>00272 <span class="keyword">public</span>:
+<a name="l00273"></a>00273         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00274"></a>00274 
+<a name="l00275"></a>00275         <a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">PLC_NAYY50SE_Cable</a>() : <a class="code" href="classns3_1_1PLC__FourSectorPowerSupplyCable.html">PLC_FourSectorPowerSupplyCable</a>() {}
+<a name="l00276"></a>00276         <a class="code" href="classns3_1_1PLC__NAYY50SE__Cable.html">PLC_NAYY50SE_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00277"></a>00277         <span class="keywordtype">void</span> Calculate();
+<a name="l00278"></a>00278 };
+<a name="l00279"></a>00279 
+<a name="l00283"></a><a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">00283</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">PLC_AL3x95XLPE_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>
+<a name="l00284"></a>00284 {
+<a name="l00285"></a>00285 <span class="keyword">public</span>:
+<a name="l00286"></a>00286         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00287"></a>00287 
+<a name="l00288"></a>00288         <a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">PLC_AL3x95XLPE_Cable</a>() : <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>() {}
+<a name="l00289"></a>00289         <a class="code" href="classns3_1_1PLC__AL3x95XLPE__Cable.html">PLC_AL3x95XLPE_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00290"></a>00290         <span class="keywordtype">void</span> Calculate();
+<a name="l00291"></a>00291 };
+<a name="l00292"></a>00292 
+<a name="l00296"></a><a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">00296</a> <span class="keyword">class </span><a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">PLC_NYCY70SM35_Cable</a> : <span class="keyword">public</span> <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>
+<a name="l00297"></a>00297 {
+<a name="l00298"></a>00298 <span class="keyword">public</span>:
+<a name="l00299"></a>00299         <span class="keyword">static</span> TypeId GetTypeId(<span class="keywordtype">void</span>);
+<a name="l00300"></a>00300 
+<a name="l00301"></a>00301         <a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">PLC_NYCY70SM35_Cable</a>() : <a class="code" href="classns3_1_1PLC__ThreeCoreConcentricCable.html">PLC_ThreeCoreConcentricCable</a>() {}
+<a name="l00302"></a>00302         <a class="code" href="classns3_1_1PLC__NYCY70SM35__Cable.html">PLC_NYCY70SM35_Cable</a>(Ptr&lt;const SpectrumModel&gt; sm);
+<a name="l00303"></a>00303         <span class="keywordtype">void</span> Calculate();
+<a name="l00304"></a>00304 };
+<a name="l00305"></a>00305 
+<a name="l00306"></a>00306 }
+<a name="l00307"></a>00307 
+<a name="l00308"></a>00308 <span class="preprocessor">#endif </span><span class="comment">/* PLC_CABLE_H_ */</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -309,7 +291,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:51 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:37 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

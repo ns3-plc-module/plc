@@ -262,16 +262,16 @@ PLC_TxInterface::GetChannelTransferImpl (PLC_RxInterface *rxInterface)
 }
 
 void
-PLC_TxInterface::StartTx (Ptr<Packet> p, Ptr<const SpectrumValue> txPsd, ModulationAndCodingType mcs, Time duration)
+PLC_TxInterface::StartTx (Ptr<const Packet> p, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_LOG_FUNCTION (this);
+	PLC_LOG_FUNCTION (this << p << metaInfo);
 	if (p != NULL)
 	{
 		PLC_LOG_LOGIC("Outgoing frame: " << *p);
 	}
 	this->m_txPsd = txPsd;
 
-	this->GetChannel()->TransmissionStart(p, m_txIfIdx, txPsd, mcs, duration);
+	this->GetChannel()->TransmissionStart(p, GetTxIfIdx(), txPsd, duration, metaInfo);
 }
 
 void
@@ -337,12 +337,12 @@ PLC_RxInterface::SetOutlet(Ptr<PLC_Outlet> outlet)
 }
 
 void
-PLC_RxInterface::StartRx (Ptr<Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, ModulationAndCodingType mcs, Time duration)
+PLC_RxInterface::StartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_LOG_FUNCTION (this << p << rxPsd << duration);
+	PLC_LOG_FUNCTION (this << p << rxPsd << metaInfo);
 	if  (this->m_phy != NULL)
 	{
-		m_phy->StartRx (p, txId, rxPsd, mcs, duration);
+		m_phy->StartRx (p, txId, rxPsd, duration, metaInfo);
 	}
 }
 

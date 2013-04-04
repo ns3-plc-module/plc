@@ -137,88 +137,85 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00069"></a>00069         Ptr&lt;PLC_Outlet&gt; GetOutlet(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> m_outlet; }
 <a name="l00070"></a>00070         Ptr&lt;const SpectrumModel&gt; GetSpectrumModel(<span class="keywordtype">void</span>);
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072         <span class="keywordtype">void</span> SetBridge(<span class="keywordtype">bool</span> isBridge);
+<a name="l00072"></a>00072         <span class="keywordtype">void</span> Receive (Ptr&lt;Packet&gt; p, Mac48Address from, Mac48Address to);
 <a name="l00073"></a>00073 
-<a name="l00074"></a>00074         <span class="keywordtype">void</span> Receive (Ptr&lt;Packet&gt; p, Mac48Address from, Mac48Address to);
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076         <span class="comment">// From class NetDevice</span>
-<a name="l00077"></a>00077         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetIfIndex (<span class="keyword">const</span> uint32_t index);
-<a name="l00078"></a>00078         <span class="keyword">virtual</span> uint32_t GetIfIndex (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00079"></a>00079         <span class="keyword">virtual</span> Ptr&lt;Channel&gt; GetChannel (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00080"></a>00080         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetAddress (Address address);
-<a name="l00081"></a>00081         <span class="keyword">virtual</span> Address GetAddress (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00082"></a>00082         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> SetMtu (<span class="keyword">const</span> uint16_t mtu);
-<a name="l00083"></a>00083         <span class="keyword">virtual</span> uint16_t GetMtu (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00084"></a>00084         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsLinkUp (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00085"></a>00085         <span class="keyword">virtual</span> <span class="keywordtype">void</span> AddLinkChangeCallback (Callback&lt;void&gt; callback);
-<a name="l00086"></a>00086         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsBroadcast (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00087"></a>00087         <span class="keyword">virtual</span> Address GetBroadcast (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00088"></a>00088         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsMulticast (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00089"></a>00089         <span class="keyword">virtual</span> Address GetMulticast (Ipv4Address multicastGroup) <span class="keyword">const</span>;
-<a name="l00090"></a>00090         <span class="keyword">virtual</span> Address GetMulticast (Ipv6Address addr) <span class="keyword">const</span>;
-<a name="l00091"></a>00091         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsBridge (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00092"></a>00092         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsPointToPoint (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00093"></a>00093         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Send (Ptr&lt;Packet&gt; packet, <span class="keyword">const</span> Address&amp; dest, uint16_t protocolNumber);
-<a name="l00094"></a>00094         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> SendFrom (Ptr&lt;Packet&gt; packet, <span class="keyword">const</span> Address&amp; source, <span class="keyword">const</span> Address&amp; dest, uint16_t protocolNumber);
-<a name="l00095"></a>00095         <span class="keyword">virtual</span> Ptr&lt;Node&gt; GetNode (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00096"></a>00096         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetNode (Ptr&lt;Node&gt; node);
-<a name="l00097"></a>00097         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> NeedsArp (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetReceiveCallback (ReceiveCallback cb);
-<a name="l00100"></a>00100         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetPromiscReceiveCallback (PromiscReceiveCallback cb);
-<a name="l00101"></a>00101         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> SupportsSendFrom (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00074"></a>00074         <span class="comment">// From class NetDevice</span>
+<a name="l00075"></a>00075         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetIfIndex (<span class="keyword">const</span> uint32_t index);
+<a name="l00076"></a>00076         <span class="keyword">virtual</span> uint32_t GetIfIndex (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00077"></a>00077         <span class="keyword">virtual</span> Ptr&lt;Channel&gt; GetChannel (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00078"></a>00078         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetAddress (Address address);
+<a name="l00079"></a>00079         <span class="keyword">virtual</span> Address GetAddress (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00080"></a>00080         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> SetMtu (<span class="keyword">const</span> uint16_t mtu);
+<a name="l00081"></a>00081         <span class="keyword">virtual</span> uint16_t GetMtu (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00082"></a>00082         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsLinkUp (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00083"></a>00083         <span class="keyword">virtual</span> <span class="keywordtype">void</span> AddLinkChangeCallback (Callback&lt;void&gt; callback);
+<a name="l00084"></a>00084         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsBroadcast (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00085"></a>00085         <span class="keyword">virtual</span> Address GetBroadcast (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00086"></a>00086         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsMulticast (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00087"></a>00087         <span class="keyword">virtual</span> Address GetMulticast (Ipv4Address multicastGroup) <span class="keyword">const</span>;
+<a name="l00088"></a>00088         <span class="keyword">virtual</span> Address GetMulticast (Ipv6Address addr) <span class="keyword">const</span>;
+<a name="l00089"></a>00089         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsBridge (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00090"></a>00090         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> IsPointToPoint (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00091"></a>00091         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Send (Ptr&lt;Packet&gt; packet, <span class="keyword">const</span> Address&amp; dest, uint16_t protocolNumber);
+<a name="l00092"></a>00092         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> SendFrom (Ptr&lt;Packet&gt; packet, <span class="keyword">const</span> Address&amp; source, <span class="keyword">const</span> Address&amp; dest, uint16_t protocolNumber);
+<a name="l00093"></a>00093         <span class="keyword">virtual</span> Ptr&lt;Node&gt; GetNode (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00094"></a>00094         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetNode (Ptr&lt;Node&gt; node);
+<a name="l00095"></a>00095         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> NeedsArp (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetReceiveCallback (ReceiveCallback cb);
+<a name="l00098"></a>00098         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetPromiscReceiveCallback (PromiscReceiveCallback cb);
+<a name="l00099"></a>00099         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> SupportsSendFrom (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> ConfigComplete(<span class="keywordtype">void</span>);
 <a name="l00102"></a>00102 
-<a name="l00103"></a>00103         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> ConfigComplete(<span class="keywordtype">void</span>);
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetPhy (Ptr&lt;PLC_Phy&gt; phy);
-<a name="l00106"></a>00106         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetMac (Ptr&lt;PLC_Mac&gt; mac);
-<a name="l00107"></a>00107         <span class="keyword">virtual</span> Ptr&lt;PLC_Phy&gt; GetPhy (<span class="keywordtype">void</span>);
-<a name="l00108"></a>00108         <span class="keyword">virtual</span> Ptr&lt;PLC_Mac&gt; GetMac (<span class="keywordtype">void</span>);
+<a name="l00103"></a>00103         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetPhy (Ptr&lt;PLC_Phy&gt; phy);
+<a name="l00104"></a>00104         <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetMac (Ptr&lt;PLC_Mac&gt; mac);
+<a name="l00105"></a>00105         <span class="keyword">virtual</span> Ptr&lt;PLC_Phy&gt; GetPhy (<span class="keywordtype">void</span>);
+<a name="l00106"></a>00106         <span class="keyword">virtual</span> Ptr&lt;PLC_Mac&gt; GetMac (<span class="keywordtype">void</span>);
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108         <a class="code" href="classns3_1_1PLC__ChannelTransferImpl.html">PLC_ChannelTransferImpl</a> *GetChannelTransferImpl(Ptr&lt;PLC_NetDevice&gt; dev);
 <a name="l00109"></a>00109 
-<a name="l00110"></a>00110         <a class="code" href="classns3_1_1PLC__ChannelTransferImpl.html">PLC_ChannelTransferImpl</a> *GetChannelTransferImpl(Ptr&lt;PLC_NetDevice&gt; dev);
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112         <span class="keywordtype">void</span> LinkUp (<span class="keywordtype">void</span>);
-<a name="l00113"></a>00113         <span class="keywordtype">void</span> LinkDown (<span class="keywordtype">void</span>);
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115 <span class="keyword">protected</span>:
-<a name="l00116"></a>00116         <span class="keyword">virtual</span> <span class="keywordtype">void</span> DoDispose (<span class="keywordtype">void</span>);
-<a name="l00117"></a>00117         <span class="keyword">virtual</span> <span class="keywordtype">void</span> DoStart (<span class="keywordtype">void</span>);
-<a name="l00118"></a>00118         Ptr&lt;Channel&gt; DoGetChannel (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
-<a name="l00119"></a>00119         <span class="keyword">virtual</span> <span class="keywordtype">void</span> CompleteConfig (<span class="keywordtype">void</span>);
-<a name="l00120"></a>00120 
-<a name="l00121"></a>00121         Ptr&lt;const SpectrumModel&gt; m_spectrum_model;
-<a name="l00122"></a>00122         Ptr&lt;const SpectrumValue&gt; m_noiseFloor;
-<a name="l00123"></a>00123         Ptr&lt;SpectrumValue&gt; m_txPsd;
-<a name="l00124"></a>00124         Ptr&lt;Node&gt; m_node;
-<a name="l00125"></a>00125         Ptr&lt;PLC_Node&gt; m_plc_node;
-<a name="l00126"></a>00126         Ptr&lt;PLC_Outlet&gt; m_outlet;
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128         Ptr&lt;PLC_Phy&gt; m_phy;
-<a name="l00129"></a>00129         Ptr&lt;PLC_Mac&gt; m_mac;
+<a name="l00110"></a>00110         <span class="keywordtype">void</span> LinkUp (<span class="keywordtype">void</span>);
+<a name="l00111"></a>00111         <span class="keywordtype">void</span> LinkDown (<span class="keywordtype">void</span>);
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 <span class="keyword">protected</span>:
+<a name="l00114"></a>00114         <span class="keyword">virtual</span> <span class="keywordtype">void</span> DoDispose (<span class="keywordtype">void</span>);
+<a name="l00115"></a>00115         <span class="keyword">virtual</span> <span class="keywordtype">void</span> DoStart (<span class="keywordtype">void</span>);
+<a name="l00116"></a>00116         Ptr&lt;Channel&gt; DoGetChannel (<span class="keywordtype">void</span>) <span class="keyword">const</span>;
+<a name="l00117"></a>00117         <span class="keyword">virtual</span> <span class="keywordtype">void</span> CompleteConfig (<span class="keywordtype">void</span>);
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119         Ptr&lt;const SpectrumModel&gt; m_spectrum_model;
+<a name="l00120"></a>00120         Ptr&lt;const SpectrumValue&gt; m_noiseFloor;
+<a name="l00121"></a>00121         Ptr&lt;SpectrumValue&gt; m_txPsd;
+<a name="l00122"></a>00122         Ptr&lt;Node&gt; m_node;
+<a name="l00123"></a>00123         Ptr&lt;PLC_Node&gt; m_plc_node;
+<a name="l00124"></a>00124         Ptr&lt;PLC_Outlet&gt; m_outlet;
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126         Ptr&lt;PLC_Phy&gt; m_phy;
+<a name="l00127"></a>00127         Ptr&lt;PLC_Mac&gt; m_mac;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <span class="keywordtype">bool</span> m_linkUp;
 <a name="l00130"></a>00130 
-<a name="l00131"></a>00131         <span class="keywordtype">bool</span> m_linkUp;
-<a name="l00132"></a>00132         <span class="keywordtype">bool</span> m_isBridge;
-<a name="l00133"></a>00133 
-<a name="l00134"></a>00134         uint32_t m_ifIndex;
-<a name="l00135"></a>00135         uint32_t m_txIfIndex;
-<a name="l00136"></a>00136         uint32_t m_rxIfIndex;
-<a name="l00137"></a>00137         Ptr&lt;PLC_Impedance&gt; m_shuntImpedance;
-<a name="l00138"></a>00138         Ptr&lt;PLC_Impedance&gt; m_txImpedance;
-<a name="l00139"></a>00139         Ptr&lt;PLC_Impedance&gt; m_rxImpedance;
-<a name="l00140"></a>00140 
-<a name="l00141"></a>00141         ModulationAndCodingType m_mcs;
-<a name="l00142"></a>00142 
-<a name="l00143"></a>00143         <span class="keywordtype">bool</span> m_configComplete;
+<a name="l00131"></a>00131         uint32_t m_ifIndex;
+<a name="l00132"></a>00132         uint32_t m_txIfIndex;
+<a name="l00133"></a>00133         uint32_t m_rxIfIndex;
+<a name="l00134"></a>00134         Ptr&lt;PLC_Impedance&gt; m_shuntImpedance;
+<a name="l00135"></a>00135         Ptr&lt;PLC_Impedance&gt; m_txImpedance;
+<a name="l00136"></a>00136         Ptr&lt;PLC_Impedance&gt; m_rxImpedance;
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138         ModulationAndCodingType m_mcs;
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140         <span class="keywordtype">bool</span> m_configComplete;
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142         ReceiveCallback m_receive_cb;
+<a name="l00143"></a>00143         PromiscReceiveCallback m_promiscuous_receive_cb;
 <a name="l00144"></a>00144 
-<a name="l00145"></a>00145         ReceiveCallback m_receive_cb;
-<a name="l00146"></a>00146         PromiscReceiveCallback m_promiscuous_receive_cb;
+<a name="l00145"></a>00145         TracedCallback&lt;&gt; m_linkChanges;
+<a name="l00146"></a>00146 };
 <a name="l00147"></a>00147 
-<a name="l00148"></a>00148         TracedCallback&lt;&gt; m_linkChanges;
-<a name="l00149"></a>00149 };
-<a name="l00150"></a>00150 
-<a name="l00151"></a>00151 }
-<a name="l00152"></a>00152 
-<a name="l00153"></a>00153 <span class="preprocessor">#endif </span><span class="comment">/* PLC_NET_DEVICE_H_ */</span>
+<a name="l00148"></a>00148 }
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150 <span class="preprocessor">#endif </span><span class="comment">/* PLC_NET_DEVICE_H_ */</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -237,7 +234,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:51 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:37 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

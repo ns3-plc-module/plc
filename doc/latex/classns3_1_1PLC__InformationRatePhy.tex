@@ -27,18 +27,19 @@ void \hyperlink{classns3_1_1PLC__InformationRatePhy_ac8d28e7f4c56c9c226a1992342c
 \item 
 size\-\_\-t \hyperlink{classns3_1_1PLC__InformationRatePhy_a84d9f169728aaf4ea913f2588002160c}{\-Get\-Ofdm\-Symbols\-Per\-Code\-Block} (void)
 \item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a4dfd3765ac9010f984c0d32888f01546}{void {\bfseries \-Set\-Noise\-Floor} (\-Ptr$<$ \-Spectrum\-Value $>$ noise\-Floor)}\label{classns3_1_1PLC__InformationRatePhy_a4dfd3765ac9010f984c0d32888f01546}
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a0566ea199f12a3b3ba760f0b3930e50b}{void {\bfseries \-End\-Rx\-Header} (\-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_a0566ea199f12a3b3ba760f0b3930e50b}
 
 \item 
-\-Ptr$<$ const \-Packet $>$ \hyperlink{classns3_1_1PLC__InformationRatePhy_a4574798e3cfa52d229ffef1da89aec0d}{\-Get\-Uncoded\-Packet} (void)
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_aa6d95a5a90c712be22bcbfd29a149d5d}{void {\bfseries \-End\-Rx\-Header} (\-Modulation\-And\-Coding\-Type mcs, \-Time duration)}\label{classns3_1_1PLC__InformationRatePhy_aa6d95a5a90c712be22bcbfd29a149d5d}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a483018d01f8b198ad014488e91d32dad}{void {\bfseries \-End\-Rx\-Payload} (void)}\label{classns3_1_1PLC__InformationRatePhy_a483018d01f8b198ad014488e91d32dad}
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a1708b250cf1fc92f5bb520185854bd20}{void {\bfseries \-End\-Rx\-Payload} (\-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_a1708b250cf1fc92f5bb520185854bd20}
 
 \item 
 \hypertarget{classns3_1_1PLC__InformationRatePhy_a357bfdcd62ecda47ea1bdf191fe63491}{void {\bfseries \-Reception\-Failure} (void)}\label{classns3_1_1PLC__InformationRatePhy_a357bfdcd62ecda47ea1bdf191fe63491}
+
+\item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_ab06fc75e551a2c4929048fde10d631a2}{void {\bfseries \-Send\-Frame} (\-Ptr$<$ \-Packet $>$ p, \-Ptr$<$ \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_ab06fc75e551a2c4929048fde10d631a2}
+
+\item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a1abda27b3a61123aadc4a805fab75292}{virtual void {\bfseries \-Preamble\-Detection\-Successful} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_a1abda27b3a61123aadc4a805fab75292}
 
 \end{DoxyCompactItemize}
 \subsection*{\-Static \-Public \-Member \-Functions}
@@ -63,13 +64,31 @@ static void \hyperlink{classns3_1_1PLC__InformationRatePhy_a10a515ea96d92613a701
 \hypertarget{classns3_1_1PLC__InformationRatePhy_a6cb0013270e368139cf710371cf8c9ff}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__InformationRatePhy_a6cb0013270e368139cf710371cf8c9ff}
 
 \item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a79700be8272f4156d23ec6356f675be9}{virtual void {\bfseries \-Do\-Set\-Noise\-Floor} (\-Ptr$<$ const \-Spectrum\-Value $>$ noise\-Floor)}\label{classns3_1_1PLC__InformationRatePhy_a79700be8272f4156d23ec6356f675be9}
+
+\item 
 \hypertarget{classns3_1_1PLC__InformationRatePhy_a1746d2858e9596d44e87e5a5c3dcdd73}{virtual bool {\bfseries \-Do\-Start\-Tx} (\-Ptr$<$ \-Packet $>$ p)}\label{classns3_1_1PLC__InformationRatePhy_a1746d2858e9596d44e87e5a5c3dcdd73}
 
 \item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a78afcabcd943de4275b9baee0cd6eb74}{virtual void {\bfseries \-Do\-Start\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Modulation\-And\-Coding\-Type mcs, \-Time duration)}\label{classns3_1_1PLC__InformationRatePhy_a78afcabcd943de4275b9baee0cd6eb74}
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a7d14bce650ce44e393422441b83ab1a1}{virtual void {\bfseries \-Do\-Start\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_a7d14bce650ce44e393422441b83ab1a1}
 
 \item 
 \hypertarget{classns3_1_1PLC__InformationRatePhy_a6bc7022d2f5a664d7b0cb422758af210}{virtual void {\bfseries \-Do\-Update\-Rx\-Psd} (uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ new\-Rx\-Psd)}\label{classns3_1_1PLC__InformationRatePhy_a6bc7022d2f5a664d7b0cb422758af210}
+
+\item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a57c6636bedb4b579414371f12395a8d6}{virtual void {\bfseries \-Start\-Reception} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_a57c6636bedb4b579414371f12395a8d6}
+
+\item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_ab734c72ab9d3d3e60a01438a1114c128}{virtual void {\bfseries \-Notify\-Successful\-Reception} (void)}\label{classns3_1_1PLC__InformationRatePhy_ab734c72ab9d3d3e60a01438a1114c128}
+
+\item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_ad32af16b7a80bbc11f492092d9f7dd58}{\-Ptr$<$ \-Packet $>$ {\bfseries \-Create\-Encoded\-Packet} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_ad32af16b7a80bbc11f492092d9f7dd58}
+
+\item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a059d1e2ed5a90059c6cf5ed052ae66d9}{\-Ptr$<$ \-Packet $>$ {\bfseries \-Create\-Fixed\-Rate\-Encoded\-Packet} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_a059d1e2ed5a90059c6cf5ed052ae66d9}
+
+\item 
+\hypertarget{classns3_1_1PLC__InformationRatePhy_a31133237a6d4ede035ff4969a4b4ffdd}{\-Ptr$<$ \-Packet $>$ {\bfseries \-Create\-Rateless\-Encoded\-Packet} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)}\label{classns3_1_1PLC__InformationRatePhy_a31133237a6d4ede035ff4969a4b4ffdd}
 
 \item 
 \hypertarget{classns3_1_1PLC__InformationRatePhy_a9bdb8a8081ba19483616f36eca2b8937}{\-P\-L\-C\-\_\-\-Phy\-Cca\-Result {\bfseries \-Clear\-Channel\-Assessment} (void)}\label{classns3_1_1PLC__InformationRatePhy_a9bdb8a8081ba19483616f36eca2b8937}
@@ -91,33 +110,6 @@ static void \hyperlink{classns3_1_1PLC__InformationRatePhy_a10a515ea96d92613a701
 
 \item 
 \hypertarget{classns3_1_1PLC__InformationRatePhy_a06c4f6fd00f2943b53a1eabe57fffe52}{\-Modulation\-And\-Coding\-Type {\bfseries m\-\_\-payload\-\_\-mcs}}\label{classns3_1_1PLC__InformationRatePhy_a06c4f6fd00f2943b53a1eabe57fffe52}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_aae8894eb143b855da04062069150b0d9}{uint32\-\_\-t {\bfseries m\-\_\-locked\-\_\-tx\-Id}}\label{classns3_1_1PLC__InformationRatePhy_aae8894eb143b855da04062069150b0d9}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a3be2597b31d3e7a272ec51e6329728b7}{\-Ptr$<$ const \-Spectrum\-Value $>$ {\bfseries m\-\_\-rx\-Psd}}\label{classns3_1_1PLC__InformationRatePhy_a3be2597b31d3e7a272ec51e6329728b7}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a2759b5176640b092a01e0b939693342a}{\-Ptr$<$ const \-Packet $>$ {\bfseries m\-\_\-uncoded\-\_\-packet}}\label{classns3_1_1PLC__InformationRatePhy_a2759b5176640b092a01e0b939693342a}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a37f18206753fc41652a6daa2087a5104}{\-Ptr$<$ \-Packet $>$ {\bfseries m\-\_\-incoming\-\_\-packet}}\label{classns3_1_1PLC__InformationRatePhy_a37f18206753fc41652a6daa2087a5104}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a912b37918ef0f3beadd9d2b0779d8e41}{\hyperlink{classns3_1_1PLC__RatelessPhyHeader}{\-P\-L\-C\-\_\-\-Rateless\-Phy\-Header} {\bfseries m\-\_\-rateless\-\_\-header}}\label{classns3_1_1PLC__InformationRatePhy_a912b37918ef0f3beadd9d2b0779d8e41}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a49a4e41948f9c487788dfcfcb85b0aba}{uint32\-\_\-t {\bfseries m\-\_\-uncoded\-\_\-rx\-\_\-bits}}\label{classns3_1_1PLC__InformationRatePhy_a49a4e41948f9c487788dfcfcb85b0aba}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a104f48ec41c96748fc9a4bc4880b7881}{bool {\bfseries m\-\_\-receiving\-\_\-payload}}\label{classns3_1_1PLC__InformationRatePhy_a104f48ec41c96748fc9a4bc4880b7881}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a8148780bac87d3fd054444b8c77f1408}{uint16\-\_\-t {\bfseries m\-\_\-tx\-Datagram\-Id}}\label{classns3_1_1PLC__InformationRatePhy_a8148780bac87d3fd054444b8c77f1408}
-
-\item 
-\hypertarget{classns3_1_1PLC__InformationRatePhy_ab8cf71a701c88b0feed2831a5b1b7f55}{uint16\-\_\-t {\bfseries m\-\_\-rx\-Datagram\-Id}}\label{classns3_1_1PLC__InformationRatePhy_ab8cf71a701c88b0feed2831a5b1b7f55}
 
 \end{DoxyCompactItemize}
 \subsection*{\-Static \-Protected \-Attributes}
@@ -144,20 +136,6 @@ static void \hyperlink{classns3_1_1PLC__InformationRatePhy_a10a515ea96d92613a701
 )}}\label{classns3_1_1PLC__InformationRatePhy_a84d9f169728aaf4ea913f2588002160c}
 \begin{DoxyReturn}{\-Returns}
 \-Modulation symbols needed to map one code block 
-\end{DoxyReturn}
-\hypertarget{classns3_1_1PLC__InformationRatePhy_a4574798e3cfa52d229ffef1da89aec0d}{\index{ns3\-::\-P\-L\-C\-\_\-\-Information\-Rate\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Information\-Rate\-Phy}!\-Get\-Uncoded\-Packet@{\-Get\-Uncoded\-Packet}}
-\index{\-Get\-Uncoded\-Packet@{\-Get\-Uncoded\-Packet}!ns3::PLC_InformationRatePhy@{ns3\-::\-P\-L\-C\-\_\-\-Information\-Rate\-Phy}}
-\subsubsection[{\-Get\-Uncoded\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}\-Ptr$<$ const \-Packet $>$ {\bf ns3\-::\-P\-L\-C\-\_\-\-Information\-Rate\-Phy\-::\-Get\-Uncoded\-Packet} (
-\begin{DoxyParamCaption}
-\item[{void}]{}
-\end{DoxyParamCaption}
-)}}\label{classns3_1_1PLC__InformationRatePhy_a4574798e3cfa52d229ffef1da89aec0d}
-\-Get pointer to the uncoded packet.
-
-\-As there is no actual encoding/decoding simulated, the receiving \-P\-H\-Y needs a reference to the uncoded data to deliver to its \-M\-A\-C as soon as the decoding process is supposed to be successful.
-
-\begin{DoxyReturn}{\-Returns}
-\-Uncoded packet 
 \end{DoxyReturn}
 \hypertarget{classns3_1_1PLC__InformationRatePhy_ac8d28e7f4c56c9c226a1992342ca4c06}{\index{ns3\-::\-P\-L\-C\-\_\-\-Information\-Rate\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Information\-Rate\-Phy}!\-Set\-Header\-Modulation\-And\-Coding\-Scheme@{\-Set\-Header\-Modulation\-And\-Coding\-Scheme}}
 \index{\-Set\-Header\-Modulation\-And\-Coding\-Scheme@{\-Set\-Header\-Modulation\-And\-Coding\-Scheme}!ns3::PLC_InformationRatePhy@{ns3\-::\-P\-L\-C\-\_\-\-Information\-Rate\-Phy}}

@@ -37,9 +37,30 @@ namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE ("PLC_Channel");
+NS_OBJECT_ENSURE_REGISTERED (PLC_TrxMetaInfo);
 NS_OBJECT_ENSURE_REGISTERED (PLC_EdgeTransferUnit);
 NS_OBJECT_ENSURE_REGISTERED (PLC_ChannelTransferImpl);
 NS_OBJECT_ENSURE_REGISTERED (PLC_Channel);
+
+//////////////////////////////// PLC_TrxMetaInfo ////////////////////////////////////////////////
+
+PLC_TrxMetaInfo::PLC_TrxMetaInfo (void)
+{
+	m_uncoded_packet = 0;
+	m_header_mcs = BPSK_1_2;
+	m_payload_mcs = BPSK_1_2;
+	m_header_duration = MicroSeconds(0);
+	m_payload_duration = MicroSeconds(0);
+}
+
+TypeId
+PLC_TrxMetaInfo::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId ("ns3::PLC_TrxMetaInfo")
+    		.SetParent<Object> ()
+    		;
+	return tid;
+}
 
 //////////////////////////////// PLC_EdgeTransferUnit ////////////////////////////////////////////////
 
@@ -1040,11 +1061,11 @@ Ptr<NetDevice> PLC_Channel::GetDevice  (uint32_t i) const
 }
 
 void
-PLC_Channel::TransmissionStart (Ptr<Packet> p, uint32_t txId, Ptr<const SpectrumValue> txPsd, ModulationAndCodingType mcs, Time duration)
+PLC_Channel::TransmissionStart (Ptr<const Packet> p, uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	NS_LOG_FUNCTION (this << txId);
+	NS_LOG_FUNCTION (this << p << metaInfo);
 
-	NS_LOG_INFO ("Start transmission from TX-Interface: " << txId << ", duration: " << duration);
+	NS_LOG_INFO ("Starting transmission from TX-Interface: " << txId << ", duration: " << duration);
 
 	NS_ASSERT (txId < this->m_txInterfaces.size ());
 	Ptr<PLC_TxInterface> txInterface = this->m_txInterfaces[txId];
@@ -1089,7 +1110,7 @@ PLC_Channel::TransmissionStart (Ptr<Packet> p, uint32_t txId, Ptr<const Spectrum
 
 		PLC_ChannelTransferImpl *ch_impl;
 		// continue if channel implementation doesn't exist  (e.g. rxInterface is out of range)
-		if  ( (ch_impl = txInterface->GetChannelTransferImpl (PeekPointer (rx))) == NULL) continue;
+		if  ((ch_impl = txInterface->GetChannelTransferImpl (PeekPointer (rx))) == NULL) continue;
 
 		// TODO: if rxPsd will arrive at receiver only the next timeslot then choose the right rxPSD, or:
 		// delay becomes dispensable for symbol level time resolution, as duration << t_symbol
@@ -1138,11 +1159,11 @@ PLC_Channel::TransmissionStart (Ptr<Packet> p, uint32_t txId, Ptr<const Spectrum
 		NS_ASSERT_MSG(rxNode, "RX Interface not aggregated to an instance of ns3::Node");
 
 		// Schedule reception
-		Simulator::ScheduleWithContext (rxNode->GetId(), delay, &PLC_RxInterface::StartRx, rx, p, txId, cur_rxPsd, mcs, duration);
+		Simulator::ScheduleWithContext (rxNode->GetId(), delay, &PLC_RxInterface::StartRx, rx, p, txId, cur_rxPsd, duration, metaInfo);
 	}
 
 	// free the channel after transmission
-	Simulator::Schedule(duration, &PLC_Channel::TransmissionEnd, this, txId, max_delay, mcs);
+	Simulator::Schedule(duration, &PLC_Channel::TransmissionEnd, this, txId, max_delay);
 
 	// schedule next time slot task for updating rxPsds of active transmissions
 	this->ScheduleNextTimeslotTasks ();
@@ -1180,9 +1201,9 @@ PLC_Channel::MakeRxPsdMapEntries (Timeslot cur_timeslot, Timeslot end_timeslot, 
 }
 
 bool
-PLC_Channel::TransmissionEnd (uint32_t srcId, Time propagation_delay, ModulationAndCodingType mcs)
+PLC_Channel::TransmissionEnd (uint32_t srcId, Time propagation_delay)
 {
-	NS_LOG_FUNCTION  (this << srcId << propagation_delay << mcs);
+	NS_LOG_FUNCTION  (this << srcId << propagation_delay);
 
 	NS_ASSERT (this->m_transmitting.find (srcId) != this->m_transmitting.end ());
 	this->m_transmitting.erase (srcId);
@@ -1191,13 +1212,13 @@ PLC_Channel::TransmissionEnd (uint32_t srcId, Time propagation_delay, Modulation
 	// Log active transmitters
 	m_activeTxIfLogger(Now(), m_transmitting);
 
-	Simulator::Schedule (propagation_delay, &PLC_Channel::PropagationCompleteEvent, this, srcId, mcs);
+	Simulator::Schedule (propagation_delay, &PLC_Channel::PropagationCompleteEvent, this, srcId);
 
 	return true;
 }
 
 void
-PLC_Channel::PropagationCompleteEvent (uint32_t srcId, ModulationAndCodingType mcs)
+PLC_Channel::PropagationCompleteEvent (uint32_t srcId)
 {
 	NS_LOG_FUNCTION  (this << srcId);
 

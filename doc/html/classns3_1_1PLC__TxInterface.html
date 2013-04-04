@@ -134,7 +134,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="classns3_1_1PLC__BackboneBranch.html">PLC_BackboneBranch</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__TxInterface.html#a13001bc1b0947eac4b31d3f86dfbc848">GetBackbonePath</a> (<a class="el" href="classns3_1_1PLC__RxInterface.html">PLC_RxInterface</a> *sink)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">PLC_BackbonePath::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__TxInterface.html#a7a0f421716fa2999885f3dfa9e00649e">BackbonePathBegin</a> (<a class="el" href="classns3_1_1PLC__RxInterface.html">PLC_RxInterface</a> *sink)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">PLC_BackbonePath::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__TxInterface.html#abef68692750f3bb5a11bf6c37d1b3af6">BackbonePathEnd</a> (<a class="el" href="classns3_1_1PLC__RxInterface.html">PLC_RxInterface</a> *sink)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__TxInterface.html#a35e0b32414508038c169efc345dbd1e2">StartTx</a> (Ptr&lt; Packet &gt; p, Ptr&lt; const SpectrumValue &gt; txPsd, ModulationAndCodingType mcs, Time duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__TxInterface.html#ac45fd62e1c2e924026df7b04acb6d0b4">StartTx</a> (Ptr&lt; const Packet &gt; p, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac240c7f6f69961cb86b5bcf1e68480cc"></a><!-- doxytag: member="ns3::PLC_TxInterface::GetTypeId" ref="ac240c7f6f69961cb86b5bcf1e68480cc" args="(void)" -->
@@ -380,14 +380,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 
 </div>
 </div>
-<a class="anchor" id="a35e0b32414508038c169efc345dbd1e2"></a><!-- doxytag: member="ns3::PLC_TxInterface::StartTx" ref="a35e0b32414508038c169efc345dbd1e2" args="(Ptr&lt; Packet &gt; p, Ptr&lt; const SpectrumValue &gt; txPsd, ModulationAndCodingType mcs, Time duration)" -->
+<a class="anchor" id="ac45fd62e1c2e924026df7b04acb6d0b4"></a><!-- doxytag: member="ns3::PLC_TxInterface::StartTx" ref="ac45fd62e1c2e924026df7b04acb6d0b4" args="(Ptr&lt; const Packet &gt; p, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classns3_1_1PLC__TxInterface.html#a35e0b32414508038c169efc345dbd1e2">ns3::PLC_TxInterface::StartTx</a> </td>
+          <td class="memname">void <a class="el" href="classns3_1_1PLC__TxInterface.html#ac45fd62e1c2e924026df7b04acb6d0b4">ns3::PLC_TxInterface::StartTx</a> </td>
           <td>(</td>
-          <td class="paramtype">Ptr&lt; Packet &gt;&#160;</td>
+          <td class="paramtype">Ptr&lt; const Packet &gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
@@ -399,14 +399,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ModulationAndCodingType&#160;</td>
-          <td class="paramname"><em>mcs</em>, </td>
+          <td class="paramtype">Time&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Time&#160;</td>
-          <td class="paramname"><em>duration</em>&#160;</td>
+          <td class="paramtype">Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt;&#160;</td>
+          <td class="paramname"><em>metaInfo</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -420,9 +420,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>Packet to be transmitted or NULL for noise signal </td></tr>
-    <tr><td class="paramname">txPsd</td><td>Spectral power density to be used for the transmission </td></tr>
-    <tr><td class="paramname">st</td><td>Spectrum type of the signal to distinguish between different modulation types or noise respectively </td></tr>
-    <tr><td class="paramname">duration</td><td>Transmission duration </td></tr>
+    <tr><td class="paramname">metaInfo</td><td>Meta information for link performance emulation </td></tr>
   </table>
   </dd>
 </dl>
@@ -451,7 +449,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 24 2013 15:33:55 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 30 2013 21:36:39 for ns-3 PLC model by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

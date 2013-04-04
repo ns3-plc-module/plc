@@ -58,17 +58,14 @@ void \hyperlink{classns3_1_1PLC__Mac_a8a173ec9203052f75089958938222a82}{\-Set\-M
 \item 
 \-Mac48\-Address \hyperlink{classns3_1_1PLC__Mac_ad1ec3884c177176da44b1c9aa23ab208}{\-Get\-Multicast\-Address} (void)
 \item 
-\hypertarget{classns3_1_1PLC__Mac_ac544564d0e9e25ab32488227554ab121}{void {\bfseries \-Set\-Bridge\-Port} (bool is\-Bridge\-Port)}\label{classns3_1_1PLC__Mac_ac544564d0e9e25ab32488227554ab121}
-
-\item 
-\hypertarget{classns3_1_1PLC__Mac_a9c4cbe397a9d6753c2061bb51351eeae}{bool {\bfseries \-Is\-Bridge\-Port} (void)}\label{classns3_1_1PLC__Mac_a9c4cbe397a9d6753c2061bb51351eeae}
-
-\item 
 bool \hyperlink{classns3_1_1PLC__Mac_aa4aa357fb178a286f334983ab851775f}{\-Send} (\-Ptr$<$ \-Packet $>$ p, \-Mac48\-Address dst)
 \item 
 bool \hyperlink{classns3_1_1PLC__Mac_a272d80d76488484bf8c60e87d4e6c423}{\-Send\-From} (\-Ptr$<$ \-Packet $>$ p, \-Mac48\-Address src, \-Mac48\-Address dst)
 \item 
-\hypertarget{classns3_1_1PLC__Mac_afa687f4ae72dd3874ce6bef5ac327ef1}{virtual \-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ {\bfseries \-Get\-Phy} (void)}\label{classns3_1_1PLC__Mac_afa687f4ae72dd3874ce6bef5ac327ef1}
+\hypertarget{classns3_1_1PLC__Mac_ae0f93c1216ace18b5c4e382a55e77fb3}{void {\bfseries \-Set\-Phy} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ phy)}\label{classns3_1_1PLC__Mac_ae0f93c1216ace18b5c4e382a55e77fb3}
+
+\item 
+\hypertarget{classns3_1_1PLC__Mac_afa687f4ae72dd3874ce6bef5ac327ef1}{\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ {\bfseries \-Get\-Phy} (void)}\label{classns3_1_1PLC__Mac_afa687f4ae72dd3874ce6bef5ac327ef1}
 
 \item 
 virtual void \hyperlink{classns3_1_1PLC__Mac_ab082c6f7b324f3262c8e2da835deac00}{\-Notify\-Transmission\-End} (void)=0
@@ -96,6 +93,9 @@ void \hyperlink{classns3_1_1PLC__Mac_ab32011008a9fa556f61b7a0b31f5c082}{\-Notify
 \hypertarget{classns3_1_1PLC__Mac_a3a3165e888c70bf27e5c5f763a66b939}{virtual void {\bfseries \-Do\-Process} (\-Ptr$<$ const \-Packet $>$ p)=0}\label{classns3_1_1PLC__Mac_a3a3165e888c70bf27e5c5f763a66b939}
 
 \item 
+\hypertarget{classns3_1_1PLC__Mac_a7788ec2ccb628ceb70d1bc140917a42c}{virtual void {\bfseries \-Do\-Set\-Phy} (\-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ phy)=0}\label{classns3_1_1PLC__Mac_a7788ec2ccb628ceb70d1bc140917a42c}
+
+\item 
 \hypertarget{classns3_1_1PLC__Mac_a6e820429841dc8e9d764d8b42b6fbc53}{virtual \-Ptr$<$ \hyperlink{classns3_1_1PLC__Phy}{\-P\-L\-C\-\_\-\-Phy} $>$ {\bfseries \-Do\-Get\-Phy} (void)=0}\label{classns3_1_1PLC__Mac_a6e820429841dc8e9d764d8b42b6fbc53}
 
 \end{DoxyCompactItemize}
@@ -115,9 +115,6 @@ void \hyperlink{classns3_1_1PLC__Mac_ab32011008a9fa556f61b7a0b31f5c082}{\-Notify
 
 \item 
 \hypertarget{classns3_1_1PLC__Mac_a0719536f0d86f13ec19fc7fe31e8bcf8}{bool {\bfseries m\-\_\-promiscuous\-\_\-mode}}\label{classns3_1_1PLC__Mac_a0719536f0d86f13ec19fc7fe31e8bcf8}
-
-\item 
-\hypertarget{classns3_1_1PLC__Mac_a014a94b2558746faea19bb9831cf318e}{bool {\bfseries m\-\_\-is\-Bridge\-Port}}\label{classns3_1_1PLC__Mac_a014a94b2558746faea19bb9831cf318e}
 
 \item 
 \hypertarget{classns3_1_1PLC__Mac_a76d7ccf00276e0659e6a357dceb63788}{uint32\-\_\-t {\bfseries m\-\_\-csmaca\-\_\-attempts}}\label{classns3_1_1PLC__Mac_a76d7ccf00276e0659e6a357dceb63788}
