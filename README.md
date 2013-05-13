@@ -32,23 +32,23 @@ On an UNIX-like operating system the simulation environment can be set up as fol
 
 1.  Create target directory
 
-> mkdir ns-3 && cd ns-3
+    > mkdir ns-3 && cd ns-3
 
 2.  Download a stable ns-3 release, e.g.
 
-> get https://www.nsnam.org/release/ns-allinone-3.16.tar.bz2
+    > get https://www.nsnam.org/release/ns-allinone-3.16.tar.bz2
 
 3.  Extract ns-3 sources
 
-> tar xvjf ns-allinone-3.16.tar.bz2 
+    > tar xvjf ns-allinone-3.16.tar.bz2 
 
 4.  Change to ns-3 modules' source directory
 
-> cd ns-allinone-3.16/ns-3.16/src
+    > cd ns-allinone-3.16/ns-3.16/src
 
 5.  Clone or copy the plc module into the source directory, e.g.
 
-> git clone https://github.com/deadlock2013/plc.git
+    > git clone https://github.com/ns3-plc-module/plc.git
 
 
 ##Build
@@ -56,16 +56,16 @@ On an UNIX-like operating system the simulation environment can be set up as fol
 NS-3 makes use of the waf build automation tool. NS-3 and the plc module can be built as follows:
 
 1.  Change to the ns-3 root directory
-
-> cd ns-allinone-3.16/ns-3.16
+    
+    > cd ns-allinone-3.16/ns-3.16
 
 2.  Run build configuration with enabled examples and tests
 
-> ./waf --enable-examples --enable-tests configure
-
+    > ./waf --enable-examples --enable-tests configure
+    
 3.  Build ns-3 modules
 
-> ./waf
+    > ./waf
 
 ##Running
 
