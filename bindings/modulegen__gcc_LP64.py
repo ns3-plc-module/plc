@@ -254,6 +254,10 @@ def register_types(module):
     module.add_class('PLC_TwoPort', parent=root_module['ns3::PLC_Edge'])
     ## plc-interface.h (module 'plc'): ns3::PLC_TxInterface [class]
     module.add_class('PLC_TxInterface', parent=root_module['ns3::PLC_Interface'])
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase [class]
+    module.add_class('PLC_ValueBase', parent=root_module['ns3::Object'])
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueType [enumeration]
+    module.add_enum('PLC_ValueType', ['CONSTANT', 'FREQ_SELECTIVE', 'TIMEVARIANT_CONSTANT', 'TIMEVARIANT_FREQ_SELECTIVE'], outer_class=root_module['ns3::PLC_ValueBase'])
     ## packet-burst.h (module 'network'): ns3::PacketBurst [class]
     module.add_class('PacketBurst', import_from_module='ns.network', parent=root_module['ns3::Object'])
     ## random-variable.h (module 'core'): ns3::ParetoVariable [class]
@@ -278,8 +282,6 @@ def register_types(module):
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::NixVector', 'ns3::empty', 'ns3::DefaultDeleter<ns3::NixVector>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, template_parameters=['ns3::PLC_ColoredNoiseFloor', 'ns3::empty', 'ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
-    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ValueBase> > [class]
-    module.add_class('SimpleRefCount', automatic_type_narrowing=True, template_parameters=['ns3::PLC_ValueBase', 'ns3::empty', 'ns3::DefaultDeleter<ns3::PLC_ValueBase>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::Packet', 'ns3::empty', 'ns3::DefaultDeleter<ns3::Packet>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::SpectrumModel, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumModel> > [class]
@@ -382,10 +384,14 @@ def register_types(module):
     module.add_class('PLC_Channel', parent=root_module['ns3::Channel'])
     ## plc-noise.h (module 'plc'): ns3::PLC_ColoredNoiseFloor [class]
     module.add_class('PLC_ColoredNoiseFloor', parent=root_module['ns3::SimpleRefCount< ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >'])
+    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue [class]
+    module.add_class('PLC_ConstValue', parent=root_module['ns3::PLC_ValueBase'])
     ## plc-link-performance-model.h (module 'plc'): ns3::PLC_ErrorRateModel [class]
     module.add_class('PLC_ErrorRateModel', parent=root_module['ns3::PLC_LinkPerformanceModel'])
     ## plc-link-performance-model.h (module 'plc'): ns3::PLC_ErrorRateModel::ChannelCondition [enumeration]
     module.add_enum('ChannelCondition', ['EXCELLENT', 'GOOD', 'MEDIUM', 'BAD'], outer_class=root_module['ns3::PLC_ErrorRateModel'])
+    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue [class]
+    module.add_class('PLC_FreqSelectiveValue', parent=root_module['ns3::PLC_ValueBase'])
     ## plc-phy.h (module 'plc'): ns3::PLC_HalfDuplexOfdmPhy [class]
     module.add_class('PLC_HalfDuplexOfdmPhy', parent=root_module['ns3::PLC_Phy'])
     ## plc-phy.h (module 'plc'): ns3::PLC_HalfDuplexOfdmPhy::State [enumeration]
@@ -410,10 +416,12 @@ def register_types(module):
     module.add_class('PLC_SimulatorImpl', parent=root_module['ns3::SimulatorImpl'])
     ## plc-spectrum-helper.h (module 'plc'): ns3::PLC_SincSpectrumHelper [class]
     module.add_class('PLC_SincSpectrumHelper', parent=root_module['ns3::PLC_TimeInvariantSpectrumHelper'])
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase [class]
-    module.add_class('PLC_ValueBase', parent=root_module['ns3::SimpleRefCount< ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ValueBase> >'])
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueType [enumeration]
-    module.add_enum('PLC_ValueType', ['CONSTANT', 'FREQ_SELECTIVE', 'TIMEVARIANT_CONSTANT', 'TIMEVARIANT_FREQ_SELECTIVE'], outer_class=root_module['ns3::PLC_ValueBase'])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue [class]
+    module.add_class('PLC_TimeVariantConstValue', parent=root_module['ns3::PLC_ValueBase'])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue [class]
+    module.add_class('PLC_TimeVariantFreqSelectiveValue', parent=root_module['ns3::PLC_ValueBase'])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet [struct]
+    module.add_class('PLC_TimeVariantParamSet', outer_class=root_module['ns3::PLC_TimeVariantFreqSelectiveValue'])
     ## packet.h (module 'network'): ns3::Packet [class]
     module.add_class('Packet', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >'])
     ## random-variable.h (module 'core'): ns3::RandomVariableChecker [class]
@@ -448,20 +456,10 @@ def register_types(module):
     module.add_class('BridgeNetDevice', import_from_module='ns.bridge', parent=root_module['ns3::NetDevice'])
     ## plc-phy.h (module 'plc'): ns3::PLC_ChaseCombiningPhy [class]
     module.add_class('PLC_ChaseCombiningPhy', parent=root_module['ns3::PLC_InformationRatePhy'])
-    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue [class]
-    module.add_class('PLC_ConstValue', parent=root_module['ns3::PLC_ValueBase'])
     ## plc-phy.h (module 'plc'): ns3::PLC_ErrorRatePhy [class]
     module.add_class('PLC_ErrorRatePhy', parent=root_module['ns3::PLC_HalfDuplexOfdmPhy'])
-    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue [class]
-    module.add_class('PLC_FreqSelectiveValue', parent=root_module['ns3::PLC_ValueBase'])
     ## plc-phy.h (module 'plc'): ns3::PLC_IncrementalRedundancyPhy [class]
     module.add_class('PLC_IncrementalRedundancyPhy', parent=root_module['ns3::PLC_InformationRatePhy'])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue [class]
-    module.add_class('PLC_TimeVariantConstValue', parent=root_module['ns3::PLC_ValueBase'])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue [class]
-    module.add_class('PLC_TimeVariantFreqSelectiveValue', parent=root_module['ns3::PLC_ValueBase'])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet [struct]
-    module.add_class('PLC_TimeVariantParamSet', outer_class=root_module['ns3::PLC_TimeVariantFreqSelectiveValue'])
     module.add_container('ns3::PLC_TimeVariantFreqSelectiveRealValue', 'std::vector< double >', container_type='vector')
     module.add_container('ns3::PLC_TimeVariantRealValue', 'double', container_type='vector')
     module.add_container('ns3::PLC_FreqSelectiveRealValue', 'double', container_type='vector')
@@ -820,6 +818,7 @@ def register_methods(root_module):
     register_Ns3PLC_TrxMetaInfo_methods(root_module, root_module['ns3::PLC_TrxMetaInfo'])
     register_Ns3PLC_TwoPort_methods(root_module, root_module['ns3::PLC_TwoPort'])
     register_Ns3PLC_TxInterface_methods(root_module, root_module['ns3::PLC_TxInterface'])
+    register_Ns3PLC_ValueBase_methods(root_module, root_module['ns3::PLC_ValueBase'])
     register_Ns3PacketBurst_methods(root_module, root_module['ns3::PacketBurst'])
     register_Ns3ParetoVariable_methods(root_module, root_module['ns3::ParetoVariable'])
     register_Ns3Scheduler_methods(root_module, root_module['ns3::Scheduler'])
@@ -832,7 +831,6 @@ def register_methods(root_module):
     register_Ns3SimpleRefCount__Ns3EventImpl_Ns3Empty_Ns3DefaultDeleter__lt__ns3EventImpl__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::EventImpl, ns3::empty, ns3::DefaultDeleter<ns3::EventImpl> >'])
     register_Ns3SimpleRefCount__Ns3NixVector_Ns3Empty_Ns3DefaultDeleter__lt__ns3NixVector__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::NixVector, ns3::empty, ns3::DefaultDeleter<ns3::NixVector> >'])
     register_Ns3SimpleRefCount__Ns3PLC_ColoredNoiseFloor_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_ColoredNoiseFloor__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >'])
-    register_Ns3SimpleRefCount__Ns3PLC_ValueBase_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_ValueBase__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ValueBase> >'])
     register_Ns3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Packet__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >'])
     register_Ns3SimpleRefCount__Ns3SpectrumModel_Ns3Empty_Ns3DefaultDeleter__lt__ns3SpectrumModel__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::SpectrumModel, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumModel> >'])
     register_Ns3SimpleRefCount__Ns3SpectrumValue_Ns3Empty_Ns3DefaultDeleter__lt__ns3SpectrumValue__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::SpectrumValue, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumValue> >'])
@@ -881,7 +879,9 @@ def register_methods(root_module):
     register_Ns3PLC_ArqMac_methods(root_module, root_module['ns3::PLC_ArqMac'])
     register_Ns3PLC_Channel_methods(root_module, root_module['ns3::PLC_Channel'])
     register_Ns3PLC_ColoredNoiseFloor_methods(root_module, root_module['ns3::PLC_ColoredNoiseFloor'])
+    register_Ns3PLC_ConstValue_methods(root_module, root_module['ns3::PLC_ConstValue'])
     register_Ns3PLC_ErrorRateModel_methods(root_module, root_module['ns3::PLC_ErrorRateModel'])
+    register_Ns3PLC_FreqSelectiveValue_methods(root_module, root_module['ns3::PLC_FreqSelectiveValue'])
     register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, root_module['ns3::PLC_HalfDuplexOfdmPhy'])
     register_Ns3PLC_HarqMac_methods(root_module, root_module['ns3::PLC_HarqMac'])
     register_Ns3PLC_ImpulseNoiseSource_methods(root_module, root_module['ns3::PLC_ImpulseNoiseSource'])
@@ -893,7 +893,9 @@ def register_methods(root_module):
     register_Ns3PLC_NetDevice_methods(root_module, root_module['ns3::PLC_NetDevice'])
     register_Ns3PLC_SimulatorImpl_methods(root_module, root_module['ns3::PLC_SimulatorImpl'])
     register_Ns3PLC_SincSpectrumHelper_methods(root_module, root_module['ns3::PLC_SincSpectrumHelper'])
-    register_Ns3PLC_ValueBase_methods(root_module, root_module['ns3::PLC_ValueBase'])
+    register_Ns3PLC_TimeVariantConstValue_methods(root_module, root_module['ns3::PLC_TimeVariantConstValue'])
+    register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, root_module['ns3::PLC_TimeVariantFreqSelectiveValue'])
+    register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods(root_module, root_module['ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet'])
     register_Ns3Packet_methods(root_module, root_module['ns3::Packet'])
     register_Ns3RandomVariableChecker_methods(root_module, root_module['ns3::RandomVariableChecker'])
     register_Ns3RandomVariableValue_methods(root_module, root_module['ns3::RandomVariableValue'])
@@ -911,13 +913,8 @@ def register_methods(root_module):
     register_Ns3BridgeChannel_methods(root_module, root_module['ns3::BridgeChannel'])
     register_Ns3BridgeNetDevice_methods(root_module, root_module['ns3::BridgeNetDevice'])
     register_Ns3PLC_ChaseCombiningPhy_methods(root_module, root_module['ns3::PLC_ChaseCombiningPhy'])
-    register_Ns3PLC_ConstValue_methods(root_module, root_module['ns3::PLC_ConstValue'])
     register_Ns3PLC_ErrorRatePhy_methods(root_module, root_module['ns3::PLC_ErrorRatePhy'])
-    register_Ns3PLC_FreqSelectiveValue_methods(root_module, root_module['ns3::PLC_FreqSelectiveValue'])
     register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, root_module['ns3::PLC_IncrementalRedundancyPhy'])
-    register_Ns3PLC_TimeVariantConstValue_methods(root_module, root_module['ns3::PLC_TimeVariantConstValue'])
-    register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, root_module['ns3::PLC_TimeVariantFreqSelectiveValue'])
-    register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods(root_module, root_module['ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet'])
     return
 
 def register_Ns3Address_methods(root_module, cls):
@@ -5257,6 +5254,60 @@ def register_Ns3PLC_TxInterface_methods(root_module, cls):
                    visibility='private', is_virtual=True)
     return
 
+def register_Ns3PLC_ValueBase_methods(root_module, cls):
+    cls.add_output_stream_operator()
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueBase(ns3::PLC_ValueBase const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_ValueBase const &', 'arg0')])
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueBase() [constructor]
+    cls.add_constructor([])
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueBase(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_ValueBase::PLC_ValueType type) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_ValueBase::PLC_ValueType', 'type')])
+    ## plc-value.h (module 'plc'): ns3::Ptr<ns3::PLC_ValueBase> ns3::PLC_ValueBase::Copy() [member function]
+    cls.add_method('Copy', 
+                   'ns3::Ptr< ns3::PLC_ValueBase >', 
+                   [])
+    ## plc-value.h (module 'plc'): size_t ns3::PLC_ValueBase::GetNumBands() const [member function]
+    cls.add_method('GetNumBands', 
+                   'size_t', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): ns3::Ptr<ns3::SpectrumModel const> ns3::PLC_ValueBase::GetSpectrumModel() const [member function]
+    cls.add_method('GetSpectrumModel', 
+                   'ns3::Ptr< ns3::SpectrumModel const >', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): static ns3::TypeId ns3::PLC_ValueBase::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueType ns3::PLC_ValueBase::GetValueType() const [member function]
+    cls.add_method('GetValueType', 
+                   'ns3::PLC_ValueBase::PLC_ValueType', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): bool ns3::PLC_ValueBase::IsTimeVariant() const [member function]
+    cls.add_method('IsTimeVariant', 
+                   'bool', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::Lock() const [member function]
+    cls.add_method('Lock', 
+                   'void', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::Unlock() const [member function]
+    cls.add_method('Unlock', 
+                   'void', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::pureVirtualDummy() [member function]
+    cls.add_method('pureVirtualDummy', 
+                   'void', 
+                   [], 
+                   is_pure_virtual=True, visibility='protected', is_virtual=True)
+    return
+
 def register_Ns3PacketBurst_methods(root_module, cls):
     ## packet-burst.h (module 'network'): ns3::PacketBurst::PacketBurst(ns3::PacketBurst const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PacketBurst const &', 'arg0')])
@@ -5468,18 +5519,6 @@ def register_Ns3SimpleRefCount__Ns3PLC_ColoredNoiseFloor_Ns3Empty_Ns3DefaultDele
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >::SimpleRefCount(ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> > const & o) [copy constructor]
     cls.add_constructor([param('ns3::SimpleRefCount< ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter< ns3::PLC_ColoredNoiseFloor > > const &', 'o')])
     ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >::Cleanup() [member function]
-    cls.add_method('Cleanup', 
-                   'void', 
-                   [], 
-                   is_static=True)
-    return
-
-def register_Ns3SimpleRefCount__Ns3PLC_ValueBase_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_ValueBase__gt___methods(root_module, cls):
-    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ValueBase> >::SimpleRefCount() [constructor]
-    cls.add_constructor([])
-    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ValueBase> >::SimpleRefCount(ns3::SimpleRefCount<ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ValueBase> > const & o) [copy constructor]
-    cls.add_constructor([param('ns3::SimpleRefCount< ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter< ns3::PLC_ValueBase > > const &', 'o')])
-    ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::PLC_ValueBase, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ValueBase> >::Cleanup() [member function]
     cls.add_method('Cleanup', 
                    'void', 
                    [], 
@@ -7163,6 +7202,70 @@ def register_Ns3PLC_ColoredNoiseFloor_methods(root_module, cls):
                    [])
     return
 
+def register_Ns3PLC_ConstValue_methods(root_module, cls):
+    cls.add_output_stream_operator()
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
+    cls.add_unary_numeric_operator('-')
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
+    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue() [constructor]
+    cls.add_constructor([])
+    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, double real) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('double', 'real')])
+    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)')])
+    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue(ns3::PLC_ConstValue const & value) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value')])
+    ## plc-value.h (module 'plc'): static ns3::TypeId ns3::PLC_ConstValue::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-value.h (module 'plc'): std::complex<double> ns3::PLC_ConstValue::GetValue() const [member function]
+    cls.add_method('GetValue', 
+                   'std::complex< double >', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): void ns3::PLC_ConstValue::pureVirtualDummy() [member function]
+    cls.add_method('pureVirtualDummy', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    return
+
 def register_Ns3PLC_ErrorRateModel_methods(root_module, cls):
     ## plc-link-performance-model.h (module 'plc'): ns3::PLC_ErrorRateModel::PLC_ErrorRateModel(ns3::PLC_ErrorRateModel const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_ErrorRateModel const &', 'arg0')])
@@ -7202,6 +7305,82 @@ def register_Ns3PLC_ErrorRateModel_methods(root_module, cls):
                    'void', 
                    [param('double', 'requiredInformationBits')], 
                    visibility='private', is_virtual=True)
+    return
+
+def register_Ns3PLC_FreqSelectiveValue_methods(root_module, cls):
+    cls.add_output_stream_operator()
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
+    cls.add_unary_numeric_operator('-')
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue() [constructor]
+    cls.add_constructor([])
+    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)')])
+    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_ValueSpectrum const & values) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_ValueSpectrum const &', 'values')])
+    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, double R, double Q, double f_0) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('double', 'R'), param('double', 'Q'), param('double', 'f_0')])
+    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::PLC_ConstValue const & value) [constructor]
+    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value')])
+    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::PLC_FreqSelectiveValue const & value) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_FreqSelectiveValue const &', 'value')])
+    ## plc-value.h (module 'plc'): static ns3::TypeId ns3::PLC_FreqSelectiveValue::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueSpectrum ns3::PLC_FreqSelectiveValue::GetValues() const [member function]
+    cls.add_method('GetValues', 
+                   'ns3::PLC_ValueSpectrum', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): ns3::PLC_ValueSpectrum * ns3::PLC_FreqSelectiveValue::GetValuesRef() [member function]
+    cls.add_method('GetValuesRef', 
+                   'ns3::PLC_ValueSpectrum *', 
+                   [])
+    ## plc-value.h (module 'plc'): void ns3::PLC_FreqSelectiveValue::pureVirtualDummy() [member function]
+    cls.add_method('pureVirtualDummy', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
@@ -8094,53 +8273,197 @@ def register_Ns3PLC_SincSpectrumHelper_methods(root_module, cls):
                    is_static=True)
     return
 
-def register_Ns3PLC_ValueBase_methods(root_module, cls):
+def register_Ns3PLC_TimeVariantConstValue_methods(root_module, cls):
     cls.add_output_stream_operator()
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueBase(ns3::PLC_ValueBase const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_ValueBase const &', 'arg0')])
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueBase() [constructor]
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
+    cls.add_unary_numeric_operator('-')
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue() [constructor]
     cls.add_constructor([])
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueBase(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_ValueBase::PLC_ValueType type) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_ValueBase::PLC_ValueType', 'type')])
-    ## plc-value.h (module 'plc'): ns3::Ptr<ns3::PLC_ValueBase> ns3::PLC_ValueBase::Copy() [member function]
-    cls.add_method('Copy', 
-                   'ns3::Ptr< ns3::PLC_ValueBase >', 
-                   [])
-    ## plc-value.h (module 'plc'): size_t ns3::PLC_ValueBase::GetNumBands() const [member function]
-    cls.add_method('GetNumBands', 
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0), size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantValue const & values) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantValue const &', 'values')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::PLC_ConstValue const & value, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
+    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::PLC_TimeVariantConstValue const & value) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_TimeVariantConstValue const &', 'value')])
+    ## plc-value.h (module 'plc'): size_t ns3::PLC_TimeVariantConstValue::GetNumTimeSlots() const [member function]
+    cls.add_method('GetNumTimeSlots', 
                    'size_t', 
                    [], 
                    is_const=True)
-    ## plc-value.h (module 'plc'): ns3::Ptr<ns3::SpectrumModel const> ns3::PLC_ValueBase::GetSpectrumModel() const [member function]
-    cls.add_method('GetSpectrumModel', 
-                   'ns3::Ptr< ns3::SpectrumModel const >', 
+    ## plc-value.h (module 'plc'): static ns3::TypeId ns3::PLC_TimeVariantConstValue::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantValue ns3::PLC_TimeVariantConstValue::GetValues() const [member function]
+    cls.add_method('GetValues', 
+                   'ns3::PLC_TimeVariantValue', 
                    [], 
                    is_const=True)
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueType ns3::PLC_ValueBase::GetValueType() const [member function]
-    cls.add_method('GetValueType', 
-                   'ns3::PLC_ValueBase::PLC_ValueType', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): bool ns3::PLC_ValueBase::IsTimeVariant() const [member function]
-    cls.add_method('IsTimeVariant', 
-                   'bool', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::Lock() const [member function]
-    cls.add_method('Lock', 
-                   'void', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::Unlock() const [member function]
-    cls.add_method('Unlock', 
-                   'void', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::pureVirtualDummy() [member function]
+    ## plc-value.h (module 'plc'): void ns3::PLC_TimeVariantConstValue::pureVirtualDummy() [member function]
     cls.add_method('pureVirtualDummy', 
                    'void', 
                    [], 
-                   is_pure_virtual=True, visibility='protected', is_virtual=True)
+                   visibility='protected', is_virtual=True)
+    return
+
+def register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, cls):
+    cls.add_output_stream_operator()
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
+    cls.add_unary_numeric_operator('-')
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue() [constructor]
+    cls.add_constructor([])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, size_t timeslots=ns3::PLC_Time::GetNumTimeslots(), ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantValue const & values) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantValue const &', 'values')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantValueSpectrum const & values) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantValueSpectrum const &', 'values')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_ConstValue const & value, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
+    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_FreqSelectiveValue const & value, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
+    cls.add_constructor([param('ns3::PLC_FreqSelectiveValue const &', 'value'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_TimeVariantConstValue const & value) [constructor]
+    cls.add_constructor([param('ns3::PLC_TimeVariantConstValue const &', 'value')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_TimeVariantFreqSelectiveValue const & value) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'value')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_FreqSelectiveValue & offset, ns3::PLC_FreqSelectiveValue & amplitude, double phi, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
+    cls.add_constructor([param('ns3::PLC_FreqSelectiveValue &', 'offset'), param('ns3::PLC_FreqSelectiveValue &', 'amplitude'), param('double', 'phi'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet & paramSet, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet &', 'paramSet'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
+    ## plc-value.h (module 'plc'): size_t ns3::PLC_TimeVariantFreqSelectiveValue::GetNumTimeSlots() const [member function]
+    cls.add_method('GetNumTimeSlots', 
+                   'size_t', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): static ns3::TypeId ns3::PLC_TimeVariantFreqSelectiveValue::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantValueSpectrum ns3::PLC_TimeVariantFreqSelectiveValue::GetValues() const [member function]
+    cls.add_method('GetValues', 
+                   'ns3::PLC_TimeVariantValueSpectrum', 
+                   [], 
+                   is_const=True)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantValueSpectrum * ns3::PLC_TimeVariantFreqSelectiveValue::GetValuesRef() [member function]
+    cls.add_method('GetValuesRef', 
+                   'ns3::PLC_TimeVariantValueSpectrum *', 
+                   [])
+    ## plc-value.h (module 'plc'): void ns3::PLC_TimeVariantFreqSelectiveValue::pureVirtualDummy() [member function]
+    cls.add_method('pureVirtualDummy', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    return
+
+def register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods(root_module, cls):
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::PLC_TimeVariantParamSet() [constructor]
+    cls.add_constructor([])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::PLC_TimeVariantParamSet(ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet const &', 'arg0')])
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::Q_amplitude [variable]
+    cls.add_instance_attribute('Q_amplitude', 'double', is_const=False)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::Q_offset [variable]
+    cls.add_instance_attribute('Q_offset', 'double', is_const=False)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::R_amplitude [variable]
+    cls.add_instance_attribute('R_amplitude', 'double', is_const=False)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::R_offset [variable]
+    cls.add_instance_attribute('R_offset', 'double', is_const=False)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::f0_amplitude [variable]
+    cls.add_instance_attribute('f0_amplitude', 'double', is_const=False)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::f_0_offset [variable]
+    cls.add_instance_attribute('f_0_offset', 'double', is_const=False)
+    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::phi [variable]
+    cls.add_instance_attribute('phi', 'double', is_const=False)
     return
 
 def register_Ns3Packet_methods(root_module, cls):
@@ -8845,65 +9168,6 @@ def register_Ns3PLC_ChaseCombiningPhy_methods(root_module, cls):
                    visibility='protected', is_virtual=True)
     return
 
-def register_Ns3PLC_ConstValue_methods(root_module, cls):
-    cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
-    cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
-    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue() [constructor]
-    cls.add_constructor([])
-    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, double real) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('double', 'real')])
-    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)')])
-    ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue(ns3::PLC_ConstValue const & value) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value')])
-    ## plc-value.h (module 'plc'): ns3::PLC_Value ns3::PLC_ConstValue::GetValue() const [member function]
-    cls.add_method('GetValue', 
-                   'ns3::PLC_Value', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): void ns3::PLC_ConstValue::pureVirtualDummy() [member function]
-    cls.add_method('pureVirtualDummy', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
-    return
-
 def register_Ns3PLC_ErrorRatePhy_methods(root_module, cls):
     ## plc-phy.h (module 'plc'): ns3::PLC_ErrorRatePhy::PLC_ErrorRatePhy(ns3::PLC_ErrorRatePhy const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_ErrorRatePhy const &', 'arg0')])
@@ -8968,77 +9232,6 @@ def register_Ns3PLC_ErrorRatePhy_methods(root_module, cls):
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'newRxPsd')], 
                    visibility='private', is_virtual=True)
-    return
-
-def register_Ns3PLC_FreqSelectiveValue_methods(root_module, cls):
-    cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
-    cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue() [constructor]
-    cls.add_constructor([])
-    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)')])
-    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_ValueSpectrum const & values) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_ValueSpectrum const &', 'values')])
-    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, double R, double Q, double f_0) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('double', 'R'), param('double', 'Q'), param('double', 'f_0')])
-    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::PLC_ConstValue const & value) [constructor]
-    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value')])
-    ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::PLC_FreqSelectiveValue const & value) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_FreqSelectiveValue const &', 'value')])
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueSpectrum ns3::PLC_FreqSelectiveValue::GetValues() const [member function]
-    cls.add_method('GetValues', 
-                   'ns3::PLC_ValueSpectrum', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): ns3::PLC_ValueSpectrum * ns3::PLC_FreqSelectiveValue::GetValuesRef() [member function]
-    cls.add_method('GetValuesRef', 
-                   'ns3::PLC_ValueSpectrum *', 
-                   [])
-    ## plc-value.h (module 'plc'): void ns3::PLC_FreqSelectiveValue::pureVirtualDummy() [member function]
-    cls.add_method('pureVirtualDummy', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, cls):
@@ -9110,189 +9303,6 @@ def register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, cls):
                    visibility='protected', is_virtual=True)
     return
 
-def register_Ns3PLC_TimeVariantConstValue_methods(root_module, cls):
-    cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
-    cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue() [constructor]
-    cls.add_constructor([])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0), size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantValue const & values) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantValue const &', 'values')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::PLC_ConstValue const & value, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
-    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::PLC_TimeVariantConstValue const & value) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_TimeVariantConstValue const &', 'value')])
-    ## plc-value.h (module 'plc'): size_t ns3::PLC_TimeVariantConstValue::GetNumTimeSlots() const [member function]
-    cls.add_method('GetNumTimeSlots', 
-                   'size_t', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantValue ns3::PLC_TimeVariantConstValue::GetValues() const [member function]
-    cls.add_method('GetValues', 
-                   'ns3::PLC_TimeVariantValue', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): void ns3::PLC_TimeVariantConstValue::pureVirtualDummy() [member function]
-    cls.add_method('pureVirtualDummy', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
-    return
-
-def register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, cls):
-    cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
-    cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue() [constructor]
-    cls.add_constructor([])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, size_t timeslots=ns3::PLC_Time::GetNumTimeslots(), ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()'), param('ns3::PLC_Value', 'value', default_value='std::complex<double>(0.0, 0.0)')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantValue const & values) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantValue const &', 'values')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantValueSpectrum const & values) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantValueSpectrum const &', 'values')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_ConstValue const & value, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
-    cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_FreqSelectiveValue const & value, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
-    cls.add_constructor([param('ns3::PLC_FreqSelectiveValue const &', 'value'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_TimeVariantConstValue const & value) [constructor]
-    cls.add_constructor([param('ns3::PLC_TimeVariantConstValue const &', 'value')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_TimeVariantFreqSelectiveValue const & value) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'value')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::PLC_FreqSelectiveValue & offset, ns3::PLC_FreqSelectiveValue & amplitude, double phi, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
-    cls.add_constructor([param('ns3::PLC_FreqSelectiveValue &', 'offset'), param('ns3::PLC_FreqSelectiveValue &', 'amplitude'), param('double', 'phi'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet & paramSet, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet &', 'paramSet'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
-    ## plc-value.h (module 'plc'): size_t ns3::PLC_TimeVariantFreqSelectiveValue::GetNumTimeSlots() const [member function]
-    cls.add_method('GetNumTimeSlots', 
-                   'size_t', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantValueSpectrum ns3::PLC_TimeVariantFreqSelectiveValue::GetValues() const [member function]
-    cls.add_method('GetValues', 
-                   'ns3::PLC_TimeVariantValueSpectrum', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantValueSpectrum * ns3::PLC_TimeVariantFreqSelectiveValue::GetValuesRef() [member function]
-    cls.add_method('GetValuesRef', 
-                   'ns3::PLC_TimeVariantValueSpectrum *', 
-                   [])
-    ## plc-value.h (module 'plc'): void ns3::PLC_TimeVariantFreqSelectiveValue::pureVirtualDummy() [member function]
-    cls.add_method('pureVirtualDummy', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
-    return
-
-def register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods(root_module, cls):
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::PLC_TimeVariantParamSet() [constructor]
-    cls.add_constructor([])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::PLC_TimeVariantParamSet(ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet const &', 'arg0')])
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::Q_amplitude [variable]
-    cls.add_instance_attribute('Q_amplitude', 'double', is_const=False)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::Q_offset [variable]
-    cls.add_instance_attribute('Q_offset', 'double', is_const=False)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::R_amplitude [variable]
-    cls.add_instance_attribute('R_amplitude', 'double', is_const=False)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::R_offset [variable]
-    cls.add_instance_attribute('R_offset', 'double', is_const=False)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::f0_amplitude [variable]
-    cls.add_instance_attribute('f0_amplitude', 'double', is_const=False)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::f_0_offset [variable]
-    cls.add_instance_attribute('f_0_offset', 'double', is_const=False)
-    ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::phi [variable]
-    cls.add_instance_attribute('phi', 'double', is_const=False)
-    return
-
 def register_functions(root_module):
     module = root_module
     ## plc-value.h (module 'plc'): extern ns3::Ptr<ns3::PLC_ValueBase> ns3::Add(ns3::Ptr<ns3::PLC_ValueBase> op1, ns3::Ptr<ns3::PLC_ValueBase> op2) [free function]
@@ -9327,10 +9337,10 @@ def register_functions(root_module):
     module.add_function('Multiply', 
                         'ns3::Ptr< ns3::PLC_ValueBase >', 
                         [param('ns3::Ptr< ns3::PLC_ValueBase >', 'op1'), param('ns3::Ptr< ns3::PLC_ValueBase >', 'op2')])
-    ## plc-value.h (module 'plc'): extern double ns3::Pwr(ns3::SpectrumValue & value) [free function]
+    ## plc-value.h (module 'plc'): extern double ns3::Pwr(ns3::SpectrumValue const & value) [free function]
     module.add_function('Pwr', 
                         'double', 
-                        [param('ns3::SpectrumValue &', 'value')])
+                        [param('ns3::SpectrumValue const &', 'value')])
     ## plc-phy.h (module 'plc'): extern size_t ns3::RequiredSymbols(size_t encoded_bits, ns3::ModulationAndCodingType mcs, size_t subbands) [free function]
     module.add_function('RequiredSymbols', 
                         'size_t', 

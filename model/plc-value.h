@@ -50,9 +50,10 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2);
  * PLC value classes are used to represent network impedances, channel
  * transfer functions and ABCD parameters for two port networks.
  */
-class PLC_ValueBase : public SimpleRefCount<PLC_ValueBase>
+class PLC_ValueBase : public Object
 {
 public:
+	static TypeId GetTypeId (void);
 
 	enum PLC_ValueType {
 		CONSTANT,
@@ -62,8 +63,8 @@ public:
 	};
 
     PLC_ValueBase() {}
+    ~PLC_ValueBase() = 0;
 	PLC_ValueBase(Ptr<const SpectrumModel> sm, PLC_ValueType type);
-	~PLC_ValueBase(void);
 
 	PLC_ValueType GetValueType(void) const { return m_value_type; }
 	Ptr<const SpectrumModel> GetSpectrumModel(void) const { return m_spectrum_model; }
@@ -94,13 +95,15 @@ class PLC_ConstValue : public PLC_ValueBase
 {
 
 public:
+	static TypeId GetTypeId (void);
 
     PLC_ConstValue();
 	PLC_ConstValue(Ptr<const SpectrumModel> sm, double real);
 	PLC_ConstValue(Ptr<const SpectrumModel> sm, PLC_Value value = PLC_Value(0, 0));
 	PLC_ConstValue(const PLC_ConstValue& value);
 
-	PLC_Value GetValue(void) const;
+//	PLC_Value GetValue(void) const;
+	std::complex<double> GetValue(void) const;
 
 	PLC_ConstValue& operator=(const PLC_ConstValue& value);
 
@@ -164,6 +167,7 @@ private:
 class PLC_FreqSelectiveValue : public PLC_ValueBase
 {
 public:
+	static TypeId GetTypeId (void);
 
     PLC_FreqSelectiveValue() {}
 	PLC_FreqSelectiveValue(Ptr<const SpectrumModel> sm, PLC_Value value = PLC_Value(0, 0));
@@ -261,6 +265,7 @@ private:
 class PLC_TimeVariantConstValue : public PLC_ValueBase
 {
 public:
+	static TypeId GetTypeId (void);
 
     PLC_TimeVariantConstValue() {}
 	PLC_TimeVariantConstValue(Ptr<const SpectrumModel> sm, PLC_Value value = PLC_Value(0, 0), size_t timeslots = PLC_Time::GetNumTimeslots());
@@ -357,6 +362,8 @@ private:
 class PLC_TimeVariantFreqSelectiveValue : public PLC_ValueBase
 {
 public:
+	static TypeId GetTypeId (void);
+
 	struct PLC_TimeVariantParamSet
 	{
 		double R_offset;
@@ -386,6 +393,10 @@ public:
 
 	PLC_ValueSpectrum operator[](size_t i) const;
 	PLC_ValueSpectrum& operator[](size_t i);
+
+	PLC_TimeVariantFreqSelectiveValue& operator=(const PLC_ConstValue& value);
+	PLC_TimeVariantFreqSelectiveValue& operator=(const PLC_TimeVariantConstValue& value);
+	PLC_TimeVariantFreqSelectiveValue& operator=(const PLC_TimeVariantFreqSelectiveValue& value);
 
 	PLC_TimeVariantFreqSelectiveValue& operator+=(double value);
 	PLC_TimeVariantFreqSelectiveValue& operator+=(const PLC_Value& value);
@@ -544,7 +555,7 @@ double max(SpectrumValue& value);
 double min(SpectrumValue& value);
 
 // power (integral of power spectral density)
-double Pwr(SpectrumValue& value);
+double Pwr(const SpectrumValue& value);
 
 // Watts to dBm
 double W2dBm(double watt);

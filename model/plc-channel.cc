@@ -77,9 +77,9 @@ PLC_EdgeTransferUnit::PLC_EdgeTransferUnit (PLC_Edge *edge, PLC_Node *dst_node, 
 	: m_edge (edge), m_dst_node (dst_node), m_is_up_2_date (false)
 {
 	if  (time_variant)
-		m_edge_transfer_vector = Create<PLC_TimeVariantTransferVector>  (PLC_ConstValue (sm, PLC_Value (0, 0)));
+		m_edge_transfer_vector = CreateObject<PLC_TimeVariantTransferVector>  (PLC_ConstValue (sm, PLC_Value (0, 0)));
 	else
-		m_edge_transfer_vector = Create<PLC_TransferVector>  (PLC_ConstValue (sm, PLC_Value (0, 0)));
+		m_edge_transfer_vector = CreateObject<PLC_TransferVector>  (PLC_ConstValue (sm, PLC_Value (0, 0)));
 }
 
 void
@@ -516,9 +516,9 @@ PLC_ChannelTransferImpl::CalculateChannelTransferVector (void)
 	// init channel transfer vector as neutral for multiplication.
 	// will be multiplied by the edge transfer vectors of the backbone path
 	if  (this->IsTimeVariant ())
-		result = Create<PLC_TimeVariantTransferVector>  (this->m_spectrum_model, PLC_Time::GetNumTimeslots(), PLC_Value (1, 0));
+		result = CreateObject<PLC_TimeVariantTransferVector>  (this->m_spectrum_model, PLC_Time::GetNumTimeslots(), PLC_Value (1, 0));
 	else
-		result = Create<PLC_TransferVector>  (this->m_spectrum_model, PLC_Value (1, 0));
+		result = CreateObject<PLC_TransferVector>  (this->m_spectrum_model, PLC_Value (1, 0));
 
 	tx_node = this->m_txInterface->GetNodePeekPointer ();
 	rx_node = this->m_rxInterface->GetNodePeekPointer ();
@@ -547,7 +547,7 @@ PLC_ChannelTransferImpl::CalculateChannelTransferVector (void)
 			}
 
 			else {
-				result = Create<PLC_TimeVariantTransferVector>  (*static_cast<PLC_TimeVariantTransferVector *>  (etv));
+				result = CreateObject<PLC_TimeVariantTransferVector>  (*static_cast<PLC_TimeVariantTransferVector *>  (etv));
 			}
 		}
 
@@ -661,7 +661,7 @@ PLC_ChannelTransferImpl::MultiplyChannelTransferVector (Ptr<PLC_TransferBase> re
 		}
 
 		else {
-			Ptr<PLC_TimeVariantTransferVector> tmp = Create<PLC_TimeVariantTransferVector> (*static_cast<PLC_TransferVector *>  (PeekPointer (result)));
+			Ptr<PLC_TimeVariantTransferVector> tmp = CreateObject<PLC_TimeVariantTransferVector> (*static_cast<PLC_TransferVector *>  (PeekPointer (result)));
 			NS_LOG_LOGIC("tmp2: " << *tmp);
 
 			*tmp *= *static_cast<PLC_TimeVariantTransferVector *>  (ctv);
@@ -724,12 +724,12 @@ PLC_ChannelTransferImpl::InitializeChannelTransferVector (bool set_time_variant)
 	// Create data structure for the channel transfer vector
 	if  (set_time_variant)
 	{
-		this->m_channel_transfer_vector = Create<PLC_TimeVariantTransferVector>  (this->m_spectrum_model);
+		this->m_channel_transfer_vector = CreateObject<PLC_TimeVariantTransferVector>  (this->m_spectrum_model);
 		m_is_time_variant = true;
 	}
 	else
 	{
-		this->m_channel_transfer_vector = Create<PLC_TransferVector>  (this->m_spectrum_model);
+		this->m_channel_transfer_vector = CreateObject<PLC_TransferVector>  (this->m_spectrum_model);
 	}
 }
 
@@ -746,13 +746,13 @@ PLC_ChannelTransferImpl::SetTimeVariant (void)
 
 		if  (this->m_channel_transfer_vector != NULL) {
 			NS_LOG_DEBUG ("Old ctv: " << *m_channel_transfer_vector);
-			this->m_channel_transfer_vector = Create<PLC_TimeVariantTransferVector>
+			this->m_channel_transfer_vector = CreateObject<PLC_TimeVariantTransferVector>
 				 (*static_cast<PLC_TransferVector *> (PeekPointer (this->m_channel_transfer_vector)));
 
 			NS_ASSERT (this->m_spectrum_model == this->m_channel_transfer_vector->GetSpectrumModel ());
 		}
 		else {
-			this->m_channel_transfer_vector = Create<PLC_TimeVariantTransferVector> (this->m_spectrum_model);
+			this->m_channel_transfer_vector = CreateObject<PLC_TimeVariantTransferVector> (this->m_spectrum_model);
 		}
 
 		NS_LOG_LOGIC (*m_channel_transfer_vector);

@@ -63,13 +63,13 @@ PLC_ImpedanceHelper::CreateIdleTransformerImpedance(double Rt, double Ct, double
  		++bit;
  	}
 
- 	return Create<PLC_FreqSelectiveImpedance>(((Zp1*Zp2)/(Zp1+Zp2)));
+ 	return CreateObject<PLC_FreqSelectiveImpedance>(((Zp1*Zp2)/(Zp1+Zp2)));
 }
 
 Ptr<PLC_FreqSelectiveImpedance>
 PLC_ImpedanceHelper::CreateSeriesResonanceImpedance(double R, double C, double L)
 {
-	Ptr<PLC_FreqSelectiveImpedance> ret = Create<PLC_FreqSelectiveImpedance> (m_spectrum_model);
+	Ptr<PLC_FreqSelectiveImpedance> ret = CreateObject<PLC_FreqSelectiveImpedance> (m_spectrum_model);
 
 	size_t i;
  	Bands::const_iterator bit = m_spectrum_model->Begin();
@@ -97,7 +97,7 @@ Ptr<PLC_ConstImpedance>
 PLC_ImpedanceHelper::CreateConstImpedance()
 {
 	PLC_Value val(m_uni.GetValue(m_rmin, m_rmax), m_uni.GetValue(m_imin, m_imax));
-	return Create<PLC_ConstImpedance> (m_spectrum_model, val);
+	return CreateObject<PLC_ConstImpedance> (m_spectrum_model, val);
 }
 
 void
@@ -119,7 +119,7 @@ PLC_ImpedanceHelper::CreateFreqSelectiveImpedance()
 	double Q = m_uni.GetValue(m_Qmin, m_Qmax);
 	double f0 = m_uni.GetValue(m_f0min, m_f0max);
 
-	return Create<PLC_FreqSelectiveImpedance> (m_spectrum_model, R, Q, f0);
+	return CreateObject<PLC_FreqSelectiveImpedance> (m_spectrum_model, R, Q, f0);
 }
 
 void
@@ -153,7 +153,7 @@ PLC_ImpedanceHelper::CreateTimeVariantFreqSelectiveImpedance()
 	paramSet.f0_amplitude = m_uni.GetValue(m_f0amplMin, m_f0amplMax);
 	paramSet.phi = m_uni.GetValue(m_phiMin, m_phiMax);
 
-	return Create<PLC_TimeVariantFreqSelectiveImpedance> (m_spectrum_model, paramSet);
+	return CreateObject<PLC_TimeVariantFreqSelectiveImpedance> (m_spectrum_model, paramSet);
 }
 
 ////////////////////////////////// PLC_ChannelHelper /////////////////////////////////////////////////

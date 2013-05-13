@@ -45,8 +45,8 @@ PLC_Cable::GetTypeId (void)
 PLC_Cable::PLC_Cable(Ptr<const SpectrumModel> sm)
 	: m_spectrum_model(sm)
 {
-	z_c 	= Create<PLC_FreqSelectiveImpedance>(sm);
-	gamma 	= Create<PLC_FreqSelectiveImpedance>(sm);
+	z_c 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
+	gamma 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
 }
 
 PLC_Cable::PLC_Cable (const PLC_FreqSelectiveResistance& R, const PLC_FreqSelectiveConductance& G, const PLC_FreqSelectiveInductance& L, const PLC_FreqSelectiveCapacitance& C, Ptr<const SpectrumModel> sm)
@@ -65,8 +65,8 @@ PLC_Cable::PLC_Cable (const PLC_FreqSelectiveResistance& R, const PLC_FreqSelect
 	this->C = C;
 	this->v = 1 / sqrt(L[cIdx]*C[cIdx]);
 
-	z_c 	= Create<PLC_FreqSelectiveImpedance>(sm);
-	gamma 	= Create<PLC_FreqSelectiveImpedance>(sm);
+	z_c 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
+	gamma 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
 
 	this->CalcCharImp();
 	this->CalcTransConst();
@@ -76,8 +76,8 @@ void
 PLC_Cable::SetSpectrumModel(Ptr<const SpectrumModel> sm)
 {
 	m_spectrum_model = sm;
-	z_c 	= Create<PLC_FreqSelectiveImpedance>(sm);
-	gamma 	= Create<PLC_FreqSelectiveImpedance>(sm);
+	z_c 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
+	gamma 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
 }
 
 void

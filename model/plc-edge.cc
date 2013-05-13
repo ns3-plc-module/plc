@@ -280,9 +280,9 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 		// use characteristic impedance for input impedance as approximation for long lines
 		if (this->m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
 			if (IsOpenCircuit)
-				this->CacheImpedances(dst_node, Create<PLC_FreqSelectiveImpedance>(z_c), NULL);
+				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance>(z_c), NULL);
 			else
-				this->CacheImpedances(dst_node, Create<PLC_FreqSelectiveImpedance>(z_c), dst_node->GetImpedancePtr());
+				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance>(z_c), dst_node->GetImpedancePtr());
 
 			return;
 		}
@@ -292,7 +292,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 			// access impedance: z_a = A/C
 			PLC_FreqSelectiveImpedance tmp = exp(2 * gamma * this->m_length);
-			Ptr<PLC_FreqSelectiveImpedance> res = Create<PLC_FreqSelectiveImpedance> (z_c * (tmp + 1) / (tmp - 1));
+			Ptr<PLC_FreqSelectiveImpedance> res = CreateObject<PLC_FreqSelectiveImpedance> (z_c * (tmp + 1) / (tmp - 1));
 
 			NS_LOG_LOGIC("Line access impedance: " << *res);
 
@@ -311,7 +311,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 			case PLC_ValueBase::CONSTANT:
 			{
-				res = Create<PLC_FreqSelectiveImpedance>
+				res = CreateObject<PLC_FreqSelectiveImpedance>
 						(
 								this->CalcLineInputImpedance<PLC_FreqSelectiveImpedance, PLC_ConstImpedance>
 								(
@@ -325,7 +325,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 			case PLC_ValueBase::FREQ_SELECTIVE:
 			{
-				res = Create<PLC_FreqSelectiveImpedance>
+				res = CreateObject<PLC_FreqSelectiveImpedance>
 						(
 								this->CalcLineInputImpedance<PLC_FreqSelectiveImpedance, PLC_FreqSelectiveImpedance>
 								(
@@ -339,7 +339,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 			case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 			{
-				res = Create<PLC_TimeVariantFreqSelectiveImpedance>
+				res = CreateObject<PLC_TimeVariantFreqSelectiveImpedance>
 						(
 								this->CalcLineInputImpedance<PLC_TimeVariantFreqSelectiveImpedance, PLC_TimeVariantConstImpedance>
 								(
@@ -354,7 +354,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 			case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 			{
-				res = Create<PLC_TimeVariantFreqSelectiveImpedance>
+				res = CreateObject<PLC_TimeVariantFreqSelectiveImpedance>
 						(
 								this->CalcLineInputImpedance<PLC_TimeVariantFreqSelectiveImpedance, PLC_TimeVariantFreqSelectiveImpedance>
 								(
@@ -454,12 +454,12 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 			Ptr<PLC_FreqSelectiveImpedance> z_l = CalcEquivalentImpedance<PLC_FreqSelectiveImpedance> (this->m_spectrum_model, parallel_impedances);
 
 			if (this->m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
-				this->CacheImpedances(dst_node, Create<PLC_FreqSelectiveImpedance> (z_c), z_l);
+				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance> (z_c), z_l);
 				return;
 			}
 
 			z_l_tmp = z_l;
-			res = Create<PLC_FreqSelectiveImpedance> (z_c * ((*z_l) + (z_c * tmp)) / (z_c + ((*z_l) * tmp)));
+			res = CreateObject<PLC_FreqSelectiveImpedance> (z_c * ((*z_l) + (z_c * tmp)) / (z_c + ((*z_l) * tmp)));
 		}
 
 		else {
@@ -467,12 +467,12 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 			Ptr<PLC_TimeVariantFreqSelectiveImpedance> z_l = CalcEquivalentImpedance<PLC_TimeVariantFreqSelectiveImpedance> (this->m_spectrum_model, parallel_impedances);
 
 			if (this->m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
-				this->CacheImpedances(dst_node, Create<PLC_FreqSelectiveImpedance> (z_c), z_l);
+				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance> (z_c), z_l);
 				return;
 			}
 
 			z_l_tmp = z_l;
-			res = Create<PLC_TimeVariantFreqSelectiveImpedance> (z_c * ((*z_l) + (z_c * tmp)) / (z_c + ((*z_l) * tmp)));
+			res = CreateObject<PLC_TimeVariantFreqSelectiveImpedance> (z_c * ((*z_l) + (z_c * tmp)) / (z_c + ((*z_l) * tmp)));
 		}
 
 		PLC_LOG_LOGIC("Line load impedance:" << *z_l_tmp);
@@ -531,7 +531,7 @@ void PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 		NS_ASSERT(dst_node->GetNumEdges() == 1);
 		dst_node->Unlock();
 
-		Ptr<PLC_FreqSelectiveValue> etv = Create<PLC_FreqSelectiveValue> (2 / (e_valp + e_valm));
+		Ptr<PLC_FreqSelectiveValue> etv = CreateObject<PLC_FreqSelectiveValue> (2 / (e_valp + e_valm));
 		this->m_edge_transfer_data[dst_node].edge_transfer_unit->SetEdgeTransferVector(etv);
 
 		PLC_LOG_LOGIC("Calculated edge transfer vector: " << *etv);
@@ -552,7 +552,7 @@ void PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 				PLC_ConstImpedance z_l = *static_cast<PLC_ConstImpedance *> (PeekPointer(load_impedance));
 				PLC_FreqSelectiveValue reflection_factor = (z_l - z_c) / (z_l + z_c);
 				NS_LOG_LOGIC("Reflection factor: " << reflection_factor);
-				etf = Create<PLC_FreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
+				etf = CreateObject<PLC_FreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
 				break;
 			}
 
@@ -561,7 +561,7 @@ void PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 				PLC_FreqSelectiveImpedance z_l = *static_cast<PLC_FreqSelectiveImpedance *> (PeekPointer(load_impedance));
 				PLC_FreqSelectiveValue reflection_factor = (z_l - z_c) / (z_l + z_c);
 				NS_LOG_LOGIC("Reflection factor: " << reflection_factor);
-				etf = Create<PLC_FreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
+				etf = CreateObject<PLC_FreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
 				break;
 			}
 
@@ -570,7 +570,7 @@ void PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 				PLC_TimeVariantConstImpedance z_l = *static_cast<PLC_TimeVariantConstImpedance *> (PeekPointer(load_impedance));
 				PLC_TimeVariantFreqSelectiveValue reflection_factor = (z_l - z_c) / (z_l + z_c);
 				NS_LOG_LOGIC("Reflection factor: " << reflection_factor);
-				etf = Create<PLC_TimeVariantFreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
+				etf = CreateObject<PLC_TimeVariantFreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
 				break;
 			}
 
@@ -579,7 +579,7 @@ void PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 				PLC_TimeVariantFreqSelectiveImpedance z_l = *static_cast<PLC_TimeVariantFreqSelectiveImpedance *> (PeekPointer(load_impedance));
 				PLC_TimeVariantFreqSelectiveValue reflection_factor = (z_l - z_c) / (z_l + z_c);
 				NS_LOG_LOGIC("Reflection factor: " << reflection_factor);
-				etf = Create<PLC_TimeVariantFreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
+				etf = CreateObject<PLC_TimeVariantFreqSelectiveValue> ((1 + reflection_factor) / (e_valp + (reflection_factor * e_valm)));
 				break;
 			}
 

@@ -36,7 +36,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_ConstValue>
+					ret = CreateObject<PLC_ConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -45,7 +45,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -54,7 +54,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -63,7 +63,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -82,7 +82,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -91,7 +91,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -100,7 +100,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -109,7 +109,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -129,7 +129,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -138,7 +138,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -147,7 +147,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -156,7 +156,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -175,7 +175,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -184,7 +184,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -193,7 +193,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -202,7 +202,7 @@ Ptr<PLC_ValueBase> Add(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) +
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -237,7 +237,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_ConstValue>
+					ret = CreateObject<PLC_ConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -246,7 +246,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -255,7 +255,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -264,7 +264,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -283,7 +283,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -292,7 +292,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -301,7 +301,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -310,7 +310,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -330,7 +330,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -339,7 +339,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -348,7 +348,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -357,7 +357,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -376,7 +376,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -385,7 +385,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -394,7 +394,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -403,7 +403,7 @@ Ptr<PLC_ValueBase> Subtract(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) -
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -438,7 +438,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_ConstValue>
+					ret = CreateObject<PLC_ConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -447,7 +447,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -456,7 +456,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -465,7 +465,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -484,7 +484,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -493,7 +493,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -502,7 +502,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -511,7 +511,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -531,7 +531,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -540,7 +540,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -549,7 +549,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -558,7 +558,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -577,7 +577,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -586,7 +586,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -595,7 +595,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -604,7 +604,7 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) *
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -639,7 +639,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_ConstValue>
+					ret = CreateObject<PLC_ConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -648,7 +648,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -657,7 +657,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -666,7 +666,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -685,7 +685,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -694,7 +694,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_FreqSelectiveValue>
+					ret = CreateObject<PLC_FreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -703,7 +703,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -712,7 +712,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -732,7 +732,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantConstValue>
+					ret = CreateObject<PLC_TimeVariantConstValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -741,7 +741,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -750,7 +750,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -759,7 +759,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -778,7 +778,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 			switch (op2->GetValueType()) {
 				case PLC_ValueBase::CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_ConstValue *> (PeekPointer(op2)))
@@ -787,7 +787,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_FreqSelectiveValue *> (PeekPointer(op2)))
@@ -796,7 +796,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_CONSTANT:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantConstValue *> (PeekPointer(op2)))
@@ -805,7 +805,7 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 				}
 				case PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE:
 				{
-					ret = Create<PLC_TimeVariantFreqSelectiveValue>
+					ret = CreateObject<PLC_TimeVariantFreqSelectiveValue>
 					(
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op1))) /
 							(*static_cast<PLC_TimeVariantFreqSelectiveValue *> (PeekPointer(op2)))
@@ -830,6 +830,18 @@ Ptr<PLC_ValueBase> Divide(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2)
 }
 
 //////////////////////////////////////// PLC_ValueBase /////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_ValueBase);
+
+TypeId
+PLC_ValueBase::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_ValueBase")
+	.SetParent<Object> ()
+  ;
+  return tid;
+}
+
 
 PLC_ValueBase::PLC_ValueBase(Ptr<const SpectrumModel> sm, PLC_ValueBase::PLC_ValueType type) : m_spectrum_model(sm), m_value_type(type)
 {
@@ -879,19 +891,19 @@ Ptr<PLC_ValueBase> PLC_ValueBase::Copy(void)
 	switch (GetValueType()) {
 
 		case (PLC_ValueBase::CONSTANT):
-				ret = Create<PLC_ConstValue> (* static_cast<PLC_ConstValue *> (this));
+				ret = CreateObject<PLC_ConstValue> (* static_cast<PLC_ConstValue *> (this));
 				break;
 
 		case (PLC_ValueBase::FREQ_SELECTIVE):
-				ret = Create<PLC_FreqSelectiveImpedance> (* static_cast<PLC_FreqSelectiveImpedance *> (this));
+				ret = CreateObject<PLC_FreqSelectiveImpedance> (* static_cast<PLC_FreqSelectiveImpedance *> (this));
 				break;
 
 		case (PLC_ValueBase::TIMEVARIANT_CONSTANT):
-				ret = Create<PLC_TimeVariantConstImpedance> (* static_cast<PLC_TimeVariantConstImpedance *> (this));
+				ret = CreateObject<PLC_TimeVariantConstImpedance> (* static_cast<PLC_TimeVariantConstImpedance *> (this));
 				break;
 
 		case (PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE):
-				ret = Create<PLC_TimeVariantFreqSelectiveImpedance> (* static_cast<PLC_TimeVariantFreqSelectiveImpedance *> (this));
+				ret = CreateObject<PLC_TimeVariantFreqSelectiveImpedance> (* static_cast<PLC_TimeVariantFreqSelectiveImpedance *> (this));
 				break;
 
 		default:
@@ -903,6 +915,18 @@ Ptr<PLC_ValueBase> PLC_ValueBase::Copy(void)
 }
 
 //////////////////////////////////////// PLC_ConstValue /////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_ConstValue);
+
+TypeId
+PLC_ConstValue::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_ConstValue")
+	.SetParent<PLC_ValueBase> ()
+  ;
+  return tid;
+}
+
 
 PLC_ConstValue::PLC_ConstValue(void)
 {
@@ -923,7 +947,8 @@ PLC_ConstValue::PLC_ConstValue(const PLC_ConstValue& value) : PLC_ValueBase(valu
 	this->m_value = value.GetValue();
 }
 
-PLC_Value 
+//PLC_Value
+std::complex<double>
 PLC_ConstValue::GetValue(void) const 
 { 
     return m_value; 
@@ -1155,6 +1180,17 @@ std::ostream& operator<<(std::ostream& stream, PLC_ConstValue& value)
 }
 
 //////////////////////////////////////// PLC_FreqSelectiveValue /////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_FreqSelectiveValue);
+
+TypeId
+PLC_FreqSelectiveValue::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_FreqSelectiveValue")
+	.SetParent<PLC_ValueBase> ()
+  ;
+  return tid;
+}
 
 PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(Ptr<const SpectrumModel> sm, PLC_Value value) : PLC_ValueBase(sm, PLC_ValueBase::FREQ_SELECTIVE)
 {
@@ -1734,6 +1770,17 @@ std::ostream& operator<<(std::ostream& stream, PLC_FreqSelectiveValue& value)
 }
 
 //////////////////////////////////////// PLC_TimeVariantConstValue /////////////////////////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED (PLC_TimeVariantConstValue);
+
+TypeId
+PLC_TimeVariantConstValue::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_TimeVariantConstValue")
+	.SetParent<PLC_ValueBase> ()
+  ;
+  return tid;
+}
 
 PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(Ptr<const SpectrumModel> sm, PLC_Value value, size_t timeslots) : PLC_ValueBase(sm, PLC_ValueBase::TIMEVARIANT_CONSTANT)
 {
@@ -2409,6 +2456,17 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_FreqSelectiveValue& lhs, c
 
 //////////////////////////////////////// PLC_TimeVariantFreqSelectiveValue /////////////////////////////////////////////
 
+NS_OBJECT_ENSURE_REGISTERED (PLC_TimeVariantFreqSelectiveValue);
+
+TypeId
+PLC_TimeVariantFreqSelectiveValue::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_TimeVariantFreqSelectiveValue")
+	.SetParent<PLC_ValueBase> ()
+  ;
+  return tid;
+}
+
 PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(Ptr<const SpectrumModel> sm, size_t timeslots, PLC_Value value) : PLC_ValueBase(sm, PLC_ValueBase::TIMEVARIANT_FREQ_SELECTIVE)
 {
 	this->m_values = PLC_TimeVariantValueSpectrum(timeslots, PLC_ValueSpectrum(sm->GetNumBands(), value));
@@ -2459,7 +2517,8 @@ PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(PLC_FreqSel
 	size_t i;
 	for (i = 0; i < timeslots; i++) {
 		double t = 0.5*PLC_Time::GetResolutionS() + i * PLC_Time::GetResolutionS();
-		double variation = fabs(sin(2*M_PI*t/PLC_Time::GetPeriodS() + phi));
+//		double variation = fabs(sin(2*M_PI*t/PLC_Time::GetPeriodS() + phi));
+		double variation = sin(2*M_PI*t/PLC_Time::GetPeriodS() + phi);
 
 		this->m_values.push_back((offset + (amplitude * variation)).GetValues());
 	}
@@ -2473,7 +2532,8 @@ PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(Ptr<const S
 	size_t i;
 	for (i = 0; i < timeslots; i++) {
 		double t = 0.5*PLC_Time::GetResolutionS() + i * PLC_Time::GetResolutionS();
-		double variation = fabs(sin(2*M_PI*t/PLC_Time::GetPeriodS() + paramSet.phi));
+//		double variation = fabs(sin(2*M_PI*t/PLC_Time::GetPeriodS() + paramSet.phi));
+		double variation = sin(2*M_PI*t/PLC_Time::GetPeriodS() + paramSet.phi);
 
 		this->m_values.push_back((offset + (amplitude * variation)).GetValues());
 	}
@@ -2489,6 +2549,35 @@ PLC_ValueSpectrum& PLC_TimeVariantFreqSelectiveValue::operator[](size_t i)
 {
 	NS_ASSERT(i < this->m_values.size());
 	return this->m_values[i];
+}
+
+PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator=(const PLC_ConstValue& value)
+{
+	this->m_spectrum_model = value.GetSpectrumModel();
+	this->m_values = PLC_TimeVariantValueSpectrum(this->GetNumTimeSlots(), PLC_ValueSpectrum(m_spectrum_model->GetNumBands(), value.GetValue()));
+	return *this;
+}
+
+PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator=(const PLC_TimeVariantConstValue& value)
+{
+	this->m_spectrum_model = value.GetSpectrumModel();
+	PLC_TimeVariantValue values = value.GetValues();
+
+	m_values.clear();
+	unsigned int i;
+	for (i=0; i < value.GetNumTimeSlots (); i++)
+        {
+            m_values.push_back(PLC_ValueSpectrum(m_spectrum_model->GetNumBands(), values[i]));
+        }
+	return *this;
+}
+
+PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator=(const PLC_TimeVariantFreqSelectiveValue& value)
+{
+	this->m_spectrum_model = value.GetSpectrumModel();
+	this->m_values = value.GetValues();
+	NS_ASSERT(this->m_values.size() == this->m_spectrum_model->GetNumBands());
+	return *this;
 }
 
 PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator+=(double value)
@@ -4045,9 +4134,6 @@ PLC_TimeVariantFreqSelectiveRealValue absSqr(const PLC_TimeVariantFreqSelectiveV
 	return ret;
 }
 
-
-
-
 PLC_ConstValue sinh(const PLC_ConstValue& value)
 {
 	return PLC_ConstValue(value.GetSpectrumModel(), sinh(value.GetValue()));
@@ -4344,7 +4430,7 @@ double min(SpectrumValue& value)
 	return ret;
 }
 
-double Pwr(SpectrumValue& value)
+double Pwr(const SpectrumValue& value)
 {
 	double pwr = 0;
 

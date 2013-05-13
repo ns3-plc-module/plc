@@ -48,7 +48,7 @@ PLC_BackboneBranch::PLC_BackboneBranch(Ptr<PLC_Node> node, Ptr<PLC_Node> before,
 : m_spectrum_model(sm), m_node(node), m_node_before(before), m_node_next(next),
   m_is_up_2_date(false), m_is_time_variant(false)
 {
-	m_equivalent_bridge_tap_impedance = Create<PLC_FreqSelectiveImpedance> (sm);
+	m_equivalent_bridge_tap_impedance = CreateObject<PLC_FreqSelectiveImpedance> (sm);
 
 	this->m_parallel_output_impedances[PeekPointer(before)] = NULL;
 	this->m_parallel_output_impedances[PeekPointer(next)] 	= NULL;
@@ -123,7 +123,7 @@ PLC_BackboneBranch::CalculateEquivalentBridgeTapImpedance(void)
 {
 	PLC_LOG_FUNCTION(this);
 	if (this->m_is_time_variant && !this->m_equivalent_bridge_tap_impedance->IsTimeVariant()) {
-		this->m_equivalent_bridge_tap_impedance = Create<PLC_TimeVariantFreqSelectiveImpedance> (this->m_spectrum_model);
+		this->m_equivalent_bridge_tap_impedance = CreateObject<PLC_TimeVariantFreqSelectiveImpedance> (this->m_spectrum_model);
 	}
 
 	this->m_node->Lock();
@@ -172,7 +172,7 @@ PLC_BackboneBranch::SetTimeVariant(void)
 	if (!this->m_equivalent_bridge_tap_impedance->IsTimeVariant())
 	{
 		NS_ASSERT(this->m_equivalent_bridge_tap_impedance->GetValueType() == PLC_ValueBase::FREQ_SELECTIVE);
-		this->m_equivalent_bridge_tap_impedance = Create<PLC_TimeVariantFreqSelectiveImpedance>(*(static_cast<PLC_FreqSelectiveImpedance *> (PeekPointer(this->m_equivalent_bridge_tap_impedance))));
+		this->m_equivalent_bridge_tap_impedance = CreateObject<PLC_TimeVariantFreqSelectiveImpedance>(*(static_cast<PLC_FreqSelectiveImpedance *> (PeekPointer(this->m_equivalent_bridge_tap_impedance))));
 	}
 
 	for (it = this->m_registered_ifPairs.begin(); it != this->m_registered_ifPairs.end(); it++)
