@@ -36,7 +36,7 @@ On an UNIX-like operating system the simulation environment can be set up as fol
 
 2.  Download a stable ns-3 release, e.g.
 
-    > get https://www.nsnam.org/release/ns-allinone-3.16.tar.bz2
+    > wget https://www.nsnam.org/release/ns-allinone-3.16.tar.bz2
 
 3.  Extract ns-3 sources
 
