@@ -248,8 +248,6 @@ def register_types(module):
     module.add_class('PLC_ThreeCoreConcentricCable', parent=root_module['ns3::PLC_Cable'])
     ## plc-spectrum-helper.h (module 'plc'): ns3::PLC_TimeInvariantSpectrumHelper [class]
     module.add_class('PLC_TimeInvariantSpectrumHelper', parent=root_module['ns3::Object'])
-    ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo [class]
-    module.add_class('PLC_TrxMetaInfo', parent=root_module['ns3::Object'])
     ## plc-edge.h (module 'plc'): ns3::PLC_TwoPort [class]
     module.add_class('PLC_TwoPort', parent=root_module['ns3::PLC_Edge'])
     ## plc-interface.h (module 'plc'): ns3::PLC_TxInterface [class]
@@ -282,6 +280,8 @@ def register_types(module):
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::NixVector', 'ns3::empty', 'ns3::DefaultDeleter<ns3::NixVector>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, template_parameters=['ns3::PLC_ColoredNoiseFloor', 'ns3::empty', 'ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> > [class]
+    module.add_class('SimpleRefCount', automatic_type_narrowing=True, template_parameters=['ns3::PLC_TrxMetaInfo', 'ns3::empty', 'ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::Packet', 'ns3::empty', 'ns3::DefaultDeleter<ns3::Packet>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::SpectrumModel, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumModel> > [class]
@@ -422,6 +422,8 @@ def register_types(module):
     module.add_class('PLC_TimeVariantFreqSelectiveValue', parent=root_module['ns3::PLC_ValueBase'])
     ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet [struct]
     module.add_class('PLC_TimeVariantParamSet', outer_class=root_module['ns3::PLC_TimeVariantFreqSelectiveValue'])
+    ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo [class]
+    module.add_class('PLC_TrxMetaInfo', parent=root_module['ns3::SimpleRefCount< ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> >'])
     ## packet.h (module 'network'): ns3::Packet [class]
     module.add_class('Packet', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >'])
     ## random-variable.h (module 'core'): ns3::RandomVariableChecker [class]
@@ -815,7 +817,6 @@ def register_methods(root_module):
     register_Ns3PLC_StaticNoiseSource_methods(root_module, root_module['ns3::PLC_StaticNoiseSource'])
     register_Ns3PLC_ThreeCoreConcentricCable_methods(root_module, root_module['ns3::PLC_ThreeCoreConcentricCable'])
     register_Ns3PLC_TimeInvariantSpectrumHelper_methods(root_module, root_module['ns3::PLC_TimeInvariantSpectrumHelper'])
-    register_Ns3PLC_TrxMetaInfo_methods(root_module, root_module['ns3::PLC_TrxMetaInfo'])
     register_Ns3PLC_TwoPort_methods(root_module, root_module['ns3::PLC_TwoPort'])
     register_Ns3PLC_TxInterface_methods(root_module, root_module['ns3::PLC_TxInterface'])
     register_Ns3PLC_ValueBase_methods(root_module, root_module['ns3::PLC_ValueBase'])
@@ -831,6 +832,7 @@ def register_methods(root_module):
     register_Ns3SimpleRefCount__Ns3EventImpl_Ns3Empty_Ns3DefaultDeleter__lt__ns3EventImpl__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::EventImpl, ns3::empty, ns3::DefaultDeleter<ns3::EventImpl> >'])
     register_Ns3SimpleRefCount__Ns3NixVector_Ns3Empty_Ns3DefaultDeleter__lt__ns3NixVector__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::NixVector, ns3::empty, ns3::DefaultDeleter<ns3::NixVector> >'])
     register_Ns3SimpleRefCount__Ns3PLC_ColoredNoiseFloor_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_ColoredNoiseFloor__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >'])
+    register_Ns3SimpleRefCount__Ns3PLC_TrxMetaInfo_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_TrxMetaInfo__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> >'])
     register_Ns3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Packet__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >'])
     register_Ns3SimpleRefCount__Ns3SpectrumModel_Ns3Empty_Ns3DefaultDeleter__lt__ns3SpectrumModel__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::SpectrumModel, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumModel> >'])
     register_Ns3SimpleRefCount__Ns3SpectrumValue_Ns3Empty_Ns3DefaultDeleter__lt__ns3SpectrumValue__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::SpectrumValue, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumValue> >'])
@@ -896,6 +898,7 @@ def register_methods(root_module):
     register_Ns3PLC_TimeVariantConstValue_methods(root_module, root_module['ns3::PLC_TimeVariantConstValue'])
     register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, root_module['ns3::PLC_TimeVariantFreqSelectiveValue'])
     register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods(root_module, root_module['ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet'])
+    register_Ns3PLC_TrxMetaInfo_methods(root_module, root_module['ns3::PLC_TrxMetaInfo'])
     register_Ns3Packet_methods(root_module, root_module['ns3::Packet'])
     register_Ns3RandomVariableChecker_methods(root_module, root_module['ns3::RandomVariableChecker'])
     register_Ns3RandomVariableValue_methods(root_module, root_module['ns3::RandomVariableValue'])
@@ -5097,63 +5100,6 @@ def register_Ns3PLC_TimeInvariantSpectrumHelper_methods(root_module, cls):
                    is_static=True)
     return
 
-def register_Ns3PLC_TrxMetaInfo_methods(root_module, cls):
-    ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo::PLC_TrxMetaInfo(ns3::PLC_TrxMetaInfo const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_TrxMetaInfo const &', 'arg0')])
-    ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo::PLC_TrxMetaInfo() [constructor]
-    cls.add_constructor([])
-    ## plc-channel.h (module 'plc'): ns3::Time ns3::PLC_TrxMetaInfo::GetHeaderDuration() const [member function]
-    cls.add_method('GetHeaderDuration', 
-                   'ns3::Time', 
-                   [], 
-                   is_const=True)
-    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_TrxMetaInfo::GetHeaderMcs() const [member function]
-    cls.add_method('GetHeaderMcs', 
-                   'ns3::ModulationAndCodingType', 
-                   [], 
-                   is_const=True)
-    ## plc-channel.h (module 'plc'): ns3::Time ns3::PLC_TrxMetaInfo::GetPayloadDuration() const [member function]
-    cls.add_method('GetPayloadDuration', 
-                   'ns3::Time', 
-                   [], 
-                   is_const=True)
-    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_TrxMetaInfo::GetPayloadMcs() const [member function]
-    cls.add_method('GetPayloadMcs', 
-                   'ns3::ModulationAndCodingType', 
-                   [], 
-                   is_const=True)
-    ## plc-channel.h (module 'plc'): static ns3::TypeId ns3::PLC_TrxMetaInfo::GetTypeId() [member function]
-    cls.add_method('GetTypeId', 
-                   'ns3::TypeId', 
-                   [], 
-                   is_static=True)
-    ## plc-channel.h (module 'plc'): ns3::Ptr<ns3::Packet const> ns3::PLC_TrxMetaInfo::GetUncodedMessage() const [member function]
-    cls.add_method('GetUncodedMessage', 
-                   'ns3::Ptr< ns3::Packet const >', 
-                   [], 
-                   is_const=True)
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetHeaderDuration(ns3::Time duration) [member function]
-    cls.add_method('SetHeaderDuration', 
-                   'void', 
-                   [param('ns3::Time', 'duration')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetHeaderMcs(ns3::ModulationAndCodingType mcs) [member function]
-    cls.add_method('SetHeaderMcs', 
-                   'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetPayloadDuration(ns3::Time duration) [member function]
-    cls.add_method('SetPayloadDuration', 
-                   'void', 
-                   [param('ns3::Time', 'duration')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetPayloadMcs(ns3::ModulationAndCodingType mcs) [member function]
-    cls.add_method('SetPayloadMcs', 
-                   'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetUncodedMessage(ns3::Ptr<ns3::Packet const> p) [member function]
-    cls.add_method('SetUncodedMessage', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
-    return
-
 def register_Ns3PLC_TwoPort_methods(root_module, cls):
     ## plc-edge.h (module 'plc'): ns3::PLC_TwoPort::PLC_TwoPort(ns3::PLC_TwoPort const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_TwoPort const &', 'arg0')])
@@ -5519,6 +5465,18 @@ def register_Ns3SimpleRefCount__Ns3PLC_ColoredNoiseFloor_Ns3Empty_Ns3DefaultDele
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >::SimpleRefCount(ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> > const & o) [copy constructor]
     cls.add_constructor([param('ns3::SimpleRefCount< ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter< ns3::PLC_ColoredNoiseFloor > > const &', 'o')])
     ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >::Cleanup() [member function]
+    cls.add_method('Cleanup', 
+                   'void', 
+                   [], 
+                   is_static=True)
+    return
+
+def register_Ns3SimpleRefCount__Ns3PLC_TrxMetaInfo_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_TrxMetaInfo__gt___methods(root_module, cls):
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> >::SimpleRefCount() [constructor]
+    cls.add_constructor([])
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> >::SimpleRefCount(ns3::SimpleRefCount<ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> > const & o) [copy constructor]
+    cls.add_constructor([param('ns3::SimpleRefCount< ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter< ns3::PLC_TrxMetaInfo > > const &', 'o')])
+    ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> >::Cleanup() [member function]
     cls.add_method('Cleanup', 
                    'void', 
                    [], 
@@ -8464,6 +8422,67 @@ def register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods
     cls.add_instance_attribute('f_0_offset', 'double', is_const=False)
     ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet::phi [variable]
     cls.add_instance_attribute('phi', 'double', is_const=False)
+    return
+
+def register_Ns3PLC_TrxMetaInfo_methods(root_module, cls):
+    ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo::PLC_TrxMetaInfo(ns3::PLC_TrxMetaInfo const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_TrxMetaInfo const &', 'arg0')])
+    ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo::PLC_TrxMetaInfo() [constructor]
+    cls.add_constructor([])
+    ## plc-channel.h (module 'plc'): ns3::Ptr<ns3::Packet const> ns3::PLC_TrxMetaInfo::GetFrame() const [member function]
+    cls.add_method('GetFrame', 
+                   'ns3::Ptr< ns3::Packet const >', 
+                   [], 
+                   is_const=True)
+    ## plc-channel.h (module 'plc'): ns3::Time ns3::PLC_TrxMetaInfo::GetHeaderDuration() const [member function]
+    cls.add_method('GetHeaderDuration', 
+                   'ns3::Time', 
+                   [], 
+                   is_const=True)
+    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_TrxMetaInfo::GetHeaderMcs() const [member function]
+    cls.add_method('GetHeaderMcs', 
+                   'ns3::ModulationAndCodingType', 
+                   [], 
+                   is_const=True)
+    ## plc-channel.h (module 'plc'): ns3::Ptr<ns3::Packet const> ns3::PLC_TrxMetaInfo::GetMessage() const [member function]
+    cls.add_method('GetMessage', 
+                   'ns3::Ptr< ns3::Packet const >', 
+                   [], 
+                   is_const=True)
+    ## plc-channel.h (module 'plc'): ns3::Time ns3::PLC_TrxMetaInfo::GetPayloadDuration() const [member function]
+    cls.add_method('GetPayloadDuration', 
+                   'ns3::Time', 
+                   [], 
+                   is_const=True)
+    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_TrxMetaInfo::GetPayloadMcs() const [member function]
+    cls.add_method('GetPayloadMcs', 
+                   'ns3::ModulationAndCodingType', 
+                   [], 
+                   is_const=True)
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetFrame(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('SetFrame', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetHeaderDuration(ns3::Time duration) [member function]
+    cls.add_method('SetHeaderDuration', 
+                   'void', 
+                   [param('ns3::Time', 'duration')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetHeaderMcs(ns3::ModulationAndCodingType mcs) [member function]
+    cls.add_method('SetHeaderMcs', 
+                   'void', 
+                   [param('ns3::ModulationAndCodingType', 'mcs')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetMessage(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('SetMessage', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetPayloadDuration(ns3::Time duration) [member function]
+    cls.add_method('SetPayloadDuration', 
+                   'void', 
+                   [param('ns3::Time', 'duration')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetPayloadMcs(ns3::ModulationAndCodingType mcs) [member function]
+    cls.add_method('SetPayloadMcs', 
+                   'void', 
+                   [param('ns3::ModulationAndCodingType', 'mcs')])
     return
 
 def register_Ns3Packet_methods(root_module, cls):

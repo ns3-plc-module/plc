@@ -50,15 +50,15 @@ class PLC_Phy;
 class PLC_TxInterface;
 class PLC_RxInterface;;
 
-class PLC_TrxMetaInfo : public Object
+class PLC_TrxMetaInfo : public SimpleRefCount<PLC_TrxMetaInfo>
 {
 public:
-	static TypeId GetTypeId (void);
-
 	PLC_TrxMetaInfo (void);
 
-	void SetUncodedMessage (Ptr<const Packet> p) { m_uncoded_packet = p; }
-	Ptr<const Packet> GetUncodedMessage (void) const { return m_uncoded_packet; }
+	void SetFrame (Ptr<const Packet> p) { m_frame = p; }
+	Ptr<const Packet> GetFrame (void) const { return m_frame; }
+	void SetMessage (Ptr<const Packet> p) { m_message = p; }
+	Ptr<const Packet> GetMessage (void) const { return m_message; }
 	void SetHeaderMcs (ModulationAndCodingType mcs) { m_header_mcs = mcs; }
 	ModulationAndCodingType GetHeaderMcs (void) const { return m_header_mcs; }
 	void SetPayloadMcs (ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
@@ -69,7 +69,8 @@ public:
 	Time GetPayloadDuration (void) const { return m_payload_duration; }
 
 private:
-	Ptr<const Packet> m_uncoded_packet;
+	Ptr<const Packet> m_frame;
+	Ptr<const Packet> m_message;
 	ModulationAndCodingType m_header_mcs;
 	ModulationAndCodingType m_payload_mcs;
 	Time m_header_duration;

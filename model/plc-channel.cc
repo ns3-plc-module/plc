@@ -37,7 +37,6 @@ namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE ("PLC_Channel");
-NS_OBJECT_ENSURE_REGISTERED (PLC_TrxMetaInfo);
 NS_OBJECT_ENSURE_REGISTERED (PLC_EdgeTransferUnit);
 NS_OBJECT_ENSURE_REGISTERED (PLC_ChannelTransferImpl);
 NS_OBJECT_ENSURE_REGISTERED (PLC_Channel);
@@ -46,20 +45,12 @@ NS_OBJECT_ENSURE_REGISTERED (PLC_Channel);
 
 PLC_TrxMetaInfo::PLC_TrxMetaInfo (void)
 {
-	m_uncoded_packet = 0;
+	m_frame = 0;
+	m_message = 0;
 	m_header_mcs = BPSK_1_2;
 	m_payload_mcs = BPSK_1_2;
 	m_header_duration = MicroSeconds(0);
 	m_payload_duration = MicroSeconds(0);
-}
-
-TypeId
-PLC_TrxMetaInfo::GetTypeId (void)
-{
-	static TypeId tid = ns3::TypeId ("ns3::PLC_TrxMetaInfo")
-    		.SetParent<Object> ()
-    		;
-	return tid;
 }
 
 //////////////////////////////// PLC_EdgeTransferUnit ////////////////////////////////////////////////
