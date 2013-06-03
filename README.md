@@ -73,6 +73,6 @@ The current release of the plc module provides a few simple examples for its usa
 are located in the directory src/plc/examples. To run e.g. the plc net device example (plc-netdevice.cc)
 go to the ns-3 root directory and type
 
-> ./waf --run src/plc/examples/plc-netdevice
+> ./waf --run src/plc/examples/plc-netdevice-example
 
 
