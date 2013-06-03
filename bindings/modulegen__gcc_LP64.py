@@ -56,6 +56,8 @@ def register_types(module):
     module.add_class('Item', import_from_module='ns.network', outer_class=root_module['ns3::ByteTagList::Iterator'])
     ## callback.h (module 'core'): ns3::CallbackBase [class]
     module.add_class('CallbackBase', import_from_module='ns.core')
+    ## system-mutex.h (module 'core'): ns3::CriticalSection [class]
+    module.add_class('CriticalSection', import_from_module='ns.core')
     ## data-rate.h (module 'network'): ns3::DataRate [class]
     module.add_class('DataRate', import_from_module='ns.network')
     ## event-id.h (module 'core'): ns3::EventId [class]
@@ -78,18 +80,30 @@ def register_types(module):
     module.add_class('Mac48Address', import_from_module='ns.network')
     ## mac48-address.h (module 'network'): ns3::Mac48Address [class]
     root_module['ns3::Mac48Address'].implicitly_converts_to(root_module['ns3::Address'])
+    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingScheme [class]
+    module.add_class('ModulationAndCodingScheme')
+    ## net-device-container.h (module 'network'): ns3::NetDeviceContainer [class]
+    module.add_class('NetDeviceContainer', import_from_module='ns.network')
+    ## node-container.h (module 'network'): ns3::NodeContainer [class]
+    module.add_class('NodeContainer', import_from_module='ns.network')
     ## object-base.h (module 'core'): ns3::ObjectBase [class]
     module.add_class('ObjectBase', allow_subclassing=True, import_from_module='ns.core')
     ## object.h (module 'core'): ns3::ObjectDeleter [struct]
     module.add_class('ObjectDeleter', import_from_module='ns.core')
     ## object-factory.h (module 'core'): ns3::ObjectFactory [class]
     module.add_class('ObjectFactory', import_from_module='ns.core')
-    ## plc-defs.h (module 'plc'): ns3::PLC_EdgeTransferData_t [struct]
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t [struct]
     module.add_class('PLC_EdgeTransferData_t')
-    ## plc-defs.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t [struct]
+    ## plc-edge.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t [struct]
     module.add_class('PLC_ImpedanceIndicator_t')
     ## plc-defs.h (module 'plc'): ns3::PLC_Mutex [struct]
     module.add_class('PLC_Mutex')
+    ## plc-output-helper.h (module 'plc'): ns3::PLC_OutputHelper [class]
+    module.add_class('PLC_OutputHelper')
+    ## plc-trace-helper.h (module 'plc'): ns3::PLC_PhyTraceHelper [class]
+    module.add_class('PLC_PhyTraceHelper')
+    ## plc-thread-dispatcher.h (module 'plc'): ns3::PLC_ThreadDispatcher [class]
+    module.add_class('PLC_ThreadDispatcher')
     ## plc-time.h (module 'plc'): ns3::PLC_Time [class]
     module.add_class('PLC_Time')
     ## packet-metadata.h (module 'network'): ns3::PacketMetadata [class]
@@ -116,6 +130,8 @@ def register_types(module):
     module.add_class('SequentialVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Object, ns3::ObjectBase, ns3::ObjectDeleter> [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::Object', 'ns3::ObjectBase', 'ns3::ObjectDeleter'], parent=root_module['ns3::ObjectBase'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
+    ## system-mutex.h (module 'core'): ns3::SystemMutex [class]
+    module.add_class('SystemMutex', import_from_module='ns.core')
     ## tag.h (module 'network'): ns3::Tag [class]
     module.add_class('Tag', import_from_module='ns.network', parent=root_module['ns3::ObjectBase'])
     ## tag-buffer.h (module 'network'): ns3::TagBuffer [class]
@@ -230,14 +246,12 @@ def register_types(module):
     module.add_class('PLC_Phy', parent=root_module['ns3::Object'])
     ## plc-header.h (module 'plc'): ns3::PLC_PhyFrameControlHeader [class]
     module.add_class('PLC_PhyFrameControlHeader', parent=root_module['ns3::Header'])
-    ## plc-header.h (module 'plc'): ns3::PLC_PhyFrameControlHeader::DelimiterType [enumeration]
-    module.add_enum('DelimiterType', ['DATA', 'ACK', 'NACK'], outer_class=root_module['ns3::PLC_PhyFrameControlHeader'])
-    ## plc-header.h (module 'plc'): ns3::PLC_PhyRatelessFrameControlHeader [class]
-    module.add_class('PLC_PhyRatelessFrameControlHeader', parent=root_module['ns3::Header'])
-    ## plc-header.h (module 'plc'): ns3::PLC_PhyRatelessFrameControlHeader::DelimiterType [enumeration]
-    module.add_enum('DelimiterType', ['DATA', 'ACK', 'NACK'], outer_class=root_module['ns3::PLC_PhyRatelessFrameControlHeader'])
     ## plc-header.h (module 'plc'): ns3::PLC_Preamble [class]
     module.add_class('PLC_Preamble', parent=root_module['ns3::Header'])
+    ## plc-header.h (module 'plc'): ns3::PLC_RelayMacHeader [class]
+    module.add_class('PLC_RelayMacHeader', parent=root_module['ns3::Header'])
+    ## plc-header.h (module 'plc'): ns3::PLC_RelayMacHeader::RelayMacHdrType [enumeration]
+    module.add_enum('RelayMacHdrType', ['RELAY_DATA', 'RELAY_ACK'], outer_class=root_module['ns3::PLC_RelayMacHeader'])
     ## plc-interface.h (module 'plc'): ns3::PLC_RxInterface [class]
     module.add_class('PLC_RxInterface', parent=root_module['ns3::PLC_Interface'])
     ## plc-spectrum-helper.h (module 'plc'): ns3::PLC_SpectrumModelHelper [class]
@@ -248,6 +262,8 @@ def register_types(module):
     module.add_class('PLC_ThreeCoreConcentricCable', parent=root_module['ns3::PLC_Cable'])
     ## plc-spectrum-helper.h (module 'plc'): ns3::PLC_TimeInvariantSpectrumHelper [class]
     module.add_class('PLC_TimeInvariantSpectrumHelper', parent=root_module['ns3::Object'])
+    ## plc-noise.h (module 'plc'): ns3::PLC_TimeVaryingNoiseSource [class]
+    module.add_class('PLC_TimeVaryingNoiseSource', parent=root_module['ns3::PLC_NoiseSource'])
     ## plc-edge.h (module 'plc'): ns3::PLC_TwoPort [class]
     module.add_class('PLC_TwoPort', parent=root_module['ns3::PLC_Edge'])
     ## plc-interface.h (module 'plc'): ns3::PLC_TxInterface [class]
@@ -255,11 +271,15 @@ def register_types(module):
     ## plc-value.h (module 'plc'): ns3::PLC_ValueBase [class]
     module.add_class('PLC_ValueBase', parent=root_module['ns3::Object'])
     ## plc-value.h (module 'plc'): ns3::PLC_ValueBase::PLC_ValueType [enumeration]
-    module.add_enum('PLC_ValueType', ['CONSTANT', 'FREQ_SELECTIVE', 'TIMEVARIANT_CONSTANT', 'TIMEVARIANT_FREQ_SELECTIVE'], outer_class=root_module['ns3::PLC_ValueBase'])
+    module.add_enum('PLC_ValueType', ['UNDEFINED', 'CONSTANT', 'FREQ_SELECTIVE', 'TIMEVARIANT_CONSTANT', 'TIMEVARIANT_FREQ_SELECTIVE'], outer_class=root_module['ns3::PLC_ValueBase'])
     ## packet-burst.h (module 'network'): ns3::PacketBurst [class]
     module.add_class('PacketBurst', import_from_module='ns.network', parent=root_module['ns3::Object'])
     ## random-variable.h (module 'core'): ns3::ParetoVariable [class]
     module.add_class('ParetoVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
+    ## queue.h (module 'network'): ns3::Queue [class]
+    module.add_class('Queue', import_from_module='ns.network', parent=root_module['ns3::Object'])
+    ## queue.h (module 'network'): ns3::Queue::QueueMode [enumeration]
+    module.add_enum('QueueMode', ['QUEUE_MODE_PACKETS', 'QUEUE_MODE_BYTES'], outer_class=root_module['ns3::Queue'], import_from_module='ns.network')
     ## scheduler.h (module 'core'): ns3::Scheduler [class]
     module.add_class('Scheduler', import_from_module='ns.core', parent=root_module['ns3::Object'])
     ## scheduler.h (module 'core'): ns3::Scheduler::Event [struct]
@@ -334,6 +354,8 @@ def register_types(module):
     module.add_class('DataRateValue', import_from_module='ns.network', parent=root_module['ns3::AttributeValue'])
     ## double.h (module 'core'): ns3::DoubleValue [class]
     module.add_class('DoubleValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
+    ## drop-tail-queue.h (module 'network'): ns3::DropTailQueue [class]
+    module.add_class('DropTailQueue', import_from_module='ns.network', parent=root_module['ns3::Queue'])
     ## attribute.h (module 'core'): ns3::EmptyAttributeValue [class]
     module.add_class('EmptyAttributeValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## enum.h (module 'core'): ns3::EnumChecker [class]
@@ -482,12 +504,15 @@ def register_types(module):
     module.add_container('ns3::PLC_TimeVariantValue', 'std::complex< double >', container_type='vector')
     module.add_container('std::vector< std::vector< std::complex< double > > >', 'std::vector< std::complex< double > >', container_type='vector')
     module.add_container('ns3::PLC_TimeVariantValueSpectrum', 'std::vector< std::complex< double > >', container_type='vector')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > > > > >', 'ns3::PLC_TransmissionDescriptorMap')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > > > > >*', 'ns3::PLC_TransmissionDescriptorMap*')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > > > > >&', 'ns3::PLC_TransmissionDescriptorMap&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_MacTransmissionFailedCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_MacTransmissionFailedCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_MacTransmissionFailedCallback&')
+    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >', 'ns3::PLC_TransmissionDescriptorMap')
+    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >*', 'ns3::PLC_TransmissionDescriptorMap*')
+    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >&', 'ns3::PLC_TransmissionDescriptorMap&')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_MacTransmissionFailedCallback')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_MacTransmissionFailedCallback*')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_MacTransmissionFailedCallback&')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >', 'ns3::PLC_ChannelTrace')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >*', 'ns3::PLC_ChannelTrace*')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >&', 'ns3::PLC_ChannelTrace&')
     typehandlers.add_type_alias('std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >', 'ns3::PLC_InterfaceTupel')
     typehandlers.add_type_alias('std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >*', 'ns3::PLC_InterfaceTupel*')
     typehandlers.add_type_alias('std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >&', 'ns3::PLC_InterfaceTupel&')
@@ -495,9 +520,12 @@ def register_types(module):
     typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue*', 'ns3::PLC_TimeVariantTransferVector*')
     typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue&', 'ns3::PLC_TimeVariantTransferVector&')
     module.add_typedef(root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], 'PLC_TimeVariantTransferVector')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PhyRxEndOkCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PhyRxEndOkCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PhyRxEndOkCallback&')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PhyRxEndOkCallback')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PhyRxEndOkCallback*')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PhyRxEndOkCallback&')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >', 'ns3::PLC_StateTrace')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >*', 'ns3::PLC_StateTrace*')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >&', 'ns3::PLC_StateTrace&')
     typehandlers.add_type_alias('void ( * ) ( std::ostream & ) *', 'ns3::LogNodePrinter')
     typehandlers.add_type_alias('void ( * ) ( std::ostream & ) **', 'ns3::LogNodePrinter*')
     typehandlers.add_type_alias('void ( * ) ( std::ostream & ) *&', 'ns3::LogNodePrinter&')
@@ -540,18 +568,21 @@ def register_types(module):
     typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >', 'ns3::PLC_NetdeviceMap')
     typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >*', 'ns3::PLC_NetdeviceMap*')
     typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >&', 'ns3::PLC_NetdeviceMap&')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >', 'ns3::PLC_SinrTrace')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >*', 'ns3::PLC_SinrTrace*')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >&', 'ns3::PLC_SinrTrace&')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >', 'ns3::PLC_NetdeviceList')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >*', 'ns3::PLC_NetdeviceList*')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >&', 'ns3::PLC_NetdeviceList&')
     typehandlers.add_type_alias('uint32_t', 'ns3::Timeslot')
     typehandlers.add_type_alias('uint32_t*', 'ns3::Timeslot*')
     typehandlers.add_type_alias('uint32_t&', 'ns3::Timeslot&')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >', 'ns3::PLC_AccumulatedBitsTrace')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >*', 'ns3::PLC_AccumulatedBitsTrace*')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >&', 'ns3::PLC_AccumulatedBitsTrace&')
     typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >', 'ns3::PLC_EdgeTransferDataMap')
     typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >*', 'ns3::PLC_EdgeTransferDataMap*')
     typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >&', 'ns3::PLC_EdgeTransferDataMap&')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_PayloadReceptionFailedCallback')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_PayloadReceptionFailedCallback*')
+    typehandlers.add_type_alias('ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_PayloadReceptionFailedCallback&')
     typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_FreqSelectiveCapacitance')
     typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_FreqSelectiveCapacitance*')
     typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_FreqSelectiveCapacitance&')
@@ -564,9 +595,9 @@ def register_types(module):
     typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_MacDataCallback')
     typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_MacDataCallback*')
     typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_MacDataCallback&')
-    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >', 'ns3::PLC_RxPsdMap')
-    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >*', 'ns3::PLC_RxPsdMap*')
-    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >&', 'ns3::PLC_RxPsdMap&')
+    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >', 'ns3::PLC_RxPsdMap')
+    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >*', 'ns3::PLC_RxPsdMap*')
+    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >&', 'ns3::PLC_RxPsdMap&')
     typehandlers.add_type_alias('ns3::PLC_TimeVariantConstValue', 'ns3::PLC_TimeVariantConstImpedance')
     typehandlers.add_type_alias('ns3::PLC_TimeVariantConstValue*', 'ns3::PLC_TimeVariantConstImpedance*')
     typehandlers.add_type_alias('ns3::PLC_TimeVariantConstValue&', 'ns3::PLC_TimeVariantConstImpedance&')
@@ -600,9 +631,9 @@ def register_types(module):
     typehandlers.add_type_alias('ns3::PLC_ValueBase*', 'ns3::PLC_Impedance*')
     typehandlers.add_type_alias('ns3::PLC_ValueBase&', 'ns3::PLC_Impedance&')
     module.add_typedef(root_module['ns3::PLC_ValueBase'], 'PLC_Impedance')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > >', 'ns3::PLC_ReceiveDescriptorMap')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > >*', 'ns3::PLC_ReceiveDescriptorMap*')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue > > > > > > > >&', 'ns3::PLC_ReceiveDescriptorMap&')
+    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >', 'ns3::PLC_ReceiveDescriptorMap')
+    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >*', 'ns3::PLC_ReceiveDescriptorMap*')
+    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >&', 'ns3::PLC_ReceiveDescriptorMap&')
     typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_FreqSelectiveRealValue')
     typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_FreqSelectiveRealValue*')
     typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_FreqSelectiveRealValue&')
@@ -676,6 +707,9 @@ def register_types(module):
     typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >', 'ns3::PLC_InputImpedance')
     typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >*', 'ns3::PLC_InputImpedance*')
     typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >&', 'ns3::PLC_InputImpedance&')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >', 'ns3::PLC_SpectrumValueTrace')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >*', 'ns3::PLC_SpectrumValueTrace*')
+    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >&', 'ns3::PLC_SpectrumValueTrace&')
     typehandlers.add_type_alias('ns3::PLC_TwoPort', 'ns3::PLC_Transformer')
     typehandlers.add_type_alias('ns3::PLC_TwoPort*', 'ns3::PLC_Transformer*')
     typehandlers.add_type_alias('ns3::PLC_TwoPort&', 'ns3::PLC_Transformer&')
@@ -690,6 +724,9 @@ def register_types(module):
     typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue*', 'ns3::PLC_TimeVariantFreqSelectiveImpedance*')
     typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue&', 'ns3::PLC_TimeVariantFreqSelectiveImpedance&')
     module.add_typedef(root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], 'PLC_TimeVariantFreqSelectiveImpedance')
+    typehandlers.add_type_alias('ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PhyRxEndCallback')
+    typehandlers.add_type_alias('ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PhyRxEndCallback*')
+    typehandlers.add_type_alias('ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PhyRxEndCallback&')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >', 'ns3::PLC_TransformerList')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >*', 'ns3::PLC_TransformerList*')
     typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >&', 'ns3::PLC_TransformerList&')
@@ -730,6 +767,7 @@ def register_methods(root_module):
     register_Ns3ByteTagListIterator_methods(root_module, root_module['ns3::ByteTagList::Iterator'])
     register_Ns3ByteTagListIteratorItem_methods(root_module, root_module['ns3::ByteTagList::Iterator::Item'])
     register_Ns3CallbackBase_methods(root_module, root_module['ns3::CallbackBase'])
+    register_Ns3CriticalSection_methods(root_module, root_module['ns3::CriticalSection'])
     register_Ns3DataRate_methods(root_module, root_module['ns3::DataRate'])
     register_Ns3EventId_methods(root_module, root_module['ns3::EventId'])
     register_Ns3Ipv4Address_methods(root_module, root_module['ns3::Ipv4Address'])
@@ -738,12 +776,18 @@ def register_methods(root_module):
     register_Ns3Ipv6Prefix_methods(root_module, root_module['ns3::Ipv6Prefix'])
     register_Ns3LogComponent_methods(root_module, root_module['ns3::LogComponent'])
     register_Ns3Mac48Address_methods(root_module, root_module['ns3::Mac48Address'])
+    register_Ns3ModulationAndCodingScheme_methods(root_module, root_module['ns3::ModulationAndCodingScheme'])
+    register_Ns3NetDeviceContainer_methods(root_module, root_module['ns3::NetDeviceContainer'])
+    register_Ns3NodeContainer_methods(root_module, root_module['ns3::NodeContainer'])
     register_Ns3ObjectBase_methods(root_module, root_module['ns3::ObjectBase'])
     register_Ns3ObjectDeleter_methods(root_module, root_module['ns3::ObjectDeleter'])
     register_Ns3ObjectFactory_methods(root_module, root_module['ns3::ObjectFactory'])
     register_Ns3PLC_EdgeTransferData_t_methods(root_module, root_module['ns3::PLC_EdgeTransferData_t'])
     register_Ns3PLC_ImpedanceIndicator_t_methods(root_module, root_module['ns3::PLC_ImpedanceIndicator_t'])
     register_Ns3PLC_Mutex_methods(root_module, root_module['ns3::PLC_Mutex'])
+    register_Ns3PLC_OutputHelper_methods(root_module, root_module['ns3::PLC_OutputHelper'])
+    register_Ns3PLC_PhyTraceHelper_methods(root_module, root_module['ns3::PLC_PhyTraceHelper'])
+    register_Ns3PLC_ThreadDispatcher_methods(root_module, root_module['ns3::PLC_ThreadDispatcher'])
     register_Ns3PLC_Time_methods(root_module, root_module['ns3::PLC_Time'])
     register_Ns3PacketMetadata_methods(root_module, root_module['ns3::PacketMetadata'])
     register_Ns3PacketMetadataItem_methods(root_module, root_module['ns3::PacketMetadata::Item'])
@@ -756,6 +800,7 @@ def register_methods(root_module):
     register_Ns3RngSeedManager_methods(root_module, root_module['ns3::RngSeedManager'])
     register_Ns3SequentialVariable_methods(root_module, root_module['ns3::SequentialVariable'])
     register_Ns3SimpleRefCount__Ns3Object_Ns3ObjectBase_Ns3ObjectDeleter_methods(root_module, root_module['ns3::SimpleRefCount< ns3::Object, ns3::ObjectBase, ns3::ObjectDeleter >'])
+    register_Ns3SystemMutex_methods(root_module, root_module['ns3::SystemMutex'])
     register_Ns3Tag_methods(root_module, root_module['ns3::Tag'])
     register_Ns3TagBuffer_methods(root_module, root_module['ns3::TagBuffer'])
     register_Ns3TriangularVariable_methods(root_module, root_module['ns3::TriangularVariable'])
@@ -810,18 +855,20 @@ def register_methods(root_module):
     register_Ns3PLC_Outlet_methods(root_module, root_module['ns3::PLC_Outlet'])
     register_Ns3PLC_Phy_methods(root_module, root_module['ns3::PLC_Phy'])
     register_Ns3PLC_PhyFrameControlHeader_methods(root_module, root_module['ns3::PLC_PhyFrameControlHeader'])
-    register_Ns3PLC_PhyRatelessFrameControlHeader_methods(root_module, root_module['ns3::PLC_PhyRatelessFrameControlHeader'])
     register_Ns3PLC_Preamble_methods(root_module, root_module['ns3::PLC_Preamble'])
+    register_Ns3PLC_RelayMacHeader_methods(root_module, root_module['ns3::PLC_RelayMacHeader'])
     register_Ns3PLC_RxInterface_methods(root_module, root_module['ns3::PLC_RxInterface'])
     register_Ns3PLC_SpectrumModelHelper_methods(root_module, root_module['ns3::PLC_SpectrumModelHelper'])
     register_Ns3PLC_StaticNoiseSource_methods(root_module, root_module['ns3::PLC_StaticNoiseSource'])
     register_Ns3PLC_ThreeCoreConcentricCable_methods(root_module, root_module['ns3::PLC_ThreeCoreConcentricCable'])
     register_Ns3PLC_TimeInvariantSpectrumHelper_methods(root_module, root_module['ns3::PLC_TimeInvariantSpectrumHelper'])
+    register_Ns3PLC_TimeVaryingNoiseSource_methods(root_module, root_module['ns3::PLC_TimeVaryingNoiseSource'])
     register_Ns3PLC_TwoPort_methods(root_module, root_module['ns3::PLC_TwoPort'])
     register_Ns3PLC_TxInterface_methods(root_module, root_module['ns3::PLC_TxInterface'])
     register_Ns3PLC_ValueBase_methods(root_module, root_module['ns3::PLC_ValueBase'])
     register_Ns3PacketBurst_methods(root_module, root_module['ns3::PacketBurst'])
     register_Ns3ParetoVariable_methods(root_module, root_module['ns3::ParetoVariable'])
+    register_Ns3Queue_methods(root_module, root_module['ns3::Queue'])
     register_Ns3Scheduler_methods(root_module, root_module['ns3::Scheduler'])
     register_Ns3SchedulerEvent_methods(root_module, root_module['ns3::Scheduler::Event'])
     register_Ns3SchedulerEventKey_methods(root_module, root_module['ns3::Scheduler::EventKey'])
@@ -857,6 +904,7 @@ def register_methods(root_module):
     register_Ns3DataRateChecker_methods(root_module, root_module['ns3::DataRateChecker'])
     register_Ns3DataRateValue_methods(root_module, root_module['ns3::DataRateValue'])
     register_Ns3DoubleValue_methods(root_module, root_module['ns3::DoubleValue'])
+    register_Ns3DropTailQueue_methods(root_module, root_module['ns3::DropTailQueue'])
     register_Ns3EmptyAttributeValue_methods(root_module, root_module['ns3::EmptyAttributeValue'])
     register_Ns3EnumChecker_methods(root_module, root_module['ns3::EnumChecker'])
     register_Ns3EnumValue_methods(root_module, root_module['ns3::EnumValue'])
@@ -1409,6 +1457,13 @@ def register_Ns3CallbackBase_methods(root_module, cls):
                    'std::string', 
                    [param('std::string const &', 'mangled')], 
                    is_static=True, visibility='protected')
+    return
+
+def register_Ns3CriticalSection_methods(root_module, cls):
+    ## system-mutex.h (module 'core'): ns3::CriticalSection::CriticalSection(ns3::CriticalSection const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::CriticalSection const &', 'arg0')])
+    ## system-mutex.h (module 'core'): ns3::CriticalSection::CriticalSection(ns3::SystemMutex & mutex) [constructor]
+    cls.add_constructor([param('ns3::SystemMutex &', 'mutex')])
     return
 
 def register_Ns3DataRate_methods(root_module, cls):
@@ -1997,6 +2052,129 @@ def register_Ns3Mac48Address_methods(root_module, cls):
                    is_static=True)
     return
 
+def register_Ns3ModulationAndCodingScheme_methods(root_module, cls):
+    cls.add_output_stream_operator()
+    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingScheme::ModulationAndCodingScheme(ns3::ModulationAndCodingScheme const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::ModulationAndCodingScheme const &', 'arg0')])
+    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingScheme::ModulationAndCodingScheme() [constructor]
+    cls.add_constructor([])
+    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingScheme::ModulationAndCodingScheme(ns3::ModulationAndCodingType t, double g) [constructor]
+    cls.add_constructor([param('ns3::ModulationAndCodingType', 't'), param('double', 'g')])
+    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingScheme::gap2Capacity_dB [variable]
+    cls.add_instance_attribute('gap2Capacity_dB', 'double', is_const=False)
+    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingScheme::mct [variable]
+    cls.add_instance_attribute('mct', 'ns3::ModulationAndCodingType', is_const=False)
+    return
+
+def register_Ns3NetDeviceContainer_methods(root_module, cls):
+    ## net-device-container.h (module 'network'): ns3::NetDeviceContainer::NetDeviceContainer(ns3::NetDeviceContainer const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NetDeviceContainer const &', 'arg0')])
+    ## net-device-container.h (module 'network'): ns3::NetDeviceContainer::NetDeviceContainer() [constructor]
+    cls.add_constructor([])
+    ## net-device-container.h (module 'network'): ns3::NetDeviceContainer::NetDeviceContainer(ns3::Ptr<ns3::NetDevice> dev) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::NetDevice >', 'dev')])
+    ## net-device-container.h (module 'network'): ns3::NetDeviceContainer::NetDeviceContainer(std::string devName) [constructor]
+    cls.add_constructor([param('std::string', 'devName')])
+    ## net-device-container.h (module 'network'): ns3::NetDeviceContainer::NetDeviceContainer(ns3::NetDeviceContainer const & a, ns3::NetDeviceContainer const & b) [constructor]
+    cls.add_constructor([param('ns3::NetDeviceContainer const &', 'a'), param('ns3::NetDeviceContainer const &', 'b')])
+    ## net-device-container.h (module 'network'): void ns3::NetDeviceContainer::Add(ns3::NetDeviceContainer other) [member function]
+    cls.add_method('Add', 
+                   'void', 
+                   [param('ns3::NetDeviceContainer', 'other')])
+    ## net-device-container.h (module 'network'): void ns3::NetDeviceContainer::Add(ns3::Ptr<ns3::NetDevice> device) [member function]
+    cls.add_method('Add', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::NetDevice >', 'device')])
+    ## net-device-container.h (module 'network'): void ns3::NetDeviceContainer::Add(std::string deviceName) [member function]
+    cls.add_method('Add', 
+                   'void', 
+                   [param('std::string', 'deviceName')])
+    ## net-device-container.h (module 'network'): __gnu_cxx::__normal_iterator<const ns3::Ptr<ns3::NetDevice>*,std::vector<ns3::Ptr<ns3::NetDevice>, std::allocator<ns3::Ptr<ns3::NetDevice> > > > ns3::NetDeviceContainer::Begin() const [member function]
+    cls.add_method('Begin', 
+                   '__gnu_cxx::__normal_iterator< ns3::Ptr< ns3::NetDevice > const, std::vector< ns3::Ptr< ns3::NetDevice > > >', 
+                   [], 
+                   is_const=True)
+    ## net-device-container.h (module 'network'): __gnu_cxx::__normal_iterator<const ns3::Ptr<ns3::NetDevice>*,std::vector<ns3::Ptr<ns3::NetDevice>, std::allocator<ns3::Ptr<ns3::NetDevice> > > > ns3::NetDeviceContainer::End() const [member function]
+    cls.add_method('End', 
+                   '__gnu_cxx::__normal_iterator< ns3::Ptr< ns3::NetDevice > const, std::vector< ns3::Ptr< ns3::NetDevice > > >', 
+                   [], 
+                   is_const=True)
+    ## net-device-container.h (module 'network'): ns3::Ptr<ns3::NetDevice> ns3::NetDeviceContainer::Get(uint32_t i) const [member function]
+    cls.add_method('Get', 
+                   'ns3::Ptr< ns3::NetDevice >', 
+                   [param('uint32_t', 'i')], 
+                   is_const=True)
+    ## net-device-container.h (module 'network'): uint32_t ns3::NetDeviceContainer::GetN() const [member function]
+    cls.add_method('GetN', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    return
+
+def register_Ns3NodeContainer_methods(root_module, cls):
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer(ns3::NodeContainer const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NodeContainer const &', 'arg0')])
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer() [constructor]
+    cls.add_constructor([])
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer(ns3::Ptr<ns3::Node> node) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::Node >', 'node')])
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer(std::string nodeName) [constructor]
+    cls.add_constructor([param('std::string', 'nodeName')])
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer(ns3::NodeContainer const & a, ns3::NodeContainer const & b) [constructor]
+    cls.add_constructor([param('ns3::NodeContainer const &', 'a'), param('ns3::NodeContainer const &', 'b')])
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer(ns3::NodeContainer const & a, ns3::NodeContainer const & b, ns3::NodeContainer const & c) [constructor]
+    cls.add_constructor([param('ns3::NodeContainer const &', 'a'), param('ns3::NodeContainer const &', 'b'), param('ns3::NodeContainer const &', 'c')])
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer(ns3::NodeContainer const & a, ns3::NodeContainer const & b, ns3::NodeContainer const & c, ns3::NodeContainer const & d) [constructor]
+    cls.add_constructor([param('ns3::NodeContainer const &', 'a'), param('ns3::NodeContainer const &', 'b'), param('ns3::NodeContainer const &', 'c'), param('ns3::NodeContainer const &', 'd')])
+    ## node-container.h (module 'network'): ns3::NodeContainer::NodeContainer(ns3::NodeContainer const & a, ns3::NodeContainer const & b, ns3::NodeContainer const & c, ns3::NodeContainer const & d, ns3::NodeContainer const & e) [constructor]
+    cls.add_constructor([param('ns3::NodeContainer const &', 'a'), param('ns3::NodeContainer const &', 'b'), param('ns3::NodeContainer const &', 'c'), param('ns3::NodeContainer const &', 'd'), param('ns3::NodeContainer const &', 'e')])
+    ## node-container.h (module 'network'): void ns3::NodeContainer::Add(ns3::NodeContainer other) [member function]
+    cls.add_method('Add', 
+                   'void', 
+                   [param('ns3::NodeContainer', 'other')])
+    ## node-container.h (module 'network'): void ns3::NodeContainer::Add(ns3::Ptr<ns3::Node> node) [member function]
+    cls.add_method('Add', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Node >', 'node')])
+    ## node-container.h (module 'network'): void ns3::NodeContainer::Add(std::string nodeName) [member function]
+    cls.add_method('Add', 
+                   'void', 
+                   [param('std::string', 'nodeName')])
+    ## node-container.h (module 'network'): __gnu_cxx::__normal_iterator<const ns3::Ptr<ns3::Node>*,std::vector<ns3::Ptr<ns3::Node>, std::allocator<ns3::Ptr<ns3::Node> > > > ns3::NodeContainer::Begin() const [member function]
+    cls.add_method('Begin', 
+                   '__gnu_cxx::__normal_iterator< ns3::Ptr< ns3::Node > const, std::vector< ns3::Ptr< ns3::Node > > >', 
+                   [], 
+                   is_const=True)
+    ## node-container.h (module 'network'): void ns3::NodeContainer::Create(uint32_t n) [member function]
+    cls.add_method('Create', 
+                   'void', 
+                   [param('uint32_t', 'n')])
+    ## node-container.h (module 'network'): void ns3::NodeContainer::Create(uint32_t n, uint32_t systemId) [member function]
+    cls.add_method('Create', 
+                   'void', 
+                   [param('uint32_t', 'n'), param('uint32_t', 'systemId')])
+    ## node-container.h (module 'network'): __gnu_cxx::__normal_iterator<const ns3::Ptr<ns3::Node>*,std::vector<ns3::Ptr<ns3::Node>, std::allocator<ns3::Ptr<ns3::Node> > > > ns3::NodeContainer::End() const [member function]
+    cls.add_method('End', 
+                   '__gnu_cxx::__normal_iterator< ns3::Ptr< ns3::Node > const, std::vector< ns3::Ptr< ns3::Node > > >', 
+                   [], 
+                   is_const=True)
+    ## node-container.h (module 'network'): ns3::Ptr<ns3::Node> ns3::NodeContainer::Get(uint32_t i) const [member function]
+    cls.add_method('Get', 
+                   'ns3::Ptr< ns3::Node >', 
+                   [param('uint32_t', 'i')], 
+                   is_const=True)
+    ## node-container.h (module 'network'): static ns3::NodeContainer ns3::NodeContainer::GetGlobal() [member function]
+    cls.add_method('GetGlobal', 
+                   'ns3::NodeContainer', 
+                   [], 
+                   is_static=True)
+    ## node-container.h (module 'network'): uint32_t ns3::NodeContainer::GetN() const [member function]
+    cls.add_method('GetN', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    return
+
 def register_Ns3ObjectBase_methods(root_module, cls):
     ## object-base.h (module 'core'): ns3::ObjectBase::ObjectBase() [constructor]
     cls.add_constructor([])
@@ -2107,28 +2285,30 @@ def register_Ns3ObjectFactory_methods(root_module, cls):
     return
 
 def register_Ns3PLC_EdgeTransferData_t_methods(root_module, cls):
-    ## plc-defs.h (module 'plc'): ns3::PLC_EdgeTransferData_t::PLC_EdgeTransferData_t() [constructor]
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t::PLC_EdgeTransferData_t() [constructor]
     cls.add_constructor([])
-    ## plc-defs.h (module 'plc'): ns3::PLC_EdgeTransferData_t::PLC_EdgeTransferData_t(ns3::PLC_EdgeTransferData_t const & arg0) [copy constructor]
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t::PLC_EdgeTransferData_t(ns3::PLC_EdgeTransferData_t const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_EdgeTransferData_t const &', 'arg0')])
-    ## plc-defs.h (module 'plc'): ns3::PLC_EdgeTransferData_t::edge_transfer_unit [variable]
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t::edge_transfer_unit [variable]
     cls.add_instance_attribute('edge_transfer_unit', 'ns3::Ptr< ns3::PLC_EdgeTransferUnit >', is_const=False)
-    ## plc-defs.h (module 'plc'): ns3::PLC_EdgeTransferData_t::etf_initialized [variable]
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t::etf_initialized [variable]
     cls.add_instance_attribute('etf_initialized', 'bool', is_const=False)
-    ## plc-defs.h (module 'plc'): ns3::PLC_EdgeTransferData_t::input_impedance [variable]
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t::impedance_mutex [variable]
+    cls.add_instance_attribute('impedance_mutex', 'ns3::PLC_Mutex *', is_const=False)
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t::input_impedance [variable]
     cls.add_instance_attribute('input_impedance', 'ns3::PLC_InputImpedance', is_const=False)
-    ## plc-defs.h (module 'plc'): ns3::PLC_EdgeTransferData_t::load_impedance [variable]
+    ## plc-edge.h (module 'plc'): ns3::PLC_EdgeTransferData_t::load_impedance [variable]
     cls.add_instance_attribute('load_impedance', 'ns3::Ptr< ns3::PLC_ValueBase >', is_const=False)
     return
 
 def register_Ns3PLC_ImpedanceIndicator_t_methods(root_module, cls):
-    ## plc-defs.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::PLC_ImpedanceIndicator_t() [constructor]
+    ## plc-edge.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::PLC_ImpedanceIndicator_t() [constructor]
     cls.add_constructor([])
-    ## plc-defs.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::PLC_ImpedanceIndicator_t(ns3::PLC_ImpedanceIndicator_t const & arg0) [copy constructor]
+    ## plc-edge.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::PLC_ImpedanceIndicator_t(ns3::PLC_ImpedanceIndicator_t const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_ImpedanceIndicator_t const &', 'arg0')])
-    ## plc-defs.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::IsTimeVariant [variable]
+    ## plc-edge.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::IsTimeVariant [variable]
     cls.add_instance_attribute('IsTimeVariant', 'bool', is_const=False)
-    ## plc-defs.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::IsUp2Date [variable]
+    ## plc-edge.h (module 'plc'): ns3::PLC_ImpedanceIndicator_t::IsUp2Date [variable]
     cls.add_instance_attribute('IsUp2Date', 'bool', is_const=False)
     return
 
@@ -2145,6 +2325,87 @@ def register_Ns3PLC_Mutex_methods(root_module, cls):
     cls.add_method('Unlock', 
                    'void', 
                    [])
+    return
+
+def register_Ns3PLC_OutputHelper_methods(root_module, cls):
+    ## plc-output-helper.h (module 'plc'): ns3::PLC_OutputHelper::PLC_OutputHelper() [constructor]
+    cls.add_constructor([])
+    ## plc-output-helper.h (module 'plc'): ns3::PLC_OutputHelper::PLC_OutputHelper(ns3::PLC_OutputHelper const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_OutputHelper const &', 'arg0')])
+    ## plc-output-helper.h (module 'plc'): void ns3::PLC_OutputHelper::PrintAbsolute(std::string name, ns3::Ptr<const ns3::PLC_ValueBase> value) [member function]
+    cls.add_method('PrintAbsolute', 
+                   'void', 
+                   [param('std::string', 'name'), param('ns3::Ptr< ns3::PLC_ValueBase const >', 'value')])
+    ## plc-output-helper.h (module 'plc'): void ns3::PLC_OutputHelper::PrintBode(std::string name, ns3::Ptr<const ns3::PLC_ValueBase> value) [member function]
+    cls.add_method('PrintBode', 
+                   'void', 
+                   [param('std::string', 'name'), param('ns3::Ptr< ns3::PLC_ValueBase const >', 'value')])
+    ## plc-output-helper.h (module 'plc'): void ns3::PLC_OutputHelper::PrintComplex(std::string name, ns3::Ptr<const ns3::PLC_ValueBase> value) [member function]
+    cls.add_method('PrintComplex', 
+                   'void', 
+                   [param('std::string', 'name'), param('ns3::Ptr< ns3::PLC_ValueBase const >', 'value')])
+    ## plc-output-helper.h (module 'plc'): void ns3::PLC_OutputHelper::PrintSeparatedBode(std::string name, ns3::Ptr<const ns3::PLC_ValueBase> value) [member function]
+    cls.add_method('PrintSeparatedBode', 
+                   'void', 
+                   [param('std::string', 'name'), param('ns3::Ptr< ns3::PLC_ValueBase const >', 'value')])
+    return
+
+def register_Ns3PLC_PhyTraceHelper_methods(root_module, cls):
+    ## plc-trace-helper.h (module 'plc'): ns3::PLC_PhyTraceHelper::PLC_PhyTraceHelper(ns3::PLC_PhyTraceHelper const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_PhyTraceHelper const &', 'arg0')])
+    ## plc-trace-helper.h (module 'plc'): ns3::PLC_PhyTraceHelper::PLC_PhyTraceHelper() [constructor]
+    cls.add_constructor([])
+    ## plc-trace-helper.h (module 'plc'): ns3::PLC_PhyTraceHelper::PLC_PhyTraceHelper(ns3::Ptr<ns3::PLC_Phy> phy) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Phy >', 'phy')])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::EnableNoisePsdTracing() [member function]
+    cls.add_method('EnableNoisePsdTracing', 
+                   'void', 
+                   [])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::EnableSnrTracing() [member function]
+    cls.add_method('EnableSnrTracing', 
+                   'void', 
+                   [])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::EnableSumPsdTracing() [member function]
+    cls.add_method('EnableSumPsdTracing', 
+                   'void', 
+                   [])
+    ## plc-trace-helper.h (module 'plc'): ns3::Ptr<ns3::PLC_Phy> ns3::PLC_PhyTraceHelper::GetPhy() [member function]
+    cls.add_method('GetPhy', 
+                   'ns3::Ptr< ns3::PLC_Phy >', 
+                   [])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::SaveNoisePsdTraceToFile(std::string filename) [member function]
+    cls.add_method('SaveNoisePsdTraceToFile', 
+                   'void', 
+                   [param('std::string', 'filename')])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::SaveSnrTraceToFile(std::string filename) [member function]
+    cls.add_method('SaveSnrTraceToFile', 
+                   'void', 
+                   [param('std::string', 'filename')])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::SaveSumPsdTraceToFile(std::string filename) [member function]
+    cls.add_method('SaveSumPsdTraceToFile', 
+                   'void', 
+                   [param('std::string', 'filename')])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::SetPhy(ns3::Ptr<ns3::PLC_Phy> phy) [member function]
+    cls.add_method('SetPhy', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::TraceNoisePsd(ns3::Time time, ns3::Ptr<ns3::SpectrumValue const> psd) [member function]
+    cls.add_method('TraceNoisePsd', 
+                   'void', 
+                   [param('ns3::Time', 'time'), param('ns3::Ptr< ns3::SpectrumValue const >', 'psd')])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::TraceSnr(ns3::Time time, ns3::Ptr<ns3::SpectrumValue const> snr) [member function]
+    cls.add_method('TraceSnr', 
+                   'void', 
+                   [param('ns3::Time', 'time'), param('ns3::Ptr< ns3::SpectrumValue const >', 'snr')])
+    ## plc-trace-helper.h (module 'plc'): void ns3::PLC_PhyTraceHelper::TraceSumPsd(ns3::Time time, ns3::Ptr<ns3::SpectrumValue const> psd) [member function]
+    cls.add_method('TraceSumPsd', 
+                   'void', 
+                   [param('ns3::Time', 'time'), param('ns3::Ptr< ns3::SpectrumValue const >', 'psd')])
+    return
+
+def register_Ns3PLC_ThreadDispatcher_methods(root_module, cls):
+    ## plc-thread-dispatcher.h (module 'plc'): ns3::PLC_ThreadDispatcher::PLC_ThreadDispatcher(ns3::PLC_ThreadDispatcher const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_ThreadDispatcher const &', 'arg0')])
     return
 
 def register_Ns3PLC_Time_methods(root_module, cls):
@@ -2176,6 +2437,11 @@ def register_Ns3PLC_Time_methods(root_module, cls):
     cls.add_method('GetTimeslot', 
                    'ns3::Timeslot', 
                    [param('ns3::Time', 't')], 
+                   is_static=True)
+    ## plc-time.h (module 'plc'): static void ns3::PLC_Time::SetTimeModel(double mainsFreq, size_t timeslots) [member function]
+    cls.add_method('SetTimeModel', 
+                   'void', 
+                   [param('double', 'mainsFreq'), param('size_t', 'timeslots')], 
                    is_static=True)
     ## plc-time.h (module 'plc'): static void ns3::PLC_Time::SetTimeModel(double mainsFreq, ns3::Time tSymbol) [member function]
     cls.add_method('SetTimeModel', 
@@ -2445,6 +2711,21 @@ def register_Ns3SimpleRefCount__Ns3Object_Ns3ObjectBase_Ns3ObjectDeleter_methods
                    'void', 
                    [], 
                    is_static=True)
+    return
+
+def register_Ns3SystemMutex_methods(root_module, cls):
+    ## system-mutex.h (module 'core'): ns3::SystemMutex::SystemMutex(ns3::SystemMutex const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::SystemMutex const &', 'arg0')])
+    ## system-mutex.h (module 'core'): ns3::SystemMutex::SystemMutex() [constructor]
+    cls.add_constructor([])
+    ## system-mutex.h (module 'core'): void ns3::SystemMutex::Lock() [member function]
+    cls.add_method('Lock', 
+                   'void', 
+                   [])
+    ## system-mutex.h (module 'core'): void ns3::SystemMutex::Unlock() [member function]
+    cls.add_method('Unlock', 
+                   'void', 
+                   [])
     return
 
 def register_Ns3Tag_methods(root_module, cls):
@@ -3257,16 +3538,8 @@ def register_Ns3PLC_BackboneBranch_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_const=True)
-    ## plc-backbone.h (module 'plc'): void ns3::PLC_BackboneBranch::Lock() [member function]
-    cls.add_method('Lock', 
-                   'void', 
-                   [])
     ## plc-backbone.h (module 'plc'): void ns3::PLC_BackboneBranch::SetTimeVariant() [member function]
     cls.add_method('SetTimeVariant', 
-                   'void', 
-                   [])
-    ## plc-backbone.h (module 'plc'): void ns3::PLC_BackboneBranch::Unlock() [member function]
-    cls.add_method('Unlock', 
                    'void', 
                    [])
     ## plc-backbone.h (module 'plc'): void ns3::PLC_BackboneBranch::DoDispose() [member function]
@@ -3295,9 +3568,9 @@ def register_Ns3PLC_Cable_methods(root_module, cls):
                    'void', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
-    ## plc-cable.h (module 'plc'): ns3::Ptr<const ns3::PLC_FreqSelectiveValue> ns3::PLC_Cable::GetCharImp() const [member function]
+    ## plc-cable.h (module 'plc'): ns3::PLC_FreqSelectiveImpedance ns3::PLC_Cable::GetCharImp() const [member function]
     cls.add_method('GetCharImp', 
-                   'ns3::Ptr< ns3::PLC_FreqSelectiveValue const >', 
+                   'ns3::PLC_FreqSelectiveImpedance', 
                    [], 
                    is_const=True)
     ## plc-cable.h (module 'plc'): ns3::PLC_FreqSelectiveResistance * ns3::PLC_Cable::GetDistConRef() [member function]
@@ -3321,9 +3594,9 @@ def register_Ns3PLC_Cable_methods(root_module, cls):
                    'ns3::Ptr< ns3::SpectrumModel const >', 
                    [], 
                    is_const=True)
-    ## plc-cable.h (module 'plc'): ns3::Ptr<const ns3::PLC_FreqSelectiveValue> ns3::PLC_Cable::GetTransConst() const [member function]
+    ## plc-cable.h (module 'plc'): ns3::PLC_FreqSelectiveImpedance ns3::PLC_Cable::GetTransConst() const [member function]
     cls.add_method('GetTransConst', 
-                   'ns3::Ptr< ns3::PLC_FreqSelectiveValue const >', 
+                   'ns3::PLC_FreqSelectiveImpedance', 
                    [], 
                    is_const=True)
     ## plc-cable.h (module 'plc'): static ns3::TypeId ns3::PLC_Cable::GetTypeId() [member function]
@@ -3331,18 +3604,10 @@ def register_Ns3PLC_Cable_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-cable.h (module 'plc'): void ns3::PLC_Cable::Lock() [member function]
-    cls.add_method('Lock', 
-                   'void', 
-                   [])
     ## plc-cable.h (module 'plc'): void ns3::PLC_Cable::SetSpectrumModel(ns3::Ptr<ns3::SpectrumModel const> sm) [member function]
     cls.add_method('SetSpectrumModel', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumModel const >', 'sm')])
-    ## plc-cable.h (module 'plc'): void ns3::PLC_Cable::Unlock() [member function]
-    cls.add_method('Unlock', 
-                   'void', 
-                   [])
     ## plc-cable.h (module 'plc'): void ns3::PLC_Cable::CalcCharImp() [member function]
     cls.add_method('CalcCharImp', 
                    'void', 
@@ -3370,6 +3635,10 @@ def register_Ns3PLC_ChannelHelper_methods(root_module, cls):
     ## plc-helper.h (module 'plc'): ns3::Ptr<ns3::PLC_Channel> ns3::PLC_ChannelHelper::GetChannel() [member function]
     cls.add_method('GetChannel', 
                    'ns3::Ptr< ns3::PLC_Channel >', 
+                   [])
+    ## plc-helper.h (module 'plc'): ns3::PLC_NodeList ns3::PLC_ChannelHelper::GetNodes() [member function]
+    cls.add_method('GetNodes', 
+                   'ns3::PLC_NodeList', 
                    [])
     ## plc-helper.h (module 'plc'): static ns3::TypeId ns3::PLC_ChannelHelper::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
@@ -3551,11 +3820,14 @@ def register_Ns3PLC_Edge_methods(root_module, cls):
     cls.add_method('IsInputImpedanceUp2Date', 
                    'bool', 
                    [param('ns3::PLC_Node *', 'dst_node')])
-    ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::Lock() const [member function]
-    cls.add_method('Lock', 
+    ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::LockEdgeTransferUnit(ns3::PLC_Node * dst) [member function]
+    cls.add_method('LockEdgeTransferUnit', 
                    'void', 
-                   [], 
-                   is_const=True)
+                   [param('ns3::PLC_Node *', 'dst')])
+    ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::LockImpedanceCache(ns3::PLC_Node * dst) [member function]
+    cls.add_method('LockImpedanceCache', 
+                   'void', 
+                   [param('ns3::PLC_Node *', 'dst')])
     ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::SetEdgeTransferFactorOutOfDate(ns3::PLC_Node * dst_node) [member function]
     cls.add_method('SetEdgeTransferFactorOutOfDate', 
                    'void', 
@@ -3564,11 +3836,14 @@ def register_Ns3PLC_Edge_methods(root_module, cls):
     cls.add_method('SetInputImpedanceOutOfDate', 
                    'void', 
                    [param('ns3::PLC_Node *', 'dst_node')])
-    ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::Unlock() const [member function]
-    cls.add_method('Unlock', 
+    ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::UnlockEdgeTransferUnit(ns3::PLC_Node * dst) [member function]
+    cls.add_method('UnlockEdgeTransferUnit', 
                    'void', 
-                   [], 
-                   is_const=True)
+                   [param('ns3::PLC_Node *', 'dst')])
+    ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::UnlockImpedanceCache(ns3::PLC_Node * dst) [member function]
+    cls.add_method('UnlockImpedanceCache', 
+                   'void', 
+                   [param('ns3::PLC_Node *', 'dst')])
     ## plc-edge.h (module 'plc'): void ns3::PLC_Edge::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -3734,10 +4009,6 @@ def register_Ns3PLC_Graph_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-graph.h (module 'plc'): void ns3::PLC_Graph::Lock() [member function]
-    cls.add_method('Lock', 
-                   'void', 
-                   [])
     ## plc-graph.h (module 'plc'): bool ns3::PLC_Graph::PathExists(ns3::Ptr<ns3::PLC_Node> from, ns3::Ptr<ns3::PLC_Node> to) [member function]
     cls.add_method('PathExists', 
                    'bool', 
@@ -3750,10 +4021,6 @@ def register_Ns3PLC_Graph_methods(root_module, cls):
     cls.add_method('SetChannel', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Channel >', 'channel')])
-    ## plc-graph.h (module 'plc'): void ns3::PLC_Graph::Unlock() [member function]
-    cls.add_method('Unlock', 
-                   'void', 
-                   [])
     ## plc-graph.h (module 'plc'): void ns3::PLC_Graph::CalculateShortestPaths() [member function]
     cls.add_method('CalculateShortestPaths', 
                    'void', 
@@ -3833,11 +4100,10 @@ def register_Ns3PLC_Interface_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_Node >', 
                    [], 
                    is_const=True)
-    ## plc-interface.h (module 'plc'): ns3::PLC_Node * ns3::PLC_Interface::GetNodePeekPointer() const [member function]
+    ## plc-interface.h (module 'plc'): ns3::PLC_Node * ns3::PLC_Interface::GetNodePeekPointer() [member function]
     cls.add_method('GetNodePeekPointer', 
                    'ns3::PLC_Node *', 
-                   [], 
-                   is_const=True)
+                   [])
     ## plc-interface.h (module 'plc'): ns3::Ptr<ns3::PLC_Phy> ns3::PLC_Interface::GetPhy() [member function]
     cls.add_method('GetPhy', 
                    'ns3::Ptr< ns3::PLC_Phy >', 
@@ -3891,6 +4157,10 @@ def register_Ns3PLC_Interference_methods(root_module, cls):
     ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::EndRx() [member function]
     cls.add_method('EndRx', 
                    'void', 
+                   [])
+    ## plc-interference.h (module 'plc'): double ns3::PLC_Interference::GetMeanRxPower() [member function]
+    cls.add_method('GetMeanRxPower', 
+                   'double', 
                    [])
     ## plc-interference.h (module 'plc'): ns3::Ptr<ns3::SpectrumValue const> ns3::PLC_Interference::GetNoiseFloor() [member function]
     cls.add_method('GetNoiseFloor', 
@@ -3965,9 +4235,9 @@ def register_Ns3PLC_Line_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_Cable const >', 
                    [], 
                    is_const=True)
-    ## plc-edge.h (module 'plc'): ns3::Ptr<const ns3::PLC_FreqSelectiveValue> ns3::PLC_Line::GetCharLineImp() const [member function]
+    ## plc-edge.h (module 'plc'): ns3::PLC_FreqSelectiveImpedance ns3::PLC_Line::GetCharLineImp() const [member function]
     cls.add_method('GetCharLineImp', 
-                   'ns3::Ptr< ns3::PLC_FreqSelectiveValue const >', 
+                   'ns3::PLC_FreqSelectiveImpedance', 
                    [], 
                    is_const=True)
     ## plc-edge.h (module 'plc'): double ns3::PLC_Line::GetIdealPropagationDelay() [member function]
@@ -3975,9 +4245,9 @@ def register_Ns3PLC_Line_methods(root_module, cls):
                    'double', 
                    [], 
                    is_virtual=True)
-    ## plc-edge.h (module 'plc'): ns3::Ptr<const ns3::PLC_FreqSelectiveValue> ns3::PLC_Line::GetTransLineConst() const [member function]
+    ## plc-edge.h (module 'plc'): ns3::PLC_FreqSelectiveImpedance ns3::PLC_Line::GetTransLineConst() const [member function]
     cls.add_method('GetTransLineConst', 
-                   'ns3::Ptr< ns3::PLC_FreqSelectiveValue const >', 
+                   'ns3::PLC_FreqSelectiveImpedance', 
                    [], 
                    is_const=True)
     ## plc-edge.h (module 'plc'): static ns3::TypeId ns3::PLC_Line::GetTypeId() [member function]
@@ -4019,6 +4289,14 @@ def register_Ns3PLC_LinkPerformanceModel_methods(root_module, cls):
     cls.add_method('GetInterference', 
                    'ns3::Ptr< ns3::PLC_Interference >', 
                    [])
+    ## plc-link-performance-model.h (module 'plc'): double ns3::PLC_LinkPerformanceModel::GetMeanRxPower() [member function]
+    cls.add_method('GetMeanRxPower', 
+                   'double', 
+                   [])
+    ## plc-link-performance-model.h (module 'plc'): double ns3::PLC_LinkPerformanceModel::GetShannonTransmissionRateLimit(ns3::Ptr<ns3::SpectrumValue> rxPsd) [member function]
+    cls.add_method('GetShannonTransmissionRateLimit', 
+                   'double', 
+                   [param('ns3::Ptr< ns3::SpectrumValue >', 'rxPsd')])
     ## plc-link-performance-model.h (module 'plc'): double ns3::PLC_LinkPerformanceModel::GetTotalNoisePower() [member function]
     cls.add_method('GetTotalNoisePower', 
                    'double', 
@@ -4044,10 +4322,10 @@ def register_Ns3PLC_LinkPerformanceModel_methods(root_module, cls):
     cls.add_method('SetSinrBase', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'sinrBase')])
-    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::StartRx(ns3::ModulationAndCodingType mcs, ns3::Ptr<ns3::SpectrumValue const> rxPsd, double requiredInformationBits=0) [member function]
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::StartRx(ns3::ModulationAndCodingScheme mcs, ns3::Ptr<ns3::SpectrumValue const> rxPsd, double requiredInformationBits=0) [member function]
     cls.add_method('StartRx', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('double', 'requiredInformationBits', default_value='0')])
+                   [param('ns3::ModulationAndCodingScheme', 'mcs'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('double', 'requiredInformationBits', default_value='0')])
     ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -4091,6 +4369,14 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
     cls.add_method('GetBroadcastAddress', 
                    'ns3::Mac48Address', 
                    [])
+    ## plc-mac.h (module 'plc'): uint8_t ns3::PLC_Mac::GetMaxBE() [member function]
+    cls.add_method('GetMaxBE', 
+                   'uint8_t', 
+                   [])
+    ## plc-mac.h (module 'plc'): uint8_t ns3::PLC_Mac::GetMinBE() [member function]
+    cls.add_method('GetMinBE', 
+                   'uint8_t', 
+                   [])
     ## plc-mac.h (module 'plc'): ns3::Mac48Address ns3::PLC_Mac::GetMulticastAddress() [member function]
     cls.add_method('GetMulticastAddress', 
                    'ns3::Mac48Address', 
@@ -4104,6 +4390,10 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    ## plc-mac.h (module 'plc'): uint32_t ns3::PLC_Mac::GetUnitBackoffPeriod() [member function]
+    cls.add_method('GetUnitBackoffPeriod', 
+                   'uint32_t', 
+                   [])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::NotifyCcaConfirm(ns3::PLC_PhyCcaResult status) [member function]
     cls.add_method('NotifyCcaConfirm', 
                    'void', 
@@ -4114,10 +4404,10 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
                    'void', 
                    [param('ns3::PLC_CsmaCaState', 'state')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::NotifyReceptionEndOk(ns3::Ptr<ns3::Packet const> p) [member function]
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::NotifyReceptionEndOk(ns3::Ptr<ns3::Packet const> p, uint16_t messageId) [member function]
     cls.add_method('NotifyReceptionEndOk', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
+                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint16_t', 'messageId')])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::NotifyTransmissionEnd() [member function]
     cls.add_method('NotifyTransmissionEnd', 
                    'void', 
@@ -4135,10 +4425,18 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
     cls.add_method('Send', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'dst')])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::SendAcknowledgement(ns3::Mac48Address src, uint16_t sequence_number) [member function]
+    cls.add_method('SendAcknowledgement', 
+                   'void', 
+                   [param('ns3::Mac48Address', 'src'), param('uint16_t', 'sequence_number')])
     ## plc-mac.h (module 'plc'): bool ns3::PLC_Mac::SendFrom(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
     cls.add_method('SendFrom', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::SendNegativeAcknowledgement(ns3::Mac48Address src, uint16_t sequence_number) [member function]
+    cls.add_method('SendNegativeAcknowledgement', 
+                   'void', 
+                   [param('ns3::Mac48Address', 'src'), param('uint16_t', 'sequence_number')])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::SetAddress(ns3::Mac48Address addr) [member function]
     cls.add_method('SetAddress', 
                    'void', 
@@ -4159,6 +4457,14 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
     cls.add_method('SetMacDataCallback', 
                    'void', 
                    [param('ns3::PLC_MacDataCallback', 'c')])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::SetMaxBE(uint8_t maxBE) [member function]
+    cls.add_method('SetMaxBE', 
+                   'void', 
+                   [param('uint8_t', 'maxBE')])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::SetMinBE(uint8_t minBE) [member function]
+    cls.add_method('SetMinBE', 
+                   'void', 
+                   [param('uint8_t', 'minBE')])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::SetMulticastAddress(ns3::Mac48Address addr) [member function]
     cls.add_method('SetMulticastAddress', 
                    'void', 
@@ -4175,6 +4481,10 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
     cls.add_method('SetTransmissionFailedCallback', 
                    'void', 
                    [param('ns3::PLC_MacTransmissionFailedCallback', 'c')])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::SetUnitBackoffPeriod(uint32_t nsymbols) [member function]
+    cls.add_method('SetUnitBackoffPeriod', 
+                   'void', 
+                   [param('uint32_t', 'nsymbols')])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::StartCsmaCa() [member function]
     cls.add_method('StartCsmaCa', 
                    'void', 
@@ -4189,6 +4499,11 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_Phy >', 
                    [], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoNotifyReceptionEndOk() [member function]
+    cls.add_method('DoNotifyReceptionEndOk', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoProcess(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoProcess', 
                    'void', 
@@ -4209,6 +4524,16 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::ForwardUp(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
+    cls.add_method('ForwardUp', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')], 
+                   visibility='protected')
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::TriggerTransmission() [member function]
+    cls.add_method('TriggerTransmission', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_MacHeader_methods(root_module, cls):
@@ -4225,6 +4550,11 @@ def register_Ns3PLC_MacHeader_methods(root_module, cls):
     ## plc-header.h (module 'plc'): ns3::Mac48Address ns3::PLC_MacHeader::GetDstAddress() const [member function]
     cls.add_method('GetDstAddress', 
                    'ns3::Mac48Address', 
+                   [], 
+                   is_const=True)
+    ## plc-header.h (module 'plc'): bool ns3::PLC_MacHeader::GetHasRelayHeader() const [member function]
+    cls.add_method('GetHasRelayHeader', 
+                   'bool', 
                    [], 
                    is_const=True)
     ## plc-header.h (module 'plc'): ns3::TypeId ns3::PLC_MacHeader::GetInstanceTypeId() const [member function]
@@ -4276,6 +4606,10 @@ def register_Ns3PLC_MacHeader_methods(root_module, cls):
     cls.add_method('SetDstAddress', 
                    'void', 
                    [param('ns3::Mac48Address', 'addr')])
+    ## plc-header.h (module 'plc'): void ns3::PLC_MacHeader::SetHasRelayHeader(bool arg0) [member function]
+    cls.add_method('SetHasRelayHeader', 
+                   'void', 
+                   [param('bool', 'arg0')])
     ## plc-header.h (module 'plc'): void ns3::PLC_MacHeader::SetMessageLength(uint32_t length) [member function]
     cls.add_method('SetMessageLength', 
                    'void', 
@@ -4353,6 +4687,14 @@ def register_Ns3PLC_NetDeviceHelper_methods(root_module, cls):
     cls.add_method('GetDevice', 
                    'ns3::Ptr< ns3::PLC_NetDevice >', 
                    [param('std::string', 'name')])
+    ## plc-device-helper.h (module 'plc'): ns3::NodeContainer ns3::PLC_NetDeviceHelper::GetNS3Nodes() [member function]
+    cls.add_method('GetNS3Nodes', 
+                   'ns3::NodeContainer', 
+                   [])
+    ## plc-device-helper.h (module 'plc'): ns3::NetDeviceContainer ns3::PLC_NetDeviceHelper::GetNetDevices() [member function]
+    cls.add_method('GetNetDevices', 
+                   'ns3::NetDeviceContainer', 
+                   [])
     ## plc-device-helper.h (module 'plc'): ns3::PLC_NetdeviceMap ns3::PLC_NetDeviceHelper::GetNetdeviceMap() [member function]
     cls.add_method('GetNetdeviceMap', 
                    'ns3::PLC_NetdeviceMap', 
@@ -4370,18 +4712,18 @@ def register_Ns3PLC_NetDeviceHelper_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetHeaderModulationAndCodingScheme(ns3::ModulationAndCodingType mcs) [member function]
+    ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetHeaderModulationAndCodingScheme(ns3::ModulationAndCodingScheme mcs) [member function]
     cls.add_method('SetHeaderModulationAndCodingScheme', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
+                   [param('ns3::ModulationAndCodingScheme', 'mcs')])
     ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetNoiseFloor(ns3::Ptr<ns3::SpectrumValue const> psd) [member function]
     cls.add_method('SetNoiseFloor', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'psd')])
-    ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetPayloadModulationAndCodingScheme(ns3::ModulationAndCodingType mcs) [member function]
+    ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetPayloadModulationAndCodingScheme(ns3::ModulationAndCodingScheme mcs) [member function]
     cls.add_method('SetPayloadModulationAndCodingScheme', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
+                   [param('ns3::ModulationAndCodingScheme', 'mcs')])
     ## plc-device-helper.h (module 'plc'): void ns3::PLC_NetDeviceHelper::SetRxImpedance(ns3::Ptr<ns3::PLC_ValueBase> rxImpedance) [member function]
     cls.add_method('SetRxImpedance', 
                    'void', 
@@ -4488,10 +4830,6 @@ def register_Ns3PLC_Node_methods(root_module, cls):
     cls.add_method('IsTimeVariant', 
                    'bool', 
                    [])
-    ## plc-node.h (module 'plc'): void ns3::PLC_Node::Lock() [member function]
-    cls.add_method('Lock', 
-                   'void', 
-                   [])
     ## plc-node.h (module 'plc'): void ns3::PLC_Node::OpenCircuit() [member function]
     cls.add_method('OpenCircuit', 
                    'void', 
@@ -4528,10 +4866,6 @@ def register_Ns3PLC_Node_methods(root_module, cls):
     cls.add_method('SetPosition', 
                    'void', 
                    [param('double', 'pos_x'), param('double', 'pos_y'), param('double', 'pos_z')])
-    ## plc-node.h (module 'plc'): void ns3::PLC_Node::Unlock() [member function]
-    cls.add_method('Unlock', 
-                   'void', 
-                   [])
     ## plc-node.h (module 'plc'): void ns3::PLC_Node::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -4635,11 +4969,6 @@ def register_Ns3PLC_Outlet_methods(root_module, cls):
     cls.add_method('IsTimeVariant', 
                    'bool', 
                    [])
-    ## plc-outlet.h (module 'plc'): void ns3::PLC_Outlet::Lock() const [member function]
-    cls.add_method('Lock', 
-                   'void', 
-                   [], 
-                   is_const=True)
     ## plc-outlet.h (module 'plc'): void ns3::PLC_Outlet::RegisterBackboneBranch(ns3::Ptr<ns3::PLC_BackboneBranch> bb_branch) [member function]
     cls.add_method('RegisterBackboneBranch', 
                    'void', 
@@ -4652,11 +4981,6 @@ def register_Ns3PLC_Outlet_methods(root_module, cls):
     cls.add_method('SetRxInterface', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_RxInterface >', 'interface')])
-    ## plc-outlet.h (module 'plc'): void ns3::PLC_Outlet::Unlock() const [member function]
-    cls.add_method('Unlock', 
-                   'void', 
-                   [], 
-                   is_const=True)
     ## plc-outlet.h (module 'plc'): void ns3::PLC_Outlet::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -4673,13 +4997,25 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
     cls.add_method('GetChannelTransferImpl', 
                    'ns3::PLC_ChannelTransferImpl *', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')])
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_ChannelTransferImpl> ns3::PLC_Phy::GetChannelTransferImplPtr(ns3::Ptr<ns3::PLC_Phy> rxPhy) [member function]
+    cls.add_method('GetChannelTransferImplPtr', 
+                   'ns3::Ptr< ns3::PLC_ChannelTransferImpl >', 
+                   [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')])
     ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_ValueBase> ns3::PLC_Phy::GetChannelTransferVector(ns3::Ptr<ns3::PLC_Phy> rxPhy) [member function]
     cls.add_method('GetChannelTransferVector', 
                    'ns3::Ptr< ns3::PLC_ValueBase >', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')])
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_LinkPerformanceModel> ns3::PLC_Phy::GetLinkPerformanceModel() [member function]
+    cls.add_method('GetLinkPerformanceModel', 
+                   'ns3::Ptr< ns3::PLC_LinkPerformanceModel >', 
+                   [])
     ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_Node> ns3::PLC_Phy::GetNode() [member function]
     cls.add_method('GetNode', 
                    'ns3::Ptr< ns3::PLC_Node >', 
+                   [])
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_TrxMetaInfo const> ns3::PLC_Phy::GetRxMetaInfo() [member function]
+    cls.add_method('GetRxMetaInfo', 
+                   'ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 
                    [])
     ## plc-phy.h (module 'plc'): static ns3::Time ns3::PLC_Phy::GetSymbolDuration() [member function]
     cls.add_method('GetSymbolDuration', 
@@ -4691,19 +5027,27 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::Lock() [member function]
+    cls.add_method('Lock', 
+                   'void', 
+                   [])
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::NotifyFrameSent() [member function]
     cls.add_method('NotifyFrameSent', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::RxPsdChanged(uint32_t txId, ns3::Ptr<ns3::SpectrumValue> newRxPsd) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::RxPsdChanged(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> newRxPsd) [member function]
     cls.add_method('RxPsdChanged', 
                    'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'newRxPsd')])
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'newRxPsd')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::SetFrameSentCallback(ns3::PLC_PhyFrameSentCallback c) [member function]
     cls.add_method('SetFrameSentCallback', 
                    'void', 
                    [param('ns3::PLC_PhyFrameSentCallback', 'c')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::SetReceiveEndCallback(ns3::PhyRxEndCallback c) [member function]
+    cls.add_method('SetReceiveEndCallback', 
+                   'void', 
+                   [param('ns3::PhyRxEndCallback', 'c')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::SetReceiveErrorCallback(ns3::PhyRxEndErrorCallback c) [member function]
     cls.add_method('SetReceiveErrorCallback', 
                    'void', 
@@ -4717,14 +5061,26 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
                    'void', 
                    [param('ns3::Time', 'tSymbol')], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::StartRx(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::StartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('StartRx', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::StartTx(ns3::Ptr<ns3::Packet> p) [member function]
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::StartTx(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('StartTx', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')])
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::TraceNoise(ns3::Time t, ns3::Ptr<ns3::SpectrumValue const> noisePsd) [member function]
+    cls.add_method('TraceNoise', 
+                   'void', 
+                   [param('ns3::Time', 't'), param('ns3::Ptr< ns3::SpectrumValue const >', 'noisePsd')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::TraceRxSignal(ns3::Time t, ns3::Ptr<ns3::SpectrumValue const> rxPsd) [member function]
+    cls.add_method('TraceRxSignal', 
+                   'void', 
+                   [param('ns3::Time', 't'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::Unlock() [member function]
+    cls.add_method('Unlock', 
+                   'void', 
+                   [])
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -4735,25 +5091,35 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
                    'ns3::PLC_ChannelTransferImpl *', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_ChannelTransferImpl> ns3::PLC_Phy::DoGetChannelTransferImplPtr(ns3::Ptr<ns3::PLC_Phy> rxPhy) [member function]
+    cls.add_method('DoGetChannelTransferImplPtr', 
+                   'ns3::Ptr< ns3::PLC_ChannelTransferImpl >', 
+                   [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')], 
+                   is_pure_virtual=True, visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_LinkPerformanceModel> ns3::PLC_Phy::DoGetLinkPerformanceModel() [member function]
+    cls.add_method('DoGetLinkPerformanceModel', 
+                   'ns3::Ptr< ns3::PLC_LinkPerformanceModel >', 
+                   [], 
+                   is_pure_virtual=True, visibility='protected', is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoStart() [member function]
     cls.add_method('DoStart', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoStartRx(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoStartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('DoStartRx', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::DoStartTx(ns3::Ptr<ns3::Packet> p) [member function]
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoStartTx', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoUpdateRxPsd(uint32_t txId, ns3::Ptr<ns3::SpectrumValue> newRxPsd) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoUpdateRxPsd(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> newRxPsd) [member function]
     cls.add_method('DoUpdateRxPsd', 
                    'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'newRxPsd')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'newRxPsd')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
     return
 
@@ -4767,10 +5133,6 @@ def register_Ns3PLC_PhyFrameControlHeader_methods(root_module, cls):
                    'uint32_t', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_virtual=True)
-    ## plc-header.h (module 'plc'): ns3::PLC_PhyFrameControlHeader::DelimiterType ns3::PLC_PhyFrameControlHeader::GetDelimiterType() [member function]
-    cls.add_method('GetDelimiterType', 
-                   'ns3::PLC_PhyFrameControlHeader::DelimiterType', 
-                   [])
     ## plc-header.h (module 'plc'): uint8_t ns3::PLC_PhyFrameControlHeader::GetFccs() [member function]
     cls.add_method('GetFccs', 
                    'uint8_t', 
@@ -4780,12 +5142,24 @@ def register_Ns3PLC_PhyFrameControlHeader_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_const=True, is_virtual=True)
+    ## plc-header.h (module 'plc'): uint16_t ns3::PLC_PhyFrameControlHeader::GetMessageId() [member function]
+    cls.add_method('GetMessageId', 
+                   'uint16_t', 
+                   [])
+    ## plc-header.h (module 'plc'): uint32_t ns3::PLC_PhyFrameControlHeader::GetNumBlocks() [member function]
+    cls.add_method('GetNumBlocks', 
+                   'uint32_t', 
+                   [])
     ## plc-header.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_PhyFrameControlHeader::GetPayloadMcs() [member function]
     cls.add_method('GetPayloadMcs', 
                    'ns3::ModulationAndCodingType', 
                    [])
     ## plc-header.h (module 'plc'): uint16_t ns3::PLC_PhyFrameControlHeader::GetPayloadSymbols() [member function]
     cls.add_method('GetPayloadSymbols', 
+                   'uint16_t', 
+                   [])
+    ## plc-header.h (module 'plc'): uint16_t ns3::PLC_PhyFrameControlHeader::GetPrngSeed() [member function]
+    cls.add_method('GetPrngSeed', 
                    'uint16_t', 
                    [])
     ## plc-header.h (module 'plc'): uint32_t ns3::PLC_PhyFrameControlHeader::GetSerializedSize() const [member function]
@@ -4808,104 +5182,27 @@ def register_Ns3PLC_PhyFrameControlHeader_methods(root_module, cls):
                    'void', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_const=True, is_virtual=True)
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetDelimiterType(ns3::PLC_PhyFrameControlHeader::DelimiterType type) [member function]
-    cls.add_method('SetDelimiterType', 
-                   'void', 
-                   [param('ns3::PLC_PhyFrameControlHeader::DelimiterType', 'type')])
     ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetFccs(uint8_t fccs) [member function]
     cls.add_method('SetFccs', 
                    'void', 
                    [param('uint8_t', 'fccs')])
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetPayloadMcs(ns3::ModulationAndCodingType mcs) [member function]
-    cls.add_method('SetPayloadMcs', 
+    ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetMessageId(uint16_t id) [member function]
+    cls.add_method('SetMessageId', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
+                   [param('uint16_t', 'id')])
+    ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetNumBlocks(uint32_t num_blocks) [member function]
+    cls.add_method('SetNumBlocks', 
+                   'void', 
+                   [param('uint32_t', 'num_blocks')])
+    ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetPayloadMct(ns3::ModulationAndCodingType mct) [member function]
+    cls.add_method('SetPayloadMct', 
+                   'void', 
+                   [param('ns3::ModulationAndCodingType', 'mct')])
     ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetPayloadSymbols(uint16_t symbols) [member function]
     cls.add_method('SetPayloadSymbols', 
                    'void', 
                    [param('uint16_t', 'symbols')])
-    return
-
-def register_Ns3PLC_PhyRatelessFrameControlHeader_methods(root_module, cls):
-    ## plc-header.h (module 'plc'): ns3::PLC_PhyRatelessFrameControlHeader::PLC_PhyRatelessFrameControlHeader(ns3::PLC_PhyRatelessFrameControlHeader const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PLC_PhyRatelessFrameControlHeader const &', 'arg0')])
-    ## plc-header.h (module 'plc'): ns3::PLC_PhyRatelessFrameControlHeader::PLC_PhyRatelessFrameControlHeader() [constructor]
-    cls.add_constructor([])
-    ## plc-header.h (module 'plc'): uint32_t ns3::PLC_PhyRatelessFrameControlHeader::Deserialize(ns3::Buffer::Iterator start) [member function]
-    cls.add_method('Deserialize', 
-                   'uint32_t', 
-                   [param('ns3::Buffer::Iterator', 'start')], 
-                   is_virtual=True)
-    ## plc-header.h (module 'plc'): ns3::PLC_PhyRatelessFrameControlHeader::DelimiterType ns3::PLC_PhyRatelessFrameControlHeader::GetDelimiterType() [member function]
-    cls.add_method('GetDelimiterType', 
-                   'ns3::PLC_PhyRatelessFrameControlHeader::DelimiterType', 
-                   [])
-    ## plc-header.h (module 'plc'): uint8_t ns3::PLC_PhyRatelessFrameControlHeader::GetFccs() [member function]
-    cls.add_method('GetFccs', 
-                   'uint8_t', 
-                   [])
-    ## plc-header.h (module 'plc'): ns3::TypeId ns3::PLC_PhyRatelessFrameControlHeader::GetInstanceTypeId() const [member function]
-    cls.add_method('GetInstanceTypeId', 
-                   'ns3::TypeId', 
-                   [], 
-                   is_const=True, is_virtual=True)
-    ## plc-header.h (module 'plc'): uint32_t ns3::PLC_PhyRatelessFrameControlHeader::GetNumBlocks() [member function]
-    cls.add_method('GetNumBlocks', 
-                   'uint32_t', 
-                   [])
-    ## plc-header.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_PhyRatelessFrameControlHeader::GetPayloadMcs() [member function]
-    cls.add_method('GetPayloadMcs', 
-                   'ns3::ModulationAndCodingType', 
-                   [])
-    ## plc-header.h (module 'plc'): uint16_t ns3::PLC_PhyRatelessFrameControlHeader::GetPayloadSymbols() [member function]
-    cls.add_method('GetPayloadSymbols', 
-                   'uint16_t', 
-                   [])
-    ## plc-header.h (module 'plc'): uint16_t ns3::PLC_PhyRatelessFrameControlHeader::GetPrngSeed() [member function]
-    cls.add_method('GetPrngSeed', 
-                   'uint16_t', 
-                   [])
-    ## plc-header.h (module 'plc'): uint32_t ns3::PLC_PhyRatelessFrameControlHeader::GetSerializedSize() const [member function]
-    cls.add_method('GetSerializedSize', 
-                   'uint32_t', 
-                   [], 
-                   is_const=True, is_virtual=True)
-    ## plc-header.h (module 'plc'): static ns3::TypeId ns3::PLC_PhyRatelessFrameControlHeader::GetTypeId() [member function]
-    cls.add_method('GetTypeId', 
-                   'ns3::TypeId', 
-                   [], 
-                   is_static=True)
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::Print(std::ostream & os) const [member function]
-    cls.add_method('Print', 
-                   'void', 
-                   [param('std::ostream &', 'os')], 
-                   is_const=True, is_virtual=True)
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::Serialize(ns3::Buffer::Iterator start) const [member function]
-    cls.add_method('Serialize', 
-                   'void', 
-                   [param('ns3::Buffer::Iterator', 'start')], 
-                   is_const=True, is_virtual=True)
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::SetDelimiterType(ns3::PLC_PhyRatelessFrameControlHeader::DelimiterType type) [member function]
-    cls.add_method('SetDelimiterType', 
-                   'void', 
-                   [param('ns3::PLC_PhyRatelessFrameControlHeader::DelimiterType', 'type')])
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::SetFccs(uint8_t fccs) [member function]
-    cls.add_method('SetFccs', 
-                   'void', 
-                   [param('uint8_t', 'fccs')])
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::SetNumBlocks(uint32_t num_blocks) [member function]
-    cls.add_method('SetNumBlocks', 
-                   'void', 
-                   [param('uint32_t', 'num_blocks')])
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::SetPayloadMcs(ns3::ModulationAndCodingType mcs) [member function]
-    cls.add_method('SetPayloadMcs', 
-                   'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::SetPayloadSymbols(uint16_t symbols) [member function]
-    cls.add_method('SetPayloadSymbols', 
-                   'void', 
-                   [param('uint16_t', 'symbols')])
-    ## plc-header.h (module 'plc'): void ns3::PLC_PhyRatelessFrameControlHeader::SetPrngSeed(uint16_t prng_seed) [member function]
+    ## plc-header.h (module 'plc'): void ns3::PLC_PhyFrameControlHeader::SetPrngSeed(uint16_t prng_seed) [member function]
     cls.add_method('SetPrngSeed', 
                    'void', 
                    [param('uint16_t', 'prng_seed')])
@@ -4958,6 +5255,87 @@ def register_Ns3PLC_Preamble_methods(root_module, cls):
                    is_static=True)
     return
 
+def register_Ns3PLC_RelayMacHeader_methods(root_module, cls):
+    ## plc-header.h (module 'plc'): ns3::PLC_RelayMacHeader::PLC_RelayMacHeader(ns3::PLC_RelayMacHeader const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_RelayMacHeader const &', 'arg0')])
+    ## plc-header.h (module 'plc'): ns3::PLC_RelayMacHeader::PLC_RelayMacHeader() [constructor]
+    cls.add_constructor([])
+    ## plc-header.h (module 'plc'): uint32_t ns3::PLC_RelayMacHeader::Deserialize(ns3::Buffer::Iterator start) [member function]
+    cls.add_method('Deserialize', 
+                   'uint32_t', 
+                   [param('ns3::Buffer::Iterator', 'start')], 
+                   is_virtual=True)
+    ## plc-header.h (module 'plc'): ns3::Mac48Address ns3::PLC_RelayMacHeader::GetDstAddress() const [member function]
+    cls.add_method('GetDstAddress', 
+                   'ns3::Mac48Address', 
+                   [], 
+                   is_const=True)
+    ## plc-header.h (module 'plc'): ns3::TypeId ns3::PLC_RelayMacHeader::GetInstanceTypeId() const [member function]
+    cls.add_method('GetInstanceTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_const=True, is_virtual=True)
+    ## plc-header.h (module 'plc'): uint8_t ns3::PLC_RelayMacHeader::GetRelayHops() const [member function]
+    cls.add_method('GetRelayHops', 
+                   'uint8_t', 
+                   [], 
+                   is_const=True)
+    ## plc-header.h (module 'plc'): ns3::PLC_RelayMacHeader::RelayMacHdrType ns3::PLC_RelayMacHeader::GetRelayType() [member function]
+    cls.add_method('GetRelayType', 
+                   'ns3::PLC_RelayMacHeader::RelayMacHdrType', 
+                   [])
+    ## plc-header.h (module 'plc'): uint16_t ns3::PLC_RelayMacHeader::GetSequenceNumber() const [member function]
+    cls.add_method('GetSequenceNumber', 
+                   'uint16_t', 
+                   [], 
+                   is_const=True)
+    ## plc-header.h (module 'plc'): uint32_t ns3::PLC_RelayMacHeader::GetSerializedSize() const [member function]
+    cls.add_method('GetSerializedSize', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True, is_virtual=True)
+    ## plc-header.h (module 'plc'): ns3::Mac48Address ns3::PLC_RelayMacHeader::GetSrcAddress() const [member function]
+    cls.add_method('GetSrcAddress', 
+                   'ns3::Mac48Address', 
+                   [], 
+                   is_const=True)
+    ## plc-header.h (module 'plc'): static ns3::TypeId ns3::PLC_RelayMacHeader::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-header.h (module 'plc'): void ns3::PLC_RelayMacHeader::IncrementRelayHops() [member function]
+    cls.add_method('IncrementRelayHops', 
+                   'void', 
+                   [])
+    ## plc-header.h (module 'plc'): void ns3::PLC_RelayMacHeader::Print(std::ostream & os) const [member function]
+    cls.add_method('Print', 
+                   'void', 
+                   [param('std::ostream &', 'os')], 
+                   is_const=True, is_virtual=True)
+    ## plc-header.h (module 'plc'): void ns3::PLC_RelayMacHeader::Serialize(ns3::Buffer::Iterator start) const [member function]
+    cls.add_method('Serialize', 
+                   'void', 
+                   [param('ns3::Buffer::Iterator', 'start')], 
+                   is_const=True, is_virtual=True)
+    ## plc-header.h (module 'plc'): void ns3::PLC_RelayMacHeader::SetDstAddress(ns3::Mac48Address addr) [member function]
+    cls.add_method('SetDstAddress', 
+                   'void', 
+                   [param('ns3::Mac48Address', 'addr')])
+    ## plc-header.h (module 'plc'): void ns3::PLC_RelayMacHeader::SetRelayType(ns3::PLC_RelayMacHeader::RelayMacHdrType type) [member function]
+    cls.add_method('SetRelayType', 
+                   'void', 
+                   [param('ns3::PLC_RelayMacHeader::RelayMacHdrType', 'type')])
+    ## plc-header.h (module 'plc'): void ns3::PLC_RelayMacHeader::SetSequenceNumber(uint16_t sqn) [member function]
+    cls.add_method('SetSequenceNumber', 
+                   'void', 
+                   [param('uint16_t', 'sqn')])
+    ## plc-header.h (module 'plc'): void ns3::PLC_RelayMacHeader::SetSrcAddress(ns3::Mac48Address addr) [member function]
+    cls.add_method('SetSrcAddress', 
+                   'void', 
+                   [param('ns3::Mac48Address', 'addr')])
+    return
+
 def register_Ns3PLC_RxInterface_methods(root_module, cls):
     ## plc-interface.h (module 'plc'): ns3::PLC_RxInterface::PLC_RxInterface(ns3::PLC_RxInterface const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_RxInterface const &', 'arg0')])
@@ -4977,22 +5355,22 @@ def register_Ns3PLC_RxInterface_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::RxPsdChanged(uint32_t txId, ns3::Ptr<ns3::SpectrumValue> rxSignal) [member function]
+    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::RxPsdChanged(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxSignal) [member function]
     cls.add_method('RxPsdChanged', 
                    'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'rxSignal')])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::SetIdx(uint32_t idx) [member function]
-    cls.add_method('SetIdx', 
-                   'void', 
-                   [param('uint32_t', 'idx')])
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxSignal')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::SetOutlet(ns3::Ptr<ns3::PLC_Outlet> outlet) [member function]
     cls.add_method('SetOutlet', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Outlet >', 'outlet')])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::StartRx(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::SetRxIfIdx(uint32_t idx) [member function]
+    cls.add_method('SetRxIfIdx', 
+                   'void', 
+                   [param('uint32_t', 'idx')])
+    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::StartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('StartRx', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -5100,6 +5478,37 @@ def register_Ns3PLC_TimeInvariantSpectrumHelper_methods(root_module, cls):
                    is_static=True)
     return
 
+def register_Ns3PLC_TimeVaryingNoiseSource_methods(root_module, cls):
+    ## plc-noise.h (module 'plc'): ns3::PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource(ns3::PLC_TimeVaryingNoiseSource const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::PLC_TimeVaryingNoiseSource const &', 'arg0')])
+    ## plc-noise.h (module 'plc'): ns3::PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource() [constructor]
+    cls.add_constructor([])
+    ## plc-noise.h (module 'plc'): ns3::PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource(ns3::Ptr<ns3::PLC_Node> src_node, ns3::Ptr<ns3::SpectrumModel> sm, ns3::RandomVariable subChannelPsd, ns3::RandomVariable staticDuration) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'src_node'), param('ns3::Ptr< ns3::SpectrumModel >', 'sm'), param('ns3::RandomVariable', 'subChannelPsd'), param('ns3::RandomVariable', 'staticDuration')])
+    ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::AlterPsd() [member function]
+    cls.add_method('AlterPsd', 
+                   'void', 
+                   [])
+    ## plc-noise.h (module 'plc'): static ns3::TypeId ns3::PLC_TimeVaryingNoiseSource::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::Start() [member function]
+    cls.add_method('Start', 
+                   'void', 
+                   [])
+    ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::Stop() [member function]
+    cls.add_method('Stop', 
+                   'void', 
+                   [])
+    ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::pureVirtualDummy() [member function]
+    cls.add_method('pureVirtualDummy', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    return
+
 def register_Ns3PLC_TwoPort_methods(root_module, cls):
     ## plc-edge.h (module 'plc'): ns3::PLC_TwoPort::PLC_TwoPort(ns3::PLC_TwoPort const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_TwoPort const &', 'arg0')])
@@ -5157,15 +5566,20 @@ def register_Ns3PLC_TxInterface_methods(root_module, cls):
     cls.add_method('GetChannelTransferImpl', 
                    'ns3::PLC_ChannelTransferImpl *', 
                    [param('ns3::PLC_RxInterface *', 'rxInterface')])
+    ## plc-interface.h (module 'plc'): uint32_t ns3::PLC_TxInterface::GetNoiseIfIdx() const [member function]
+    cls.add_method('GetNoiseIfIdx', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
     ## plc-interface.h (module 'plc'): uint32_t ns3::PLC_TxInterface::GetTxIfIdx() const [member function]
     cls.add_method('GetTxIfIdx', 
                    'uint32_t', 
                    [], 
                    is_const=True)
-    ## plc-interface.h (module 'plc'): ns3::Ptr<ns3::SpectrumValue const> ns3::PLC_TxInterface::GetTxPsd() [member function]
+    ## plc-interface.h (module 'plc'): ns3::Ptr<ns3::SpectrumValue const> ns3::PLC_TxInterface::GetTxPsd(uint32_t ifIdx) [member function]
     cls.add_method('GetTxPsd', 
                    'ns3::Ptr< ns3::SpectrumValue const >', 
-                   [])
+                   [param('uint32_t', 'ifIdx')])
     ## plc-interface.h (module 'plc'): static ns3::TypeId ns3::PLC_TxInterface::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
@@ -5175,14 +5589,18 @@ def register_Ns3PLC_TxInterface_methods(root_module, cls):
     cls.add_method('InitializeChannelTransferImpls', 
                    'void', 
                    [])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::SetIdx(uint32_t idx) [member function]
-    cls.add_method('SetIdx', 
+    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::SetNoiseIfIdx(uint32_t idx) [member function]
+    cls.add_method('SetNoiseIfIdx', 
                    'void', 
                    [param('uint32_t', 'idx')])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::StartTx(ns3::Ptr<ns3::Packet const> p, ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::SetTxIfIdx(uint32_t idx) [member function]
+    cls.add_method('SetTxIfIdx', 
+                   'void', 
+                   [param('uint32_t', 'idx')])
+    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::StartTx(ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('StartTx', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
+                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -5235,16 +5653,6 @@ def register_Ns3PLC_ValueBase_methods(root_module, cls):
     ## plc-value.h (module 'plc'): bool ns3::PLC_ValueBase::IsTimeVariant() const [member function]
     cls.add_method('IsTimeVariant', 
                    'bool', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::Lock() const [member function]
-    cls.add_method('Lock', 
-                   'void', 
-                   [], 
-                   is_const=True)
-    ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::Unlock() const [member function]
-    cls.add_method('Unlock', 
-                   'void', 
                    [], 
                    is_const=True)
     ## plc-value.h (module 'plc'): void ns3::PLC_ValueBase::pureVirtualDummy() [member function]
@@ -5320,6 +5728,94 @@ def register_Ns3ParetoVariable_methods(root_module, cls):
     cls.add_constructor([param('std::pair< double, double >', 'params')])
     ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable(std::pair<double,double> params, double b) [constructor]
     cls.add_constructor([param('std::pair< double, double >', 'params'), param('double', 'b')])
+    return
+
+def register_Ns3Queue_methods(root_module, cls):
+    ## queue.h (module 'network'): ns3::Queue::Queue(ns3::Queue const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::Queue const &', 'arg0')])
+    ## queue.h (module 'network'): ns3::Queue::Queue() [constructor]
+    cls.add_constructor([])
+    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet> ns3::Queue::Dequeue() [member function]
+    cls.add_method('Dequeue', 
+                   'ns3::Ptr< ns3::Packet >', 
+                   [])
+    ## queue.h (module 'network'): void ns3::Queue::DequeueAll() [member function]
+    cls.add_method('DequeueAll', 
+                   'void', 
+                   [])
+    ## queue.h (module 'network'): bool ns3::Queue::Enqueue(ns3::Ptr<ns3::Packet> p) [member function]
+    cls.add_method('Enqueue', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'p')])
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetNBytes() const [member function]
+    cls.add_method('GetNBytes', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetNPackets() const [member function]
+    cls.add_method('GetNPackets', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetTotalDroppedBytes() const [member function]
+    cls.add_method('GetTotalDroppedBytes', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetTotalDroppedPackets() const [member function]
+    cls.add_method('GetTotalDroppedPackets', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetTotalReceivedBytes() const [member function]
+    cls.add_method('GetTotalReceivedBytes', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetTotalReceivedPackets() const [member function]
+    cls.add_method('GetTotalReceivedPackets', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): static ns3::TypeId ns3::Queue::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## queue.h (module 'network'): bool ns3::Queue::IsEmpty() const [member function]
+    cls.add_method('IsEmpty', 
+                   'bool', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet const> ns3::Queue::Peek() const [member function]
+    cls.add_method('Peek', 
+                   'ns3::Ptr< ns3::Packet const >', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): void ns3::Queue::ResetStatistics() [member function]
+    cls.add_method('ResetStatistics', 
+                   'void', 
+                   [])
+    ## queue.h (module 'network'): void ns3::Queue::Drop(ns3::Ptr<ns3::Packet> packet) [member function]
+    cls.add_method('Drop', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Packet >', 'packet')], 
+                   visibility='protected')
+    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet> ns3::Queue::DoDequeue() [member function]
+    cls.add_method('DoDequeue', 
+                   'ns3::Ptr< ns3::Packet >', 
+                   [], 
+                   is_pure_virtual=True, visibility='private', is_virtual=True)
+    ## queue.h (module 'network'): bool ns3::Queue::DoEnqueue(ns3::Ptr<ns3::Packet> p) [member function]
+    cls.add_method('DoEnqueue', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   is_pure_virtual=True, visibility='private', is_virtual=True)
+    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet const> ns3::Queue::DoPeek() const [member function]
+    cls.add_method('DoPeek', 
+                   'ns3::Ptr< ns3::Packet const >', 
+                   [], 
+                   is_pure_virtual=True, is_const=True, visibility='private', is_virtual=True)
     return
 
 def register_Ns3Scheduler_methods(root_module, cls):
@@ -6265,6 +6761,41 @@ def register_Ns3DoubleValue_methods(root_module, cls):
                    [param('double const &', 'value')])
     return
 
+def register_Ns3DropTailQueue_methods(root_module, cls):
+    ## drop-tail-queue.h (module 'network'): ns3::DropTailQueue::DropTailQueue(ns3::DropTailQueue const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::DropTailQueue const &', 'arg0')])
+    ## drop-tail-queue.h (module 'network'): ns3::DropTailQueue::DropTailQueue() [constructor]
+    cls.add_constructor([])
+    ## drop-tail-queue.h (module 'network'): ns3::Queue::QueueMode ns3::DropTailQueue::GetMode() [member function]
+    cls.add_method('GetMode', 
+                   'ns3::Queue::QueueMode', 
+                   [])
+    ## drop-tail-queue.h (module 'network'): static ns3::TypeId ns3::DropTailQueue::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## drop-tail-queue.h (module 'network'): void ns3::DropTailQueue::SetMode(ns3::Queue::QueueMode mode) [member function]
+    cls.add_method('SetMode', 
+                   'void', 
+                   [param('ns3::Queue::QueueMode', 'mode')])
+    ## drop-tail-queue.h (module 'network'): ns3::Ptr<ns3::Packet> ns3::DropTailQueue::DoDequeue() [member function]
+    cls.add_method('DoDequeue', 
+                   'ns3::Ptr< ns3::Packet >', 
+                   [], 
+                   visibility='private', is_virtual=True)
+    ## drop-tail-queue.h (module 'network'): bool ns3::DropTailQueue::DoEnqueue(ns3::Ptr<ns3::Packet> p) [member function]
+    cls.add_method('DoEnqueue', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   visibility='private', is_virtual=True)
+    ## drop-tail-queue.h (module 'network'): ns3::Ptr<ns3::Packet const> ns3::DropTailQueue::DoPeek() const [member function]
+    cls.add_method('DoPeek', 
+                   'ns3::Ptr< ns3::Packet const >', 
+                   [], 
+                   is_const=True, visibility='private', is_virtual=True)
+    return
+
 def register_Ns3EmptyAttributeValue_methods(root_module, cls):
     ## attribute.h (module 'core'): ns3::EmptyAttributeValue::EmptyAttributeValue(ns3::EmptyAttributeValue const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::EmptyAttributeValue const &', 'arg0')])
@@ -6948,14 +7479,15 @@ def register_Ns3PLC_ArqMac_methods(root_module, cls):
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::AcknowledgementTimeout() [member function]
     cls.add_method('AcknowledgementTimeout', 
                    'void', 
+                   [], 
+                   is_virtual=True)
+    ## plc-mac.h (module 'plc'): ns3::Time ns3::PLC_ArqMac::GetAcknowledgementTimeout() [member function]
+    cls.add_method('GetAcknowledgementTimeout', 
+                   'ns3::Time', 
                    [])
     ## plc-mac.h (module 'plc'): size_t ns3::PLC_ArqMac::GetMaxReplays() [member function]
     cls.add_method('GetMaxReplays', 
                    'size_t', 
-                   [])
-    ## plc-mac.h (module 'plc'): ns3::Time ns3::PLC_ArqMac::GetTimeout() [member function]
-    cls.add_method('GetTimeout', 
-                   'ns3::Time', 
                    [])
     ## plc-mac.h (module 'plc'): static ns3::TypeId ns3::PLC_ArqMac::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
@@ -6977,44 +7509,49 @@ def register_Ns3PLC_ArqMac_methods(root_module, cls):
                    'void', 
                    [], 
                    is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::SetAcknowledgementTimeout(ns3::Time timeout) [member function]
+    cls.add_method('SetAcknowledgementTimeout', 
+                   'void', 
+                   [param('ns3::Time', 'timeout')])
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::SetMaxReplays(size_t max_replays) [member function]
     cls.add_method('SetMaxReplays', 
                    'void', 
                    [param('size_t', 'max_replays')])
-    ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::SetTimeout(ns3::Time timeout) [member function]
-    cls.add_method('SetTimeout', 
-                   'void', 
-                   [param('ns3::Time', 'timeout')])
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): ns3::Ptr<ns3::PLC_Phy> ns3::PLC_ArqMac::DoGetPhy() [member function]
     cls.add_method('DoGetPhy', 
                    'ns3::Ptr< ns3::PLC_Phy >', 
                    [], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoProcess(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoProcess', 
                    'void', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): bool ns3::PLC_ArqMac::DoSendFrom(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
     cls.add_method('DoSendFrom', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoSetPhy(ns3::Ptr<ns3::PLC_Phy> phy) [member function]
     cls.add_method('DoSetPhy', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoStart() [member function]
     cls.add_method('DoStart', 
                    'void', 
                    [], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::NotifyAcknowledgement() [member function]
+    cls.add_method('NotifyAcknowledgement', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_Channel_methods(root_module, cls):
@@ -7099,8 +7636,12 @@ def register_Ns3PLC_Channel_methods(root_module, cls):
     cls.add_method('InitTransmissionChannels', 
                    'void', 
                    [])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::Lock() const [member function]
-    cls.add_method('Lock', 
+    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::InvokeReception(ns3::Ptr<ns3::PLC_RxInterface> rxIf, uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InvokeReception', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_RxInterface >', 'rxIf'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::LockTransmissionDescriptor() const [member function]
+    cls.add_method('LockTransmissionDescriptor', 
                    'void', 
                    [], 
                    is_const=True)
@@ -7124,12 +7665,12 @@ def register_Ns3PLC_Channel_methods(root_module, cls):
     cls.add_method('TransmissionEnd', 
                    'bool', 
                    [param('uint32_t', 'txId'), param('ns3::Time', 'propagation_delay')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::TransmissionStart(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::TransmissionStart(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('TransmissionStart', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::Unlock() const [member function]
-    cls.add_method('Unlock', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::UnlockTransmissionDescriptor() const [member function]
+    cls.add_method('UnlockTransmissionDescriptor', 
                    'void', 
                    [], 
                    is_const=True)
@@ -7320,6 +7861,18 @@ def register_Ns3PLC_FreqSelectiveValue_methods(root_module, cls):
     cls.add_constructor([param('ns3::PLC_ConstValue const &', 'value')])
     ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::PLC_FreqSelectiveValue const & value) [copy constructor]
     cls.add_constructor([param('ns3::PLC_FreqSelectiveValue const &', 'value')])
+    ## plc-value.h (module 'plc'): double ns3::PLC_FreqSelectiveValue::GetI(size_t i) [member function]
+    cls.add_method('GetI', 
+                   'double', 
+                   [param('size_t', 'i')])
+    ## plc-value.h (module 'plc'): size_t ns3::PLC_FreqSelectiveValue::GetN() [member function]
+    cls.add_method('GetN', 
+                   'size_t', 
+                   [])
+    ## plc-value.h (module 'plc'): double ns3::PLC_FreqSelectiveValue::GetR(size_t i) [member function]
+    cls.add_method('GetR', 
+                   'double', 
+                   [param('size_t', 'i')])
     ## plc-value.h (module 'plc'): static ns3::TypeId ns3::PLC_FreqSelectiveValue::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
@@ -7334,6 +7887,10 @@ def register_Ns3PLC_FreqSelectiveValue_methods(root_module, cls):
     cls.add_method('GetValuesRef', 
                    'ns3::PLC_ValueSpectrum *', 
                    [])
+    ## plc-value.h (module 'plc'): void ns3::PLC_FreqSelectiveValue::Set(size_t i, double real, double imag) [member function]
+    cls.add_method('Set', 
+                   'void', 
+                   [param('size_t', 'i'), param('double', 'real'), param('double', 'imag')])
     ## plc-value.h (module 'plc'): void ns3::PLC_FreqSelectiveValue::pureVirtualDummy() [member function]
     cls.add_method('pureVirtualDummy', 
                    'void', 
@@ -7371,6 +7928,10 @@ def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
                    'ns3::Time', 
                    [], 
                    is_static=True)
+    ## plc-phy.h (module 'plc'): size_t ns3::PLC_HalfDuplexOfdmPhy::GetNumSubcarriers() [member function]
+    cls.add_method('GetNumSubcarriers', 
+                   'size_t', 
+                   [])
     ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_Outlet> ns3::PLC_HalfDuplexOfdmPhy::GetOutlet() [member function]
     cls.add_method('GetOutlet', 
                    'ns3::Ptr< ns3::PLC_Outlet >', 
@@ -7412,6 +7973,18 @@ def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
     cls.add_method('IsBusy', 
                    'bool', 
                    [])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::NoiseStart(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> psd, ns3::Time duration) [member function]
+    cls.add_method('NoiseStart', 
+                   'void', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'psd'), param('ns3::Time', 'duration')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::NoiseStop(uint32_t txId) [member function]
+    cls.add_method('NoiseStop', 
+                   'void', 
+                   [param('uint32_t', 'txId')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::SendFrame(ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    cls.add_method('SendFrame', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::SetCcaConfirmCallback(ns3::PLC_PhyCcaConfirmCallback c) [member function]
     cls.add_method('SetCcaConfirmCallback', 
                    'void', 
@@ -7441,8 +8014,8 @@ def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
     cls.add_method('SetTxPowerSpectralDensity', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue >', 'txPsd')])
-    ## plc-phy.h (module 'plc'): ns3::Time ns3::PLC_HalfDuplexOfdmPhy::CalculateTxDuration(size_t nSymbols) [member function]
-    cls.add_method('CalculateTxDuration', 
+    ## plc-phy.h (module 'plc'): ns3::Time ns3::PLC_HalfDuplexOfdmPhy::CalculateTransmissionDuration(size_t nSymbols) [member function]
+    cls.add_method('CalculateTransmissionDuration', 
                    'ns3::Time', 
                    [param('size_t', 'nSymbols')], 
                    visibility='protected')
@@ -7466,15 +8039,20 @@ def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
                    'ns3::PLC_ChannelTransferImpl *', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::DoSetNoiseFloor(ns3::Ptr<ns3::SpectrumValue const> noiseFloor) [member function]
-    cls.add_method('DoSetNoiseFloor', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'noiseFloor')], 
-                   is_pure_virtual=True, visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_ChannelTransferImpl> ns3::PLC_HalfDuplexOfdmPhy::DoGetChannelTransferImplPtr(ns3::Ptr<ns3::PLC_Phy> rxPhy) [member function]
+    cls.add_method('DoGetChannelTransferImplPtr', 
+                   'ns3::Ptr< ns3::PLC_ChannelTransferImpl >', 
+                   [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')], 
+                   visibility='protected', is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::DoStart() [member function]
     cls.add_method('DoStart', 
                    'void', 
                    [], 
+                   visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::DoUpdateRxPsd(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> newRxPsd) [member function]
+    cls.add_method('DoUpdateRxPsd', 
+                   'void', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'newRxPsd')], 
                    visibility='protected', is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::SwitchImpedance(ns3::PLC_HalfDuplexOfdmPhy::State state) [member function]
     cls.add_method('SwitchImpedance', 
@@ -7491,7 +8069,8 @@ def register_Ns3PLC_HarqMac_methods(root_module, cls):
     ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::AcknowledgementTimeout() [member function]
     cls.add_method('AcknowledgementTimeout', 
                    'void', 
-                   [])
+                   [], 
+                   is_virtual=True)
     ## plc-mac.h (module 'plc'): ns3::Time ns3::PLC_HarqMac::GetAcknowledgementTimeout() [member function]
     cls.add_method('GetAcknowledgementTimeout', 
                    'ns3::Time', 
@@ -7532,32 +8111,47 @@ def register_Ns3PLC_HarqMac_methods(root_module, cls):
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): ns3::Ptr<ns3::PLC_Phy> ns3::PLC_HarqMac::DoGetPhy() [member function]
     cls.add_method('DoGetPhy', 
                    'ns3::Ptr< ns3::PLC_Phy >', 
                    [], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoProcess(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoProcess', 
                    'void', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): bool ns3::PLC_HarqMac::DoSendFrom(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
     cls.add_method('DoSendFrom', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Mac48Address', 'src'), param('ns3::Mac48Address', 'dst')], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoSetPhy(ns3::Ptr<ns3::PLC_Phy> phy) [member function]
     cls.add_method('DoSetPhy', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoStart() [member function]
     cls.add_method('DoStart', 
                    'void', 
                    [], 
-                   visibility='private', is_virtual=True)
+                   visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::NotifyAcknowledgement() [member function]
+    cls.add_method('NotifyAcknowledgement', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::NotifyNegativeAcknowledgement() [member function]
+    cls.add_method('NotifyNegativeAcknowledgement', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::TriggerTransmission() [member function]
+    cls.add_method('TriggerTransmission', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_ImpulseNoiseSource_methods(root_module, cls):
@@ -7594,8 +8188,8 @@ def register_Ns3PLC_ImpulsiveNoiseSource_methods(root_module, cls):
     cls.add_constructor([])
     ## plc-noise.h (module 'plc'): ns3::PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource(ns3::Ptr<ns3::PLC_Node> m_src_node, ns3::Ptr<ns3::SpectrumValue> noisePsd) [constructor]
     cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'm_src_node'), param('ns3::Ptr< ns3::SpectrumValue >', 'noisePsd')])
-    ## plc-noise.h (module 'plc'): ns3::PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource(ns3::Ptr<ns3::PLC_Node> src_node, ns3::Ptr<ns3::SpectrumValue> noisePsd, ns3::RandomVariable * pulselen_gen, ns3::RandomVariable * pulsegap_gen) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'src_node'), param('ns3::Ptr< ns3::SpectrumValue >', 'noisePsd'), param('ns3::RandomVariable *', 'pulselen_gen'), param('ns3::RandomVariable *', 'pulsegap_gen')])
+    ## plc-noise.h (module 'plc'): ns3::PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource(ns3::Ptr<ns3::PLC_Node> src_node, ns3::Ptr<ns3::SpectrumValue> noisePsd, ns3::RandomVariable pulselen_gen, ns3::RandomVariable pulsegap_gen) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'src_node'), param('ns3::Ptr< ns3::SpectrumValue >', 'noisePsd'), param('ns3::RandomVariable', 'pulselen_gen'), param('ns3::RandomVariable', 'pulsegap_gen')])
     ## plc-noise.h (module 'plc'): void ns3::PLC_ImpulsiveNoiseSource::Enable() [member function]
     cls.add_method('Enable', 
                    'void', 
@@ -7626,6 +8220,10 @@ def register_Ns3PLC_InformationRateModel_methods(root_module, cls):
     cls.add_constructor([param('ns3::PLC_InformationRateModel const &', 'arg0')])
     ## plc-link-performance-model.h (module 'plc'): ns3::PLC_InformationRateModel::PLC_InformationRateModel() [constructor]
     cls.add_constructor([])
+    ## plc-link-performance-model.h (module 'plc'): double ns3::PLC_InformationRateModel::GetCodingOverhead() [member function]
+    cls.add_method('GetCodingOverhead', 
+                   'double', 
+                   [])
     ## plc-link-performance-model.h (module 'plc'): double ns3::PLC_InformationRateModel::GetGatheredMutualInformation() [member function]
     cls.add_method('GetGatheredMutualInformation', 
                    'double', 
@@ -7638,11 +8236,19 @@ def register_Ns3PLC_InformationRateModel_methods(root_module, cls):
     cls.add_method('GetSymbolDuration', 
                    'ns3::Time', 
                    [])
+    ## plc-link-performance-model.h (module 'plc'): double ns3::PLC_InformationRateModel::GetTransmissionRateLimit(ns3::Ptr<ns3::SpectrumValue> rxPsd, ns3::ModulationAndCodingScheme mcs) [member function]
+    cls.add_method('GetTransmissionRateLimit', 
+                   'double', 
+                   [param('ns3::Ptr< ns3::SpectrumValue >', 'rxPsd'), param('ns3::ModulationAndCodingScheme', 'mcs')])
     ## plc-link-performance-model.h (module 'plc'): static ns3::TypeId ns3::PLC_InformationRateModel::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_InformationRateModel::SetCodingOverhead(double overhead) [member function]
+    cls.add_method('SetCodingOverhead', 
+                   'void', 
+                   [param('double', 'overhead')])
     ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_InformationRateModel::SetGuardIntervalDuration(ns3::Time duration) [member function]
     cls.add_method('SetGuardIntervalDuration', 
                    'void', 
@@ -7686,69 +8292,73 @@ def register_Ns3PLC_InformationRatePhy_methods(root_module, cls):
     cls.add_constructor([param('ns3::PLC_InformationRatePhy const &', 'arg0')])
     ## plc-phy.h (module 'plc'): ns3::PLC_InformationRatePhy::PLC_InformationRatePhy() [constructor]
     cls.add_constructor([])
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::EndRxHeader(ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::EndRxHeader(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('EndRxHeader', 
                    'void', 
-                   [param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::EndRxPayload(ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::EndRxPayload(ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('EndRxPayload', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_InformationRatePhy::GetHeaderModulationAndCodingScheme() [member function]
+    ## plc-phy.h (module 'plc'): ns3::ModulationAndCodingScheme ns3::PLC_InformationRatePhy::GetHeaderModulationAndCodingScheme() [member function]
     cls.add_method('GetHeaderModulationAndCodingScheme', 
-                   'ns3::ModulationAndCodingType', 
+                   'ns3::ModulationAndCodingScheme', 
                    [])
     ## plc-phy.h (module 'plc'): size_t ns3::PLC_InformationRatePhy::GetOfdmSymbolsPerCodeBlock() [member function]
     cls.add_method('GetOfdmSymbolsPerCodeBlock', 
                    'size_t', 
                    [])
-    ## plc-phy.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_InformationRatePhy::GetPayloadModulationAndCodingScheme() [member function]
+    ## plc-phy.h (module 'plc'): ns3::ModulationAndCodingScheme ns3::PLC_InformationRatePhy::GetPayloadModulationAndCodingScheme() [member function]
     cls.add_method('GetPayloadModulationAndCodingScheme', 
-                   'ns3::ModulationAndCodingType', 
+                   'ns3::ModulationAndCodingScheme', 
                    [])
     ## plc-phy.h (module 'plc'): static double ns3::PLC_InformationRatePhy::GetRatelessCodingOverhead() [member function]
     cls.add_method('GetRatelessCodingOverhead', 
                    'double', 
                    [], 
                    is_static=True)
+    ## plc-phy.h (module 'plc'): double ns3::PLC_InformationRatePhy::GetTransmissionRateLimit(ns3::Ptr<ns3::SpectrumValue> rxPsd) [member function]
+    cls.add_method('GetTransmissionRateLimit', 
+                   'double', 
+                   [param('ns3::Ptr< ns3::SpectrumValue >', 'rxPsd')])
     ## plc-phy.h (module 'plc'): static ns3::TypeId ns3::PLC_InformationRatePhy::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::PreambleDetectionSuccessful(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::PreambleDetectionSuccessful(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('PreambleDetectionSuccessful', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::ReceptionFailure() [member function]
     cls.add_method('ReceptionFailure', 
                    'void', 
                    [])
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::SendFrame(ns3::Ptr<ns3::Packet> p, ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
-    cls.add_method('SendFrame', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')])
     ## plc-phy.h (module 'plc'): bool ns3::PLC_InformationRatePhy::SendRedundancy() [member function]
     cls.add_method('SendRedundancy', 
                    'bool', 
                    [], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::SetHeaderModulationAndCodingScheme(ns3::ModulationAndCodingType mcs) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::SetHeaderModulationAndCodingScheme(ns3::ModulationAndCodingScheme mcs) [member function]
     cls.add_method('SetHeaderModulationAndCodingScheme', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
+                   [param('ns3::ModulationAndCodingScheme', 'mcs')])
     ## plc-phy.h (module 'plc'): static void ns3::PLC_InformationRatePhy::SetOfdmSymbolsPerCodeBlock(size_t spb) [member function]
     cls.add_method('SetOfdmSymbolsPerCodeBlock', 
                    'void', 
                    [param('size_t', 'spb')], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::SetPayloadModulationAndCodingScheme(ns3::ModulationAndCodingType mcs) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::SetPayloadModulationAndCodingScheme(ns3::ModulationAndCodingScheme mcs) [member function]
     cls.add_method('SetPayloadModulationAndCodingScheme', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
+                   [param('ns3::ModulationAndCodingScheme', 'mcs')])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::SetPayloadReceptionFailedCallback(ns3::PLC_PayloadReceptionFailedCallback c) [member function]
+    cls.add_method('SetPayloadReceptionFailedCallback', 
+                   'void', 
+                   [param('ns3::PLC_PayloadReceptionFailedCallback', 'c')])
     ## plc-phy.h (module 'plc'): static void ns3::PLC_InformationRatePhy::SetRatelessCodingOverhead(double overhead) [member function]
     cls.add_method('SetRatelessCodingOverhead', 
                    'void', 
@@ -7764,65 +8374,65 @@ def register_Ns3PLC_InformationRatePhy_methods(root_module, cls):
                    'ns3::PLC_PhyCcaResult', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::Packet> ns3::PLC_InformationRatePhy::CreateEncodedPacket(ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
-    cls.add_method('CreateEncodedPacket', 
-                   'ns3::Ptr< ns3::Packet >', 
-                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')], 
-                   visibility='protected')
-    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::Packet> ns3::PLC_InformationRatePhy::CreateFixedRateEncodedFrame(ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
-    cls.add_method('CreateFixedRateEncodedFrame', 
-                   'ns3::Ptr< ns3::Packet >', 
-                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')], 
-                   visibility='protected')
-    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::Packet> ns3::PLC_InformationRatePhy::CreateRatelessEncodedFrame(ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
-    cls.add_method('CreateRatelessEncodedFrame', 
-                   'ns3::Ptr< ns3::Packet >', 
-                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')], 
-                   visibility='protected')
     ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoSetNoiseFloor(ns3::Ptr<ns3::SpectrumValue const> noiseFloor) [member function]
-    cls.add_method('DoSetNoiseFloor', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'noiseFloor')], 
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_LinkPerformanceModel> ns3::PLC_InformationRatePhy::DoGetLinkPerformanceModel() [member function]
+    cls.add_method('DoGetLinkPerformanceModel', 
+                   'ns3::Ptr< ns3::PLC_LinkPerformanceModel >', 
+                   [], 
                    visibility='protected', is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoStart() [member function]
     cls.add_method('DoStart', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoStartRx(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoStartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('DoStartRx', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_InformationRatePhy::DoStartTx(ns3::Ptr<ns3::Packet> p) [member function]
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_InformationRatePhy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoStartTx', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoUpdateRxPsd(uint32_t txId, ns3::Ptr<ns3::SpectrumValue> newRxPsd) [member function]
-    cls.add_method('DoUpdateRxPsd', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::NotifyPayloadReceptionFailed(ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('NotifyPayloadReceptionFailed', 
                    'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'newRxPsd')], 
+                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::NotifySuccessfulReception() [member function]
     cls.add_method('NotifySuccessfulReception', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::PrepareFixedRateTransmission(ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    cls.add_method('PrepareFixedRateTransmission', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')], 
+                   visibility='protected')
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::PrepareRatelessTransmission(ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    cls.add_method('PrepareRatelessTransmission', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')], 
+                   visibility='protected')
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::PrepareTransmission(ns3::Ptr<ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    cls.add_method('PrepareTransmission', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo >', 'metaInfo')], 
+                   visibility='protected')
     ## plc-phy.h (module 'plc'): size_t ns3::PLC_InformationRatePhy::RequiredChunks(size_t num_blocks) [member function]
     cls.add_method('RequiredChunks', 
                    'size_t', 
                    [param('size_t', 'num_blocks')], 
                    visibility='protected')
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::StartReception(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::StartReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('StartReception', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
     return
 
@@ -8377,11 +8987,19 @@ def register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, cls):
     cls.add_constructor([param('ns3::PLC_FreqSelectiveValue &', 'offset'), param('ns3::PLC_FreqSelectiveValue &', 'amplitude'), param('double', 'phi'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
     ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet & paramSet, size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
     cls.add_constructor([param('ns3::Ptr< ns3::SpectrumModel const >', 'sm'), param('ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet &', 'paramSet'), param('size_t', 'timeslots', default_value='ns3::PLC_Time::GetNumTimeslots()')])
+    ## plc-value.h (module 'plc'): double ns3::PLC_TimeVariantFreqSelectiveValue::GetI(size_t ts, size_t fs) [member function]
+    cls.add_method('GetI', 
+                   'double', 
+                   [param('size_t', 'ts'), param('size_t', 'fs')])
     ## plc-value.h (module 'plc'): size_t ns3::PLC_TimeVariantFreqSelectiveValue::GetNumTimeSlots() const [member function]
     cls.add_method('GetNumTimeSlots', 
                    'size_t', 
                    [], 
                    is_const=True)
+    ## plc-value.h (module 'plc'): double ns3::PLC_TimeVariantFreqSelectiveValue::GetR(size_t ts, size_t fs) [member function]
+    cls.add_method('GetR', 
+                   'double', 
+                   [param('size_t', 'ts'), param('size_t', 'fs')])
     ## plc-value.h (module 'plc'): static ns3::TypeId ns3::PLC_TimeVariantFreqSelectiveValue::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
@@ -8396,6 +9014,14 @@ def register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, cls):
     cls.add_method('GetValuesRef', 
                    'ns3::PLC_TimeVariantValueSpectrum *', 
                    [])
+    ## plc-value.h (module 'plc'): void ns3::PLC_TimeVariantFreqSelectiveValue::Set(size_t ts, ns3::PLC_FreqSelectiveValue const & value) [member function]
+    cls.add_method('Set', 
+                   'void', 
+                   [param('size_t', 'ts'), param('ns3::PLC_FreqSelectiveValue const &', 'value')])
+    ## plc-value.h (module 'plc'): void ns3::PLC_TimeVariantFreqSelectiveValue::Set(size_t ts, size_t fs, double real, double imag) [member function]
+    cls.add_method('Set', 
+                   'void', 
+                   [param('size_t', 'ts'), param('size_t', 'fs'), param('double', 'real'), param('double', 'imag')])
     ## plc-value.h (module 'plc'): void ns3::PLC_TimeVariantFreqSelectiveValue::pureVirtualDummy() [member function]
     cls.add_method('pureVirtualDummy', 
                    'void', 
@@ -8425,13 +9051,14 @@ def register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods
     return
 
 def register_Ns3PLC_TrxMetaInfo_methods(root_module, cls):
+    cls.add_output_stream_operator()
     ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo::PLC_TrxMetaInfo(ns3::PLC_TrxMetaInfo const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::PLC_TrxMetaInfo const &', 'arg0')])
     ## plc-channel.h (module 'plc'): ns3::PLC_TrxMetaInfo::PLC_TrxMetaInfo() [constructor]
     cls.add_constructor([])
-    ## plc-channel.h (module 'plc'): ns3::Ptr<ns3::Packet const> ns3::PLC_TrxMetaInfo::GetFrame() const [member function]
+    ## plc-channel.h (module 'plc'): ns3::Ptr<ns3::Packet> ns3::PLC_TrxMetaInfo::GetFrame() const [member function]
     cls.add_method('GetFrame', 
-                   'ns3::Ptr< ns3::Packet const >', 
+                   'ns3::Ptr< ns3::Packet >', 
                    [], 
                    is_const=True)
     ## plc-channel.h (module 'plc'): ns3::Time ns3::PLC_TrxMetaInfo::GetHeaderDuration() const [member function]
@@ -8439,9 +9066,9 @@ def register_Ns3PLC_TrxMetaInfo_methods(root_module, cls):
                    'ns3::Time', 
                    [], 
                    is_const=True)
-    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_TrxMetaInfo::GetHeaderMcs() const [member function]
+    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingScheme ns3::PLC_TrxMetaInfo::GetHeaderMcs() const [member function]
     cls.add_method('GetHeaderMcs', 
-                   'ns3::ModulationAndCodingType', 
+                   'ns3::ModulationAndCodingScheme', 
                    [], 
                    is_const=True)
     ## plc-channel.h (module 'plc'): ns3::Ptr<ns3::Packet const> ns3::PLC_TrxMetaInfo::GetMessage() const [member function]
@@ -8454,35 +9081,35 @@ def register_Ns3PLC_TrxMetaInfo_methods(root_module, cls):
                    'ns3::Time', 
                    [], 
                    is_const=True)
-    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_TrxMetaInfo::GetPayloadMcs() const [member function]
+    ## plc-channel.h (module 'plc'): ns3::ModulationAndCodingScheme ns3::PLC_TrxMetaInfo::GetPayloadMcs() const [member function]
     cls.add_method('GetPayloadMcs', 
-                   'ns3::ModulationAndCodingType', 
+                   'ns3::ModulationAndCodingScheme', 
                    [], 
                    is_const=True)
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetFrame(ns3::Ptr<ns3::Packet const> p) [member function]
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetFrame(ns3::Ptr<ns3::Packet> frame) [member function]
     cls.add_method('SetFrame', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
+                   [param('ns3::Ptr< ns3::Packet >', 'frame')])
     ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetHeaderDuration(ns3::Time duration) [member function]
     cls.add_method('SetHeaderDuration', 
                    'void', 
                    [param('ns3::Time', 'duration')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetHeaderMcs(ns3::ModulationAndCodingType mcs) [member function]
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetHeaderMcs(ns3::ModulationAndCodingScheme mcs) [member function]
     cls.add_method('SetHeaderMcs', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetMessage(ns3::Ptr<ns3::Packet const> p) [member function]
+                   [param('ns3::ModulationAndCodingScheme', 'mcs')])
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetMessage(ns3::Ptr<ns3::Packet const> msg) [member function]
     cls.add_method('SetMessage', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
+                   [param('ns3::Ptr< ns3::Packet const >', 'msg')])
     ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetPayloadDuration(ns3::Time duration) [member function]
     cls.add_method('SetPayloadDuration', 
                    'void', 
                    [param('ns3::Time', 'duration')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetPayloadMcs(ns3::ModulationAndCodingType mcs) [member function]
+    ## plc-channel.h (module 'plc'): void ns3::PLC_TrxMetaInfo::SetPayloadMcs(ns3::ModulationAndCodingScheme mcs) [member function]
     cls.add_method('SetPayloadMcs', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')])
+                   [param('ns3::ModulationAndCodingScheme', 'mcs')])
     return
 
 def register_Ns3Packet_methods(root_module, cls):
@@ -9142,6 +9769,24 @@ def register_Ns3PLC_ChaseCombiningPhy_methods(root_module, cls):
     cls.add_constructor([param('ns3::PLC_ChaseCombiningPhy const &', 'arg0')])
     ## plc-phy.h (module 'plc'): ns3::PLC_ChaseCombiningPhy::PLC_ChaseCombiningPhy() [constructor]
     cls.add_constructor([])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::DisableSinrTracing() [member function]
+    cls.add_method('DisableSinrTracing', 
+                   'void', 
+                   [])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::EnableSinrTracing() [member function]
+    cls.add_method('EnableSinrTracing', 
+                   'void', 
+                   [])
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::EndRxHeader(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('EndRxHeader', 
+                   'void', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::EndRxPayload(ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('EndRxPayload', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   is_virtual=True)
     ## plc-phy.h (module 'plc'): static ns3::TypeId ns3::PLC_ChaseCombiningPhy::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
@@ -9152,8 +9797,8 @@ def register_Ns3PLC_ChaseCombiningPhy_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::TraceSinr(ns3::Time t, ns3::Ptr<ns3::SpectrumValue const> sinr) [member function]
-    cls.add_method('TraceSinr', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::TraceSinrBase(ns3::Time t, ns3::Ptr<ns3::SpectrumValue const> sinr) [member function]
+    cls.add_method('TraceSinrBase', 
                    'void', 
                    [param('ns3::Time', 't'), param('ns3::Ptr< ns3::SpectrumValue const >', 'sinr')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::UpdateSinrBase(ns3::Ptr<ns3::SpectrumValue const> newSinrBase) [member function]
@@ -9170,20 +9815,15 @@ def register_Ns3PLC_ChaseCombiningPhy_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_ChaseCombiningPhy::DoStartTx(ns3::Ptr<ns3::Packet> p) [member function]
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_ChaseCombiningPhy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoStartTx', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::NotifySuccessfulReception() [member function]
-    cls.add_method('NotifySuccessfulReception', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::StartReception(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::StartReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('StartReception', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
     return
 
@@ -9197,24 +9837,24 @@ def register_Ns3PLC_ErrorRatePhy_methods(root_module, cls):
                    'void', 
                    [param('uint32_t', 'txId')], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): ns3::ModulationAndCodingType ns3::PLC_ErrorRatePhy::GetModulationAndCodingScheme() [member function]
+    ## plc-phy.h (module 'plc'): ns3::ModulationAndCodingScheme ns3::PLC_ErrorRatePhy::GetModulationAndCodingScheme() [member function]
     cls.add_method('GetModulationAndCodingScheme', 
-                   'ns3::ModulationAndCodingType', 
+                   'ns3::ModulationAndCodingScheme', 
                    [])
     ## plc-phy.h (module 'plc'): static ns3::TypeId ns3::PLC_ErrorRatePhy::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::PreambleDetectionSuccessful(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::PreambleDetectionSuccessful(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('PreambleDetectionSuccessful', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::SetModulationAndCodingScheme(ns3::ModulationAndCodingType mcs) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::SetModulationAndCodingScheme(ns3::ModulationAndCodingScheme mcs) [member function]
     cls.add_method('SetModulationAndCodingScheme', 
                    'void', 
-                   [param('ns3::ModulationAndCodingType', 'mcs')], 
+                   [param('ns3::ModulationAndCodingScheme', 'mcs')], 
                    is_virtual=True)
     ## plc-phy.h (module 'plc'): ns3::PLC_PhyCcaResult ns3::PLC_ErrorRatePhy::ClearChannelAssessment() [member function]
     cls.add_method('ClearChannelAssessment', 
@@ -9226,30 +9866,25 @@ def register_Ns3PLC_ErrorRatePhy_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoSetNoiseFloor(ns3::Ptr<ns3::SpectrumValue const> noiseFloor) [member function]
-    cls.add_method('DoSetNoiseFloor', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'noiseFloor')], 
+    ## plc-phy.h (module 'plc'): ns3::Ptr<ns3::PLC_LinkPerformanceModel> ns3::PLC_ErrorRatePhy::DoGetLinkPerformanceModel() [member function]
+    cls.add_method('DoGetLinkPerformanceModel', 
+                   'ns3::Ptr< ns3::PLC_LinkPerformanceModel >', 
+                   [], 
                    visibility='private', is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoStart() [member function]
     cls.add_method('DoStart', 
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoStartRx(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoStartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('DoStartRx', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='private', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_ErrorRatePhy::DoStartTx(ns3::Ptr<ns3::Packet> p) [member function]
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_ErrorRatePhy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoStartTx', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
-                   visibility='private', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoUpdateRxPsd(uint32_t txId, ns3::Ptr<ns3::SpectrumValue> newRxPsd) [member function]
-    cls.add_method('DoUpdateRxPsd', 
-                   'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue >', 'newRxPsd')], 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    visibility='private', is_virtual=True)
     return
 
@@ -9258,25 +9893,25 @@ def register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, cls):
     cls.add_constructor([param('ns3::PLC_IncrementalRedundancyPhy const &', 'arg0')])
     ## plc-phy.h (module 'plc'): ns3::PLC_IncrementalRedundancyPhy::PLC_IncrementalRedundancyPhy() [constructor]
     cls.add_constructor([])
-    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::EndRxHeader(ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::EndRxHeader(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('EndRxHeader', 
                    'void', 
-                   [param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::EndRxPayload(ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::EndRxPayload(ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('EndRxPayload', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_virtual=True)
+    ## plc-phy.h (module 'plc'): size_t ns3::PLC_IncrementalRedundancyPhy::GetNumRedundancyFrameChunks() [member function]
+    cls.add_method('GetNumRedundancyFrameChunks', 
+                   'size_t', 
+                   [])
     ## plc-phy.h (module 'plc'): static ns3::Time ns3::PLC_IncrementalRedundancyPhy::GetReceptionFailureTimeout() [member function]
     cls.add_method('GetReceptionFailureTimeout', 
                    'ns3::Time', 
                    [], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): size_t ns3::PLC_IncrementalRedundancyPhy::GetRedundancyFrameChunks() [member function]
-    cls.add_method('GetRedundancyFrameChunks', 
-                   'size_t', 
-                   [])
     ## plc-phy.h (module 'plc'): static ns3::TypeId ns3::PLC_IncrementalRedundancyPhy::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
@@ -9291,15 +9926,15 @@ def register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::SetNumRedundancyFrameChunks(size_t chunks) [member function]
+    cls.add_method('SetNumRedundancyFrameChunks', 
+                   'void', 
+                   [param('size_t', 'chunks')])
     ## plc-phy.h (module 'plc'): static void ns3::PLC_IncrementalRedundancyPhy::SetReceptionFailureTimeout(ns3::Time timeout) [member function]
     cls.add_method('SetReceptionFailureTimeout', 
                    'void', 
                    [param('ns3::Time', 'timeout')], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::SetRedundancyFrameChunks(size_t chunks) [member function]
-    cls.add_method('SetRedundancyFrameChunks', 
-                   'void', 
-                   [param('size_t', 'chunks')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -9310,15 +9945,15 @@ def register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_IncrementalRedundancyPhy::DoStartTx(ns3::Ptr<ns3::Packet> p) [member function]
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_IncrementalRedundancyPhy::DoStartTx(ns3::Ptr<ns3::Packet const> ppdu) [member function]
     cls.add_method('DoStartTx', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   [param('ns3::Ptr< ns3::Packet const >', 'ppdu')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::StartReception(ns3::Ptr<ns3::Packet const> p, uint32_t txId, ns3::Ptr<ns3::SpectrumValue> & rxPsd, ns3::Time duration, ns3::Ptr<const ns3::PLC_TrxMetaInfo> metaInfo) [member function]
+    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::StartReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('StartReception', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p'), param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue > &', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
     return
 
@@ -9332,26 +9967,26 @@ def register_functions(root_module):
     module.add_function('AddInverseValue', 
                         'void', 
                         [param('ns3::PLC_ValueBase *', 'res'), param('ns3::PLC_ValueBase *', 'imp')])
-    ## plc-phy.h (module 'plc'): extern ns3::Time ns3::CalculateTransmissionDuration(size_t encoded_bits, ns3::ModulationAndCodingType mcs, size_t subbands) [free function]
-    module.add_function('CalculateTransmissionDuration', 
-                        'ns3::Time', 
-                        [param('size_t', 'encoded_bits'), param('ns3::ModulationAndCodingType', 'mcs'), param('size_t', 'subbands')])
     ## plc-value.h (module 'plc'): extern ns3::Ptr<ns3::PLC_ValueBase> ns3::Divide(ns3::Ptr<ns3::PLC_ValueBase> op1, ns3::Ptr<ns3::PLC_ValueBase> op2) [free function]
     module.add_function('Divide', 
                         'ns3::Ptr< ns3::PLC_ValueBase >', 
                         [param('ns3::Ptr< ns3::PLC_ValueBase >', 'op1'), param('ns3::Ptr< ns3::PLC_ValueBase >', 'op2')])
-    ## plc-defs.h (module 'plc'): extern size_t ns3::GetBitsPerSymbol(ns3::ModulationAndCodingType mcs) [free function]
+    ## plc-phy.h (module 'plc'): extern size_t ns3::EncodedBits(size_t uncoded_bits, ns3::ModulationAndCodingType mct) [free function]
+    module.add_function('EncodedBits', 
+                        'size_t', 
+                        [param('size_t', 'uncoded_bits'), param('ns3::ModulationAndCodingType', 'mct')])
+    ## plc-defs.h (module 'plc'): extern size_t ns3::GetBitsPerSymbol(ns3::ModulationAndCodingType mct) [free function]
     module.add_function('GetBitsPerSymbol', 
                         'size_t', 
-                        [param('ns3::ModulationAndCodingType', 'mcs')])
-    ## plc-dcmc-capacity.h (module 'plc'): extern ns3::SpectrumValue ns3::GetCapacity(ns3::SpectrumValue const & SINR, ns3::Modulation mod, short int cardinality) [free function]
+                        [param('ns3::ModulationAndCodingType', 'mct')])
+    ## plc-dcmc-capacity.h (module 'plc'): extern ns3::SpectrumValue ns3::GetCapacity(ns3::SpectrumValue const & SINR_dB, ns3::Modulation mod, short int cardinality) [free function]
     module.add_function('GetCapacity', 
                         'ns3::SpectrumValue', 
-                        [param('ns3::SpectrumValue const &', 'SINR'), param('ns3::Modulation', 'mod'), param('short int', 'cardinality')])
-    ## plc-defs.h (module 'plc'): extern double ns3::GetCodeRate(ns3::ModulationAndCodingType mcs) [free function]
+                        [param('ns3::SpectrumValue const &', 'SINR_dB'), param('ns3::Modulation', 'mod'), param('short int', 'cardinality')])
+    ## plc-defs.h (module 'plc'): extern double ns3::GetCodeRate(ns3::ModulationAndCodingType mct) [free function]
     module.add_function('GetCodeRate', 
                         'double', 
-                        [param('ns3::ModulationAndCodingType', 'mcs')])
+                        [param('ns3::ModulationAndCodingType', 'mct')])
     ## plc-value.h (module 'plc'): extern ns3::Ptr<ns3::PLC_ValueBase> ns3::Multiply(ns3::Ptr<ns3::PLC_ValueBase> op1, ns3::Ptr<ns3::PLC_ValueBase> op2) [free function]
     module.add_function('Multiply', 
                         'ns3::Ptr< ns3::PLC_ValueBase >', 
@@ -9360,10 +9995,10 @@ def register_functions(root_module):
     module.add_function('Pwr', 
                         'double', 
                         [param('ns3::SpectrumValue const &', 'value')])
-    ## plc-phy.h (module 'plc'): extern size_t ns3::RequiredSymbols(size_t encoded_bits, ns3::ModulationAndCodingType mcs, size_t subbands) [free function]
+    ## plc-phy.h (module 'plc'): extern size_t ns3::RequiredSymbols(size_t encoded_bits, ns3::ModulationAndCodingType mct, size_t subbands) [free function]
     module.add_function('RequiredSymbols', 
                         'size_t', 
-                        [param('size_t', 'encoded_bits'), param('ns3::ModulationAndCodingType', 'mcs'), param('size_t', 'subbands')])
+                        [param('size_t', 'encoded_bits'), param('ns3::ModulationAndCodingType', 'mct'), param('size_t', 'subbands')])
     ## plc-value.h (module 'plc'): extern ns3::Ptr<ns3::PLC_ValueBase> ns3::Subtract(ns3::Ptr<ns3::PLC_ValueBase> op1, ns3::Ptr<ns3::PLC_ValueBase> op2) [free function]
     module.add_function('Subtract', 
                         'ns3::Ptr< ns3::PLC_ValueBase >', 
