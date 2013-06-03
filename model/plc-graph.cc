@@ -94,7 +94,7 @@ PLC_Graph::GetConnectedRxInterfaces (void)
 	std::vector<Ptr<PLC_RxInterface> > ret;
 
 	uint32_t i;
-	for (i = 0; i < this->m_channel->GetNRxInterfaces(); i++)
+	for (i = 1; i <= this->m_channel->GetNRxInterfaces(); i++)
 			ret.push_back(this->m_channel->GetRxInterface(i));
 
 	return ret;
@@ -107,7 +107,7 @@ PLC_Graph::GetConnectedRxInterfacePeekPtrs (void)
 	std::vector<PLC_RxInterface *> ret;
 
 	uint32_t i;
-	for (i = 0; i < this->m_channel->GetNRxInterfaces(); i++)
+	for (i = 1; i <= this->m_channel->GetNRxInterfaces(); i++)
 			ret.push_back(PeekPointer(this->m_channel->GetRxInterface(i)));
 
 	return ret;
@@ -141,18 +141,20 @@ void PLC_Graph::CreatePLCGraph (void)
 
 			if (!edge->added2graph) {
 
-				edge->Lock();
+//				edge->Lock();
 				PLC_EdgeTransferDataMap::iterator con_nodes_it = edge->m_edge_transfer_data.begin();
 
-				con_nodes_it->first->Lock();
+//				con_nodes_it->first->Lock();
 				from 	= con_nodes_it->first->GetVertexId();
-				con_nodes_it->first->Unlock();
+//				con_nodes_it->first->Unlock();
 
-				(++con_nodes_it)->first->Lock();
+                ++con_nodes_it;
+
+//				con_nodes_it->first->Lock();
 				to		= con_nodes_it->first->GetVertexId();
-				con_nodes_it->first->Unlock();
+//				con_nodes_it->first->Unlock();
 
-				edge->Unlock();
+//				edge->Unlock();
 
 				boost::tie(e, inserted) = boost::add_edge(boost::vertex_descriptor(from), boost::vertex_descriptor(to), this->m_graph);
 				weightmap[e] = edge->GetLength();
@@ -181,9 +183,9 @@ void PLC_Graph::CalculateShortestPaths(void)
 
 	for (i = 0; i < (int) size; i++) {
 		boost::UGraph *graph_copy = new boost::UGraph();
-		this->m_graph_mutex.Lock();
+//		this->m_graph_mutex.Lock();
 		boost::copy_graph<boost::UGraph, boost::UGraph> (this->m_graph, *graph_copy);
-		this->m_graph_mutex.Unlock();
+//		this->m_graph_mutex.Unlock();
 
 		unsigned int root = this->m_nodes[i]->GetVertexId();
 
@@ -201,7 +203,7 @@ void PLC_Graph::CalculateShortestPaths(void)
 								(std::numeric_limits<int>::max)(), 0,
 								default_dijkstra_visitor());
 #else
-		dijkstra_shortest_paths(*graph_copy, s, boost::predecessor_map(&p[0]).distance_map(boost::make_iterator_property_map(d.begin(), get(boost::vertex_index, *graph_copy))));
+		dijkstra_shortest_paths(*graph_copy, s, boost::predecessor_map(&p[0]).distance_map(&d[0]));
 #endif
 
 		boost::graph_traits <boost::UGraph>::vertex_iterator vi, vend;
@@ -346,12 +348,12 @@ PLC_Graph::PathExists (Ptr<PLC_Node> from, Ptr<PLC_Node> to)
 	unsigned int from_id, to_id;
 	bool ret = true;
 
-	from->Lock();
+//	from->Lock();
 	from_id 	= from->GetVertexId();
-	from->Unlock();
-	to->Lock();
+//	from->Unlock();
+//	to->Lock();
 	to_id 		= to->GetVertexId();
-	to->Unlock();
+//	to->Unlock();
 
 	if (from_id < to_id) {
 		if (*this->m_shortest_paths[std::pair<unsigned int, unsigned int> (from_id, to_id)].second.begin() == from) ret = false;

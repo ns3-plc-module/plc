@@ -62,7 +62,7 @@ static const double pskCap[3][51] = {
 		{0.13749,0.17104,0.21218,0.26232,0.32298,0.39572,0.48204,0.58321,0.70009,0.83287,0.98089,1.1425,1.315,1.4949,1.6787,1.8629,2.0452,2.2245,2.4007,2.5743,2.746,2.9163,3.0857,3.2543,3.4224,3.59,3.7573,3.9244,4.0912,4.2579,4.4245,4.591,4.7574,4.9237,5.0896,5.254,5.4139,5.5641,5.6973,5.8074,5.8901,5.9449,5.9766,5.9921,5.9978,5.9996,5.9999,6,6,6,6}
 };
 
-SpectrumValue GetCapacity(const SpectrumValue& SINR, Modulation mod, short cardinality);
+SpectrumValue GetCapacity(const SpectrumValue& SINR_dB, Modulation mod, short cardinality);
 
 } // namespace ns3
 

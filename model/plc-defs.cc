@@ -90,13 +90,20 @@ operator<<(std::ostream& os, ModulationAndCodingType type)
 	return os;
 }
 
-double
-GetCodeRate (ModulationAndCodingType mcs)
+std::ostream&
+operator<<(std::ostream& os, ModulationAndCodingScheme mcs)
 {
-	NS_ASSERT_MSG (mcs < BPSK_RATELESS, "Rateless codes do not have fixed code rate");
+	os << "(Type: " << mcs.mct << ", Gap: " << mcs.gap2Capacity_dB <<"dB)";
+	return os;
+}
+
+double
+GetCodeRate (ModulationAndCodingType mct)
+{
+	NS_ASSERT_MSG (mct < BPSK_RATELESS, "Rateless codes do not have fixed code rate");
 
 	double code_rate;
-	switch (mcs)
+	switch (mct)
 	{
 		case BPSK_1_4:
 		{
@@ -128,7 +135,7 @@ GetCodeRate (ModulationAndCodingType mcs)
 
 		default:
 		{
-			NS_ABORT_MSG("Modulation and Coding Scheme " << mcs << " not supported");
+			NS_ABORT_MSG("Modulation and Coding Scheme " << mct << " not supported");
 			break;
 		}
 	}
@@ -137,10 +144,10 @@ GetCodeRate (ModulationAndCodingType mcs)
 }
 
 size_t
-GetBitsPerSymbol (ModulationAndCodingType mcs)
+GetBitsPerSymbol (ModulationAndCodingType mct)
 {
 	size_t bits;
-	switch(mcs)
+	switch(mct)
 	{
 		case BPSK_1_4:
 		case BPSK_1_2:

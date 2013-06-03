@@ -45,19 +45,26 @@ PLC_Edge::GetTypeId (void)
 PLC_Edge::PLC_Edge (Ptr<const SpectrumModel> sm, Ptr<PLC_Node> from, Ptr<PLC_Node> to)
 {
 	PLC_LOG_FUNCTION(this);
-	this->m_spectrum_model = sm;
-	this->m_length = CalculateDistance(from->GetPosition(), to->GetPosition());
+	m_spectrum_model = sm;
+	m_length = CalculateDistance(from->GetPosition(), to->GetPosition());
 
 	PLC_EdgeTransferData dataInit;
+	dataInit.impedance_mutex = new PLC_Mutex ();
+	dataInit.input_impedance.first = NULL;
 	dataInit.input_impedance.second.IsUp2Date 		= false;
 	dataInit.input_impedance.second.IsTimeVariant 	= false;
 	dataInit.etf_initialized						= false;
 
-	this->m_edge_transfer_data[PeekPointer(from)] 	= dataInit;
-	this->m_edge_transfer_data[PeekPointer(to)] 	= dataInit;
+	m_edge_transfer_data[PeekPointer(from)] 	= dataInit;
+
+	dataInit.impedance_mutex = new PLC_Mutex ();
+	m_edge_transfer_data[PeekPointer(to)] 	= dataInit;
 
 	from->AddEdge(to, Ptr<PLC_Edge> (this));
 	to->AddEdge(from, Ptr<PLC_Edge> (this));
+
+	added2graph = false;
+	m_propagation_delay = 0;
 }
 
 PLC_Edge::~PLC_Edge(void)
@@ -69,6 +76,14 @@ PLC_Edge::DoDispose (void)
 {
 	PLC_LOG_FUNCTION(this);
 	m_spectrum_model = 0;
+	PLC_EdgeTransferDataMap::iterator eit;
+
+	for (eit = m_edge_transfer_data.begin (); eit != m_edge_transfer_data.end (); eit++)
+	{
+		eit->second.load_impedance = 0;
+		eit->second.edge_transfer_unit = 0;
+		delete eit->second.impedance_mutex;
+	}
 }
 
 void
@@ -84,6 +99,8 @@ PLC_Edge::CacheImpedances (PLC_Node *dst_node, Ptr<PLC_Impedance> input_impedanc
 	eq_imp.first 	= input_impedance;
 	eq_imp.second 	= indicator;
 
+	NS_ASSERT (m_edge_transfer_data.find (dst_node) != m_edge_transfer_data.end ());
+
 	m_edge_transfer_data[dst_node].input_impedance = eq_imp;
 	m_edge_transfer_data[dst_node].load_impedance = load_impedance;
 }
@@ -93,11 +110,12 @@ PLC_Edge::GetConnectedNode (PLC_Node *src_node)
 {
 	PLC_LOG_FUNCTION(this << src_node);
 	PLC_Node *ret;
-	PLC_EdgeTransferDataMap::iterator it = this->m_edge_transfer_data.begin();
 
-	NS_ASSERT((this->m_edge_transfer_data.size() == 2) && ((it->first == src_node) || ((++it)->first == src_node)));
+	PLC_EdgeTransferDataMap::iterator it = m_edge_transfer_data.begin();
 
-	for (it = this->m_edge_transfer_data.begin(); it != this->m_edge_transfer_data.end(); it++)
+	NS_ASSERT((m_edge_transfer_data.size() == 2) && ((it->first == src_node) || ((++it)->first == src_node)));
+
+	for (it = m_edge_transfer_data.begin(); it != m_edge_transfer_data.end(); it++)
 	{
 		if (it->first == src_node) continue;
 
@@ -111,69 +129,81 @@ bool
 PLC_Edge::IsInputImpedanceUp2Date (PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this);
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
 
-	return this->m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date;
+	LockImpedanceCache (dst_node);
+	bool ret = m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date;
+	UnlockImpedanceCache (dst_node);
+
+	return ret;
 }
 
 void
 PLC_Edge::SetInputImpedanceOutOfDate (PLC_Node *dst_node)
 {
-	PLC_LOG_FUNCTION(this);;
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
+	PLC_LOG_FUNCTION(this);
 
-	this->m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date = false;
+	LockImpedanceCache (dst_node);
+	m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date = false;
+	UnlockImpedanceCache (dst_node);
 }
 
 bool
 PLC_Edge::IsEdgeTransferFactorUp2Date (PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this);
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
 
-	return this->m_edge_transfer_data[dst_node].edge_transfer_unit->IsUp2Date();
+	LockEdgeTransferUnit (dst_node);
+	bool ret = m_edge_transfer_data[dst_node].edge_transfer_unit->IsUp2Date();
+	UnlockEdgeTransferUnit (dst_node);
+
+	return ret;
 }
 
 void
 PLC_Edge::SetEdgeTransferFactorOutOfDate (PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this);
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
 
-	this->m_edge_transfer_data[dst_node].edge_transfer_unit->SetOutOfDate();
+	LockEdgeTransferUnit (dst_node);
+	m_edge_transfer_data[dst_node].edge_transfer_unit->SetOutOfDate();
+	UnlockEdgeTransferUnit (dst_node);
 }
 
 PLC_Impedance *
 PLC_Edge::GetInputImpedance (PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this << dst_node);
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
 
-	if (this->m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date == false)
-		this->CalculateInputImpedance(dst_node);
+	if (IsInputImpedanceUp2Date (dst_node) == false)
+	{
+		CalculateInputImpedance(dst_node);
+	}
 
-	return PeekPointer(this->m_edge_transfer_data[dst_node].input_impedance.first);
+
+	NS_ASSERT (IsInputImpedanceUp2Date (dst_node));
+
+	LockImpedanceCache (dst_node);
+	PLC_Impedance *ret = PeekPointer(m_edge_transfer_data[dst_node].input_impedance.first);
+	UnlockImpedanceCache (dst_node);
+
+	return ret;
 }
 
 void
 PLC_Edge::InitEdgeTransferFactor (PLC_Node *dst_node, bool time_variant)
 {
 	PLC_LOG_FUNCTION(this << dst_node << time_variant);
-	NS_ASSERT(this->m_edge_transfer_data.find (dst_node) != this->m_edge_transfer_data.end());
+
+	NS_ASSERT(m_edge_transfer_data.find (dst_node) != m_edge_transfer_data.end());
 	NS_ASSERT_MSG(m_spectrum_model, "Spectrum model of edge " << this << " not set");
 
-	if (!this->m_edge_transfer_data[dst_node].etf_initialized) {
-		g_smartpointer_mutex.Lock ();
-		this->m_edge_transfer_data[dst_node].edge_transfer_unit = CreateObject<PLC_EdgeTransferUnit> (this, dst_node, this->m_spectrum_model, time_variant);
-		g_smartpointer_mutex.Unlock ();
-
-		this->m_edge_transfer_data[dst_node].etf_initialized = true;
+	if (!m_edge_transfer_data[dst_node].etf_initialized) {
+		m_edge_transfer_data[dst_node].edge_transfer_unit = CreateObject<PLC_EdgeTransferUnit> (this, dst_node, m_spectrum_model, time_variant);
+		m_edge_transfer_data[dst_node].etf_initialized = true;
 	}
 
-	else if (time_variant && !this->m_edge_transfer_data[dst_node].edge_transfer_unit->IsTimeVariant()) {
-		g_smartpointer_mutex.Lock ();
-		this->m_edge_transfer_data[dst_node].edge_transfer_unit = CreateObject<PLC_EdgeTransferUnit> (this, dst_node, this->m_spectrum_model, true);
-		g_smartpointer_mutex.Unlock ();
+	else if (time_variant && !m_edge_transfer_data[dst_node].edge_transfer_unit->IsTimeVariant()) {
+		m_edge_transfer_data[dst_node].edge_transfer_unit = CreateObject<PLC_EdgeTransferUnit> (this, dst_node, m_spectrum_model, true);
 	}
 }
 
@@ -181,25 +211,36 @@ PLC_EdgeTransferUnit *
 PLC_Edge::GetEdgeTransferUnit(PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this);
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
-	NS_ASSERT(this->m_edge_transfer_data[dst_node].edge_transfer_unit != NULL);
 
-	return PeekPointer(this->m_edge_transfer_data[dst_node].edge_transfer_unit);
+
+	NS_ASSERT(m_edge_transfer_data.find(dst_node) != m_edge_transfer_data.end());
+	NS_ASSERT(m_edge_transfer_data[dst_node].edge_transfer_unit != NULL);
+
+	PLC_EdgeTransferUnit *ret = PeekPointer(m_edge_transfer_data[dst_node].edge_transfer_unit);
+
+	return ret;
 }
 
 PLC_EdgeTransferUnit *
 PLC_Edge::GetUpdatedEdgeTransferUnit(PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this << dst_node);
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
-	NS_ASSERT(this->m_edge_transfer_data[dst_node].edge_transfer_unit != NULL);
 
-	if (this->m_edge_transfer_data[dst_node].edge_transfer_unit->IsUp2Date() == false)
+	NS_ASSERT(m_edge_transfer_data.find(dst_node) != m_edge_transfer_data.end());
+	NS_ASSERT(m_edge_transfer_data[dst_node].edge_transfer_unit != NULL);
+
+	if (IsEdgeTransferFactorUp2Date (dst_node) == false)
 	{
-		this->CalculateEdgeTransferFactor(dst_node);
+		CalculateEdgeTransferFactor(dst_node);
 	}
 
-	return PeekPointer(this->m_edge_transfer_data[dst_node].edge_transfer_unit);
+	LockEdgeTransferUnit (dst_node);
+
+	PLC_EdgeTransferUnit *ret = PeekPointer(m_edge_transfer_data[dst_node].edge_transfer_unit);
+
+	UnlockEdgeTransferUnit (dst_node);
+
+	return ret;
 }
 
 std::vector<PLC_Node *>
@@ -207,9 +248,45 @@ PLC_Edge::GetNodes(void)
 {
 	PLC_LOG_FUNCTION(this);
 	std::vector<PLC_Node *> ret;
+
 	ret.push_back(m_edge_transfer_data.begin()->first);
 	ret.push_back((++m_edge_transfer_data.begin())->first);
+
 	return ret;
+}
+
+void
+PLC_Edge::LockImpedanceCache (PLC_Node *dst)
+{
+	PLC_LOG_FUNCTION (this << dst);
+	NS_ASSERT (m_edge_transfer_data.find (dst) != m_edge_transfer_data.end ());
+	m_edge_transfer_data[dst].impedance_mutex->Lock ();
+}
+
+void
+PLC_Edge::UnlockImpedanceCache (PLC_Node *dst)
+{
+	PLC_LOG_FUNCTION (this << dst);
+	NS_ASSERT (m_edge_transfer_data.find (dst) != m_edge_transfer_data.end ());
+	m_edge_transfer_data[dst].impedance_mutex->Unlock ();
+}
+
+void
+PLC_Edge::LockEdgeTransferUnit (PLC_Node *dst)
+{
+	PLC_LOG_FUNCTION (this << dst);
+	NS_ASSERT (m_edge_transfer_data.find (dst) != m_edge_transfer_data.end ());
+	NS_ASSERT (m_edge_transfer_data[dst].etf_initialized);
+	m_edge_transfer_data[dst].edge_transfer_unit->Lock ();
+}
+
+void
+PLC_Edge::UnlockEdgeTransferUnit (PLC_Node *dst)
+{
+	PLC_LOG_FUNCTION (this << dst);
+	NS_ASSERT (m_edge_transfer_data.find (dst) != m_edge_transfer_data.end ());
+	NS_ASSERT (m_edge_transfer_data[dst].etf_initialized);
+	m_edge_transfer_data[dst].edge_transfer_unit->Unlock ();
 }
 
 ////////////////////////////////////////// PLC_Line ///////////////////////////////////////////////////////////////////////
@@ -226,10 +303,9 @@ PLC_Line::PLC_Line(Ptr<PLC_Cable> cable_type, Ptr<PLC_Node> from, Ptr<PLC_Node> 
 	: PLC_Edge(cable_type->GetSpectrumModel(), from, to), m_cable(cable_type)
 {
 	PLC_LOG_FUNCTION(this);
-	added2graph = false;
-	this->m_spectrum_model = cable_type->GetSpectrumModel();
+	m_spectrum_model = cable_type->GetSpectrumModel();
 
-	this->m_propagation_delay = this->m_length / cable_type->GetPropSpeedApprox();
+	m_propagation_delay = m_length / cable_type->GetPropSpeedApprox();
 }
 
 void PLC_Line::DoDispose(void)
@@ -242,7 +318,7 @@ void PLC_Line::DoDispose(void)
 void
 PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 {
-	NS_LOG_FUNCTION(this << dst_node);
+	PLC_LOG_FUNCTION(this);
 	NS_LOG_INFO("Destination Node Id: " << dst_node->GetVertexId());
 
 	PLC_Impedance *z_l_ptr;
@@ -250,19 +326,23 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 	PLC_NodeOutEdgesMap outEdges;
 	PLC_NodeOutEdgesMap::iterator outEdges_it;
 
+	if (IsInputImpedanceUp2Date (dst_node))
+	{
+		// Input impedance was calculated by another thread in the meantime
+		return;
+	}
+
+    LockImpedanceCache (dst_node);
+
 	// get transmission line characteristics
-	this->m_cable->Lock();
-	PLC_FreqSelectiveImpedance z_c 		= *(this->m_cable->GetCharImp());
-	PLC_FreqSelectiveImpedance gamma 	= *(this->m_cable->GetTransConst());
-	this->m_cable->Unlock();
+	PLC_FreqSelectiveImpedance z_c 		= m_cable->GetCharImp();
+	PLC_FreqSelectiveImpedance gamma 	= m_cable->GetTransConst();
 
 	NS_LOG_LOGIC("Characteristic impedance of the cable segment: " << z_c);
 	NS_LOG_LOGIC("Transmission constant of the cable segment: " << gamma);
 
 	// get connected lines of destination node
-	dst_node->Lock();
 	outEdges = dst_node->GetEdges();
-	dst_node->Unlock();
 
 	// destination node is leaf
 	if (outEdges.size() == 1) {
@@ -273,17 +353,20 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 		NS_ASSERT(PeekPointer(outEdges.begin()->second) == this);
 
-		dst_node->Lock();
 		IsOpenCircuit = dst_node->IsOpenCircuit();
-		dst_node->Unlock();
 
 		// use characteristic impedance for input impedance as approximation for long lines
-		if (this->m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
+		if (m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
 			if (IsOpenCircuit)
-				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance>(z_c), NULL);
+			{
+				CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance>(z_c), NULL);
+			}
 			else
-				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance>(z_c), dst_node->GetImpedancePtr());
+			{
+				CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance>(z_c), dst_node->GetImpedancePtr());
+			}
 
+			UnlockImpedanceCache (dst_node);
 			return;
 		}
 
@@ -291,19 +374,18 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 			NS_LOG_INFO("Destination node is open circuit");
 
 			// access impedance: z_a = A/C
-			PLC_FreqSelectiveImpedance tmp = exp(2 * gamma * this->m_length);
-			Ptr<PLC_FreqSelectiveImpedance> res = CreateObject<PLC_FreqSelectiveImpedance> (z_c * (tmp + 1) / (tmp - 1));
+			PLC_FreqSelectiveImpedance tmp = exp(-2 * gamma * m_length);
+			Ptr<PLC_FreqSelectiveImpedance> res = CreateObject<PLC_FreqSelectiveImpedance> (z_c * (1 + tmp) / (1 - tmp));
 
 			NS_LOG_LOGIC("Line access impedance: " << *res);
 
-			this->CacheImpedances(dst_node, res, NULL);
+			CacheImpedances(dst_node, res, NULL);
 
+			UnlockImpedanceCache (dst_node);
 			return;
 		}
 
-		dst_node->Lock();
 		z_l_ptr = dst_node->GetImpedancePeekPtr();
-		dst_node->Unlock();
 
 		Ptr<PLC_Impedance> res;
 
@@ -313,7 +395,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 			{
 				res = CreateObject<PLC_FreqSelectiveImpedance>
 						(
-								this->CalcLineInputImpedance<PLC_FreqSelectiveImpedance, PLC_ConstImpedance>
+								CalcLineInputImpedance<PLC_FreqSelectiveImpedance, PLC_ConstImpedance>
 								(
 								*static_cast<PLC_ConstImpedance *> (z_l_ptr)
 								)
@@ -327,13 +409,13 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 			{
 				res = CreateObject<PLC_FreqSelectiveImpedance>
 						(
-								this->CalcLineInputImpedance<PLC_FreqSelectiveImpedance, PLC_FreqSelectiveImpedance>
+								CalcLineInputImpedance<PLC_FreqSelectiveImpedance, PLC_FreqSelectiveImpedance>
 								(
 								*static_cast<PLC_FreqSelectiveImpedance *> (z_l_ptr)
 								)
 						);
 
-				NS_LOG_INFO("Destination node frequency selective shunt impedance");
+				NS_LOG_INFO("Destination node has frequency selective shunt impedance");
 				break;
 			}
 
@@ -341,7 +423,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 			{
 				res = CreateObject<PLC_TimeVariantFreqSelectiveImpedance>
 						(
-								this->CalcLineInputImpedance<PLC_TimeVariantFreqSelectiveImpedance, PLC_TimeVariantConstImpedance>
+								CalcLineInputImpedance<PLC_TimeVariantFreqSelectiveImpedance, PLC_TimeVariantConstImpedance>
 								(
 								*static_cast<PLC_TimeVariantConstImpedance *> (z_l_ptr)
 								)
@@ -356,7 +438,7 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 			{
 				res = CreateObject<PLC_TimeVariantFreqSelectiveImpedance>
 						(
-								this->CalcLineInputImpedance<PLC_TimeVariantFreqSelectiveImpedance, PLC_TimeVariantFreqSelectiveImpedance>
+								CalcLineInputImpedance<PLC_TimeVariantFreqSelectiveImpedance, PLC_TimeVariantFreqSelectiveImpedance>
 								(
 								*static_cast<PLC_TimeVariantFreqSelectiveImpedance *> (z_l_ptr)
 								)
@@ -376,38 +458,37 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 		PLC_LOG_LOGIC("Line load impedance:" << *(dst_node->GetImpedancePtr()));
 		NS_LOG_LOGIC("Line access impedance: " << *res);
-		this->CacheImpedances(dst_node, res, dst_node->GetImpedancePtr());
+		CacheImpedances(dst_node, res, dst_node->GetImpedancePtr());
 	}
 
 	// destination node is not leaf
-	else {
+	else
+	{
 		NS_LOG_INFO("Destination is not leaf");
 
 		Ptr<PLC_Impedance> res;
 		std::vector<PLC_Impedance *> parallel_impedances;
 		bool EqImpIsTimeVariant = false;
 
-		dst_node->Lock();
 		if (!dst_node->IsOpenCircuit())
 		{
 			NS_LOG_INFO("Destination node has parallel shunt impedance");
 			PLC_Impedance *node_impedance = dst_node->GetImpedancePeekPtr();
 			NS_ASSERT(node_impedance != NULL);
 
-			node_impedance->Lock();
 			if (node_impedance->IsTimeVariant())
 				EqImpIsTimeVariant = true;
-			node_impedance->Unlock();
 
 			parallel_impedances.push_back(node_impedance);
 		}
-		dst_node->Unlock();
 
 		std::vector<PLC_Edge *> edges;
 		for (outEdges_it = outEdges.begin(); outEdges_it != outEdges.end(); outEdges_it++)
 		{
 			if (PeekPointer(outEdges_it->second) != this)
+			{
 				edges.push_back(PeekPointer(outEdges_it->second));
+			}
 		}
 
 		int i;
@@ -418,13 +499,11 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 #pragma omp parallel for
 #endif
 		for (i = 0; i < (int) num_edges; i++) {
-			edges[i]->Lock();
 			PLC_Node *new_dst = edges[i]->GetConnectedNode(dst_node);
 			if (edges[i]->IsInputImpedanceUp2Date(new_dst) == false)
 			{
 				edges[i]->CalculateInputImpedance(new_dst);
 			}
-			edges[i]->Unlock();
 		}
 
 		for (outEdges_it = outEdges.begin(); outEdges_it != outEdges.end(); outEdges_it++) {
@@ -433,28 +512,26 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 			if ((cur_edge = PeekPointer(outEdges_it->second)) == this) continue;
 
-			cur_edge->Lock();
 			PLC_Node *new_dst = cur_edge->GetConnectedNode(dst_node);
 			cur_eq_imp = cur_edge->GetInputImpedance(new_dst);
-			cur_edge->Unlock();
 
-			cur_eq_imp->Lock();
 			if (cur_eq_imp->IsTimeVariant())
+			{
 				EqImpIsTimeVariant = true;
-			cur_eq_imp->Unlock();
+			}
 
 			parallel_impedances.push_back(cur_eq_imp);
 		}
 
 		Ptr<PLC_Impedance> z_l_tmp;
-		PLC_FreqSelectiveImpedance tmp = tanh(gamma * this->m_length);
+		PLC_FreqSelectiveImpedance tmp = tanh(gamma * m_length);
 
 		if (!EqImpIsTimeVariant) {
 
-			Ptr<PLC_FreqSelectiveImpedance> z_l = CalcEquivalentImpedance<PLC_FreqSelectiveImpedance> (this->m_spectrum_model, parallel_impedances);
+			Ptr<PLC_FreqSelectiveImpedance> z_l = CalcEquivalentImpedance<PLC_FreqSelectiveImpedance> (m_spectrum_model, parallel_impedances);
 
-			if (this->m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
-				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance> (z_c), z_l);
+			if (m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
+				CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance> (z_c), z_l);
 				return;
 			}
 
@@ -464,10 +541,12 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 
 		else {
 
-			Ptr<PLC_TimeVariantFreqSelectiveImpedance> z_l = CalcEquivalentImpedance<PLC_TimeVariantFreqSelectiveImpedance> (this->m_spectrum_model, parallel_impedances);
+			Ptr<PLC_TimeVariantFreqSelectiveImpedance> z_l = CalcEquivalentImpedance<PLC_TimeVariantFreqSelectiveImpedance> (m_spectrum_model, parallel_impedances);
 
-			if (this->m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
-				this->CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance> (z_c), z_l);
+			if (m_length > PL_CHAR_IMPEDANCE_APPROX_THRESHOLD) {
+				CacheImpedances(dst_node, CreateObject<PLC_FreqSelectiveImpedance> (z_c), z_l);
+
+				UnlockImpedanceCache (dst_node);
 				return;
 			}
 
@@ -478,70 +557,80 @@ PLC_Line::CalculateInputImpedance(PLC_Node *dst_node)
 		PLC_LOG_LOGIC("Line load impedance:" << *z_l_tmp);
 		NS_LOG_LOGIC("Line access impedance: " << *res);
 
-		this->CacheImpedances(dst_node, res, z_l_tmp);
+		CacheImpedances(dst_node, res, z_l_tmp);
 	}
+
+	UnlockImpedanceCache (dst_node);
 }
 
-Ptr<const PLC_FreqSelectiveImpedance> PLC_Line::GetCharLineImp (void) const
-{
-	this->m_cable->Lock();
-	Ptr <const PLC_FreqSelectiveImpedance> ret = this->m_cable->GetCharImp ();
-	this->m_cable->Unlock();
-
-	return ret;
-}
-
-Ptr<const PLC_FreqSelectiveImpedance> PLC_Line::GetTransLineConst (void) const
+PLC_FreqSelectiveImpedance
+PLC_Line::GetCharLineImp (void) const
 {
 	PLC_LOG_FUNCTION(this);
-	this->m_cable->Lock();
-	Ptr<const PLC_FreqSelectiveImpedance> ret = this->m_cable->GetTransConst ();
-	this->m_cable->Unlock();
+	PLC_FreqSelectiveImpedance ret = m_cable->GetCharImp ();
 
 	return ret;
 }
 
-void PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
+PLC_FreqSelectiveImpedance
+PLC_Line::GetTransLineConst (void) const
+{
+	PLC_LOG_FUNCTION(this);
+	PLC_FreqSelectiveImpedance ret = m_cable->GetTransConst ();
+
+	return ret;
+}
+
+void
+PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this << dst_node);
-	NS_ASSERT(this->m_edge_transfer_data.find(dst_node) != this->m_edge_transfer_data.end());
 
-	PLC_FreqSelectiveImpedance gamma 	= *(this->GetTransLineConst());
-	PLC_FreqSelectiveImpedance z_c 		= *(this->GetCharLineImp());
+	if (IsEdgeTransferFactorUp2Date (dst_node))
+	{
+		// Edge transfer factor was calculated by another thread in the meantime
+		return;
+	}
 
-	NS_ASSERT(this->m_length > 0);
-	PLC_FreqSelectiveImpedance tmp = gamma * this->m_length;
+	LockEdgeTransferUnit (dst_node);
+
+	PLC_FreqSelectiveImpedance gamma 	= GetTransLineConst ();
+	PLC_FreqSelectiveImpedance z_c 		= GetCharLineImp ();
+
+	NS_ASSERT(m_length > 0);
+	PLC_FreqSelectiveImpedance tmp = gamma * m_length;
 	PLC_FreqSelectiveImpedance e_valp = exp(tmp);
 	PLC_FreqSelectiveImpedance e_valm = exp(-tmp);
 
-	if (this->m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date == false)
-		this->CalculateInputImpedance(dst_node);
+	if (IsInputImpedanceUp2Date (dst_node) == false)
+	{
+		CalculateInputImpedance(dst_node);
+	}
 
-	NS_ASSERT(this->m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date);
+	NS_ASSERT(IsInputImpedanceUp2Date (dst_node));
 
-	Ptr<PLC_ValueBase> load_impedance = this->m_edge_transfer_data[dst_node].load_impedance;
+	LockImpedanceCache (dst_node);
+	Ptr<PLC_ValueBase> load_impedance = m_edge_transfer_data[dst_node].load_impedance;
+	UnlockImpedanceCache (dst_node);
+
 
 	// indicates destination node is leaf and open circuit
 	if (load_impedance == NULL) {
 
 		PLC_LOG_LOGIC("Destination node is leaf and open circuit");
 
-		dst_node->Lock();
 		NS_ASSERT(dst_node->IsOpenCircuit());
 		NS_ASSERT(dst_node->GetNumEdges() == 1);
-		dst_node->Unlock();
 
 		Ptr<PLC_FreqSelectiveValue> etv = CreateObject<PLC_FreqSelectiveValue> (2 / (e_valp + e_valm));
-		this->m_edge_transfer_data[dst_node].edge_transfer_unit->SetEdgeTransferVector(etv);
+		m_edge_transfer_data[dst_node].edge_transfer_unit->SetEdgeTransferVector(etv);
 
 		PLC_LOG_LOGIC("Calculated edge transfer vector: " << *etv);
 	}
 
-	else {
-
-		load_impedance->Lock();
+	else
+	{
 		PLC_ValueBase::PLC_ValueType imp_type = load_impedance->GetValueType();
-		load_impedance->Unlock();
 
 		Ptr<PLC_TransferBase> etf;
 
@@ -592,21 +681,23 @@ void PLC_Line::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 
 		PLC_LOG_LOGIC("Calculated edge transfer vector: " << *etf);
 
-		this->m_edge_transfer_data[dst_node].edge_transfer_unit->SetEdgeTransferVector(etf);
-		this->m_edge_transfer_data[dst_node].etf_initialized = true;
+		m_edge_transfer_data[dst_node].edge_transfer_unit->SetEdgeTransferVector(etf);
 	}
+
+	// Unlock edge transfer unit for multithread processing
+	UnlockEdgeTransferUnit (dst_node);
 }
 
 double
 PLC_Line::GetAttenuationApproxdB (void)
 {
 	PLC_LOG_FUNCTION(this);
-	Ptr<const PLC_FreqSelectiveImpedance> gamma = this->GetTransLineConst();
-	NS_ASSERT(this->m_spectrum_model == gamma->GetSpectrumModel());
+	PLC_FreqSelectiveImpedance gamma = GetTransLineConst();
+	NS_ASSERT(m_spectrum_model == gamma.GetSpectrumModel());
 
-	PLC_Value fc_g = (*gamma)[gamma->GetSpectrumModel()->GetNumBands()/2];
+	PLC_Value fc_g = gamma[gamma.GetSpectrumModel()->GetNumBands()/2];
 
-	return (-20*log(abs(exp(-this->m_length * fc_g))));
+	return (-20*log(abs(exp(-m_length * fc_g))));
 }
 
 template<typename ImpedanceReturnType, typename LoadImpedanceType>
@@ -616,12 +707,10 @@ PLC_Line::CalcLineInputImpedance (const LoadImpedanceType& z_l)
 	PLC_LOG_FUNCTION(this);
 	ImpedanceReturnType ret(z_l.GetSpectrumModel());
 
-	this->m_cable->Lock();
-	PLC_FreqSelectiveImpedance z_c 		= *(this->m_cable->GetCharImp());
-	PLC_FreqSelectiveImpedance gamma 	= *(this->m_cable->GetTransConst());
-	this->m_cable->Unlock();
+	PLC_FreqSelectiveImpedance z_c 		= m_cable->GetCharImp();
+	PLC_FreqSelectiveImpedance gamma 	= m_cable->GetTransConst();
 
-	PLC_FreqSelectiveImpedance tmp = tanh(gamma * this->m_length);
+	PLC_FreqSelectiveImpedance tmp = tanh(gamma * m_length);
 	ret = z_c * (z_l + (z_c * tmp)) / (z_c + (z_l * tmp));
 
 	return ret;
@@ -653,10 +742,16 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 	PLC_NodeOutEdgesMap outEdges;
 	PLC_NodeOutEdgesMap::iterator outEdges_it;
 
+	if (IsInputImpedanceUp2Date (dst_node))
+	{
+		// Input impedance was calculated by another thread in the meantime
+		return;
+	}
+
+    LockImpedanceCache (dst_node);
+
 	// get connected edges of destination node
-	dst_node->Lock();
 	outEdges = dst_node->GetEdges();
-	dst_node->Unlock();
 
 	// no connected nodes on transformer output side
 	if (outEdges.size() == 1) {
@@ -667,19 +762,15 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 		std::vector<PLC_Impedance *> parallel_impedances;
 		bool EqImpIsTimeVariant = false;
 
-		dst_node->Lock();
 		if (!dst_node->IsOpenCircuit()) {
 			PLC_Impedance *node_impedance = dst_node->GetImpedancePeekPtr();
 			NS_ASSERT(node_impedance != NULL);
 
-			node_impedance->Lock();
 			if (node_impedance->IsTimeVariant())
 				EqImpIsTimeVariant = true;
-			node_impedance->Unlock();
 
 			parallel_impedances.push_back(node_impedance);
 		}
-		dst_node->Unlock();
 
 		std::vector<PLC_Edge *> edges;
 		for (outEdges_it = outEdges.begin(); outEdges_it != outEdges.end(); outEdges_it++) {
@@ -695,12 +786,11 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 #pragma omp parallel for
 #endif
 		for (i = 0; i < (int) num_edges; i++) {
-			edges[i]->Lock();
 			PLC_Node *new_dst = edges[i]->GetConnectedNode(dst_node);
-			if (edges[i]->IsInputImpedanceUp2Date(new_dst) == false) {
+			if (edges[i]->IsInputImpedanceUp2Date(new_dst) == false)
+			{
 				edges[i]->CalculateInputImpedance(new_dst);
 			}
-			edges[i]->Unlock();
 		}
 
 		for (outEdges_it = outEdges.begin(); outEdges_it != outEdges.end(); outEdges_it++) {
@@ -709,23 +799,19 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 
 			if ((cur_edge = PeekPointer(outEdges_it->second)) == this) continue;
 
-			cur_edge->Lock();
 			PLC_Node *new_dst = cur_edge->GetConnectedNode(dst_node);
 			cur_eq_imp = cur_edge->GetInputImpedance(new_dst);
-			cur_edge->Unlock();
 
-			cur_eq_imp->Lock();
 			if (cur_eq_imp->IsTimeVariant())
 				EqImpIsTimeVariant = true;
-			cur_eq_imp->Unlock();
 
 			parallel_impedances.push_back(cur_eq_imp);
 		}
 
 		if (!EqImpIsTimeVariant)
-			load_impedance = CalcEquivalentImpedance<PLC_FreqSelectiveImpedance> (this->m_spectrum_model, parallel_impedances);
+			load_impedance = CalcEquivalentImpedance<PLC_FreqSelectiveImpedance> (m_spectrum_model, parallel_impedances);
 		else
-			load_impedance = CalcEquivalentImpedance<PLC_TimeVariantFreqSelectiveImpedance> (this->m_spectrum_model, parallel_impedances);
+			load_impedance = CalcEquivalentImpedance<PLC_TimeVariantFreqSelectiveImpedance> (m_spectrum_model, parallel_impedances);
 	}
 
 	// we have to save intermediate results in a smartpointer instance,
@@ -739,24 +825,41 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 	PLC_LOG_LOGIC("load_impedance: " << *load_impedance);
 	PLC_LOG_LOGIC("input_impedance: " << *result);
 
-	this->CacheImpedances(dst_node, result, load_impedance);
+	CacheImpedances(dst_node, result, load_impedance);
+
+    UnlockImpedanceCache (dst_node);
 }
 
 void
 PLC_TwoPort::CalculateEdgeTransferFactor (PLC_Node *dst_node)
 {
 	PLC_LOG_FUNCTION(this << dst_node);
-	if (this->m_edge_transfer_data[dst_node].input_impedance.second.IsUp2Date == false)
-		this->CalculateInputImpedance(dst_node);
 
-	Ptr<PLC_Impedance> input_impedance = this->m_edge_transfer_data[dst_node].input_impedance.first;
+	if (IsEdgeTransferFactorUp2Date (dst_node))
+	{
+		// Edge transfer factor was calculated by another thread in the meantime
+		return;
+	}
+
+	LockEdgeTransferUnit (dst_node);
+
+	if (IsInputImpedanceUp2Date (dst_node) == false)
+	{
+		CalculateInputImpedance(dst_node);
+	}
+
+	LockImpedanceCache (dst_node);
+	Ptr<PLC_Impedance> input_impedance = m_edge_transfer_data[dst_node].input_impedance.first;
+	UnlockImpedanceCache (dst_node);
 
 	Ptr<PLC_ValueBase> prod = Multiply(m_A, input_impedance);
 	Ptr<PLC_ValueBase> sum = Add(prod, m_B);
 	Ptr<PLC_TransferBase> result = Divide(input_impedance, sum);
 
-	this->m_edge_transfer_data[dst_node].edge_transfer_unit->SetEdgeTransferVector(result);
-	this->m_edge_transfer_data[dst_node].etf_initialized = true;
+	m_edge_transfer_data[dst_node].edge_transfer_unit->SetEdgeTransferVector(result);
+	m_edge_transfer_data[dst_node].etf_initialized = true;
+
+	UnlockEdgeTransferUnit (dst_node);
 }
 
 // TODO

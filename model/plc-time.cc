@@ -33,6 +33,24 @@ size_t PLC_Time::g_timeslots = 200;
 Time PLC_Time::g_resolution = MicroSeconds(100);
 
 void
+PLC_Time::SetTimeModel(double mainsFreq, size_t timeslots)
+{
+	g_mainsFreq = mainsFreq;
+	g_timeslots = timeslots;
+
+	g_period_s = 1 / mainsFreq;
+	g_period = Time::FromDouble(g_period_s, Time::S);
+	NS_ASSERT(g_period > 0);
+
+	g_resolution_s = g_period_s / timeslots;
+	Time g_resolution = Time::FromDouble(g_resolution_s, Time::S);
+
+//	Ptr<PLC_SimulatorImpl> simImpl = CreateObject<PLC_SimulatorImpl> ();
+//	Simulator::SetImplementation(simImpl);
+	PLC_Phy::SetSymbolDuration(g_resolution);
+}
+
+void
 PLC_Time::SetTimeModel(double mainsFreq, Time tSymbol)
 {
 	g_mainsFreq = mainsFreq;
@@ -44,8 +62,8 @@ PLC_Time::SetTimeModel(double mainsFreq, Time tSymbol)
 
 	g_resolution_s = tSymbol.GetDouble();
 
-	Ptr<PLC_SimulatorImpl> simImpl = CreateObject<PLC_SimulatorImpl> ();
-	Simulator::SetImplementation(simImpl);
+//	Ptr<PLC_SimulatorImpl> simImpl = CreateObject<PLC_SimulatorImpl> ();
+//	Simulator::SetImplementation(simImpl);
 	PLC_Phy::SetSymbolDuration(tSymbol);
 }
 
@@ -63,8 +81,8 @@ PLC_Time::SetTimeModel(double mainsFreq, size_t timeslots, Time tSymbol)
 	Time g_resolution = Time::FromDouble(g_resolution_s, Time::S);
 	NS_ASSERT(tSymbol >= g_resolution);
 
-	Ptr<PLC_SimulatorImpl> simImpl = CreateObject<PLC_SimulatorImpl> ();
-	Simulator::SetImplementation(simImpl);
+//	Ptr<PLC_SimulatorImpl> simImpl = CreateObject<PLC_SimulatorImpl> ();
+//	Simulator::SetImplementation(simImpl);
 	PLC_Phy::SetSymbolDuration(tSymbol);
 }
 

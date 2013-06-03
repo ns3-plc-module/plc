@@ -24,9 +24,9 @@
 
 namespace ns3 {
 
-SpectrumValue GetCapacity(const SpectrumValue& SINR, Modulation mod, short cardinality)
+SpectrumValue GetCapacity(const SpectrumValue& SINR_dB, Modulation mod, short cardinality)
 {
-	SpectrumValue capacityPerHertz(SINR.GetSpectrumModel());
+	SpectrumValue capacityPerHertz(SINR_dB.GetSpectrumModel());
 
 	const double *cap;
 	if (mod == QAM)
@@ -101,24 +101,24 @@ SpectrumValue GetCapacity(const SpectrumValue& SINR, Modulation mod, short cardi
 		NS_FATAL_ERROR("Unsupported modulation type");
 	}
 
-	Values::const_iterator sinr_it = SINR.ConstValuesBegin();
+	Values::const_iterator SINR_dB_it = SINR_dB.ConstValuesBegin();
 	Values::iterator cit = capacityPerHertz.ValuesBegin();
-	while (sinr_it != SINR.ConstValuesEnd() && cit != capacityPerHertz.ValuesEnd())
+	while (SINR_dB_it != SINR_dB.ConstValuesEnd() && cit != capacityPerHertz.ValuesEnd())
 	{
-		// subchannel sinr
-		double sc_sinr = *sinr_it;
-		if (sc_sinr < -10)
+		// subchannel SINR_dB
+		double sc_SINR_dB = *SINR_dB_it;
+		if (sc_SINR_dB < -10)
 		{
-			*cit = log2(1+pow(10, sc_sinr/10));
+			*cit = log2(1+pow(10, sc_SINR_dB/10));
 		}
-		else if (sc_sinr >= 40)
+		else if (sc_SINR_dB >= 40)
 		{
 			*cit = log2(cardinality);
 		}
 		else
 		{
-			short x1 = floor(sc_sinr+10);
-			short x2 = ceil(sc_sinr+10);
+			short x1 = floor(sc_SINR_dB+10);
+			short x2 = ceil(sc_SINR_dB+10);
 
 			if (x1 == x2)
 			{
@@ -130,10 +130,10 @@ SpectrumValue GetCapacity(const SpectrumValue& SINR, Modulation mod, short cardi
 				double y2 = cap[x2];
 
 				// linear interpolation
-				*cit = y1 + (sc_sinr-x1+10)*((y2-y1)/(x2-x1));
+				*cit = y1 + (sc_SINR_dB-x1+10)*((y2-y1)/(x2-x1));
 			}
 		}
-		++sinr_it;
+		++SINR_dB_it;
 		++cit;
 	}
 

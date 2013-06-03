@@ -95,10 +95,10 @@ int main (int argc, char *argv[])
 	phy2->SetNoiseFloor(noiseFloor);
 
 	// Set modulation and coding scheme
-	phy1->SetHeaderModulationAndCodingScheme(BPSK_1_2);
-	phy2->SetHeaderModulationAndCodingScheme(BPSK_1_2);
-	phy1->SetPayloadModulationAndCodingScheme(BPSK_RATELESS);
-	phy2->SetPayloadModulationAndCodingScheme(BPSK_RATELESS);
+	phy1->SetHeaderModulationAndCodingScheme(ModulationAndCodingScheme(BPSK_1_2,0));
+	phy2->SetHeaderModulationAndCodingScheme(ModulationAndCodingScheme(BPSK_1_2,0));
+	phy1->SetPayloadModulationAndCodingScheme(ModulationAndCodingScheme(BPSK_RATELESS,0));
+	phy2->SetPayloadModulationAndCodingScheme(ModulationAndCodingScheme(BPSK_RATELESS,0));
 
     // Aggregate RX-Interfaces to ns3 nodes
     phy1->GetRxInterface()->AggregateObject(CreateObject<Node> ());

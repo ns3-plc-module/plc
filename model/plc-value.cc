@@ -2053,7 +2053,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantConstValue& lhs
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2072,7 +2072,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_FreqSelectiveValue& lhs, c
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2173,7 +2173,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantConstValue& lhs
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2192,7 +2192,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_FreqSelectiveValue& lhs, c
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2293,7 +2293,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantConstValue& lhs
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2312,7 +2312,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_FreqSelectiveValue& lhs, c
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2424,7 +2424,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantConstValue& lhs
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2443,7 +2443,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_FreqSelectiveValue& lhs, c
 	int i, size;
 	NS_ASSERT((size = lhs.m_values.size()) < INT_MAX);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2576,7 +2576,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator=(
 {
 	this->m_spectrum_model = value.GetSpectrumModel();
 	this->m_values = value.GetValues();
-	NS_ASSERT(this->m_values.size() == this->m_spectrum_model->GetNumBands());
+//	NS_ASSERT(this->m_values.size() == this->m_spectrum_model->GetNumBands());
 	return *this;
 }
 
@@ -2586,7 +2586,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator+=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2603,7 +2603,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator+=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2622,7 +2622,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator+=
 	PLC_Value val = value.GetValue();
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2640,7 +2640,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator+=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2659,7 +2659,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator+=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2678,7 +2678,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator+=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2695,7 +2695,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator-=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2712,7 +2712,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator-=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2731,7 +2731,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator-=
 	PLC_Value val = value.GetValue();
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2749,7 +2749,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator-=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2768,7 +2768,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator-=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2787,7 +2787,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator-=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2804,7 +2804,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator*=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2821,7 +2821,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator*=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2840,7 +2840,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator*=
 	PLC_Value val = value.GetValue();
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2858,7 +2858,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator*=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2877,7 +2877,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator*=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2891,12 +2891,14 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator*=
 
 PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator*=(const PLC_TimeVariantFreqSelectiveValue& value)
 {
-	int i, size;
-	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
+	size_t i, size;
+	size = this->m_values.size();
+
+	NS_ASSERT(size < INT_MAX);
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2913,7 +2915,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator/=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2930,7 +2932,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator/=
 	NS_ASSERT((size = this->m_values.size()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2949,7 +2951,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator/=
 	PLC_Value val = value.GetValue();
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2967,7 +2969,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator/=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -2986,7 +2988,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator/=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3005,7 +3007,7 @@ PLC_TimeVariantFreqSelectiveValue& PLC_TimeVariantFreqSelectiveValue::operator/=
 	NS_ASSERT(value.GetSpectrumModel() == this->GetSpectrumModel());
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3028,7 +3030,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(value);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3046,7 +3048,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3064,7 +3066,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(double lhs, const PLC_TimeVariantFre
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3082,7 +3084,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3100,7 +3102,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_Value& lhs, const PLC_Time
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3120,7 +3122,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantFreqSelectiveVa
 	PLC_Value val = rhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3140,7 +3142,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_ConstValue& lhs, const PLC
 	PLC_Value val = lhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3159,7 +3161,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3178,7 +3180,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_FreqSelectiveValue& lhs, c
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3197,7 +3199,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3217,7 +3219,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantConstValue& lhs
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3237,7 +3239,7 @@ PLC_TimeVariantFreqSelectiveValue operator+(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3255,7 +3257,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3273,7 +3275,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(double lhs, const PLC_TimeVariantFre
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3291,7 +3293,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3309,7 +3311,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_Value& lhs, const PLC_Time
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3329,7 +3331,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantFreqSelectiveVa
 	PLC_Value val = rhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3349,7 +3351,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_ConstValue& lhs, const PLC
 	PLC_Value val = lhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3368,7 +3370,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3387,7 +3389,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_FreqSelectiveValue& lhs, c
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3406,7 +3408,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3426,7 +3428,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantConstValue& lhs
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3446,7 +3448,7 @@ PLC_TimeVariantFreqSelectiveValue operator-(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3464,7 +3466,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3482,7 +3484,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(double lhs, const PLC_TimeVariantFre
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3500,7 +3502,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3518,7 +3520,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_Value& lhs, const PLC_Time
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3538,7 +3540,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantFreqSelectiveVa
 	PLC_Value val = rhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3558,7 +3560,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_ConstValue& lhs, const PLC
 	PLC_Value val = lhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3577,7 +3579,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3596,7 +3598,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_FreqSelectiveValue& lhs, c
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3615,7 +3617,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3635,7 +3637,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantConstValue& lhs
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3655,7 +3657,7 @@ PLC_TimeVariantFreqSelectiveValue operator*(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3673,7 +3675,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3691,7 +3693,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(double lhs, const PLC_TimeVariantFre
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3709,7 +3711,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3727,7 +3729,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_Value& lhs, const PLC_Time
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3747,7 +3749,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantFreqSelectiveVa
 	PLC_Value val = rhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3767,7 +3769,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_ConstValue& lhs, const PLC
 	PLC_Value val = lhs.GetValue();
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3786,7 +3788,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3805,7 +3807,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_FreqSelectiveValue& lhs, c
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3824,7 +3826,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3844,7 +3846,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantConstValue& lhs
 
 	PLC_TimeVariantFreqSelectiveValue ret(rhs.GetSpectrumModel(), rhs.GetNumTimeSlots());
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3864,7 +3866,7 @@ PLC_TimeVariantFreqSelectiveValue operator/(const PLC_TimeVariantFreqSelectiveVa
 
 	PLC_TimeVariantFreqSelectiveValue ret(lhs);
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -3930,7 +3932,7 @@ PLC_TimeVariantFreqSelectiveRealValue abs(const PLC_TimeVariantFreqSelectiveValu
 	PLC_TimeVariantFreqSelectiveRealValue ret(numtimeslots, PLC_FreqSelectiveRealValue(numbands, 0));
 
 //#ifdef PLC_MULTITHREADING
-//#pragma omp parallel for
+////#pragma omp parallel for
 //#endif
 	for (i = 0; i < numtimeslots; i++) {
 		for (j = 0; j < numbands; j++) {
@@ -3978,7 +3980,7 @@ PLC_TimeVariantFreqSelectiveRealValue arg(const PLC_TimeVariantFreqSelectiveValu
 	PLC_TimeVariantFreqSelectiveRealValue ret(numtimeslots, PLC_FreqSelectiveRealValue(numbands, 0));
 
 //#ifdef PLC_MULTITHREADING
-//#pragma omp parallel for
+////#pragma omp parallel for
 //#endif
 	for (i = 0; i < numtimeslots; i++) {
 		for (j = 0; j < numbands; j++) {
@@ -4026,7 +4028,7 @@ PLC_TimeVariantFreqSelectiveRealValue real(const PLC_TimeVariantFreqSelectiveVal
 	PLC_TimeVariantFreqSelectiveRealValue ret(numtimeslots, PLC_FreqSelectiveRealValue(numbands, 0));
 
 //#ifdef PLC_MULTITHREADING
-//#pragma omp parallel for
+////#pragma omp parallel for
 //#endif
 	for (i = 0; i < numtimeslots; i++) {
 		for (j = 0; j < numbands; j++) {
@@ -4074,7 +4076,7 @@ PLC_TimeVariantFreqSelectiveRealValue imag(const PLC_TimeVariantFreqSelectiveVal
 	PLC_TimeVariantFreqSelectiveRealValue ret(numtimeslots, PLC_FreqSelectiveRealValue(numbands, 0));
 
 //#ifdef PLC_MULTITHREADING
-//#pragma omp parallel for
+////#pragma omp parallel for
 //#endif
 	for (i = 0; i < numtimeslots; i++) {
 		for (j = 0; j < numbands; j++) {
@@ -4123,7 +4125,7 @@ PLC_TimeVariantFreqSelectiveRealValue absSqr(const PLC_TimeVariantFreqSelectiveV
 
 	// qwt plot gets screwed up by parallel processing
 //#ifdef PLC_MULTITHREADING
-//#pragma omp parallel for
+////#pragma omp parallel for
 //#endif
 	for (i = 0; i < numtimeslots; i++) {
 		for (j = 0; j < numbands; j++) {
@@ -4168,7 +4170,7 @@ PLC_TimeVariantFreqSelectiveValue sinh(const PLC_TimeVariantFreqSelectiveValue& 
 	NS_ASSERT((size = value.GetNumTimeSlots()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -4214,7 +4216,7 @@ PLC_TimeVariantFreqSelectiveValue cosh(const PLC_TimeVariantFreqSelectiveValue& 
 	NS_ASSERT((size = value.GetNumTimeSlots()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -4260,7 +4262,7 @@ PLC_TimeVariantFreqSelectiveValue exp(const PLC_TimeVariantFreqSelectiveValue& v
 	NS_ASSERT((size = value.GetNumTimeSlots()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -4304,7 +4306,7 @@ PLC_TimeVariantFreqSelectiveValue log10(const PLC_TimeVariantFreqSelectiveValue&
 	NS_ASSERT((size = value.GetNumTimeSlots()) < INT_MAX);
 
 //#ifdef PLC_MULTITHREADING
-//#pragma omp parallel for
+////#pragma omp parallel for
 //#endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -4348,7 +4350,7 @@ PLC_TimeVariantFreqSelectiveValue tan(const PLC_TimeVariantFreqSelectiveValue& v
 	NS_ASSERT((size = value.GetNumTimeSlots()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -4392,7 +4394,7 @@ PLC_TimeVariantFreqSelectiveValue tanh(const PLC_TimeVariantFreqSelectiveValue& 
 	NS_ASSERT((size = value.GetNumTimeSlots()) < INT_MAX);
 
 #ifdef PLC_MULTITHREADING
-#pragma omp parallel for
+//#pragma omp parallel for
 #endif
 	for (i = 0; i < size; i++) {
 		size_t j;
@@ -4497,7 +4499,7 @@ void AddInverseValue(PLC_ValueBase *res, PLC_ValueBase *imp)
 
 				default:
 				{
-					NS_FATAL_ERROR("AddInverseValue(): incompatible impedance type");
+					NS_FATAL_ERROR ("AddInverseValue(): incompatible impedance type");
 					break;
 				}
 			}
@@ -4594,7 +4596,7 @@ void AddInverseValue(PLC_ValueBase *res, PLC_ValueBase *imp)
 
 				default:
 				{
-					NS_FATAL_ERROR("AddInverseValue(): incompatible impedance type");
+					NS_FATAL_ERROR("AddInverseValue (): incompatible impedance type");
 					break;
 				}
 
@@ -4605,7 +4607,7 @@ void AddInverseValue(PLC_ValueBase *res, PLC_ValueBase *imp)
 
 		default:
 		{
-			NS_FATAL_ERROR("CalcEquivalentImpedance(): not compatible impedance type");
+			NS_FATAL_ERROR("AddInverseValue (): not compatible impedance type");
 			break;
 		}
 	}

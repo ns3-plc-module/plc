@@ -46,9 +46,10 @@ public:
 
 	void SetNoiseFloor(Ptr<const SpectrumValue> noiseFloor);
 	double GetTotalRxPower(void);
+	double GetMeanRxPower(void);
 	double GetTotalNoisePower(void);
 
-	void StartRx(ModulationAndCodingType mcs, Ptr<const SpectrumValue> rxPsd, double requiredInformationBits = 0);
+	void StartRx(ModulationAndCodingScheme mcs, Ptr<const SpectrumValue> rxPsd, double requiredInformationBits = 0);
 	void AlterRxSignal(Ptr<const SpectrumValue> rxPsd);
 	void AddNoiseSignal(Ptr<const SpectrumValue> noisePsd);
 	void RemoveNoiseSignal(Ptr<const SpectrumValue> noisePsd);
@@ -58,6 +59,7 @@ public:
 	void SetSinrBase(Ptr<const SpectrumValue> sinrBase);
 
 	Ptr<PLC_Interference> GetInterference(void) { return m_interference; }
+	double GetShannonTransmissionRateLimit(Ptr<SpectrumValue> rxPsd);
 
 protected:
 	virtual void DoDispose(void);
@@ -66,10 +68,12 @@ protected:
 	virtual bool DoEndRx(void) = 0;
 
 	bool m_receiving;
-	ModulationAndCodingType m_mcs;
+	ModulationAndCodingScheme m_mcs;
 	Time m_lastChangeTime;
 	Ptr<PLC_Interference> m_interference;
 
+	TracedCallback<Time, Ptr<const SpectrumValue> > m_rxSignalTracer;
+	TracedCallback<Time, Ptr<const SpectrumValue> > m_noiseTracer;
 	TracedCallback<Time, Ptr<const SpectrumValue> > m_sinrTracer;
 };
 
@@ -109,7 +113,7 @@ private:
 	bool DoEndRx(void);
 
 	double GetChunkSuccessRate(uint32_t numBlocks);
-	double GetBler(ModulationAndCodingType mcs, SpectrumValue& sinr);
+	double GetBler(ModulationAndCodingScheme mcs, SpectrumValue& sinr);
 
 	Time m_block_duration;
 	double m_packet_success_rate;
@@ -137,8 +141,12 @@ public:
 	Time GetSymbolDuration (void) { return m_symbol_duration; }
 	void SetGuardIntervalDuration (Time duration) { m_guard_interval_duration = duration; }
 	Time GetGuardIntervalDuration (void) { return m_symbol_duration; }
+	void SetCodingOverhead (double overhead) { m_coding_overhead = overhead; }
+	double GetCodingOverhead (void) { return m_coding_overhead; }
 
 	double GetGatheredMutualInformation(void) { return m_gathered_information_bits; }
+
+	double GetTransmissionRateLimit(Ptr<SpectrumValue> rxPsd, ModulationAndCodingScheme mcs);
 
 private:
 	static McsInfo s_mcs_info[10];
@@ -155,6 +163,7 @@ private:
 
 	double m_required_information_bits;
 	double m_gathered_information_bits;
+	double m_coding_overhead;
 };
 
 }

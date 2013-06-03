@@ -106,8 +106,8 @@ public:
 	/**
 	 * Mutex lock and unlock
 	 */
-	void Lock(void) const { m_mutex.Lock(); }
-	void Unlock(void) const { m_mutex.Unlock(); }
+//	void Lock(void) const { m_mutex.Lock(); }
+//	void Unlock(void) const { m_mutex.Unlock(); }
 
 private:
 	virtual void DoDispose(void);

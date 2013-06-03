@@ -167,14 +167,14 @@ public:
 	bool PathExists(Ptr<PLC_Node> from, Ptr<PLC_Node> to);
 
 	/**
-	 * Lock graph mutex for mutual exclusion
+//	 * Lock graph mutex for mutual exclusion
 	 */
-	void Lock() { m_graph_mutex.Lock(); }
+//	void Lock() { m_graph_mutex.Lock(); }
 
 	/**
-	 * Unlock graph mutex
+//	 * Unlock graph mutex
 	 */
-	void Unlock() { m_graph_mutex.Unlock(); }
+//	void Unlock() { m_graph_mutex.Unlock(); }
 
 protected:
 	virtual void DoStart(void);

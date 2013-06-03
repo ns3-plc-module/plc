@@ -24,9 +24,33 @@
 #include "plc-interference.h"
 #include "plc-value.h"
 
+#include <iomanip>
+
 NS_LOG_COMPONENT_DEFINE ("PLC_Interference");
 
 namespace ns3 {
+
+bool IsPositive (Ptr<const SpectrumValue> psd)
+{
+	Bands::const_iterator bit = psd->ConstBandsBegin();
+	Values::const_iterator vit = psd->ConstValuesBegin();
+
+	bool ret = true;
+	while (bit != psd->ConstBandsEnd())
+	{
+		NS_ASSERT (vit != psd->ConstValuesEnd());
+		if (*vit < 0)
+		{
+			ret = false;
+			break;
+		}
+
+		++bit;
+		++vit;
+	}
+
+	return ret;
+}
 
 NS_OBJECT_ENSURE_REGISTERED (PLC_Interference);
 
@@ -42,7 +66,7 @@ PLC_Interference::GetTypeId  (void)
 							 "PSD of the signal the receiver is currently locked to",
 							 MakeTraceSourceAccessor  (&PLC_Interference::m_rxSignalTracer))
 			.AddTraceSource  ("NoiseSignals",
-							 "Sum of all interfering signals at the receiver frontend  (without noise floor)",
+							 "Sum of all interfering signals at the receiver frontend",
 							 MakeTraceSourceAccessor  (&PLC_Interference::m_noiseSignalTracer))
 			.AddTraceSource  ("SINR",
 							 "Signal to Interference plus Noise Ratio while receiving",
@@ -71,14 +95,18 @@ PLC_Interference::DoDispose ()
 void
 PLC_Interference::StartRx (Ptr<const SpectrumValue> rxPsd)
 {
-	PLC_LOG_FUNCTION (this << rxPsd);
-	PLC_LOG_LOGIC (*rxPsd);
+	NS_LOG_FUNCTION (this << rxPsd);
+	NS_LOG_LOGIC (*rxPsd);
 	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
 	NS_ASSERT (rxPsd->GetSpectrumModel () == this->m_noiseSignals->GetSpectrumModel ());
 
 	m_receiving = true;
 	m_rxSignal = rxPsd;
 	(*m_allSignals) +=  (*rxPsd);
+
+	NS_LOG_DEBUG ("m_rxSignal: " << (*m_rxSignal));
+	NS_LOG_DEBUG ("m_noiseSignals: " << std::setprecision(15) << (*m_noiseSignals));
+	NS_LOG_DEBUG ("m_allSignals: "  << std::setprecision(15) << (*m_allSignals));
 
 	CalcSinr();
 
@@ -89,12 +117,19 @@ PLC_Interference::StartRx (Ptr<const SpectrumValue> rxPsd)
 void
 PLC_Interference::AlterRxSignal (Ptr<const SpectrumValue> rxSignal)
 {
-	PLC_LOG_FUNCTION (this << rxSignal);
-	NS_LOG_DEBUG ("RX signal difference: " << ((*m_rxSignal) - (*rxSignal)));
+	NS_LOG_FUNCTION (this << rxSignal);
+	NS_LOG_LOGIC ("Recent rxPsd: " << (*m_rxSignal));
+	NS_LOG_LOGIC ("New rxPsd: " << (*rxSignal));
+	NS_LOG_LOGIC ("Psd base:" << (*m_allSignals)-(*m_rxSignal));
 
-	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
+	NS_ASSERT_MSG (m_receiving, "PLC_Interference object not in receiving mode");
+	NS_ASSERT_MSG (m_noiseFloor, "Noise floor psd has to be set first before using PLC_Interference instance!");
+
 	(*m_allSignals)  =   (*m_allSignals) +  (*rxSignal) -  (*m_rxSignal);
 	this->m_rxSignal = rxSignal;
+
+	NS_LOG_DEBUG ("m_noiseSignals: " << std::setprecision(15) << (*m_noiseSignals));
+	NS_LOG_DEBUG ("m_allSignals: "  << std::setprecision(15) << (*m_allSignals));
 
 	CalcSinr();
 
@@ -105,11 +140,19 @@ PLC_Interference::AlterRxSignal (Ptr<const SpectrumValue> rxSignal)
 void
 PLC_Interference::EndRx (void)
 {
-	PLC_LOG_FUNCTION (this);
+	NS_LOG_FUNCTION (this);
+	NS_LOG_LOGIC ("Recent rxPsd: " << (*m_rxSignal));
 
+	m_receiving = false;
 	(*m_allSignals) -=  (*m_rxSignal);
 	(*m_sinr) = 0;
 	m_sinr_base = 0;
+
+	NS_LOG_DEBUG ("Remove m_rxSignal: " << (*m_rxSignal));
+	NS_LOG_DEBUG ("m_noiseSignals: " << std::setprecision(15) << (*m_noiseSignals));
+	NS_LOG_DEBUG ("m_allSignals: "  << std::setprecision(15) << (*m_allSignals));
+
+	NS_LOG_LOGIC ("Sum Psd: " << (*m_allSignals));
 
 	m_rxSignalTracer (Simulator::Now (), Create<SpectrumValue>  (m_allSignals->GetSpectrumModel ()));
 	m_sumSignalTracer (Simulator::Now (), m_allSignals);
@@ -119,12 +162,16 @@ PLC_Interference::EndRx (void)
 void
 PLC_Interference::AddInterferenceSignal (Ptr<const SpectrumValue> psd)
 {
-	PLC_LOG_FUNCTION (this);
-	PLC_LOG_LOGIC (*psd);
+	NS_LOG_FUNCTION (this << psd);
+	NS_LOG_LOGIC ("Interference psd: " << *psd);
 	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
 
 	(*m_noiseSignals) +=  (*psd);
 	(*m_allSignals) +=  (*psd);
+
+	NS_LOG_DEBUG ("Interference psd: " << *psd);
+	NS_LOG_DEBUG ("m_noiseSignals: " << std::setprecision(15) << (*m_noiseSignals));
+	NS_LOG_DEBUG ("m_allSignals: "  << std::setprecision(15) << (*m_allSignals));
 
 	if (m_receiving)
 	{
@@ -138,12 +185,17 @@ PLC_Interference::AddInterferenceSignal (Ptr<const SpectrumValue> psd)
 void
 PLC_Interference::RemoveInterferenceSignal (Ptr<const SpectrumValue> psd)
 {
-	PLC_LOG_FUNCTION (this);
-	PLC_LOG_LOGIC (*psd);
+	NS_LOG_FUNCTION (this << psd);
+	NS_LOG_LOGIC (*psd);
 	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
 
 	(*m_noiseSignals) -=  (*psd);
 	(*m_allSignals) -=  (*psd);
+
+	NS_LOG_DEBUG ("Interference psd: " << *psd);
+	NS_LOG_DEBUG ("m_noiseSignals: " << std::setprecision(15) << (*m_noiseSignals));
+	NS_LOG_DEBUG ("m_allSignals: "  << std::setprecision(15) << (*m_allSignals));
+	NS_LOG_LOGIC ("m_noiseSignals: " << (*m_noiseSignals));
 
 	if (m_receiving)
 	{
@@ -157,14 +209,15 @@ PLC_Interference::RemoveInterferenceSignal (Ptr<const SpectrumValue> psd)
 void
 PLC_Interference::SetNoiseFloor (Ptr<const SpectrumValue> noiseFloor)
 {
-	PLC_LOG_FUNCTION (this);
-	PLC_LOG_LOGIC (*noiseFloor);
+	NS_LOG_FUNCTION (this);
+	NS_LOG_LOGIC (*noiseFloor);
 	m_noiseFloor = noiseFloor;
 	m_noiseSignals = Create<SpectrumValue>  (noiseFloor->GetSpectrumModel ());
 	m_allSignals = Create<SpectrumValue>  (noiseFloor->GetSpectrumModel ());
 	m_sinr = Create<SpectrumValue>  (noiseFloor->GetSpectrumModel ());
 
 	(*m_sinr) = 0;
+	(*m_noiseSignals) = (*noiseFloor);
 
 	m_sumSignalTracer (Simulator::Now (), m_allSignals);
 	m_noiseSignalTracer (Simulator::Now (), m_noiseSignals);
@@ -174,7 +227,7 @@ PLC_Interference::SetNoiseFloor (Ptr<const SpectrumValue> noiseFloor)
 Ptr<SpectrumValue>
 PLC_Interference::GetSinr(void)
 {
-	PLC_LOG_FUNCTION (this);
+	NS_LOG_FUNCTION (this);
 	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
 	return m_sinr;
 }
@@ -182,46 +235,67 @@ PLC_Interference::GetSinr(void)
 double
 PLC_Interference::GetTotalRxPower (void)
 {
-	PLC_LOG_FUNCTION (this);
+	NS_LOG_FUNCTION (this);
 	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
 	return Pwr(*m_allSignals);
 }
 
 double
+PLC_Interference::GetMeanRxPower (void)
+{
+	NS_LOG_FUNCTION (this);
+	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
+	double meanPwr = Sum(*m_allSignals) / (m_allSignals->GetSpectrumModel()->GetNumBands());
+
+	NS_LOG_LOGIC ("Mean power: " << meanPwr);
+	NS_LOG_DEBUG ("m_noiseSignals: " << std::setprecision(15) << (*m_noiseSignals));
+	NS_LOG_DEBUG ("m_allSignals: "  << std::setprecision(15) << (*m_allSignals));
+
+	return meanPwr;
+}
+
+double
 PLC_Interference::GetTotalNoisePower (void)
 {
-	PLC_LOG_FUNCTION (this);
+	NS_LOG_FUNCTION (this);
 	NS_ASSERT_MSG(m_noiseFloor, "PLC_Interference: Noise floor psd has to be set before using interference instance!");
-	SpectrumValue noise = (*m_noiseSignals) + (*m_noiseFloor);
+	NS_LOG_DEBUG ("m_noiseSignals before: " << std::setprecision(15) << (*m_noiseSignals));
+	SpectrumValue noise = (*m_noiseSignals);
+	NS_LOG_DEBUG ("m_noiseSignals after: " << std::setprecision(15) << (*m_noiseSignals));
 	return Pwr(noise);
 }
 
 void
 PLC_Interference::SetSinrBase(Ptr<const SpectrumValue> baseSinr)
 {
-	PLC_LOG_FUNCTION (this << baseSinr);
+	NS_LOG_FUNCTION (this << baseSinr);
 	m_sinr_base = baseSinr;
-	CalcSinr ();
+
+	if (m_receiving)
+	{
+		CalcSinr ();
+	}
 }
 
 Ptr<const SpectrumValue>
 PLC_Interference::GetSinrBase(void)
 {
-	PLC_LOG_FUNCTION (this);
+	NS_LOG_FUNCTION (this);
 	return m_sinr_base;
 }
 
 void
 PLC_Interference::CalcSinr(void)
 {
-	PLC_LOG_FUNCTION (this);
-	(*m_sinr) =  (*m_rxSignal) /  ( (*m_noiseSignals) + (*m_noiseFloor));
-	PLC_LOG_LOGIC ("m_sinr: " << *m_sinr);
+	NS_LOG_FUNCTION (this);
+	NS_ASSERT (m_rxSignal);
+
+	(*m_sinr) =  (*m_rxSignal) /  (*m_noiseSignals);
 
 	if (m_sinr_base)
 	{
 		(*m_sinr) += (*m_sinr_base);
-		PLC_LOG_LOGIC ("increased m_sinr: " << *m_sinr);
+		NS_LOG_LOGIC ("increased m_sinr: " << *m_sinr);
 	}
 
 	m_SinrTracer (Simulator::Now (), m_sinr);

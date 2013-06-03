@@ -52,9 +52,9 @@ namespace boost {
 
       std::vector<VertexInfo> stack;
 
-      graph_copy_mutex->Lock();
+//      graph_copy_mutex->Lock();
       put(vertex_color, u, Color::gray());
-      graph_copy_mutex->Unlock();
+//      graph_copy_mutex->Unlock();
 
       vis.discover_vertex(u, g);
       stack.push_back(std::make_pair(u, out_edges(u, g)));
@@ -68,20 +68,20 @@ namespace boost {
           Vertex v = target(*ei, g);
           vis.examine_edge(*ei, g);
 
-          graph_copy_mutex->Lock();
+//          graph_copy_mutex->Lock();
           ColorValue v_color = get(vertex_color, v);
           EColorValue uv_color = get(edge_color, *ei);
           put(edge_color, *ei, EColor::black());
-          graph_copy_mutex->Unlock();
+//          graph_copy_mutex->Unlock();
 
           if (v_color == Color::white()) {
             vis.tree_edge(*ei, g);
             stack.push_back(std::make_pair(u, std::make_pair(++ei, ei_end)));
             u = v;
 
-            graph_copy_mutex->Lock();
+//            graph_copy_mutex->Lock();
             put(vertex_color, u, Color::gray());
-            graph_copy_mutex->Unlock();
+//            graph_copy_mutex->Unlock();
 
             vis.discover_vertex(u, g);
             boost::tie(ei, ei_end) = out_edges(u, g);
@@ -93,9 +93,9 @@ namespace boost {
           }
         }
 
-        graph_copy_mutex->Lock();
+//        graph_copy_mutex->Lock();
         put(vertex_color, u, Color::black());
-        graph_copy_mutex->Unlock();
+//        graph_copy_mutex->Unlock();
 
         vis.finish_vertex(u, g);
       }

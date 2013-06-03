@@ -99,22 +99,24 @@ PLC_PhyFrameControlHeader::~PLC_PhyFrameControlHeader(void)
 uint32_t
 PLC_PhyFrameControlHeader::GetSerializedSize (void) const
 {
-	return 5;
+	return 10;
 }
 
 TypeId
 PLC_PhyFrameControlHeader::GetInstanceTypeId (void) const
 {
-	return GetTypeId();
+	return GetTypeId ();
 }
 
 void
 PLC_PhyFrameControlHeader::Serialize (Buffer::Iterator start) const
 {
 	Buffer::Iterator i = start;
-	i.WriteU8(m_delimiter_type);
+	i.WriteU16(m_message_id);
 	i.WriteU16(m_payload_symbols);
-	i.WriteU8(m_payload_mcs);
+	i.WriteU8(m_payload_mct);
+	i.WriteU16(m_prng_seed);
+	i.WriteU16(m_num_blocks);
 	i.WriteU8(m_fccs);
 }
 
@@ -122,9 +124,11 @@ uint32_t
 PLC_PhyFrameControlHeader::Deserialize (Buffer::Iterator start)
 {
 	Buffer::Iterator i = start;
-	m_delimiter_type 	= i.ReadU8();
+	m_message_id		= i.ReadU16();
 	m_payload_symbols 	= i.ReadU16();
-	m_payload_mcs 		= i.ReadU8();
+	m_payload_mct 		= i.ReadU8();
+	m_prng_seed 		= i.ReadU16();
+	m_num_blocks 		= i.ReadU16();
 	m_fccs 				= i.ReadU8();
 	return i.GetDistanceFrom(start);
 }
@@ -132,105 +136,9 @@ PLC_PhyFrameControlHeader::Deserialize (Buffer::Iterator start)
 void
 PLC_PhyFrameControlHeader::Print (std::ostream &os) const
 {
-	os << "delimiter type = " << (PLC_PhyFrameControlHeader::DelimiterType) m_delimiter_type;
+	os << "Message id = " << (int) m_message_id;
 	os << ", payload symbols = " << (int) m_payload_symbols;
-	os << ", payload mcs = " << (ModulationAndCodingType) m_payload_mcs;
-	os << ", fccs = " << (int) m_fccs;
-}
-
-std::ostream&
-operator<<(std::ostream& os, PLC_PhyFrameControlHeader::DelimiterType type)
-{
-	switch (type)
-	{
-		case (PLC_PhyFrameControlHeader::DATA):
-		{
-			os << "DATA";
-			break;
-		}
-		case (PLC_PhyFrameControlHeader::ACK):
-		{
-			os << "ACK";
-			break;
-		}
-		case (PLC_PhyFrameControlHeader::NACK):
-		{
-			os << "NACK";
-			break;
-		}
-		default:
-		{
-			os << "INVALID";
-			break;
-		}
-	}
-	return os;
-}
-
-//////////////////////// PLC_PhyRatelessFrameControlHeader //////////////////////////
-
-NS_OBJECT_ENSURE_REGISTERED(PLC_PhyRatelessFrameControlHeader);
-
-TypeId
-PLC_PhyRatelessFrameControlHeader::GetTypeId (void)
-{
-  static TypeId tid = TypeId ("ns3::PLC_PhyRatelessFrameControlHeader")
-    .SetParent<Header> ()
-    .AddConstructor<PLC_PhyRatelessFrameControlHeader> ();
-  return tid;
-}
-
-PLC_PhyRatelessFrameControlHeader::PLC_PhyRatelessFrameControlHeader(void)
-{
-}
-
-PLC_PhyRatelessFrameControlHeader::~PLC_PhyRatelessFrameControlHeader(void)
-{
-}
-
-uint32_t
-PLC_PhyRatelessFrameControlHeader::GetSerializedSize (void) const
-{
-	return 11;
-}
-
-TypeId
-PLC_PhyRatelessFrameControlHeader::GetInstanceTypeId (void) const
-{
-	return GetTypeId ();
-}
-
-void
-PLC_PhyRatelessFrameControlHeader::Serialize (Buffer::Iterator start) const
-{
-	Buffer::Iterator i = start;
-	i.WriteU8(m_delimiter_type);
-	i.WriteU16(m_payload_symbols);
-	i.WriteU8(m_payload_mcs);
-	i.WriteU16(m_prng_seed);
-	i.WriteU32(m_num_blocks);
-	i.WriteU8(m_fccs);
-}
-
-uint32_t
-PLC_PhyRatelessFrameControlHeader::Deserialize (Buffer::Iterator start)
-{
-	Buffer::Iterator i = start;
-	m_delimiter_type 	= i.ReadU8();
-	m_payload_symbols 	= i.ReadU16();
-	m_payload_mcs 		= i.ReadU8();
-	m_prng_seed 		= i.ReadU16();
-	m_num_blocks 		= i.ReadU32();
-	m_fccs 				= i.ReadU8();
-	return i.GetDistanceFrom(start);
-}
-
-void
-PLC_PhyRatelessFrameControlHeader::Print (std::ostream &os) const
-{
-	os << "delimiter type = " << (PLC_PhyFrameControlHeader::DelimiterType) m_delimiter_type;
-	os << ", payload symbols = " << (int) m_payload_symbols;
-	os << ", payload mcs = " << (ModulationAndCodingType) m_payload_mcs;
+	os << ", payload mcs = " << (ModulationAndCodingType) m_payload_mct;
 	os << ", Prng seed = " << (int) m_prng_seed;
 	os << ", Blocks = " << (int) m_num_blocks;
 	os << ", fccs = " << (int) m_fccs;
@@ -251,6 +159,7 @@ PLC_MacHeader::GetTypeId (void)
 
 PLC_MacHeader::PLC_MacHeader(void)
 {
+	m_flags = 0;
 }
 
 PLC_MacHeader::~PLC_MacHeader(void)
@@ -300,6 +209,7 @@ PLC_MacHeader::Print (std::ostream &os) const
 	os << ", type = " << GetType();
 	os << ", sequence number = " << (int) m_msg_sqn;
 	os << ", message length = " << (int) m_msg_length;
+	os << ", has relay mac header = " << GetHasRelayHeader();
 }
 
 void
@@ -332,6 +242,13 @@ PLC_MacHeader::SetMessageLength (uint32_t length)
 	m_msg_length = length;
 }
 
+void
+PLC_MacHeader::SetHasRelayHeader (bool hasRelayHeader)
+{
+	uint8_t mask = ((0x1 & hasRelayHeader)<<4) | 0xef;
+	m_flags |= mask;
+}
+
 Mac48Address
 PLC_MacHeader::GetDstAddress (void) const
 {
@@ -360,6 +277,141 @@ uint32_t
 PLC_MacHeader::GetMessageLength (void) const
 {
 	return m_msg_length;
+}
+
+bool
+PLC_MacHeader::GetHasRelayHeader (void) const
+{
+	return (m_flags & 0x10);
+}
+
+//////////////////////// PLC_RelayMacHeader //////////////////////////
+
+NS_OBJECT_ENSURE_REGISTERED(PLC_RelayMacHeader);
+
+TypeId
+PLC_RelayMacHeader::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::PLC_RelayMacHeader")
+    .SetParent<Header> ()
+    .AddConstructor<PLC_RelayMacHeader> ();
+  return tid;
+}
+
+PLC_RelayMacHeader::PLC_RelayMacHeader(void)
+{
+	m_relay_hops = 0;
+	m_flags = 0;
+}
+
+PLC_RelayMacHeader::~PLC_RelayMacHeader(void)
+{
+}
+
+uint32_t
+PLC_RelayMacHeader::GetSerializedSize (void) const
+{
+	return 16;
+}
+
+TypeId
+PLC_RelayMacHeader::GetInstanceTypeId (void) const
+{
+	return GetTypeId();
+}
+
+void
+PLC_RelayMacHeader::Serialize (Buffer::Iterator start) const
+{
+    Buffer::Iterator i = start;
+    WriteTo (i, m_dst_address);
+    WriteTo (i, m_src_address);
+    i.WriteU16(m_msg_sqn);
+    i.WriteU8(m_relay_hops);
+    i.WriteU8(m_flags);
+}
+
+uint32_t
+PLC_RelayMacHeader::Deserialize (Buffer::Iterator start)
+{
+	Buffer::Iterator i = start;
+	ReadFrom (i, m_dst_address);
+	ReadFrom (i, m_src_address);
+	m_msg_sqn = i.ReadU16 ();
+	m_relay_hops = i.ReadU8 ();
+	m_flags = i.ReadU8 ();
+	return i.GetDistanceFrom (start);
+}
+
+void
+PLC_RelayMacHeader::Print (std::ostream &os) const
+{
+	os << "destination address = " << m_dst_address;
+	os << ", source address = " << m_src_address;
+	os << ", sequence number = " << (int) m_msg_sqn;
+	os << ", relay hops = " << (int) m_relay_hops;
+	os << ", relay type = " << (int) m_flags;
+}
+
+void
+PLC_RelayMacHeader::SetDstAddress (Mac48Address addr)
+{
+	m_dst_address = addr;
+}
+
+void
+PLC_RelayMacHeader::SetSrcAddress (Mac48Address addr)
+{
+	m_src_address = addr;
+}
+
+void
+PLC_RelayMacHeader::IncrementRelayHops (void)
+{
+	m_relay_hops++;
+}
+
+Mac48Address
+PLC_RelayMacHeader::GetDstAddress (void) const
+{
+	return m_dst_address;
+}
+
+Mac48Address
+PLC_RelayMacHeader::GetSrcAddress (void) const
+{
+	return m_src_address;
+}
+
+uint8_t
+PLC_RelayMacHeader::GetRelayHops (void) const
+{
+	return m_relay_hops;
+}
+
+void
+PLC_RelayMacHeader::SetRelayType (RelayMacHdrType type)
+{
+	m_flags |= (0x1 & type);
+}
+
+PLC_RelayMacHeader::RelayMacHdrType
+PLC_RelayMacHeader::GetRelayType (void)
+{
+	return (RelayMacHdrType)(m_flags & 0x1);
+}
+
+void
+PLC_RelayMacHeader::SetSequenceNumber (uint16_t sqn)
+{
+	m_msg_sqn = sqn;
+}
+
+
+uint16_t
+PLC_RelayMacHeader::GetSequenceNumber (void) const
+{
+	return m_msg_sqn;
 }
 
 }

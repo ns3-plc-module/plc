@@ -100,7 +100,7 @@ public:
 	 * @return PLC_Node the interface is located on
 	 */
 	Ptr<PLC_Node> GetNode(void) const { return m_plc_node; }
-	PLC_Node *GetNodePeekPointer(void) const { return PeekPointer(m_plc_node); }
+	PLC_Node *GetNodePeekPointer(void);
 
 	/**
 	 * Mutex lock and unlock
@@ -141,9 +141,10 @@ public:
 
 	/**
 	 * Assign the index returned by PLC_Channel::AddTxInterface to this interface
+	 * for frame transmission
 	 * @param idx
 	 */
-	void SetIdx(uint32_t idx) { m_txIfIdx = idx; }
+	void SetTxIfIdx(uint32_t idx) { m_txIfIdx = idx; }
 
 	/**
 	 * @return Index the interface is registered with the channel
@@ -151,9 +152,23 @@ public:
 	uint32_t GetTxIfIdx(void) const;
 
 	/**
-	 * @return The most recent used transmission power spectral density
+	 * Assign the index returned by PLC_Channel::AddTxInterface to this interface
+	 * for noise transmission
+	 * @param idx
 	 */
-	Ptr<const SpectrumValue> GetTxPsd(void) { return m_txPsd; }
+	void SetNoiseIfIdx (uint32_t idx) { m_noiseIfIdx = idx; }
+
+	/**
+	 * @return Index the interface is registered at the channel
+	 * for noise transmission
+	 */
+	uint32_t GetNoiseIfIdx(void) const;
+
+	/**
+	 * @return The most recently used transmission power spectral density
+	 * (either noise PSD or txPSD depending on ifIdx)
+	 */
+	Ptr<const SpectrumValue> GetTxPsd(uint32_t ifIdx);
 
 	/**
 	 * Initialize channel implementations from this transmission interface to each known receiver interface.
@@ -202,7 +217,7 @@ public:
 	 * @param p Packet to be transmitted or NULL for noise signal
 	 * @param metaInfo Meta information for link performance emulation
 	 */
-	void StartTx(Ptr<const Packet> p, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void StartTx(Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 private:
     // virtual dummy function to keep pybindgen happy
@@ -221,9 +236,12 @@ private:
 	void SetChannelTransferImplsOutOfDate(void);
 	void SetTimeVariantChannel(PLC_RxInterface *rx);
 
+	bool m_ctfImpl_initialized;
 	bool m_all_bb_up2date;
 	uint32_t m_txIfIdx;
+	uint32_t m_noiseIfIdx;
 	Ptr<const SpectrumValue> m_txPsd;
+	Ptr<const SpectrumValue> m_noisePsd;
 	std::map<PLC_RxInterface *, Ptr<PLC_ChannelTransferImpl> >  m_channel_transfer_impls;
 };
 
@@ -249,7 +267,7 @@ public:
 	 * Assign the index returned by PLC_Channel::AddTxInterface to this interface
 	 * @param idx
 	 */
-	void SetIdx(uint32_t idx) { m_rxIfIdx = idx; }
+	void SetRxIfIdx(uint32_t idx) { m_rxIfIdx = idx; }
 
 	/**
 	 * @return Index the interface is registered with the channel
@@ -274,14 +292,14 @@ public:
 	 * @param rxPsd received power spectral density
 	 * @param metaInfo meta information for link performance emulation
 	 **/
-	void StartRx(Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void StartRx(uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 	/**
 	 * Called when rxPsd changes due to channel evolution
 	 * @param txId Transmitter index
 	 * @param rxSignal New rxPsd
 	 */
-	void RxPsdChanged(uint32_t txId, Ptr<SpectrumValue> rxSignal);
+	void RxPsdChanged(uint32_t txId, Ptr<const SpectrumValue> rxSignal);
 
 private:
     // virtual dummy function to keep pybindgen happy

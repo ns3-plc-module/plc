@@ -50,19 +50,21 @@ Ptr<PLC_ValueBase> Multiply(Ptr<PLC_ValueBase> op1, Ptr<PLC_ValueBase> op2);
  * PLC value classes are used to represent network impedances, channel
  * transfer functions and ABCD parameters for two port networks.
  */
+//class PLC_ValueBase : public SimpleRefCount<PLC_ValueBase>
 class PLC_ValueBase : public Object
 {
 public:
 	static TypeId GetTypeId (void);
 
 	enum PLC_ValueType {
+		UNDEFINED,
 		CONSTANT,
 		FREQ_SELECTIVE,
 		TIMEVARIANT_CONSTANT,
 		TIMEVARIANT_FREQ_SELECTIVE
 	};
 
-    PLC_ValueBase() {}
+    PLC_ValueBase() : m_value_type(UNDEFINED) {}
     ~PLC_ValueBase() = 0;
 	PLC_ValueBase(Ptr<const SpectrumModel> sm, PLC_ValueType type);
 
@@ -70,8 +72,8 @@ public:
 	Ptr<const SpectrumModel> GetSpectrumModel(void) const { return m_spectrum_model; }
 	size_t GetNumBands(void) const { return m_spectrum_model->GetNumBands(); }
 
-	void Lock(void) const 	{ m_mutex.Lock(); }
-	void Unlock(void) const 	{ m_mutex.Unlock(); }
+//	void Lock(void) const 	{ m_mutex.Lock(); }
+//	void Unlock(void) const 	{ m_mutex.Unlock(); }
 
 	bool IsTimeVariant(void) const;
 
@@ -184,6 +186,11 @@ public:
 
 	PLC_Value operator[](size_t i) const;
 	PLC_Value& operator[](size_t i);
+
+	size_t GetN (void) { return GetNumBands (); }
+	double GetR (size_t i) { NS_ASSERT (i < GetNumBands ()); return std::real(m_values[i]); }
+	double GetI (size_t i) { NS_ASSERT (i < GetNumBands ()); return std::imag(m_values[i]); }
+	void Set (size_t i, double real, double imag) { NS_ASSERT (i < GetNumBands ()); m_values[i] = std::complex<double> (real,imag); }
 
 	PLC_FreqSelectiveValue& operator+=(double value);
 	PLC_FreqSelectiveValue& operator+=(const PLC_Value& value);
@@ -394,6 +401,11 @@ public:
 	PLC_ValueSpectrum operator[](size_t i) const;
 	PLC_ValueSpectrum& operator[](size_t i);
 
+	double GetR (size_t ts, size_t fs) { NS_ASSERT ((ts < GetNumTimeSlots ()) && (fs < GetNumBands ())); return std::real(m_values[ts][fs]); }
+	double GetI (size_t ts, size_t fs) { NS_ASSERT ((ts < GetNumTimeSlots ()) && (fs < GetNumBands ())); return std::imag(m_values[ts][fs]); }
+	void Set (size_t ts, const PLC_FreqSelectiveValue& value) { NS_ASSERT ((ts < GetNumTimeSlots ()) && (value.GetNumBands () == GetNumBands ())); m_values[ts] = value.GetValues(); }
+	void Set (size_t ts, size_t fs, double real, double imag) { NS_ASSERT ((ts < GetNumTimeSlots ()) && (fs < GetNumBands ())); m_values[ts][fs] = std::complex<double> (real,imag); }
+
 	PLC_TimeVariantFreqSelectiveValue& operator=(const PLC_ConstValue& value);
 	PLC_TimeVariantFreqSelectiveValue& operator=(const PLC_TimeVariantConstValue& value);
 	PLC_TimeVariantFreqSelectiveValue& operator=(const PLC_TimeVariantFreqSelectiveValue& value);
@@ -572,9 +584,9 @@ Ptr<ImpedanceReturnType> CalcEquivalentImpedance(Ptr<const SpectrumModel> sm, st
 
 	std::vector<PLC_Impedance *>::iterator p_it;
 	for (p_it = parallel_impedances.begin(); p_it != parallel_impedances.end(); p_it++) {
-		(*p_it)->Lock();
+//		(*p_it)->Lock();
 		AddInverseValue(&inv_ret, *p_it);
-		(*p_it)->Unlock();
+//		(*p_it)->Unlock();
 	}
 
 	return Create<ImpedanceReturnType>(1 / inv_ret);

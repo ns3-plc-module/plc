@@ -30,6 +30,7 @@ class PLC_Time
 {
 public:
 
+	static void SetTimeModel(double mainsFreq, size_t timeslots);
 	static void SetTimeModel(double mainsFreq, Time tSymbol);
 	static void SetTimeModel(double mainsFreq, size_t timeslots, Time tSymbol);
 	static Time GetMainsPeriod(void) { return g_period; }

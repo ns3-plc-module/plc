@@ -35,7 +35,6 @@ def main(dummy_argv):
 
     ## Enable logging  
     ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
-    ns.core.LogComponentEnable('PLC_Mac', ns.core.LOG_LEVEL_FUNCTION)
 
     ## Enable packet printing
     ns.network.Packet.EnablePrinting()
@@ -83,10 +82,13 @@ def main(dummy_argv):
     phy2.SetNoiseFloor(noiseFloor)
 
     ## Set modulation and coding scheme
-    phy1.SetHeaderModulationAndCodingScheme(ns.plc.BPSK_1_2)
-    phy2.SetHeaderModulationAndCodingScheme(ns.plc.BPSK_1_2)
-    phy1.SetPayloadModulationAndCodingScheme(ns.plc.BPSK_RATELESS)
-    phy2.SetPayloadModulationAndCodingScheme(ns.plc.BPSK_RATELESS)
+    ## Set modulation and coding scheme
+    header_mcs = ns.plc.ModulationAndCodingScheme(ns.plc.BPSK_1_2, 0)
+    payload_mcs = ns.plc.ModulationAndCodingScheme(ns.plc.BPSK_RATELESS, 0)
+    phy1.SetHeaderModulationAndCodingScheme(header_mcs)
+    phy2.SetHeaderModulationAndCodingScheme(header_mcs)
+    phy1.SetPayloadModulationAndCodingScheme(payload_mcs)
+    phy2.SetPayloadModulationAndCodingScheme(payload_mcs)
 
     ## Aggregate RX-Interfaces to ns3 nodes
     phy1.GetRxInterface().AggregateObject(ns.network.Node())

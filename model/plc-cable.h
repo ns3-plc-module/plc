@@ -104,13 +104,13 @@ public:
 	 * Get the characteristic impedance of the cable
 	 * @return z_c
 	 */
-	Ptr<const PLC_FreqSelectiveImpedance> GetCharImp(void) const;
+	PLC_FreqSelectiveImpedance GetCharImp(void) const;
 
 	/**
 	 * Get the propagation constant of the cable
 	 * @return gamma
 	 */
-	Ptr<const PLC_FreqSelectiveImpedance> GetTransConst(void) const;
+	PLC_FreqSelectiveImpedance GetTransConst(void) const;
 
 	/**
 	 * Get the wave propagation speed for the lossless line as an approximation to calculate a signal's
@@ -128,8 +128,8 @@ public:
 	/**
 	 * Cable mutex lock functions
 	 */
-	void Lock() 		{ m_cable_mutex.Lock(); }
-	void Unlock()	{ m_cable_mutex.Unlock(); }
+//	void Lock() 		{ m_cable_mutex.Lock(); }
+//	void Unlock()	{ m_cable_mutex.Unlock(); }
 
 	/**
 	 *

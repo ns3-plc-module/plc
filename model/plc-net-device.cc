@@ -54,8 +54,9 @@ PLC_NetDevice::PLC_NetDevice ()
 {
 	NS_LOG_FUNCTION (this);
 	// Default Modulation and Coding Scheme
-	m_mcs = BPSK_1_2;
+	m_mcs = ModulationAndCodingScheme (BPSK_1_2, 0);
 	m_linkUp = true;
+	m_mtu = 1024;
 	m_configComplete = false;
 }
 
@@ -91,7 +92,7 @@ PLC_NetDevice::SetPlcNode(Ptr<PLC_Node> plc_node)
 {
 	NS_LOG_FUNCTION(this);
 	m_plc_node = plc_node;
-	m_plc_node->AggregateObject(this);
+//	m_plc_node->AggregateObject(this);
 	CompleteConfig ();
 }
 
@@ -146,7 +147,17 @@ PLC_NetDevice::SetRxImpedance(Ptr<PLC_Impedance> rxImpedance)
 void
 PLC_NetDevice::SetTxImpedance(Ptr<PLC_Impedance> txImpedance)
 {
+	NS_LOG_FUNCTION(this << txImpedance);
+	m_txImpedance = txImpedance;
 
+	if (GetPhy())
+	{
+		if (GetPhy()->GetInstanceTypeId().IsChildOf(PLC_HalfDuplexOfdmPhy::GetTypeId()))
+		{
+			Ptr<PLC_HalfDuplexOfdmPhy> phy = StaticCast<PLC_HalfDuplexOfdmPhy, PLC_Phy> (GetPhy());
+			phy->SetTxImpedance(txImpedance);
+		}
+	}
 }
 
 Ptr<const SpectrumModel>
@@ -222,15 +233,16 @@ PLC_NetDevice::LinkDown (void)
 bool
 PLC_NetDevice::SetMtu (const uint16_t mtu)
 {
-  NS_ABORT_MSG ("Unsupported");
-  return false;
+  NS_LOG_FUNCTION (this);
+  m_mtu = mtu;
+  return true;
 }
 
 uint16_t
 PLC_NetDevice::GetMtu (void) const
 {
-  NS_ABORT_MSG ("Unsupported");
-  return 0;
+  NS_LOG_FUNCTION (this);
+  return m_mtu;
 }
 
 bool
@@ -251,7 +263,7 @@ bool
 PLC_NetDevice::IsBroadcast (void) const
 {
 	NS_LOG_FUNCTION (this);
-	return false;
+	return true;
 }
 
 Address
@@ -346,7 +358,7 @@ bool
 PLC_NetDevice::NeedsArp (void) const
 {
 	NS_LOG_FUNCTION (this);
-	return false;
+	return true;
 }
 
 void
@@ -433,6 +445,19 @@ PLC_NetDevice::CompleteConfig (void)
 	m_mac->SetPhy(m_phy);
 	m_mac->SetMacDataCallback(MakeCallback(&PLC_NetDevice::Receive, this));
 
+	if 	(
+		m_mac->GetInstanceTypeId() == PLC_HarqMac::GetTypeId() &&
+		(
+		 m_phy->GetInstanceTypeId() == PLC_InformationRatePhy::GetTypeId() ||
+		 m_phy->GetInstanceTypeId().IsChildOf(PLC_InformationRatePhy::GetTypeId()))
+		)
+	{
+		Ptr<PLC_HarqMac> harq_mac = StaticCast<PLC_HarqMac, PLC_Mac> (m_mac);
+		Ptr<PLC_InformationRatePhy> ir_phy = StaticCast<PLC_InformationRatePhy, PLC_Phy> (m_phy);
+
+//		ir_phy->SetPayloadReceptionFailedCallback(MakeCallback(&PLC_HarqMac::SendNegativeAcknowledgement, m_mac));
+	}
+
 	m_configComplete = true;
 }
 
@@ -441,6 +466,12 @@ PLC_NetDevice::Send (Ptr<Packet> packet, const Address& dest, uint16_t protocolN
 {
 	NS_LOG_FUNCTION (this);
 	NS_ASSERT(m_configComplete);
+
+	if (IsLinkUp () == false)
+	{
+		NS_LOG_INFO ("Link is down, cannot send packet.");
+		return false;
+	}
 
 	LlcSnapHeader llc;
 	llc.SetType (protocolNumber);
@@ -454,6 +485,16 @@ PLC_NetDevice::SendFrom (Ptr<Packet> packet, const Address& source, const Addres
 {
 	NS_LOG_FUNCTION (this);
 	NS_ASSERT(m_configComplete);
+
+	if (IsLinkUp () == false)
+	{
+		NS_LOG_INFO ("Link is down, cannot send packet.");
+		return false;
+	}
+
+	LlcSnapHeader llc;
+	llc.SetType (protocolNumber);
+	packet->AddHeader (llc);
 
 	return m_mac->SendFrom(packet, Mac48Address::ConvertFrom (source), Mac48Address::ConvertFrom (dest));
 }

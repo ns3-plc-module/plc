@@ -9,6 +9,7 @@
 def build(bld):
     module = bld.create_ns3_module('plc', ['core', 'spectrum', 'network'])
     module.source = [
+    'model/plc-thread-dispatcher.cc',
     'model/plc-simulator-impl.cc',
 	'model/plc-defs.cc',
 	'model/plc-time.cc',
@@ -32,16 +33,23 @@ def build(bld):
 	'helper/plc-helper.cc',
     'helper/plc-spectrum-helper.cc',
 	'helper/plc-device-helper.cc',
+	'helper/plc-output-helper.cc',
+	'helper/plc-trace-helper.cc',
         ]
 
     module_test = bld.create_ns3_module_test_library('plc')
     module_test.source = [
         'test/plc-test-suite.cc',
         ]
+    
+   	# Enable multiprocessing
+    module.env.append_value('CXXFLAGS', ['-fopenmp'])     
+    module.env.append_value('LINKFLAGS', ['-fopenmp'])
 
     headers = bld.new_task_gen(features=['ns3header'])
     headers.module = 'plc'
     headers.source = [
+    'model/plc-thread-dispatcher.h',
     'model/plc-simulator-impl.h',
 	'model/plc.h',
 	'model/plc-defs.h',
@@ -68,6 +76,8 @@ def build(bld):
 	'helper/plc-spectrum-helper.h',
 	'helper/plc-helper.h',
 	'helper/plc-device-helper.h',
+	'helper/plc-output-helper.h',
+	'helper/plc-trace-helper.h',
         ]
 
     if bld.env.ENABLE_EXAMPLES:

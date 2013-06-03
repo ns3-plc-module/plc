@@ -31,7 +31,7 @@ def startTx(phy,p):
 def sendRedundancy(phy):
     phy.SendRedundancy()
 
-def receiveSuccess(packet):
+def receiveSuccess(packet,msgId):
     print "\n*** Packet received ***\n"
 
 def main(dummy_argv):
@@ -53,7 +53,7 @@ def main(dummy_argv):
 
     ## Define transmit power spectral density
     txPsd = ns.spectrum.SpectrumValue(sm)
-    txPsd += 1e-8;
+    txPsd += 3e-8;
 
     ## Create nodes
     n1 = ns.plc.PLC_Node()
@@ -98,10 +98,12 @@ def main(dummy_argv):
     phy2.SetNoiseFloor(noiseFloor)
 
     ## Set modulation and coding scheme
-    phy1.SetHeaderModulationAndCodingScheme(ns.plc.BPSK_1_2)
-    phy2.SetHeaderModulationAndCodingScheme(ns.plc.BPSK_1_2)
-    phy1.SetPayloadModulationAndCodingScheme(ns.plc.QAM32_RATELESS)
-    phy2.SetPayloadModulationAndCodingScheme(ns.plc.QAM32_RATELESS)
+    header_mcs = ns.plc.ModulationAndCodingScheme(ns.plc.BPSK_1_2, 0)
+    payload_mcs = ns.plc.ModulationAndCodingScheme(ns.plc.QAM32_RATELESS, 0)
+    phy1.SetHeaderModulationAndCodingScheme(header_mcs)
+    phy2.SetHeaderModulationAndCodingScheme(header_mcs)
+    phy1.SetPayloadModulationAndCodingScheme(payload_mcs)
+    phy2.SetPayloadModulationAndCodingScheme(payload_mcs)
 
     ## Aggregate RX-Interfaces to ns3 nodes
     phy1.GetRxInterface().AggregateObject(ns.network.Node())
@@ -122,7 +124,7 @@ def main(dummy_argv):
 
     ## Schedule chase combining transmissions
     ns.core.Simulator.Schedule(ns.core.Seconds(1), startTx, phy1, p)
-    for i in range(1,3):
+    for i in range(2,7):
         ns.core.Simulator.Schedule(ns.core.Seconds(i), sendRedundancy, phy1)
 
     ## Start simulation

@@ -33,7 +33,9 @@ PLC_Outlet::PLC_Outlet (Ptr<PLC_Node> node, Ptr<PLC_Impedance> impedance)
 	PLC_LOG_INFO ("Outlet created on Node" << node->GetVertexId ());
 	node->SetOutlet (Ptr<PLC_Outlet> (this));
 	if  (impedance)
+	{
 		node->SetImpedance (impedance);
+	}
 }
 
 void
@@ -80,9 +82,7 @@ PLC_Outlet::IsTimeVariant (void)
 
 	if  (!this->m_node->IsOpenCircuit ())
 	{
-		this->m_node->GetImpedancePeekPtr ()->Lock ();
 		if  (this->m_node->GetImpedancePeekPtr ()->IsTimeVariant ()) ret = true;
-		this->m_node->GetImpedancePeekPtr ()->Unlock ();
 	}
 
 	return ret;
@@ -112,6 +112,7 @@ PLC_Outlet::SetImpedance (Ptr<PLC_Impedance> impedance, bool updateImmediately)
 		NS_ASSERT (ch);
 
 		// update active psds
+		NS_LOG_DEBUG ("Updating active receive PSDs");
 		ch->UpdateReceivePSDs (ch->GetCurrentTimeslot (), true);
 	}
 }
@@ -145,7 +146,7 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 
 		// set paths to all transmitters out of date
 		size_t i;
-		for  (i = 0; i < ch->GetNTxInterfaces (); i++)
+		for  (i = 1; i <= ch->GetNTxInterfaces (); i++)
 		{
 			Ptr<PLC_TxInterface> txInterface = ch->GetTxInterface (i);
 			uint32_t txNodeId = txInterface->GetNode ()->GetVertexId ();
@@ -153,15 +154,15 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 			// same node, i.e. same device --> continue
 			if  (txNodeId == rxNodeId) continue;
 
-			txInterface->Lock ();
+//			txInterface->Lock ();
 			if  (txInterface->GetChannelTransferImpl (PeekPointer (m_rxInterface)) == NULL)
 			{
-				txInterface->Unlock ();
+//				txInterface->Unlock ();
 				continue;
 			}
 			PLC_BackbonePath::iterator bp_begin = txInterface->BackbonePathBegin (PeekPointer (m_rxInterface));
 			PLC_BackbonePath::iterator bp_end 	= txInterface->BackbonePathEnd (PeekPointer (m_rxInterface));
-			txInterface->Unlock ();
+//			txInterface->Unlock ();
 
 			PLC_Node *prev_node = txInterface->GetNodePeekPointer ();
 			PLC_Edge *edge;
@@ -171,10 +172,10 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 
 				edge = prev_node->GetEdge (bb_node);
 
-				edge->Lock ();
+//				edge->Lock ();
 				edge->SetInputImpedanceOutOfDate (bb_node);
 				edge->SetEdgeTransferFactorOutOfDate (bb_node);
-				edge->Unlock ();
+//				edge->Unlock ();
 
 				prev_node = bb_node;
 			}
@@ -182,17 +183,17 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 			PLC_Node *rxNode = m_rxInterface->GetNodePeekPointer ();
 			edge = prev_node->GetEdge (rxNode);
 
-			edge->Lock ();
+//			edge->Lock ();
 			edge->SetInputImpedanceOutOfDate (rxNode);
 			edge->SetEdgeTransferFactorOutOfDate (rxNode);
-			edge->Unlock ();
+//			edge->Unlock ();
 
-			txInterface->Lock ();
+//			txInterface->Lock ();
 			if  (this->IsTimeVariant ()) {
 				txInterface->SetTimeVariantChannel (PeekPointer (m_rxInterface));
 			}
 			txInterface->SetChannelTransferImplsOutOfDate ();
-			txInterface->Unlock ();
+//			txInterface->Unlock ();
 
 			// delete cached psds
 			ch->DeleteOutOfDatePSDs (txInterface, m_rxInterface);
@@ -212,9 +213,9 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 			NS_LOG_DEBUG ("<" << bb_key.first << "," << bb_key.second.first << "," << bb_key.second.second << ">");
 
 			// set all impedances on path to registered backbone branch out of date
-			 (*bb_it)->Lock ();
+//			 (*bb_it)->Lock ();
 			Ptr<PLC_Node> backbone_node =  (*bb_it)->GetNodePtr ();
-			 (*bb_it)->Unlock ();
+//			 (*bb_it)->Unlock ();
 
 			if  (backbone_node != this->m_node) {
 				std::list<Ptr<PLC_Node> > path2bb = this->m_node->GetGraph ()->GetShortestPath (Ptr<PLC_Node>  (this->m_node),  (*bb_it)->GetNodePtr ());
@@ -225,33 +226,37 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 				if  (path2bb.size () > 0) {
 					std::list<Ptr<PLC_Node> >::iterator n_it;
 					for  (n_it = path2bb.begin (); n_it != path2bb.end (); n_it++) {
-						cur_node->Lock ();
+//						cur_node->Lock ();
 						cur_edge = cur_node->GetEdge (PeekPointer (*n_it));
-						cur_node->Unlock ();
+//						cur_node->Unlock ();
 
-						cur_edge->Lock ();
+//						cur_edge->Lock ();
 						NS_ASSERT (cur_edge->m_edge_transfer_data.find (cur_node) != cur_edge->m_edge_transfer_data.end ());
+						cur_edge->m_edge_transfer_data[cur_node].impedance_mutex->Lock ();
 						PLC_InputImpedance& eq_imp = cur_edge->m_edge_transfer_data[cur_node].input_impedance;
 						eq_imp.second.IsUp2Date = false;
-						cur_edge->Unlock ();
+						cur_edge->m_edge_transfer_data[cur_node].impedance_mutex->Unlock ();
+//						cur_edge->Unlock ();
 
 						cur_node = PeekPointer (*n_it);
 					}
 				}
 
-				 (*bb_it)->Lock ();
+//				 (*bb_it)->Lock ();
 				cur_edge =  (*bb_it)->GetNodePeekPtr ()->GetEdge (cur_node);
-				 (*bb_it)->Unlock ();
+//				 (*bb_it)->Unlock ();
 
-				cur_edge->Lock ();
+//				cur_edge->Lock ();
 				NS_ASSERT (cur_edge->m_edge_transfer_data.find (cur_node) != cur_edge->m_edge_transfer_data.end ());
+				cur_edge->m_edge_transfer_data[cur_node].impedance_mutex->Lock ();
 				PLC_InputImpedance& eq_imp = cur_edge->m_edge_transfer_data[cur_node].input_impedance;
 				eq_imp.second.IsUp2Date = false;
-				cur_edge->Unlock ();
+				cur_edge->m_edge_transfer_data[cur_node].impedance_mutex->Unlock ();
+//				cur_edge->Unlock ();
 			}
 
 			// set path impedances and channel transfer functions from txInterface to the affected backbone branch out of date
-			 (*bb_it)->Lock ();
+//			 (*bb_it)->Lock ();
 			 (*bb_it)->m_is_up_2_date = false;
 			PLC_InterfaceTupel& interface_pairs =  (*bb_it)->m_registered_ifPairs;
 
@@ -262,10 +267,10 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 
 				NS_LOG_DEBUG ("TX/RX-Tupel: <" << tx->GetNode()->GetName() << ", " << rx->GetNode()->GetName() << ">");
 
-				tx->Lock ();
+//				tx->Lock ();
 				PLC_BackbonePath::iterator bp_begin = tx->BackbonePathBegin (rx);
 				PLC_BackbonePath::iterator bp_end 	= tx->BackbonePathEnd (rx);
-				tx->Unlock ();
+//				tx->Unlock ();
 				NS_ASSERT (bp_begin != bp_end);
 
 				PLC_Node *prev_node = tx->GetNodePeekPointer ();
@@ -275,12 +280,14 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 					PLC_Node *bb_node =  (*bp_it)->GetNodePeekPtr ();
 					PLC_Edge *edge = prev_node->GetEdge (bb_node);
 
-					edge->Lock ();
+//					edge->Lock ();
 					PLC_EdgeTransferUnit *etu = edge->GetEdgeTransferUnit (bb_node);
 					NS_ASSERT (edge->m_edge_transfer_data.find (bb_node) != edge->m_edge_transfer_data.end ());
+					edge->m_edge_transfer_data[bb_node].impedance_mutex->Lock ();
 					PLC_InputImpedance& eq_imp = edge->m_edge_transfer_data[bb_node].input_impedance;
 					eq_imp.second.IsUp2Date = false;
-					edge->Unlock ();
+					edge->m_edge_transfer_data[bb_node].impedance_mutex->Unlock ();
+//					edge->Unlock ();
 
 					etu->Lock ();
 					etu->SetOutOfDate ();
@@ -303,7 +310,7 @@ PLC_Outlet::AcquaintAffectedInstances (void)
 				// delete cached psds
 				ch->DeleteOutOfDatePSDs (Ptr<PLC_TxInterface>  (tx), Ptr<PLC_RxInterface>  (rx));
 			}
-			 (*bb_it)->Unlock ();
+//			 (*bb_it)->Unlock ();
 		}
 
 		ch->ScheduleNextTimeslotTasks ();

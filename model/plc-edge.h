@@ -23,6 +23,8 @@
 
 #include <map>
 
+#include <ns3/system-mutex.h>
+
 #include "plc-defs.h"
 #include "plc-cable.h"
 #include "plc-channel.h"
@@ -31,6 +33,27 @@ namespace ns3 {
 
 class PLC_Node;
 class PLC_Cable;
+class PLC_EdgeTransferUnit;
+
+typedef struct PLC_ImpedanceIndicator_t
+{
+	bool IsUp2Date;
+	bool IsTimeVariant;
+} PLC_ImpedanceIndicator;
+
+typedef std::pair<Ptr<PLC_Impedance>, PLC_ImpedanceIndicator> 	PLC_InputImpedance;
+
+typedef struct PLC_EdgeTransferData_t
+{
+	PLC_Mutex					*impedance_mutex;
+	PLC_InputImpedance 			input_impedance;
+	Ptr<PLC_Impedance>			load_impedance;
+	Ptr<PLC_EdgeTransferUnit> 	edge_transfer_unit;
+	bool 						etf_initialized;
+} PLC_EdgeTransferData;
+
+typedef std::map<PLC_Node *, PLC_EdgeTransferData> PLC_EdgeTransferDataMap;
+
 
 /**
  * \brief Edge of the PLC graph
@@ -69,16 +92,6 @@ public:
 	 * @return Distance between the linked nodes
 	 */
 	double GetLength(void) { return m_length; }
-
-	/**
-	 * Lock edge mutex for multiprocessing
-	 */
-	void Lock() const { m_line_mutex.Lock(); }
-
-	/**
-	 * Unlock edge mutex
-	 */
-	void Unlock() const { m_line_mutex.Unlock(); }
 
 	/**
 	 * Get the second node linked by this edge
@@ -178,12 +191,21 @@ public:
 	 */
 	PLC_EdgeTransferUnit *GetUpdatedEdgeTransferUnit(PLC_Node *dst_node);
 
+	/**
+	 * Get nodes linked by the edge
+	 * @return Node vector of size 2
+	 */
 	std::vector<PLC_Node *> GetNodes(void);
+
+	void LockImpedanceCache (PLC_Node *dst);
+	void UnlockImpedanceCache (PLC_Node *dst);
+
+	void LockEdgeTransferUnit (PLC_Node *dst);
+	void UnlockEdgeTransferUnit (PLC_Node *dst);
 
 protected:
 	virtual void DoDispose(void);
 
-	mutable PLC_Mutex			m_line_mutex;
 	Ptr<const SpectrumModel> 	m_spectrum_model;
  	double 						m_propagation_delay;
 	bool						added2graph;
@@ -217,8 +239,8 @@ public:
 	double GetIdealPropagationDelay(void) { return m_propagation_delay; }
 
 	Ptr<const PLC_Cable> GetCable(void) const { return m_cable; }
-	Ptr<const PLC_FreqSelectiveImpedance> GetCharLineImp(void) const;
-	Ptr<const PLC_FreqSelectiveImpedance> GetTransLineConst(void) const;
+	PLC_FreqSelectiveImpedance GetCharLineImp(void) const;
+	PLC_FreqSelectiveImpedance GetTransLineConst(void) const;
 
 	void CalculateEdgeTransferFactor(PLC_Node *dst_node);
 	double GetAttenuationApproxdB(void);

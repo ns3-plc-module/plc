@@ -24,6 +24,8 @@
 #include <string>
 #include <ns3/object.h>
 #include <ns3/random-variable.h>
+#include <ns3/node-container.h>
+#include "ns3/net-device-container.h"
 #include "ns3/plc-node.h"
 #include "ns3/plc-outlet.h"
 #include "ns3/plc-noise.h"
@@ -52,14 +54,17 @@ public:
 	void SetTxImpedance(Ptr<PLC_Impedance> txImpedance);
 	Ptr<PLC_Impedance> GetRxImpedance(void) { return m_rxImpedance; }
 	Ptr<PLC_Impedance> GetTxImpedance(void) { return m_txImpedance; }
-	void SetHeaderModulationAndCodingScheme(ModulationAndCodingType mcs) { m_header_mcs = mcs; }
-	void SetPayloadModulationAndCodingScheme(ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
+	void SetHeaderModulationAndCodingScheme(ModulationAndCodingScheme mcs) { m_header_mcs = mcs; }
+	void SetPayloadModulationAndCodingScheme(ModulationAndCodingScheme mcs) { m_payload_mcs = mcs; }
 
 	void Setup(void);
 
 	void CreateNodes(bool create) { m_create_nodes = create; }
 
 	Ptr<PLC_NetDevice> GetDevice(std::string name);
+
+	NodeContainer GetNS3Nodes (void);
+	NetDeviceContainer GetNetDevices (void);
 
 	PLC_NetdeviceMap GetNetdeviceMap(void) { return m_netdeviceMap; }
 
@@ -71,8 +76,8 @@ private:
 	Ptr<const SpectrumValue> m_noiseFloor;
 	Ptr<PLC_Impedance> m_rxImpedance;
 	Ptr<PLC_Impedance> m_txImpedance;
-	ModulationAndCodingType m_header_mcs;
-	ModulationAndCodingType m_payload_mcs;
+	ModulationAndCodingScheme m_header_mcs;
+	ModulationAndCodingScheme m_payload_mcs;
 	TypeId m_phyTid;
 	TypeId m_macTid;
 	bool m_create_nodes;

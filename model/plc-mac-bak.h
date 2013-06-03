@@ -30,6 +30,7 @@
 #include <ns3/drop-tail-queue.h>
 #include "plc-phy.h"
 #include "plc-header.h"
+#include "plc-relay.h"
 
 namespace ns3 {
 
@@ -43,15 +44,14 @@ typedef enum
 
 typedef Callback<void, Ptr<Packet> , Mac48Address, Mac48Address > PLC_MacDataCallback;
 typedef Callback<void> PLC_MacAcknowledgementCallback;
-typedef Callback<void, Ptr<const Packet> > PLC_MacTransmissionFailedCallback;
+typedef Callback<void> PLC_MacTransmissionFailedCallback;
 typedef Callback<void> PLC_CcaRequestCallback; // This method informs MAC whether the channel is idle or busy
 
 /**
  * \class PLC_Mac
  *
  * Abstract base class for PLC MAC layers implementing
- * 48 bit addressing, channel access via CSMA/CA algorithm
- * and Stop-And-Wait transmission
+ * 48 bit addressing and channel access via CSMA/CA algorithm
  */
 class PLC_Mac : public Object
 {
@@ -181,20 +181,21 @@ protected:
 	virtual Ptr<PLC_Phy> DoGetPhy (void) = 0;
 	virtual void DoNotifyReceptionEndOk (void) {}
 
-	virtual void TriggerTransmission (void);
-	void ForwardUp (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
+	void ForwardUp(Ptr<Packet> p, Mac48Address src, Mac48Address dst);
 
 	Mac48Address m_address;
 	Mac48Address m_broadcast_address;
 	Mac48Address m_multicast_address;
 
-	Ptr<DropTailQueue> 	m_txQueue;
-	Ptr<Packet>			m_ackPacket;
-	Ptr<Packet> 		m_rxPacket;
+	DropTailQueue m_txQueue;
 
+	Ptr<Packet> m_txPacket;
+	Ptr<Packet> m_rxPacket;
+
+	bool m_awaiting_ack;
 	bool m_forward_up;
 
-	// unslotted CSMA/CA according to IEEE 802.15.4
+	// according to unslotted CSMA/CA of IEEE 802.15.4
 	bool m_csmaca_active;
 	bool m_promiscuous_mode;
 	uint32_t m_csmaca_attempts;
@@ -284,11 +285,7 @@ protected:
 	virtual void DoProcess (Ptr<const Packet> p);
 	virtual void DoSetPhy (Ptr<PLC_Phy> phy);
 	virtual Ptr<PLC_Phy> DoGetPhy (void);
-
-	virtual void NotifyAcknowledgement (void);
 	virtual void NotifyNegativeAcknowledgement (void);
-
-	virtual void TriggerTransmission (void);
 
 	Ptr<PLC_InformationRatePhy> m_phy;
 
@@ -303,6 +300,87 @@ protected:
 	size_t m_max_redundancy_frames;
 	size_t m_sent_redundancy_frames;
 };
+
+class PLC_ArqRelayMac : public PLC_ArqMac
+{
+public:
+	static TypeId GetTypeId (void);
+
+	PLC_ArqRelayMac (void);
+
+	void SetRelay (Ptr<PLC_Relay> relay) { m_relay = relay; }
+	Ptr<PLC_Relay> GetRelay (void) { return m_relay; }
+
+	virtual void NotifyCsmaCaConfirm (PLC_CsmaCaState state);
+
+private:
+	virtual void DoStart (void);
+	virtual void DoDispose (void);
+	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
+	virtual void DoProcess (Ptr<const Packet> p);
+	virtual void NotifyTransmissionEnd (void);
+
+	virtual void NotifyAcknowledgement (void);
+//	virtual void AcknowledgementTimeout (void);
+
+	bool m_send_relay_ack;
+	bool m_relay_frame;
+	bool m_send_ack_before_relaying;
+	PLC_RelayMacHeader m_rxRelayHdr;
+	Ptr<PLC_TrxMetaInfo> m_relayMetaInfo;
+	Ptr<Packet> m_relay_ack;
+	Mac48Address m_ack_dst;
+
+	Ptr<PLC_Relay> m_relay;
+};
+
+class PLC_HarqRelayMac : public PLC_HarqMac
+{
+public:
+	enum State
+	{
+		DONOTHING,
+		SEND_MAC_ACK,
+		SEND_RELAY_ACK,
+		RELAY_FRAME,
+		SEND_MAC_ACK_BEFORE_RELAY_ACK,
+		SEND_MAC_ACK_BEFORE_RELAY_FRAME
+	};
+
+	static TypeId GetTypeId (void);
+
+	PLC_HarqRelayMac (void);
+
+	void SetRelay (Ptr<PLC_Relay> relay) { m_relay = relay; }
+	Ptr<PLC_Relay> GetRelay (void) { return m_relay; }
+
+	virtual void NotifyCsmaCaConfirm (PLC_CsmaCaState state);
+
+	void ChangeState(State s);
+	State GetState (void) { return m_state; }
+
+private:
+	virtual void DoStart (void);
+	virtual void DoDispose (void);
+	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
+	virtual void DoProcess (Ptr<const Packet> p);
+	virtual void NotifyTransmissionEnd (void);
+
+	virtual void NotifyAcknowledgement (void);
+//	virtual void AcknowledgementTimeout (void);
+
+	State m_state;
+
+	PLC_RelayMacHeader m_rxRelayHdr;
+	Ptr<PLC_TrxMetaInfo> m_relayMetaInfo;
+	Ptr<Packet> m_relay_ack;
+	Mac48Address m_ack_dst;
+
+	Ptr<PLC_Relay> m_relay;
+};
+
+std::ostream&
+operator<<(std::ostream& os, const PLC_HarqRelayMac::State s);
 
 }
 

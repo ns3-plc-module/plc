@@ -55,24 +55,26 @@ class PLC_TrxMetaInfo : public SimpleRefCount<PLC_TrxMetaInfo>
 public:
 	PLC_TrxMetaInfo (void);
 
-	void SetFrame (Ptr<const Packet> p) { m_frame = p; }
-	Ptr<const Packet> GetFrame (void) const { return m_frame; }
-	void SetMessage (Ptr<const Packet> p) { m_message = p; }
+	void SetFrame (Ptr<Packet> frame) { m_frame = frame; }
+	Ptr<Packet> GetFrame (void) const { return m_frame; }
+	void SetMessage (Ptr<const Packet> msg) { m_message = msg; }
 	Ptr<const Packet> GetMessage (void) const { return m_message; }
-	void SetHeaderMcs (ModulationAndCodingType mcs) { m_header_mcs = mcs; }
-	ModulationAndCodingType GetHeaderMcs (void) const { return m_header_mcs; }
-	void SetPayloadMcs (ModulationAndCodingType mcs) { m_payload_mcs = mcs; }
-	ModulationAndCodingType GetPayloadMcs (void) const { return m_payload_mcs; }
+	void SetHeaderMcs (ModulationAndCodingScheme mcs) { m_header_mcs = mcs; }
+	ModulationAndCodingScheme GetHeaderMcs (void) const { return m_header_mcs; }
+	void SetPayloadMcs (ModulationAndCodingScheme mcs) { m_payload_mcs = mcs; }
+	ModulationAndCodingScheme GetPayloadMcs (void) const { return m_payload_mcs; }
 	void SetHeaderDuration (Time duration) { m_header_duration = duration; }
 	Time GetHeaderDuration (void) const { return m_header_duration; }
 	void SetPayloadDuration (Time duration) { m_payload_duration = duration; }
 	Time GetPayloadDuration (void) const { return m_payload_duration; }
 
+	friend std::ostream& operator<<(std::ostream& os, const PLC_TrxMetaInfo& metaInfo);
+
 private:
-	Ptr<const Packet> m_frame;
+	Ptr<Packet> m_frame;
 	Ptr<const Packet> m_message;
-	ModulationAndCodingType m_header_mcs;
-	ModulationAndCodingType m_payload_mcs;
+	ModulationAndCodingScheme m_header_mcs;
+	ModulationAndCodingScheme m_payload_mcs;
 	Time m_header_duration;
 	Time m_payload_duration;
 };
@@ -153,8 +155,8 @@ public:
 	/**
 	 * Mutex lock and unlock
 	 */
-	void Lock(void) const { m_edge_transfer_unit_mutex.Lock(); }
-	void Unlock(void) const { m_edge_transfer_unit_mutex.Unlock(); }
+	void Lock(void) const;
+	void Unlock(void) const;
 
 private:
 	void DoDispose(void);
@@ -461,7 +463,8 @@ public:
 	* transmit on the channel.
 	* \param st Spectrum Type of txPsd to emulate different modulations
 	*/
-	void TransmissionStart(Ptr<const Packet> p, uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void TransmissionStart(uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void InvokeReception(Ptr<PLC_RxInterface> rxIf, uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 	/**
 	* \brief Indicates that the txInterface has finished transmitting over the channel
@@ -526,8 +529,8 @@ public:
 	/**
 	 * Mutex lock and unlock
 	 */
-	void Lock(void) const { m_mutex.Lock(); }
-	void Unlock(void) const { m_mutex.Unlock(); }
+	void LockTransmissionDescriptor (void) const { m_transmissionDescriptorMutex.Lock(); }
+	void UnlockTransmissionDescriptor (void) const { m_transmissionDescriptorMutex.Unlock(); }
 
 private:
 	void DoStart(void);
@@ -538,7 +541,7 @@ private:
 	 */
 	void MakeRxPsdMapEntries(Timeslot cur_timeslot, Timeslot end_timeslot, PLC_RxPsdMap& rxPsdMap, PLC_ChannelTransferImpl *ch_impl, Ptr<const SpectrumValue> txPsd);
 
-	mutable PLC_Mutex					m_mutex;
+	mutable PLC_Mutex					m_transmissionDescriptorMutex;
 	mutable PLC_Mutex					m_schedule_mutex;
 	Ptr<PLC_Graph>						m_graph;
 

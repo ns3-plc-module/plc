@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2012 University of British Columbia, Vancouver
+ * Copyright (c) 2013 University of British Columbia, Vancouver
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -18,42 +18,25 @@
  * Author: Alexander Schloegl <alexander.schloegl@gmx.de>
  */
 
-/**
- * Common Includes for PLC simulations
- */
+#ifndef PLC_OUTPUT_HELPER_H_
+#define PLC_OUTPUT_HELPER_H_
 
-#ifndef PLC_H_
-#define PLC_H_
-
-// stl includes
-#include <iostream>
-#include <vector>
-
-// ns-3 includes
-#include <ns3/log.h>
+#include <ns3/random-variable.h>
 #include <ns3/spectrum-value.h>
 #include <ns3/spectrum-model.h>
+#include <ns3/plc-value.h>
 
-// plc model includes
-#include "ns3/plc-defs.h"
-#include "ns3/plc-time.h"
-#include "ns3/plc-value.h"
-#include "ns3/plc-cable.h"
-#include "ns3/plc-edge.h"
-#include "ns3/plc-node.h"
-#include "ns3/plc-graph.h"
-#include "ns3/plc-channel.h"
-#include "ns3/plc-backbone.h"
-#include "ns3/plc-outlet.h"
-#include "ns3/plc-noise.h"
-#include "ns3/plc-phy.h"
-#include "ns3/plc-mac.h"
-#include "ns3/plc-net-device.h"
+namespace ns3 {
 
-// plc helper includes
-#include "ns3/plc-helper.h"
-#include "ns3/plc-device-helper.h"
-#include "ns3/plc-spectrum-helper.h"
-#include "ns3/plc-output-helper.h"
+class PLC_OutputHelper
+{
+public:
+	void PrintComplex(std::string name, Ptr<const PLC_ValueBase> value);
+	void PrintAbsolute(std::string name, Ptr<const PLC_ValueBase> value);
+	void PrintBode(std::string name, Ptr<const PLC_ValueBase> value);
+	void PrintSeparatedBode(std::string name, Ptr<const PLC_ValueBase> value);
+};
 
-#endif /* PLC_H_ */
+}
+
+#endif /* PLC_OUTPUT_HELPER_H_ */

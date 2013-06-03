@@ -91,6 +91,7 @@ public:
 	Ptr<PLC_Channel> GetChannel(void) { return m_channel; }
 
 	void Install(PLC_NodeList nodes);
+	PLC_NodeList GetNodes (void) { return m_nodes; }
 
 private:
 	Ptr<const SpectrumModel> m_spectrum_model;

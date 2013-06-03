@@ -97,7 +97,7 @@ public:
 		IMPULSIVE
 	};
 
-	PLC_NoiseSource() {}
+	PLC_NoiseSource();
 
 	/**
 	 * Constructor
@@ -204,6 +204,28 @@ private:
 	Ptr<SpectrumValue> m_noisePsd;
 };
 
+class PLC_TimeVaryingNoiseSource : public PLC_NoiseSource
+{
+public:
+	static TypeId GetTypeId(void);
+
+	PLC_TimeVaryingNoiseSource() {}
+	PLC_TimeVaryingNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumModel> sm, RandomVariable subChannelPsd, RandomVariable staticDuration);
+
+	void Start (void);
+	void Stop (void);
+
+	void AlterPsd (void);
+
+protected:
+    // pure virtual dummy function to keep pybindgen happy
+    virtual void pureVirtualDummy(void) {}
+
+private:
+	RandomVariable m_subChannelPsd;
+	RandomVariable m_staticDuration;
+};
+
 class PLC_ImpulseNoiseSource : public PLC_NoiseSource
 {
 public:
@@ -249,7 +271,7 @@ public:
 	 * @param pulselen_gen RandomVariable for the pulse duration generator
 	 * @param pulsegap_gen RandomVariable for the silence duration generator
 	 */
-	PLC_ImpulsiveNoiseSource(Ptr<PLC_Node> src_node, Ptr<SpectrumValue> noisePsd, RandomVariable *pulselen_gen, RandomVariable *pulsegap_gen);
+	PLC_ImpulsiveNoiseSource(Ptr<PLC_Node> src_node, Ptr<SpectrumValue> noisePsd, RandomVariable pulselen_gen, RandomVariable pulsegap_gen);
 
 	/**
 	 * Enable noise source
@@ -275,21 +297,10 @@ protected:
     virtual void pureVirtualDummy(void) {}
 
 private:
-	RandomVariable		*m_pulse_len;
-	RandomVariable		*m_pulse_gap;
+	RandomVariable	m_pulse_len;
+	RandomVariable	m_pulse_gap;
 };
 
 }
 
 #endif /* PLC_NOISE_H_ */
-
-
-
-
-
-
-
-
-
-
-

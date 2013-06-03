@@ -51,6 +51,7 @@ public:
 
 	Ptr<SpectrumValue> GetSinr(void);
 	double GetTotalRxPower(void);
+	double GetMeanRxPower(void);
 	double GetTotalNoisePower(void);
 
 	void SetSinrBase(Ptr<const SpectrumValue> baseSinr);

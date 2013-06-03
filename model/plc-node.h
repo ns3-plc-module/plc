@@ -205,14 +205,14 @@ public:
 	std::string GetName(void) { return m_name; }
 
 	/**
-	 * Locks the mutex of this node
+//	 * Locks the mutex of this node
 	 */
-	void Lock(void) { m_node_mutex.Lock(); }
+//	void Lock(void) { m_node_mutex.Lock(); }
 
 	/**
-	 * Unlocks the mutex of this node
+//	 * Unlocks the mutex of this node
 	 */
-	void Unlock(void) { m_node_mutex.Unlock(); }
+//	void Unlock(void) { m_node_mutex.Unlock(); }
 
 	/**
 	 *

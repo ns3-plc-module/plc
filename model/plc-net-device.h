@@ -127,6 +127,7 @@ protected:
 	Ptr<PLC_Mac> m_mac;
 
 	bool m_linkUp;
+	uint16_t m_mtu;
 
 	uint32_t m_ifIndex;
 	uint32_t m_txIfIndex;
@@ -135,7 +136,7 @@ protected:
 	Ptr<PLC_Impedance> m_txImpedance;
 	Ptr<PLC_Impedance> m_rxImpedance;
 
-	ModulationAndCodingType m_mcs;
+	ModulationAndCodingScheme m_mcs;
 
 	bool m_configComplete;
 

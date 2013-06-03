@@ -110,16 +110,16 @@ PLC_Cable::CalcTransConst (void)
 	}
 }
 
-Ptr<const PLC_FreqSelectiveImpedance>
+PLC_FreqSelectiveImpedance
 PLC_Cable::GetCharImp(void) const
 {
-	return this->z_c;
+	return (*z_c);
 }
 
-Ptr<const PLC_FreqSelectiveImpedance>
+PLC_FreqSelectiveImpedance
 PLC_Cable::GetTransConst(void) const
 {
-	return this->gamma;
+	return (*gamma);
 }
 
 TypeId

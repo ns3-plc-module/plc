@@ -134,8 +134,8 @@ public:
 	/**
 	 * Mutex lock an unlock
 	 */
-	void Lock(void) { m_branch_mutex.Lock(); }
-	void Unlock(void) { m_branch_mutex.Unlock(); }
+//	void Lock(void) { m_branch_mutex.Lock(); }
+//	void Unlock(void) { m_branch_mutex.Unlock(); }
 
 private:
 	virtual void DoStart(void);

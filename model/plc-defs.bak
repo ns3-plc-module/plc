@@ -184,27 +184,23 @@ extern PLC_Mutex g_smartpointer_mutex;
 		g_log_mutex.Unlock();\
 	} while(0)
 
+
 #ifdef _OPENMP
 struct PLC_Mutex
 {
-	PLC_Mutex() {
-//		std::cout << "Creating PLC_Mutex " << &lock << std::endl;
-		omp_init_lock(&lock);
-	}
+	PLC_Mutex() { omp_init_lock(&lock); }
 	~PLC_Mutex() { omp_destroy_lock(&lock); }
 
 	void Lock() const
 	{
-//		std::cout << "Thread " << omp_get_thread_num() << ": locking " << &lock << std::endl;
+//		std::cout << "Thread " << omp_get_thread_num() << ": locking " << this << std::endl;
 		omp_set_lock(&lock);
-//		std::cout << "Thread " << omp_get_thread_num() << ": locked " << &lock << std::endl;
 	}
 
 	void Unlock() const
 	{
-//		std::cout << "Thread " << omp_get_thread_num() << ": unlocking " << &lock << std::endl;
+//		std::cout << "Thread " << omp_get_thread_num() << ": unlocking " << this << std::endl;
 		omp_unset_lock(&lock);
-//		std::cout << "Thread " << omp_get_thread_num() << ": unlocked " << &lock << std::endl;
 	}
 
 	PLC_Mutex(const PLC_Mutex& ) { omp_init_lock(&lock); }
@@ -221,7 +217,6 @@ struct PLC_Mutex
 	void Lock() {}
 	void Unlock() {}
 };
-
 #endif
 
 	typedef std::pair<unsigned int, std::pair<unsigned int, unsigned int> > PLC_BackboneBranchKey;
@@ -266,6 +261,27 @@ struct PLC_Mutex
 	typedef PLC_ValueBase						PLC_TransferBase;
 	typedef PLC_FreqSelectiveValue				PLC_TransferVector;
 	typedef PLC_TimeVariantFreqSelectiveValue	PLC_TimeVariantTransferVector;
+
+	typedef struct PLC_ImpedanceIndicator_t
+	{
+		bool IsUp2Date;
+		bool IsTimeVariant;
+	} PLC_ImpedanceIndicator;
+
+	typedef std::pair<Ptr<PLC_Impedance>, PLC_ImpedanceIndicator> 	PLC_InputImpedance;
+
+	class PLC_EdgeTransferUnit;
+
+	typedef struct PLC_EdgeTransferData_t
+	{
+		PLC_Mutex					impedance_mutex;
+		PLC_InputImpedance 			input_impedance;
+		Ptr<PLC_Impedance>			load_impedance;
+		Ptr<PLC_EdgeTransferUnit> 	edge_transfer_unit;
+		bool 						etf_initialized;
+	} PLC_EdgeTransferData;
+
+	typedef std::map<PLC_Node *, PLC_EdgeTransferData> PLC_EdgeTransferDataMap;
 
 	class PLC_BackboneBranch;
 

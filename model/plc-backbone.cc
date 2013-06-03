@@ -57,15 +57,15 @@ PLC_BackboneBranch::PLC_BackboneBranch(Ptr<PLC_Node> node, Ptr<PLC_Node> before,
 	std::pair<unsigned int, std::pair<unsigned int, unsigned int> > bb_key;
 
 	// the backbone branch is defined by the nodes' IDs
-	node->Lock ();
+//	node->Lock ();
 	unsigned int branch_id 	= node->GetVertexId ();
-	node->Unlock ();
-	before->Lock ();
+//	node->Unlock ();
+//	before->Lock ();
 	unsigned int before_id 	= before->GetVertexId ();
-	before->Unlock ();
-	next->Lock ();
+//	before->Unlock ();
+//	next->Lock ();
 	unsigned int next_id 	= next->GetVertexId ();
-	next->Unlock ();
+//	next->Unlock ();
 
 	// the key for a specific backbone branch is the triple of its branch ID and its neighbor nodes' IDs in ascending order
 	if  (before_id < next_id)
@@ -126,9 +126,9 @@ PLC_BackboneBranch::CalculateEquivalentBridgeTapImpedance(void)
 		this->m_equivalent_bridge_tap_impedance = CreateObject<PLC_TimeVariantFreqSelectiveImpedance> (this->m_spectrum_model);
 	}
 
-	this->m_node->Lock();
+//	this->m_node->Lock();
 	PLC_NodeOutEdgesMap outEdges = m_node->GetEdges();
-	this->m_node->Unlock();
+//	this->m_node->Unlock();
 
 	if (outEdges.size() > 2) {
 		if (this->m_equivalent_bridge_tap_impedance->IsTimeVariant())
@@ -142,16 +142,16 @@ PLC_BackboneBranch::CalculateEquivalentBridgeTapImpedance(void)
 
 			PLC_Edge *cur_edge = PeekPointer(it->second);
 
-			cur_edge->Lock();
+//			cur_edge->Lock();
 			PLC_Impedance *input_impedance = cur_edge->GetInputImpedance(it->first);
-			cur_edge->Unlock();
+//			cur_edge->Unlock();
 
 			if (input_impedance->IsTimeVariant())
 				this->SetTimeVariant();
 
-			input_impedance->Lock();
+//			input_impedance->Lock();
 			AddInverseValue(PeekPointer(this->m_equivalent_bridge_tap_impedance), input_impedance);
-			input_impedance->Unlock();
+//			input_impedance->Unlock();
 		}
 
 		if (this->m_equivalent_bridge_tap_impedance->IsTimeVariant())
@@ -177,9 +177,9 @@ PLC_BackboneBranch::SetTimeVariant(void)
 
 	for (it = this->m_registered_ifPairs.begin(); it != this->m_registered_ifPairs.end(); it++)
 	{
-		it->first->Lock();
+//		it->first->Lock();
 		PLC_ChannelTransferImpl *cur_channel_ti = it->first->GetChannelTransferImpl(it->second);
-		it->first->Unlock();
+//		it->first->Unlock();
 
 		cur_channel_ti->SetTimeVariant();
 	}

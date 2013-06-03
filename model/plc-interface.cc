@@ -23,6 +23,8 @@
 #include <ns3/plc-defs.h>
 #include <ns3/log.h>
 #include <ns3/simulator.h>
+#include <ns3/fatal-error.h>
+#include "plc-node.h"
 #include "plc-interface.h"
 #include "plc-channel.h"
 #include "plc-outlet.h"
@@ -88,11 +90,22 @@ PLC_Interface::GetPhy (void)
 	return this->m_phy;
 }
 
+PLC_Node *
+PLC_Interface::GetNodePeekPointer(void)
+{
+	PLC_LOG_FUNCTION (this);
+	NS_ASSERT (m_plc_node);
+	return PeekPointer(m_plc_node);
+}
+
 //////////////////////////////////////// PLC_TxInterface ////////////////////////////////////////////////
 
 PLC_TxInterface::PLC_TxInterface (Ptr<PLC_Node> associated_plc_node, Ptr<const SpectrumModel> sm) : PLC_Interface (associated_plc_node, sm), m_all_bb_up2date (false)
 {
 //	PLC_LOG_INFO ("PLC_TxInterface installed on Node" << associated_plc_node->GetVertexId ());
+	m_txIfIdx = 0;
+	m_noiseIfIdx = 0;
+	m_ctfImpl_initialized = false;
 }
 
 void
@@ -104,6 +117,7 @@ void
 PLC_TxInterface::DoDispose (void)
 {
 	m_txPsd = 0;
+	m_noisePsd = 0;
 
 	std::map<PLC_RxInterface *, Ptr<PLC_ChannelTransferImpl> >::iterator cit;
 	for (cit = m_channel_transfer_impls.begin(); cit != m_channel_transfer_impls.end(); cit++)
@@ -127,17 +141,50 @@ PLC_TxInterface::GetTypeId  (void)
 uint32_t
 PLC_TxInterface::GetTxIfIdx (void) const
 {
+	PLC_LOG_FUNCTION (this);
 	return this->m_txIfIdx;
+}
+
+uint32_t
+PLC_TxInterface::GetNoiseIfIdx (void) const
+{
+	PLC_LOG_FUNCTION (this);
+	return this->m_noiseIfIdx;
+}
+
+Ptr<const SpectrumValue>
+PLC_TxInterface::GetTxPsd (uint32_t ifIdx)
+{
+	PLC_LOG_FUNCTION (this << ifIdx);
+	if (ifIdx == GetTxIfIdx ())
+	{
+		NS_ASSERT (m_txPsd);
+		return m_txPsd;
+	}
+	else if (ifIdx == GetNoiseIfIdx ())
+	{
+		NS_ASSERT (m_noisePsd);
+		return m_noisePsd;
+	}
+	else
+	{
+		NS_FATAL_ERROR ("Unknown interface index");
+		return NULL;
+	}
 }
 
 void
 PLC_TxInterface::InitializeChannelTransferImpls (void)
 {
+	PLC_LOG_FUNCTION (this);
+
+	if (m_ctfImpl_initialized) return;
+
 	PLC_LOG_INFO ("Initializing transmission channels from txInterface on Node" << this->m_plc_node->GetVertexId ());
 
-	this->GetGraph ()->Lock ();
+//	this->GetGraph ()->Lock ();
 	std::vector<PLC_RxInterface *> rxInterfaces = this->GetGraph ()->GetConnectedRxInterfacePeekPtrs ();
-	this->GetGraph ()->Unlock ();
+//	this->GetGraph ()->Unlock ();
 	std::vector<PLC_RxInterface *>::iterator rx_it;
 
 	for  (rx_it = rxInterfaces.begin (); rx_it != rxInterfaces.end (); rx_it++)
@@ -164,6 +211,8 @@ PLC_TxInterface::InitializeChannelTransferImpls (void)
 	{
 		ch_impls[i]->DiscoverBackboneBranches ();
 	}
+
+	m_ctfImpl_initialized = true;
 }
 
 void PLC_TxInterface::CalculateChannels (void)
@@ -182,7 +231,9 @@ void PLC_TxInterface::CalculateChannels (void)
 	for  (i = 0; i <  (int) size; i++) {
 		if (!ch_impls[i]->IsUp2Date())
 		{
+			ch_impls[i]->Lock ();
 			ch_impls[i]->CalculateChannelTransferVector ();
+			ch_impls[i]->Unlock ();
 		}
 	}
 }
@@ -207,9 +258,9 @@ PLC_TxInterface::RegisterRxInterface (PLC_RxInterface *rxInterface)
 {
 	PLC_LOG_FUNCTION (this << "rxInterface " << rxInterface << "registered");
 
-	g_smartpointer_mutex.Lock ();
+//	g_smartpointer_mutex.Lock ();
 	this->m_channel_transfer_impls[rxInterface] = CreateObject<PLC_ChannelTransferImpl>  (this, rxInterface, this->m_spectrum_model, false);
-	g_smartpointer_mutex.Unlock ();
+//	g_smartpointer_mutex.Unlock ();
 
 	this->m_channel_transfer_impls[rxInterface]->CreateBackbonePath ();
 }
@@ -220,9 +271,9 @@ PLC_TxInterface::GetBackbonePath (PLC_RxInterface *sink)
 	PLC_LOG_FUNCTION (this << sink);
 	std::list<PLC_BackboneBranch *> ret;
 
-	this->m_channel_transfer_impls[sink]->Lock ();
+//	this->m_channel_transfer_impls[sink]->Lock ();
 	ret = this->m_channel_transfer_impls[sink]->GetBackbonePath ();
-	this->m_channel_transfer_impls[sink]->Unlock ();
+//	this->m_channel_transfer_impls[sink]->Unlock ();
 
 	return ret;
 }
@@ -234,9 +285,9 @@ PLC_BackbonePath::iterator PLC_TxInterface::BackbonePathBegin (PLC_RxInterface *
 
 	NS_ASSERT(m_channel_transfer_impls.find(sink) != m_channel_transfer_impls.end());
 
-	this->m_channel_transfer_impls[sink]->Lock ();
+//	this->m_channel_transfer_impls[sink]->Lock ();
 	ret = this->m_channel_transfer_impls[sink]->BackbonePathBegin ();
-	this->m_channel_transfer_impls[sink]->Unlock ();
+//	this->m_channel_transfer_impls[sink]->Unlock ();
 
 	return ret;
 }
@@ -245,9 +296,9 @@ PLC_BackbonePath::iterator PLC_TxInterface::BackbonePathEnd (PLC_RxInterface *si
 {
 	PLC_BackbonePath::iterator ret;
 
-	this->m_channel_transfer_impls[sink]->Lock ();
+//	this->m_channel_transfer_impls[sink]->Lock ();
 	ret = this->m_channel_transfer_impls[sink]->BackbonePathEnd ();
-	this->m_channel_transfer_impls[sink]->Unlock ();
+//	this->m_channel_transfer_impls[sink]->Unlock ();
 
 	return ret;
 }
@@ -262,16 +313,25 @@ PLC_TxInterface::GetChannelTransferImpl (PLC_RxInterface *rxInterface)
 }
 
 void
-PLC_TxInterface::StartTx (Ptr<const Packet> p, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_TxInterface::StartTx (Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_LOG_FUNCTION (this << p << metaInfo);
-	if (p != NULL)
-	{
-		PLC_LOG_LOGIC("Outgoing frame: " << *p);
-	}
-	this->m_txPsd = txPsd;
+	PLC_LOG_FUNCTION (this << txPsd << duration << metaInfo);
 
-	this->GetChannel()->TransmissionStart(p, GetTxIfIdx(), txPsd, duration, metaInfo);
+	uint32_t sendIf;
+	if (metaInfo != NULL)
+	{
+		NS_ASSERT_MSG (sendIf = GetTxIfIdx (), "TX interface has not been registered at PLC_Channel yet!");
+		this->m_txPsd = txPsd;
+		PLC_LOG_LOGIC ("Sending frame...");
+	}
+	else
+	{
+		NS_ASSERT_MSG (sendIf = GetNoiseIfIdx (), "Noise interface has not been registered at PLC_Channel yet!");
+		this->m_noisePsd = txPsd;
+		PLC_LOG_LOGIC("Sending noise...");
+	}
+
+	this->GetChannel()->TransmissionStart(sendIf, txPsd, duration, metaInfo);
 }
 
 void
@@ -282,9 +342,9 @@ PLC_TxInterface::SetChannelTransferImplsOutOfDate (void)
 
 	for  (it = m_channel_transfer_impls.begin (); it != m_channel_transfer_impls.end (); it++)
 	{
-		it->second->Lock ();
+//		it->second->Lock ();
 		it->second->SetOutOfDate ();
-		it->second->Unlock ();
+//		it->second->Unlock ();
 	}
 }
 
@@ -293,9 +353,9 @@ PLC_TxInterface::SetTimeVariantChannel (PLC_RxInterface *rx)
 {
 	PLC_LOG_FUNCTION (this);
 	Ptr<PLC_ChannelTransferImpl> ch_impl = this->m_channel_transfer_impls[rx];
-	ch_impl->Lock ();
+//	ch_impl->Lock ();
 	ch_impl->SetTimeVariant ();
-	ch_impl->Unlock ();
+//	ch_impl->Unlock ();
 }
 
 //////////////////////////////////////// PLC_RxInterface ////////////////////////////////////////////////
@@ -303,6 +363,7 @@ PLC_TxInterface::SetTimeVariantChannel (PLC_RxInterface *rx)
 PLC_RxInterface::PLC_RxInterface (Ptr<PLC_Node> associated_node, Ptr<const SpectrumModel> sm)
 	: PLC_Interface (associated_node, sm)
 {
+	m_rxIfIdx = 0;
 }
 
 void PLC_RxInterface::DoStart (void)
@@ -337,17 +398,17 @@ PLC_RxInterface::SetOutlet(Ptr<PLC_Outlet> outlet)
 }
 
 void
-PLC_RxInterface::StartRx (Ptr<const Packet> p, uint32_t txId, Ptr<SpectrumValue>& rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_RxInterface::StartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
-	PLC_LOG_FUNCTION (this << p << rxPsd << metaInfo);
+	PLC_LOG_FUNCTION (this << rxPsd << metaInfo);
 	if  (this->m_phy != NULL)
 	{
-		m_phy->StartRx (p, txId, rxPsd, duration, metaInfo);
+		m_phy->StartRx (txId, rxPsd, duration, metaInfo);
 	}
 }
 
 void
-PLC_RxInterface::RxPsdChanged (uint32_t txId, Ptr<SpectrumValue> rxSignal)
+PLC_RxInterface::RxPsdChanged (uint32_t txId, Ptr<const SpectrumValue> rxSignal)
 {
 	PLC_LOG_FUNCTION (this << rxSignal);
 	if  (this->m_phy != NULL)

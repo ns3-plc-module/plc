@@ -32,7 +32,7 @@
 using namespace ns3;
 
 void
-ReceiveSuccess(Ptr<const Packet> p)
+ReceiveSuccess(Ptr<const Packet> p, uint16_t msgId)
 {
 	NS_LOG_UNCOND(Simulator::Now() << ": Packet received!");
 }
@@ -88,10 +88,10 @@ int main (int argc, char *argv[])
 	phy2->SetNoiseFloor(noiseFloor);
 
 	// Set modulation and coding scheme
-	phy1->SetHeaderModulationAndCodingScheme(BPSK_1_2);
-	phy2->SetHeaderModulationAndCodingScheme(BPSK_1_2);
-	phy1->SetPayloadModulationAndCodingScheme(QAM4_RATELESS);
-	phy2->SetPayloadModulationAndCodingScheme(QAM4_RATELESS);
+	phy1->SetHeaderModulationAndCodingScheme(ModulationAndCodingScheme(BPSK_1_2,0));
+	phy2->SetHeaderModulationAndCodingScheme(ModulationAndCodingScheme(BPSK_1_2,0));
+	phy1->SetPayloadModulationAndCodingScheme(ModulationAndCodingScheme(QAM4_RATELESS,0));
+	phy2->SetPayloadModulationAndCodingScheme(ModulationAndCodingScheme(QAM4_RATELESS,0));
 //	phy1->SetModulationAndCodingScheme(BPSK_1_2);
 //	phy2->SetModulationAndCodingScheme(BPSK_1_2);
 

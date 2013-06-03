@@ -19,6 +19,8 @@
  */
 
 #include <math.h>
+#include <ns3/output-stream-wrapper.h>
+#include <ns3/fatal-error.h>
 #include "plc-spectrum-helper.h"
 
 namespace ns3 {

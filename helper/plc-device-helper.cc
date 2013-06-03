@@ -68,8 +68,8 @@ PLC_NetDeviceHelper::PLC_NetDeviceHelper(Ptr<const SpectrumModel> sm, Ptr<Spectr
 	: m_spectrum_model(sm), m_txPsd(txPsd), m_netdevice_nodes(deviceNodes)
 {
 	// Modulation and Coding Schemes
-	m_header_mcs = BPSK_1_2;
-	m_payload_mcs = BPSK_1_2;
+	m_header_mcs = ModulationAndCodingScheme (BPSK_1_2, 0);
+	m_payload_mcs = ModulationAndCodingScheme (BPSK_1_2, 0);
 
 	// Default phy model to be used
 	m_phyTid = PLC_InformationRatePhy::GetTypeId();
@@ -127,10 +127,12 @@ PLC_NetDeviceHelper::Setup(void)
 {
 	NS_ASSERT_MSG(m_txPsd, "TX psd not set!");
 
+	static uint32_t sid = 1;
+
 	// Test if payload mcs is compatible
 	if (m_phyTid == PLC_IncrementalRedundancyPhy::GetTypeId())
 	{
-		NS_ASSERT_MSG (m_payload_mcs >= BPSK_RATELESS, "Payload modulation and coding type (" << m_payload_mcs << ") not compatible with PLC_IncrementalRedundancyPhy");
+		NS_ASSERT_MSG (m_payload_mcs.mct >= BPSK_RATELESS, "Payload modulation and coding type (" << m_payload_mcs << ") not compatible with PLC_IncrementalRedundancyPhy");
 	}
 
 	if (m_noiseFloor == NULL)
@@ -155,7 +157,6 @@ PLC_NetDeviceHelper::Setup(void)
 		// Create net device
 		Ptr<PLC_NetDevice> dev = netdeviceFactory.Create<PLC_NetDevice> ();
 
-		dev->SetPlcNode(*nit);
 		dev->SetSpectrumModel(m_spectrum_model);
 		dev->SetNoiseFloor(m_noiseFloor);
 		dev->SetTxPowerSpectralDensity(m_txPsd);
@@ -165,8 +166,8 @@ PLC_NetDeviceHelper::Setup(void)
 
 		if (phy->GetInstanceTypeId() == PLC_ErrorRatePhy::GetTypeId())
 		{
-			NS_ASSERT_MSG (m_header_mcs == m_payload_mcs, "Header and payload modulation and coding schemes have to be identical for PLC_ErrorRatePhy");
-			NS_ASSERT_MSG (m_header_mcs < BPSK_RATELESS, "Rateless encoding not supported by PLC_ErrorRatePhy");
+			NS_ASSERT_MSG (m_header_mcs.mct == m_payload_mcs.mct, "Header and payload modulation and coding types have to be identical for PLC_ErrorRatePhy");
+			NS_ASSERT_MSG (m_header_mcs.mct < BPSK_RATELESS, "Rateless encoding not supported by PLC_ErrorRatePhy");
 			(StaticCast<PLC_ErrorRatePhy, PLC_Phy> (phy))->SetModulationAndCodingScheme(m_header_mcs);
 		}
 		else if (
@@ -197,16 +198,19 @@ PLC_NetDeviceHelper::Setup(void)
 		IncrementMacAddress(&addr);
 		dev->SetAddress(addr);
 
+		// Setting PLC node here to complete config
+		dev->SetPlcNode(*nit);
+
 		if (m_create_nodes)
 		{
 			// Create ns-3 node
-			Ptr<Node> node = CreateObject<Node> ();
+			Ptr<Node> node = CreateObject<Node> (sid++);
 
 			// Bind device to ns-3 node
 			node->AddDevice(dev);
-		}
 
-		NS_ASSERT(dev->ConfigComplete());
+			NS_ASSERT(dev->ConfigComplete());
+		}
 
 		std::string name = (*nit)->GetName();
 		NS_ASSERT_MSG(m_netdeviceMap.find(name) == m_netdeviceMap.end(), "Duplicate netdevice name");
@@ -221,5 +225,30 @@ PLC_NetDeviceHelper::GetDevice(std::string name)
 	return m_netdeviceMap[name];
 }
 
+NodeContainer
+PLC_NetDeviceHelper::GetNS3Nodes (void)
+{
+	NodeContainer c;
+	PLC_NetdeviceMap::iterator dit;
+	for (dit = m_netdeviceMap.begin(); dit != m_netdeviceMap.end(); dit++)
+	{
+		c.Add(dit->second->GetNode());
+	}
+
+	return c;
+}
+
+NetDeviceContainer
+PLC_NetDeviceHelper::GetNetDevices (void)
+{
+	NetDeviceContainer c;
+	PLC_NetdeviceMap::iterator dit;
+	for (dit = m_netdeviceMap.begin(); dit != m_netdeviceMap.end(); dit++)
+	{
+		c.Add(dit->second);
+	}
+
+	return c;
+}
 
 } // namespace ns3

@@ -31,11 +31,11 @@ public:
 	template < typename Vertex, typename Graph >
 	void finish_vertex(Vertex u, const Graph & g)
 	{
-		this->m_bb_branch->GetNodePeekPtr()->GetGraph()->Lock();
+//		this->m_bb_branch->GetNodePeekPtr()->GetGraph()->Lock();
 		PLC_Node *node = this->m_bb_branch->GetNodePeekPtr()->GetGraph()->GetNodePeekPtr(u);
-		this->m_bb_branch->GetNodePeekPtr()->GetGraph()->Unlock();
+//		this->m_bb_branch->GetNodePeekPtr()->GetGraph()->Unlock();
 
-		node->Lock();
+//		node->Lock();
 		if (node->HasOutlet()) {
 
 			// register outlet on backbone branch
@@ -47,7 +47,7 @@ public:
 				this->m_bb_branch->SetTimeVariant();
 			}
 		}
-		node->Unlock();
+//		node->Unlock();
 	}
 
 private:
