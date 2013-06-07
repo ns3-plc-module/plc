@@ -139,10 +139,10 @@ int main (int argc, char *argv[])
 	time (&end);
 
 	uint32_t i;
-	for (i = 0; i < channel->GetNTxInterfaces(); i++)
+	for (i = 1; i <= channel->GetNTxInterfaces(); i++)
 	{
 		uint32_t j;
-		for (j = 0; j < channel->GetNRxInterfaces(); j++)
+		for (j = 1; j <= channel->GetNRxInterfaces(); j++)
 		{
 			Ptr<PLC_TransferBase> ctv = channel->GetChannelTransferData(i,j);
 			if (ctv)
