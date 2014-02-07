@@ -125,7 +125,7 @@ int main (int argc, char *argv[])
 	// Schedule transmission of packet p from phy0 to phy1 to begin at 1s simulation time
 	Simulator::Schedule(Seconds(1), &PLC_Mac::Send, mac1, p, Mac48Address("00:00:00:00:00:02"));
 
-	// Start simulation
+	// Initialize simulation
 	Simulator::Run();
 
 	// Cleanup simulation

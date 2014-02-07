@@ -98,7 +98,7 @@ int main (int argc, char *argv[])
 	// Schedule transmission of packet p from net device on node1 to net device on node2 to begin at 1s simulation time
 	Simulator::Schedule(Seconds(1), &PLC_NetDevice::Send, devMap["Node1"], p, devMap["Node2"]->GetAddress(), 0);
 
-	// Start simulation
+	// Initialize simulation
 	Simulator::Run();
 
 	// Cleanup simulation

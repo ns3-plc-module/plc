@@ -110,7 +110,7 @@ PLC_Phy::~PLC_Phy ()
 }
 
 void
-PLC_Phy::DoStart(void)
+PLC_Phy::DoInitialize(void)
 {
 	NS_LOG_FUNCTION (this);
 }
@@ -136,21 +136,21 @@ PLC_Phy::GetSymbolDuration (void)
 }
 
 bool
-PLC_Phy::StartTx (Ptr<const Packet> p)
+PLC_Phy::InitializeTx (Ptr<const Packet> p)
 {
 	NS_LOG_FUNCTION (this << p);
-	return DoStartTx (p);
+	return DoInitializeTx (p);
 }
 
 void
-PLC_Phy::StartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_Phy::InitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	NS_LOG_FUNCTION (this << txId << rxPsd << duration << metaInfo);
 
 	m_rx_signal_trace.clear ();
 	m_noise_trace.clear ();
 
-	DoStartRx (txId, rxPsd, duration, metaInfo);
+	DoInitializeRx (txId, rxPsd, duration, metaInfo);
 }
 
 void
@@ -241,8 +241,8 @@ PLC_Phy::TraceRxSignal (Time t, Ptr<const SpectrumValue> rxPsd)
 {
 	PLC_PHY_FUNCTION(this << t << rxPsd);
 
-	NS_ASSERT_MSG (t >= m_rxStartTime, "Rx signal trace time less than packet reception start time, something went wrong...");
-	Time offset = t - m_rxStartTime;
+	NS_ASSERT_MSG (t >= m_rxInitializeTime, "Rx signal trace time less than packet reception start time, something went wrong...");
+	Time offset = t - m_rxInitializeTime;
 
 	m_rx_signal_trace.push_back(std::pair<Time, Ptr<const SpectrumValue> > (offset, rxPsd->Copy()));
 }
@@ -252,8 +252,8 @@ PLC_Phy::TraceNoise (Time t, Ptr<const SpectrumValue> noisePsd)
 {
 	PLC_PHY_FUNCTION(this << t << noisePsd);
 
-	NS_ASSERT_MSG (t >= m_rxStartTime, "Rx signal trace time less than packet reception start time, something went wrong...");
-	Time offset = t - m_rxStartTime;
+	NS_ASSERT_MSG (t >= m_rxInitializeTime, "Rx signal trace time less than packet reception start time, something went wrong...");
+	Time offset = t - m_rxInitializeTime;
 
 	m_noise_trace.push_back(std::pair<Time, Ptr<const SpectrumValue> > (offset, noisePsd->Copy()));
 }
@@ -285,11 +285,11 @@ PLC_HalfDuplexOfdmPhy::~PLC_HalfDuplexOfdmPhy()
 }
 
 void
-PLC_HalfDuplexOfdmPhy::DoStart(void)
+PLC_HalfDuplexOfdmPhy::DoInitialize(void)
 {
 	PLC_PHY_FUNCTION(this);
 	m_state = IDLE;
-	PLC_Phy::DoStart();
+	PLC_Phy::DoInitialize();
 }
 
 void
@@ -644,15 +644,15 @@ PLC_HalfDuplexOfdmPhy::SendFrame (Ptr<PLC_TrxMetaInfo> metaInfo)
 
 	Time tx_duration = metaInfo->GetHeaderDuration () + metaInfo->GetPayloadDuration () + PLC_Preamble::GetDuration();
 
-	PLC_PHY_LOGIC ("Start sending frame...");
+	PLC_PHY_LOGIC ("Initialize sending frame...");
 	ChangeState(TX);
-	m_txInterface->StartTx(m_txPsd, tx_duration, metaInfo);
+	m_txInterface->InitializeTx(m_txPsd, tx_duration, metaInfo);
 	Simulator::Schedule(tx_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
 	Simulator::Schedule(tx_duration, &PLC_Phy::NotifyFrameSent, this);
 }
 
 void
-PLC_HalfDuplexOfdmPhy::NoiseStart (uint32_t txId, Ptr<const SpectrumValue> psd, Time duration)
+PLC_HalfDuplexOfdmPhy::NoiseInitialize (uint32_t txId, Ptr<const SpectrumValue> psd, Time duration)
 {
 	PLC_PHY_FUNCTION (this << txId << psd);
 
@@ -731,10 +731,10 @@ PLC_ErrorRatePhy::PLC_ErrorRatePhy(void)
 }
 
 void
-PLC_ErrorRatePhy::DoStart (void)
+PLC_ErrorRatePhy::DoInitialize (void)
 {
 	PLC_PHY_FUNCTION(this);
-	PLC_HalfDuplexOfdmPhy::DoStart();
+	PLC_HalfDuplexOfdmPhy::DoInitialize();
 }
 
 void
@@ -748,7 +748,7 @@ PLC_ErrorRatePhy::DoDispose(void)
 }
 
 bool
-PLC_ErrorRatePhy::DoStartTx (Ptr<const Packet> ppdu)
+PLC_ErrorRatePhy::DoInitializeTx (Ptr<const Packet> ppdu)
 {
 	PLC_PHY_FUNCTION(this << ppdu);
 	NS_ASSERT_MSG(m_txInterface, "Phy has no tx interface");
@@ -786,9 +786,9 @@ PLC_ErrorRatePhy::DoStartTx (Ptr<const Packet> ppdu)
 
 	if (GetState () == IDLE)
 	{
-		PLC_PHY_INFO("Start sending packet: " << *frame);
+		PLC_PHY_INFO("Initialize sending packet: " << *frame);
 		ChangeState(TX);
-		m_txInterface->StartTx(m_txPsd, duration, metaInfo);
+		m_txInterface->InitializeTx(m_txPsd, duration, metaInfo);
 		Simulator::Schedule(duration, &PLC_ErrorRatePhy::ChangeState, this, IDLE);
 
 		if (!m_frame_sent_callback.IsNull())
@@ -805,7 +805,7 @@ PLC_ErrorRatePhy::DoStartTx (Ptr<const Packet> ppdu)
 }
 
 void
-PLC_ErrorRatePhy::DoStartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_ErrorRatePhy::DoInitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_PHY_FUNCTION(this << txId << rxPsd << duration << metaInfo);
 	NS_ASSERT_MSG(m_error_rate_model, "PLC_HalfDuplexOfdmPhy: an error model has to be assigned to the Phy previous to data reception!");
@@ -817,14 +817,14 @@ PLC_ErrorRatePhy::DoStartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time
 		metaInfo->GetHeaderMcs().mct == GetModulationAndCodingScheme().mct && 	// same modulation and coding type (preamble detection is supposed to be always successful)
 		W2dBm(Pwr((*rxPsd)/* / GetTotalNoisePower()*/)) >= PLC_RECEIVER_SENSIVITY) // power is sufficient for synchronization
 	{
-		PLC_LOG_LOGIC ("Starting preamble detection...");
+		PLC_LOG_LOGIC ("Initializeing preamble detection...");
 		ChangeState (RX);
 		Simulator::Schedule (PLC_Preamble::GetDuration(), &PLC_ErrorRatePhy::PreambleDetectionSuccessful, this, txId, rxPsd, duration, metaInfo);
 	}
 	else
 	{
 		PLC_LOG_LOGIC ("Signal is interference");
-		NoiseStart (txId, rxPsd, duration);
+		NoiseInitialize (txId, rxPsd, duration);
 	}
 }
 
@@ -843,10 +843,10 @@ PLC_ErrorRatePhy::PreambleDetectionSuccessful (uint32_t txId, Ptr<const Spectrum
 	PLC_Preamble preamble;
 	m_incoming_frame->RemoveHeader(preamble);
 
-	// Start reception
+	// Initialize reception
 	size_t information_bits = m_incoming_frame->GetSize() * 8;
 	ModulationAndCodingScheme mcs = metaInfo->GetHeaderMcs();
-	m_error_rate_model->StartRx(mcs, rxPsd, information_bits);
+	m_error_rate_model->InitializeRx(mcs, rxPsd, information_bits);
 	Simulator::Schedule(duration - preamble.GetDuration(), &PLC_ErrorRatePhy::EndRx, this, txId);
 }
 
@@ -1030,10 +1030,10 @@ PLC_InformationRatePhy::GetTransmissionRateLimit(Ptr<SpectrumValue> rxPsd)
 }
 
 void
-PLC_InformationRatePhy::DoStart (void)
+PLC_InformationRatePhy::DoInitialize (void)
 {
 	PLC_PHY_FUNCTION(this);
-	PLC_HalfDuplexOfdmPhy::DoStart();
+	PLC_HalfDuplexOfdmPhy::DoInitialize();
 }
 
 void
@@ -1054,7 +1054,7 @@ PLC_InformationRatePhy::DoGetLinkPerformanceModel (void)
 }
 
 bool
-PLC_InformationRatePhy::DoStartTx (Ptr<const Packet> ppdu)
+PLC_InformationRatePhy::DoInitializeTx (Ptr<const Packet> ppdu)
 {
 	PLC_PHY_FUNCTION(this << ppdu);
 	NS_ASSERT_MSG(m_txPsd, "TxPsd not set!");
@@ -1071,7 +1071,7 @@ PLC_InformationRatePhy::DoStartTx (Ptr<const Packet> ppdu)
 	// (Virtually encode frame)
 	PrepareTransmission (metaInfo);
 
-	// Start sending
+	// Initialize sending
 	if (GetState () == IDLE)
 	{
 		PLC_PHY_INFO("Device idle, sending frame: " << *metaInfo);
@@ -1232,7 +1232,7 @@ PLC_InformationRatePhy::SendRedundancy (void)
 }
 
 void
-PLC_InformationRatePhy::DoStartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_InformationRatePhy::DoInitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_PHY_FUNCTION(this << txId << rxPsd << duration << metaInfo);
 	NS_ASSERT_MSG(m_information_rate_model, "PLC_HalfDuplexOfdmPhy: an error model has to be assigned to the Phy previous to data reception!");
@@ -1244,14 +1244,14 @@ PLC_InformationRatePhy::DoStartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd
 		metaInfo->GetHeaderMcs().mct == GetHeaderModulationAndCodingScheme().mct && 	// same modulation and coding type (preamble detection is supposed to be always successful)
 		W2dBm(Pwr((*rxPsd)/* / GetTotalNoisePower()*/)) >= PLC_RECEIVER_SENSIVITY) // power is sufficient for synchronization
 	{
-		PLC_LOG_LOGIC (this << "Starting preamble detection...");
+		PLC_LOG_LOGIC (this << "Initializeing preamble detection...");
 		Simulator::Schedule (PLC_Preamble::GetDuration(), &PLC_InformationRatePhy::PreambleDetectionSuccessful, this, txId, rxPsd, duration, metaInfo);
 		m_locked_txId = 0;
 		ChangeState(RX);
 	}
 	else
 	{
-		NoiseStart (txId, rxPsd, duration);
+		NoiseInitialize (txId, rxPsd, duration);
 	}
 }
 
@@ -1274,15 +1274,15 @@ PLC_InformationRatePhy::PreambleDetectionSuccessful (uint32_t txId, Ptr<const Sp
 	PLC_Preamble preamble;
 	m_incoming_frame->RemoveHeader(preamble);
 
-	// Start frame reception
-	StartReception(txId, rxPsd, duration, metaInfo);
+	// Initialize frame reception
+	InitializeReception(txId, rxPsd, duration, metaInfo);
 }
 
 void
-PLC_InformationRatePhy::StartReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_InformationRatePhy::InitializeReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_PHY_FUNCTION (this << txId << rxPsd << duration << metaInfo);
-	PLC_PHY_INFO ("Starting frame reception...");
+	PLC_PHY_INFO ("Initializeing frame reception...");
 
 	// Determine uncoded header bits
 	ModulationAndCodingScheme header_mcs = metaInfo->GetHeaderMcs ();
@@ -1294,7 +1294,7 @@ PLC_InformationRatePhy::StartReception (uint32_t txId, Ptr<const SpectrumValue> 
 
 	// header is not FEC encoded => no coding overhead
 	m_information_rate_model->SetCodingOverhead(0);
-	m_information_rate_model->StartRx(header_mcs, rxPsd, uncoded_header_bits);
+	m_information_rate_model->InitializeRx(header_mcs, rxPsd, uncoded_header_bits);
 	Simulator::Schedule (header_duration, &PLC_InformationRatePhy::EndRxHeader, this, txId, rxPsd, metaInfo);
 }
 
@@ -1332,9 +1332,9 @@ PLC_InformationRatePhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue> rxPs
 
 			size_t uncoded_payload_bits = m_incoming_frame->GetSize ()*8;
 
-			NS_LOG_LOGIC ("Starting payload reception: " << payload_duration << payload_mcs << uncoded_payload_bits);
+			NS_LOG_LOGIC ("Initializeing payload reception: " << payload_duration << payload_mcs << uncoded_payload_bits);
 
-			m_information_rate_model->StartRx (payload_mcs, rxPsd, uncoded_payload_bits);
+			m_information_rate_model->InitializeRx (payload_mcs, rxPsd, uncoded_payload_bits);
 			Simulator::Schedule (payload_duration, &PLC_InformationRatePhy::EndRxPayload, this, metaInfo);
 			Simulator::Schedule (payload_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
 		}
@@ -1342,7 +1342,7 @@ PLC_InformationRatePhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue> rxPs
 		{
 			PLC_PHY_INFO ("Header reception failed, remaining signal treated as interference");
 
-			NoiseStart (txId, rxPsd, payload_duration);
+			NoiseInitialize (txId, rxPsd, payload_duration);
 
 			Simulator::Schedule (payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
 			ChangeState (IDLE);
@@ -1352,7 +1352,7 @@ PLC_InformationRatePhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue> rxPs
 	{
 		PLC_PHY_INFO ("Different modulation and coding scheme: PHY (" <<GetPayloadModulationAndCodingScheme () << "), message (" << payload_mcs << "), remaining signal treated as interference");
 
-		NoiseStart (txId, rxPsd, payload_duration);
+		NoiseInitialize (txId, rxPsd, payload_duration);
 
 		Simulator::Schedule (payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
 		ChangeState (IDLE);
@@ -1495,18 +1495,18 @@ PLC_ChaseCombiningPhy::TraceSinrBase (Time t, Ptr<const SpectrumValue> sinr)
 {
 	PLC_PHY_FUNCTION(this << t << sinr);
 
-	NS_ASSERT_MSG (t >= m_sinrBaseTraceStartTime, "SINR trace time less than packet reception start time, something went wrong...");
-	Time offset = t - m_sinrBaseTraceStartTime;
+	NS_ASSERT_MSG (t >= m_sinrBaseTraceInitializeTime, "SINR trace time less than packet reception start time, something went wrong...");
+	Time offset = t - m_sinrBaseTraceInitializeTime;
 
 	m_sinrBaseTrace.push_back(std::pair<Time, Ptr<const SpectrumValue> > (offset, sinr->Copy()));
 }
 
 void
-PLC_ChaseCombiningPhy::DoStart (void)
+PLC_ChaseCombiningPhy::DoInitialize (void)
 {
 	PLC_PHY_FUNCTION(this);
 	m_txMetaInfo = 0;
-	PLC_InformationRatePhy::DoStart();
+	PLC_InformationRatePhy::DoInitialize();
 }
 
 void
@@ -1519,7 +1519,7 @@ PLC_ChaseCombiningPhy::DoDispose(void)
 }
 
 bool
-PLC_ChaseCombiningPhy::DoStartTx (Ptr<const Packet> ppdu)
+PLC_ChaseCombiningPhy::DoInitializeTx (Ptr<const Packet> ppdu)
 {
 	PLC_PHY_FUNCTION(this);
 	NS_ASSERT_MSG(m_txPsd, "TxPsd not set!");
@@ -1565,10 +1565,10 @@ PLC_ChaseCombiningPhy::SendRedundancy (void)
 }
 
 void
-PLC_ChaseCombiningPhy::StartReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_ChaseCombiningPhy::InitializeReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_PHY_FUNCTION (this << txId << rxPsd << duration << metaInfo);
-	PLC_PHY_INFO ("Starting frame reception...");
+	PLC_PHY_INFO ("Initializeing frame reception...");
 
 	// Determine uncoded header bits
 	ModulationAndCodingScheme header_mcs = metaInfo->GetHeaderMcs ();
@@ -1584,7 +1584,7 @@ PLC_ChaseCombiningPhy::StartReception (uint32_t txId, Ptr<const SpectrumValue> r
 
 	// header is not rateless encoded => no coding overhead
 	m_information_rate_model->SetCodingOverhead(0);
-	m_information_rate_model->StartRx(header_mcs, rxPsd, uncoded_header_bits);
+	m_information_rate_model->InitializeRx(header_mcs, rxPsd, uncoded_header_bits);
 	Simulator::Schedule (header_duration, &PLC_ChaseCombiningPhy::EndRxHeader, this, txId, rxPsd, metaInfo);
 }
 
@@ -1648,15 +1648,15 @@ PLC_ChaseCombiningPhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue> rxPsd
 
 			size_t uncoded_payload_bits = m_incoming_frame->GetSize ()*8;
 
-			NS_LOG_LOGIC ("Starting payload reception: " << payload_duration << payload_mcs << uncoded_payload_bits);
+			NS_LOG_LOGIC ("Initializeing payload reception: " << payload_duration << payload_mcs << uncoded_payload_bits);
 
 			// Configure SINR tracing
 			m_sinrBaseTrace.clear ();
-			m_sinrBaseTraceStartTime = Simulator::Now ();
+			m_sinrBaseTraceInitializeTime = Simulator::Now ();
 			EnableSinrTracing ();
 
-			// Start payload reception
-			m_information_rate_model->StartRx (payload_mcs, rxPsd, uncoded_payload_bits);
+			// Initialize payload reception
+			m_information_rate_model->InitializeRx (payload_mcs, rxPsd, uncoded_payload_bits);
 			Simulator::Schedule (payload_duration, &PLC_ChaseCombiningPhy::EndRxPayload, this, metaInfo);
 			Simulator::Schedule (payload_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, IDLE);
 		}
@@ -1664,7 +1664,7 @@ PLC_ChaseCombiningPhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue> rxPsd
 		{
 			PLC_PHY_INFO ("Header reception failed, remaining signal treated as interference");
 
-			NoiseStart (txId, rxPsd, payload_duration);
+			NoiseInitialize (txId, rxPsd, payload_duration);
 
 			Simulator::Schedule (payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
 			ChangeState (IDLE);
@@ -1674,7 +1674,7 @@ PLC_ChaseCombiningPhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue> rxPsd
 	{
 		PLC_PHY_INFO ("Different modulation and coding scheme: PHY (" <<GetPayloadModulationAndCodingScheme () << "), message (" << payload_mcs << "), remaining signal treated as interference");
 
-		NoiseStart (txId, rxPsd, payload_duration);
+		NoiseInitialize (txId, rxPsd, payload_duration);
 
 		Simulator::Schedule (payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
 		ChangeState (IDLE);
@@ -1793,10 +1793,10 @@ PLC_IncrementalRedundancyPhy::PLC_IncrementalRedundancyPhy (void)
 }
 
 void
-PLC_IncrementalRedundancyPhy::DoStart (void)
+PLC_IncrementalRedundancyPhy::DoInitialize (void)
 {
 	PLC_PHY_FUNCTION(this);
-	PLC_InformationRatePhy::DoStart();
+	PLC_InformationRatePhy::DoInitialize();
 }
 
 void
@@ -1808,7 +1808,7 @@ PLC_IncrementalRedundancyPhy::DoDispose(void)
 }
 
 bool
-PLC_IncrementalRedundancyPhy::DoStartTx (Ptr<const Packet> ppdu)
+PLC_IncrementalRedundancyPhy::DoInitializeTx (Ptr<const Packet> ppdu)
 {
 	PLC_PHY_FUNCTION (this << ppdu);
 
@@ -1883,7 +1883,7 @@ PLC_IncrementalRedundancyPhy::SendRedundancy (void)
 }
 
 void
-PLC_IncrementalRedundancyPhy::StartReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_IncrementalRedundancyPhy::InitializeReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_PHY_FUNCTION (this << txId << rxPsd << duration << metaInfo);
 	NS_ASSERT(PLC_HalfDuplexOfdmPhy::GetState() == PLC_HalfDuplexOfdmPhy::RX);
@@ -1891,7 +1891,7 @@ PLC_IncrementalRedundancyPhy::StartReception (uint32_t txId, Ptr<const SpectrumV
 
 	NS_ASSERT_MSG (metaInfo->GetPayloadMcs().mct >= BPSK_RATELESS, "Packet not rateless encoded");
 
-	PLC_PHY_LOGIC ("Starting frame reception...");
+	PLC_PHY_LOGIC ("Initializeing frame reception...");
 
 	m_rxFrame = m_incoming_frame->Copy ();
 
@@ -1905,7 +1905,7 @@ PLC_IncrementalRedundancyPhy::StartReception (uint32_t txId, Ptr<const SpectrumV
 	// Receive header
 	Time header_duration = metaInfo->GetHeaderDuration();
 	m_information_rate_model->SetCodingOverhead(0);
-	m_information_rate_model->StartRx(header_mcs, rxPsd, uncoded_header_bits);
+	m_information_rate_model->InitializeRx(header_mcs, rxPsd, uncoded_header_bits);
 	Simulator::Schedule (header_duration, &PLC_InformationRatePhy::EndRxHeader, this, txId, rxPsd, metaInfo);
 }
 
@@ -1962,9 +1962,9 @@ PLC_IncrementalRedundancyPhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue
 			}
 
 			m_information_rate_model->SetCodingOverhead(rateless_coding_overhead);
-			m_information_rate_model->StartRx(payload_mcs, rxPsd, remaining_bits);
+			m_information_rate_model->InitializeRx(payload_mcs, rxPsd, remaining_bits);
 
-			NS_LOG_LOGIC ("Starting payload reception: " << payload_duration << payload_mcs << remaining_bits);
+			NS_LOG_LOGIC ("Initializeing payload reception: " << payload_duration << payload_mcs << remaining_bits);
 
 			Simulator::Schedule(payload_duration, &PLC_IncrementalRedundancyPhy::EndRxPayload, this, metaInfo);
 			Simulator::Schedule(payload_duration, &PLC_HalfDuplexOfdmPhy::ChangeState, this, PLC_HalfDuplexOfdmPhy::IDLE);
@@ -1973,7 +1973,7 @@ PLC_IncrementalRedundancyPhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue
 		{
 			PLC_PHY_INFO ("Header reception failed, remaining signal treated as interference");
 
-			NoiseStart (txId, rxPsd, payload_duration);
+			NoiseInitialize (txId, rxPsd, payload_duration);
 
 			Simulator::Schedule (payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
 			ChangeState (IDLE);
@@ -1983,7 +1983,7 @@ PLC_IncrementalRedundancyPhy::EndRxHeader(uint32_t txId, Ptr<const SpectrumValue
 	{
 		PLC_PHY_INFO ("Different modulation and coding scheme: PHY (" <<GetPayloadModulationAndCodingScheme () << "), message (" << payload_mcs << ")");
 
-		NoiseStart (txId, rxPsd, payload_duration);
+		NoiseInitialize (txId, rxPsd, payload_duration);
 
 		Simulator::Schedule (payload_duration, &PLC_InformationRatePhy::ReceptionFailure, this);
 		ChangeState (IDLE);

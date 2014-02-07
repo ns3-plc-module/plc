@@ -90,7 +90,7 @@ int main (int argc, char *argv[])
 	Ptr<SpectrumValue> noiseFloor= Create<SpectrumValue> (sm);
 	(*noiseFloor) = 1e-9;
 	interference.SetNoiseFloor(noiseFloor);
-	interference.StartRx(rxPsd);
+	interference.InitializeRx(rxPsd);
 
 	Ptr<const SpectrumValue> sinr = interference.GetSinr();
 

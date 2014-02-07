@@ -1107,8 +1107,8 @@ def register_Ns3Buffer_methods(root_module, cls):
     cls.add_method('AddAtEnd', 
                    'void', 
                    [param('ns3::Buffer const &', 'o')])
-    ## buffer.h (module 'network'): bool ns3::Buffer::AddAtStart(uint32_t start) [member function]
-    cls.add_method('AddAtStart', 
+    ## buffer.h (module 'network'): bool ns3::Buffer::AddAtInitialize(uint32_t start) [member function]
+    cls.add_method('AddAtInitialize', 
                    'bool', 
                    [param('uint32_t', 'start')])
     ## buffer.h (module 'network'): ns3::Buffer::Iterator ns3::Buffer::Begin() const [member function]
@@ -1150,8 +1150,8 @@ def register_Ns3Buffer_methods(root_module, cls):
                    'int32_t', 
                    [], 
                    is_const=True)
-    ## buffer.h (module 'network'): int32_t ns3::Buffer::GetCurrentStartOffset() const [member function]
-    cls.add_method('GetCurrentStartOffset', 
+    ## buffer.h (module 'network'): int32_t ns3::Buffer::GetCurrentInitializeOffset() const [member function]
+    cls.add_method('GetCurrentInitializeOffset', 
                    'int32_t', 
                    [], 
                    is_const=True)
@@ -1174,8 +1174,8 @@ def register_Ns3Buffer_methods(root_module, cls):
     cls.add_method('RemoveAtEnd', 
                    'void', 
                    [param('uint32_t', 'end')])
-    ## buffer.h (module 'network'): void ns3::Buffer::RemoveAtStart(uint32_t start) [member function]
-    cls.add_method('RemoveAtStart', 
+    ## buffer.h (module 'network'): void ns3::Buffer::RemoveAtInitialize(uint32_t start) [member function]
+    cls.add_method('RemoveAtInitialize', 
                    'void', 
                    [param('uint32_t', 'start')])
     ## buffer.h (module 'network'): uint32_t ns3::Buffer::Serialize(uint8_t * buffer, uint32_t maxSize) const [member function]
@@ -1213,8 +1213,8 @@ def register_Ns3BufferIterator_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_const=True)
-    ## buffer.h (module 'network'): bool ns3::Buffer::Iterator::IsStart() const [member function]
-    cls.add_method('IsStart', 
+    ## buffer.h (module 'network'): bool ns3::Buffer::Iterator::IsInitialize() const [member function]
+    cls.add_method('IsInitialize', 
                    'bool', 
                    [], 
                    is_const=True)
@@ -1354,8 +1354,8 @@ def register_Ns3ByteTagIteratorItem_methods(root_module, cls):
                    'uint32_t', 
                    [], 
                    is_const=True)
-    ## packet.h (module 'network'): uint32_t ns3::ByteTagIterator::Item::GetStart() const [member function]
-    cls.add_method('GetStart', 
+    ## packet.h (module 'network'): uint32_t ns3::ByteTagIterator::Item::GetInitialize() const [member function]
+    cls.add_method('GetInitialize', 
                    'uint32_t', 
                    [], 
                    is_const=True)
@@ -1388,14 +1388,14 @@ def register_Ns3ByteTagList_methods(root_module, cls):
     cls.add_method('AddAtEnd', 
                    'void', 
                    [param('int32_t', 'adjustment'), param('int32_t', 'appendOffset')])
-    ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::AddAtStart(int32_t adjustment, int32_t prependOffset) [member function]
-    cls.add_method('AddAtStart', 
+    ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::AddAtInitialize(int32_t adjustment, int32_t prependOffset) [member function]
+    cls.add_method('AddAtInitialize', 
                    'void', 
                    [param('int32_t', 'adjustment'), param('int32_t', 'prependOffset')])
-    ## byte-tag-list.h (module 'network'): ns3::ByteTagList::Iterator ns3::ByteTagList::Begin(int32_t offsetStart, int32_t offsetEnd) const [member function]
+    ## byte-tag-list.h (module 'network'): ns3::ByteTagList::Iterator ns3::ByteTagList::Begin(int32_t offsetInitialize, int32_t offsetEnd) const [member function]
     cls.add_method('Begin', 
                    'ns3::ByteTagList::Iterator', 
-                   [param('int32_t', 'offsetStart'), param('int32_t', 'offsetEnd')], 
+                   [param('int32_t', 'offsetInitialize'), param('int32_t', 'offsetEnd')], 
                    is_const=True)
     ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::RemoveAll() [member function]
     cls.add_method('RemoveAll', 
@@ -1406,8 +1406,8 @@ def register_Ns3ByteTagList_methods(root_module, cls):
 def register_Ns3ByteTagListIterator_methods(root_module, cls):
     ## byte-tag-list.h (module 'network'): ns3::ByteTagList::Iterator::Iterator(ns3::ByteTagList::Iterator const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::ByteTagList::Iterator const &', 'arg0')])
-    ## byte-tag-list.h (module 'network'): uint32_t ns3::ByteTagList::Iterator::GetOffsetStart() const [member function]
-    cls.add_method('GetOffsetStart', 
+    ## byte-tag-list.h (module 'network'): uint32_t ns3::ByteTagList::Iterator::GetOffsetInitialize() const [member function]
+    cls.add_method('GetOffsetInitialize', 
                    'uint32_t', 
                    [], 
                    is_const=True)
@@ -2514,8 +2514,8 @@ def register_Ns3PacketMetadata_methods(root_module, cls):
     cls.add_method('RemoveAtEnd', 
                    'void', 
                    [param('uint32_t', 'end')])
-    ## packet-metadata.h (module 'network'): void ns3::PacketMetadata::RemoveAtStart(uint32_t start) [member function]
-    cls.add_method('RemoveAtStart', 
+    ## packet-metadata.h (module 'network'): void ns3::PacketMetadata::RemoveAtInitialize(uint32_t start) [member function]
+    cls.add_method('RemoveAtInitialize', 
                    'void', 
                    [param('uint32_t', 'start')])
     ## packet-metadata.h (module 'network'): void ns3::PacketMetadata::RemoveHeader(ns3::Header const & header, uint32_t size) [member function]
@@ -2544,8 +2544,8 @@ def register_Ns3PacketMetadataItem_methods(root_module, cls):
     cls.add_instance_attribute('currentSize', 'uint32_t', is_const=False)
     ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::currentTrimedFromEnd [variable]
     cls.add_instance_attribute('currentTrimedFromEnd', 'uint32_t', is_const=False)
-    ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::currentTrimedFromStart [variable]
-    cls.add_instance_attribute('currentTrimedFromStart', 'uint32_t', is_const=False)
+    ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::currentTrimedFromInitialize [variable]
+    cls.add_instance_attribute('currentTrimedFromInitialize', 'uint32_t', is_const=False)
     ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::isFragment [variable]
     cls.add_instance_attribute('isFragment', 'bool', is_const=False)
     ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::tid [variable]
@@ -3437,8 +3437,8 @@ def register_Ns3Object_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## object.h (module 'core'): void ns3::Object::Start() [member function]
-    cls.add_method('Start', 
+    ## object.h (module 'core'): void ns3::Object::Initialize() [member function]
+    cls.add_method('Initialize', 
                    'void', 
                    [])
     ## object.h (module 'core'): ns3::Object::Object(ns3::Object const & o) [copy constructor]
@@ -3449,8 +3449,8 @@ def register_Ns3Object_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## object.h (module 'core'): void ns3::Object::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## object.h (module 'core'): void ns3::Object::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -3547,8 +3547,8 @@ def register_Ns3PLC_BackboneBranch_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-backbone.h (module 'plc'): void ns3::PLC_BackboneBranch::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-backbone.h (module 'plc'): void ns3::PLC_BackboneBranch::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
@@ -4031,8 +4031,8 @@ def register_Ns3PLC_Graph_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-graph.h (module 'plc'): void ns3::PLC_Graph::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-graph.h (module 'plc'): void ns3::PLC_Graph::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -4199,8 +4199,8 @@ def register_Ns3PLC_Interference_methods(root_module, cls):
     cls.add_method('SetSinrBase', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'baseSinr')])
-    ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::StartRx(ns3::Ptr<ns3::SpectrumValue const> rxPsd) [member function]
-    cls.add_method('StartRx', 
+    ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::InitializeRx(ns3::Ptr<ns3::SpectrumValue const> rxPsd) [member function]
+    cls.add_method('InitializeRx', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd')])
     ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::DoDispose() [member function]
@@ -4322,8 +4322,8 @@ def register_Ns3PLC_LinkPerformanceModel_methods(root_module, cls):
     cls.add_method('SetSinrBase', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'sinrBase')])
-    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::StartRx(ns3::ModulationAndCodingScheme mcs, ns3::Ptr<ns3::SpectrumValue const> rxPsd, double requiredInformationBits=0) [member function]
-    cls.add_method('StartRx', 
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::InitializeRx(ns3::ModulationAndCodingScheme mcs, ns3::Ptr<ns3::SpectrumValue const> rxPsd, double requiredInformationBits=0) [member function]
+    cls.add_method('InitializeRx', 
                    'void', 
                    [param('ns3::ModulationAndCodingScheme', 'mcs'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('double', 'requiredInformationBits', default_value='0')])
     ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::DoDispose() [member function]
@@ -4341,8 +4341,8 @@ def register_Ns3PLC_LinkPerformanceModel_methods(root_module, cls):
                    'void', 
                    [], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::DoStartRx(double requiredInformationBits) [member function]
-    cls.add_method('DoStartRx', 
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::DoInitializeRx(double requiredInformationBits) [member function]
+    cls.add_method('DoInitializeRx', 
                    'void', 
                    [param('double', 'requiredInformationBits')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
@@ -4485,8 +4485,8 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
     cls.add_method('SetUnitBackoffPeriod', 
                    'void', 
                    [param('uint32_t', 'nsymbols')])
-    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::StartCsmaCa() [member function]
-    cls.add_method('StartCsmaCa', 
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::InitializeCsmaCa() [member function]
+    cls.add_method('InitializeCsmaCa', 
                    'void', 
                    [])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoDispose() [member function]
@@ -4519,8 +4519,8 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -4871,8 +4871,8 @@ def register_Ns3PLC_Node_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-node.h (module 'plc'): void ns3::PLC_Node::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-node.h (module 'plc'): void ns3::PLC_Node::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -5061,12 +5061,12 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
                    'void', 
                    [param('ns3::Time', 'tSymbol')], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::StartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('StartRx', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::InitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeRx', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::StartTx(ns3::Ptr<ns3::Packet const> p) [member function]
-    cls.add_method('StartTx', 
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::InitializeTx(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('InitializeTx', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::TraceNoise(ns3::Time t, ns3::Ptr<ns3::SpectrumValue const> noisePsd) [member function]
@@ -5101,18 +5101,18 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_LinkPerformanceModel >', 
                    [], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoStartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('DoStartRx', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::DoInitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('DoInitializeRx', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
-    cls.add_method('DoStartTx', 
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::DoInitializeTx(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('DoInitializeTx', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
@@ -5367,8 +5367,8 @@ def register_Ns3PLC_RxInterface_methods(root_module, cls):
     cls.add_method('SetRxIfIdx', 
                    'void', 
                    [param('uint32_t', 'idx')])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::StartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('StartRx', 
+    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::InitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeRx', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::DoDispose() [member function]
@@ -5376,8 +5376,8 @@ def register_Ns3PLC_RxInterface_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
@@ -5422,8 +5422,8 @@ def register_Ns3PLC_StaticNoiseSource_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-noise.h (module 'plc'): void ns3::PLC_StaticNoiseSource::Start(ns3::Time duration) [member function]
-    cls.add_method('Start', 
+    ## plc-noise.h (module 'plc'): void ns3::PLC_StaticNoiseSource::Initialize(ns3::Time duration) [member function]
+    cls.add_method('Initialize', 
                    'void', 
                    [param('ns3::Time', 'duration')])
     ## plc-noise.h (module 'plc'): void ns3::PLC_StaticNoiseSource::pureVirtualDummy() [member function]
@@ -5494,8 +5494,8 @@ def register_Ns3PLC_TimeVaryingNoiseSource_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::Start() [member function]
-    cls.add_method('Start', 
+    ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::Initialize() [member function]
+    cls.add_method('Initialize', 
                    'void', 
                    [])
     ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::Stop() [member function]
@@ -5597,8 +5597,8 @@ def register_Ns3PLC_TxInterface_methods(root_module, cls):
     cls.add_method('SetTxIfIdx', 
                    'void', 
                    [param('uint32_t', 'idx')])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::StartTx(ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('StartTx', 
+    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::InitializeTx(ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeTx', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::DoDispose() [member function]
@@ -5606,8 +5606,8 @@ def register_Ns3PLC_TxInterface_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
@@ -6260,8 +6260,8 @@ def register_Ns3SystemThread_methods(root_module, cls):
                    'pthread_t', 
                    [], 
                    is_static=True)
-    ## system-thread.h (module 'core'): void ns3::SystemThread::Start() [member function]
-    cls.add_method('Start', 
+    ## system-thread.h (module 'core'): void ns3::SystemThread::Initialize() [member function]
+    cls.add_method('Initialize', 
                    'void', 
                    [])
     return
@@ -7405,8 +7405,8 @@ def register_Ns3Node_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## node.h (module 'network'): void ns3::Node::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## node.h (module 'network'): void ns3::Node::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -7542,8 +7542,8 @@ def register_Ns3PLC_ArqMac_methods(root_module, cls):
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
                    visibility='protected', is_virtual=True)
-    ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -7665,8 +7665,8 @@ def register_Ns3PLC_Channel_methods(root_module, cls):
     cls.add_method('TransmissionEnd', 
                    'bool', 
                    [param('uint32_t', 'txId'), param('ns3::Time', 'propagation_delay')])
-    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::TransmissionStart(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('TransmissionStart', 
+    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::TransmissionInitialize(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('TransmissionInitialize', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::UnlockTransmissionDescriptor() const [member function]
@@ -7683,8 +7683,8 @@ def register_Ns3PLC_Channel_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-channel.h (module 'plc'): void ns3::PLC_Channel::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
@@ -7799,8 +7799,8 @@ def register_Ns3PLC_ErrorRateModel_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_ErrorRateModel::DoStartRx(double requiredInformationBits) [member function]
-    cls.add_method('DoStartRx', 
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_ErrorRateModel::DoInitializeRx(double requiredInformationBits) [member function]
+    cls.add_method('DoInitializeRx', 
                    'void', 
                    [param('double', 'requiredInformationBits')], 
                    visibility='private', is_virtual=True)
@@ -7973,8 +7973,8 @@ def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
     cls.add_method('IsBusy', 
                    'bool', 
                    [])
-    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::NoiseStart(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> psd, ns3::Time duration) [member function]
-    cls.add_method('NoiseStart', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::NoiseInitialize(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> psd, ns3::Time duration) [member function]
+    cls.add_method('NoiseInitialize', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'psd'), param('ns3::Time', 'duration')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::NoiseStop(uint32_t txId) [member function]
@@ -8044,8 +8044,8 @@ def register_Ns3PLC_HalfDuplexOfdmPhy_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_ChannelTransferImpl >', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'rxPhy')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_HalfDuplexOfdmPhy::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -8132,8 +8132,8 @@ def register_Ns3PLC_HarqMac_methods(root_module, cls):
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
                    visibility='protected', is_virtual=True)
-    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -8204,8 +8204,8 @@ def register_Ns3PLC_ImpulsiveNoiseSource_methods(root_module, cls):
     cls.add_method('PulseEnd', 
                    'void', 
                    [])
-    ## plc-noise.h (module 'plc'): void ns3::PLC_ImpulsiveNoiseSource::PulseStart() [member function]
-    cls.add_method('PulseStart', 
+    ## plc-noise.h (module 'plc'): void ns3::PLC_ImpulsiveNoiseSource::PulseInitialize() [member function]
+    cls.add_method('PulseInitialize', 
                    'void', 
                    [])
     ## plc-noise.h (module 'plc'): void ns3::PLC_ImpulsiveNoiseSource::pureVirtualDummy() [member function]
@@ -8267,8 +8267,8 @@ def register_Ns3PLC_InformationRateModel_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_InformationRateModel::DoStartRx(double requiredInformationBits) [member function]
-    cls.add_method('DoStartRx', 
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_InformationRateModel::DoInitializeRx(double requiredInformationBits) [member function]
+    cls.add_method('DoInitializeRx', 
                    'void', 
                    [param('double', 'requiredInformationBits')], 
                    visibility='private', is_virtual=True)
@@ -8384,18 +8384,18 @@ def register_Ns3PLC_InformationRatePhy_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_LinkPerformanceModel >', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoStartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('DoStartRx', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::DoInitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('DoInitializeRx', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_InformationRatePhy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
-    cls.add_method('DoStartTx', 
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_InformationRatePhy::DoInitializeTx(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('DoInitializeTx', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    visibility='protected', is_virtual=True)
@@ -8429,8 +8429,8 @@ def register_Ns3PLC_InformationRatePhy_methods(root_module, cls):
                    'size_t', 
                    [param('size_t', 'num_blocks')], 
                    visibility='protected')
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::StartReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('StartReception', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::InitializeReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeReception', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
@@ -8693,8 +8693,8 @@ def register_Ns3PLC_NetDevice_methods(root_module, cls):
                    'ns3::Ptr< ns3::Channel >', 
                    [], 
                    is_const=True, visibility='protected')
-    ## plc-net-device.h (module 'plc'): void ns3::PLC_NetDevice::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-net-device.h (module 'plc'): void ns3::PLC_NetDevice::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
@@ -9266,8 +9266,8 @@ def register_Ns3Packet_methods(root_module, cls):
     cls.add_method('RemoveAtEnd', 
                    'void', 
                    [param('uint32_t', 'size')])
-    ## packet.h (module 'network'): void ns3::Packet::RemoveAtStart(uint32_t size) [member function]
-    cls.add_method('RemoveAtStart', 
+    ## packet.h (module 'network'): void ns3::Packet::RemoveAtInitialize(uint32_t size) [member function]
+    cls.add_method('RemoveAtInitialize', 
                    'void', 
                    [param('uint32_t', 'size')])
     ## packet.h (module 'network'): uint32_t ns3::Packet::RemoveHeader(ns3::Header & header) [member function]
@@ -9810,18 +9810,18 @@ def register_Ns3PLC_ChaseCombiningPhy_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_ChaseCombiningPhy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
-    cls.add_method('DoStartTx', 
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_ChaseCombiningPhy::DoInitializeTx(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('DoInitializeTx', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::StartReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('StartReception', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ChaseCombiningPhy::InitializeReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeReception', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)
@@ -9871,18 +9871,18 @@ def register_Ns3PLC_ErrorRatePhy_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_LinkPerformanceModel >', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoStartRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('DoStartRx', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_ErrorRatePhy::DoInitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('DoInitializeRx', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='private', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_ErrorRatePhy::DoStartTx(ns3::Ptr<ns3::Packet const> p) [member function]
-    cls.add_method('DoStartTx', 
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_ErrorRatePhy::DoInitializeTx(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('DoInitializeTx', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    visibility='private', is_virtual=True)
@@ -9940,18 +9940,18 @@ def register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::DoStart() [member function]
-    cls.add_method('DoStart', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_IncrementalRedundancyPhy::DoStartTx(ns3::Ptr<ns3::Packet const> ppdu) [member function]
-    cls.add_method('DoStartTx', 
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_IncrementalRedundancyPhy::DoInitializeTx(ns3::Ptr<ns3::Packet const> ppdu) [member function]
+    cls.add_method('DoInitializeTx', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet const >', 'ppdu')], 
                    visibility='protected', is_virtual=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::StartReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('StartReception', 
+    ## plc-phy.h (module 'plc'): void ns3::PLC_IncrementalRedundancyPhy::InitializeReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeReception', 
                    'void', 
                    [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
                    visibility='protected', is_virtual=True)

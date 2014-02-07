@@ -54,7 +54,7 @@ PLC_Graph::AddNode (Ptr<PLC_Node> node)
 }
 
 void
-PLC_Graph::DoStart (void)
+PLC_Graph::DoInitialize (void)
 {
 }
 

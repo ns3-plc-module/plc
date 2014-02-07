@@ -129,8 +129,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetNoiseFloor</b> (Pt
 double&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalRxPower</b> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24de3e14596295447cc1aaa3a5195f8b"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::GetTotalNoisePower" ref="a24de3e14596295447cc1aaa3a5195f8b" args="(void)" -->
 double&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalNoisePower</b> (void)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a150ad47c334385a8e6b17be6745b704e"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::StartRx" ref="a150ad47c334385a8e6b17be6745b704e" args="(ModulationAndCodingType mcs, Ptr&lt; const SpectrumValue &gt; rxPsd, double requiredInformationBits=0)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>StartRx</b> (ModulationAndCodingType mcs, Ptr&lt; const SpectrumValue &gt; rxPsd, double requiredInformationBits=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a150ad47c334385a8e6b17be6745b704e"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::InitializeRx" ref="a150ad47c334385a8e6b17be6745b704e" args="(ModulationAndCodingType mcs, Ptr&lt; const SpectrumValue &gt; rxPsd, double requiredInformationBits=0)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InitializeRx</b> (ModulationAndCodingType mcs, Ptr&lt; const SpectrumValue &gt; rxPsd, double requiredInformationBits=0)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7113925786b2ad9ebc4c36112b4ce642"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::AlterRxSignal" ref="a7113925786b2ad9ebc4c36112b4ce642" args="(Ptr&lt; const SpectrumValue &gt; rxPsd)" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AlterRxSignal</b> (Ptr&lt; const SpectrumValue &gt; rxPsd)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a144e9bfde78d92976861615e4604c654"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::AddNoiseSignal" ref="a144e9bfde78d92976861615e4604c654" args="(Ptr&lt; const SpectrumValue &gt; noisePsd)" -->
@@ -153,8 +153,8 @@ static TypeId&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeId</b
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5051c7e4a3de68b28a7f64afbcc77701"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::DoDispose" ref="a5051c7e4a3de68b28a7f64afbcc77701" args="(void)" -->
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoDispose</b> (void)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa87e7c7b913eb11df941122299f96874"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::DoStartRx" ref="aa87e7c7b913eb11df941122299f96874" args="(double requiredInformationBits)=0" -->
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoStartRx</b> (double requiredInformationBits)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa87e7c7b913eb11df941122299f96874"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::DoInitializeRx" ref="aa87e7c7b913eb11df941122299f96874" args="(double requiredInformationBits)=0" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoInitializeRx</b> (double requiredInformationBits)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0050ee02310a2aa57f746da142cd062"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::DoEvaluateChunk" ref="ac0050ee02310a2aa57f746da142cd062" args="(void)=0" -->
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DoEvaluateChunk</b> (void)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a5e8e08ad2f4dcd57a3a4aa48f1ddd5"></a><!-- doxytag: member="ns3::PLC_LinkPerformanceModel::DoEndRx" ref="a7a5e8e08ad2f4dcd57a3a4aa48f1ddd5" args="(void)=0" -->

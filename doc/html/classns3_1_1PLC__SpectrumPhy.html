@@ -115,7 +115,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ptr&lt; Object &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__SpectrumPhy.html#ac70e432f5b57931a83a5c19c737aea7c">GetDevice</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__SpectrumPhy.html#aa4376915a9c4b950111412d77bf105a7">SetChannel</a> (Ptr&lt; <a class="el" href="classns3_1_1PLC__Channel.html">PLC_Channel</a> &gt; c)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ptr&lt; const SpectrumModel &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__SpectrumPhy.html#a28b28091075d30da4a37cdb6d2ff45ab">GetRxSpectrumModel</a> () const =0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__SpectrumPhy.html#abb4e75a04569d7bcac70ad0530455658">StartRx</a> (Ptr&lt; PacketBurst &gt; p, Ptr&lt; const SpectrumValue &gt; rxPsd, SpectrumType st, Time duration)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__SpectrumPhy.html#abb4e75a04569d7bcac70ad0530455658">InitializeRx</a> (Ptr&lt; PacketBurst &gt; p, Ptr&lt; const SpectrumValue &gt; rxPsd, SpectrumType st, Time duration)=0</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05068b1283b55b51cf612c0369e7dda0"></a><!-- doxytag: member="ns3::PLC_SpectrumPhy::GetTypeId" ref="a05068b1283b55b51cf612c0369e7dda0" args="(void)" -->
@@ -155,7 +155,7 @@ static TypeId&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeId</b
       </table>
 </div>
 <div class="memdoc">
-<dl class="return"><dt><b>Returns:</b></dt><dd>returns the SpectrumModel that this <a class="el" href="classns3_1_1PLC__SpectrumPhy.html">PLC_SpectrumPhy</a> expects to be used for all SpectrumValues that are passed to StartRx. If 0 is returned, it means that any model will be accepted. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>returns the SpectrumModel that this <a class="el" href="classns3_1_1PLC__SpectrumPhy.html">PLC_SpectrumPhy</a> expects to be used for all SpectrumValues that are passed to InitializeRx. If 0 is returned, it means that any model will be accepted. </dd></dl>
 
 </div>
 </div>
@@ -207,12 +207,12 @@ static TypeId&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeId</b
 
 </div>
 </div>
-<a class="anchor" id="abb4e75a04569d7bcac70ad0530455658"></a><!-- doxytag: member="ns3::PLC_SpectrumPhy::StartRx" ref="abb4e75a04569d7bcac70ad0530455658" args="(Ptr&lt; PacketBurst &gt; p, Ptr&lt; const SpectrumValue &gt; rxPsd, SpectrumType st, Time duration)=0" -->
+<a class="anchor" id="abb4e75a04569d7bcac70ad0530455658"></a><!-- doxytag: member="ns3::PLC_SpectrumPhy::InitializeRx" ref="abb4e75a04569d7bcac70ad0530455658" args="(Ptr&lt; PacketBurst &gt; p, Ptr&lt; const SpectrumValue &gt; rxPsd, SpectrumType st, Time duration)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classns3_1_1PLC__SpectrumPhy.html#abb4e75a04569d7bcac70ad0530455658">ns3::PLC_SpectrumPhy::StartRx</a> </td>
+          <td class="memname">virtual void <a class="el" href="classns3_1_1PLC__SpectrumPhy.html#abb4e75a04569d7bcac70ad0530455658">ns3::PLC_SpectrumPhy::InitializeRx</a> </td>
           <td>(</td>
           <td class="paramtype">Ptr&lt; PacketBurst &gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
@@ -247,7 +247,7 @@ static TypeId&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeId</b
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>the PacketBurst associated with the incoming waveform </td></tr>
-    <tr><td class="paramname">rxPsd</td><td>the Power Spectral Density of the incoming waveform. The units of the PSD are the same specified for SpectrumChannel::StartTx(). </td></tr>
+    <tr><td class="paramname">rxPsd</td><td>the Power Spectral Density of the incoming waveform. The units of the PSD are the same specified for SpectrumChannel::InitializeTx(). </td></tr>
     <tr><td class="paramname">st</td><td>spectrum type </td></tr>
     <tr><td class="paramname">duration</td><td>the duration of the incoming waveform </td></tr>
   </table>

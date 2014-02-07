@@ -63,7 +63,7 @@ public:
 
 	void SetCcaRequestCallback (PLC_CcaRequestCallback c);
 	void RequestCca ();
-	void StartCsmaCa (void);
+	void InitializeCsmaCa (void);
 	void RandomBackoffDelay ();
 	void CcaConfirm (PLC_PhyCcaResult status);
 	void CsmaCaConfirm (PLC_CsmaCaState state);
@@ -173,7 +173,7 @@ protected:
 	// static MAC list needed for opportunistic relaying
 	static std::map<Mac48Address, Ptr<PLC_Mac> > mac_list;
 
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
 	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst) = 0;
 	virtual void DoProcess (Ptr<const Packet> p) = 0;
@@ -235,7 +235,7 @@ public:
 	virtual void AcknowledgementTimeout (void);
 
 protected:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
 	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
 	virtual void DoProcess (Ptr<const Packet> p);
@@ -279,7 +279,7 @@ public:
 	virtual void AcknowledgementTimeout (void);
 
 protected:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
 	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
 	virtual void DoProcess (Ptr<const Packet> p);
@@ -314,7 +314,7 @@ public:
 	virtual void NotifyCsmaCaConfirm (PLC_CsmaCaState state);
 
 private:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
 	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
 	virtual void DoProcess (Ptr<const Packet> p);
@@ -360,7 +360,7 @@ public:
 	State GetState (void) { return m_state; }
 
 private:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
 	virtual bool DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst);
 	virtual void DoProcess (Ptr<const Packet> p);

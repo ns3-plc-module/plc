@@ -105,7 +105,7 @@ def main(dummy_argv):
     imp = ns.plc.PLC_ConstImpedance(sm, 5)
     ns.core.Simulator.Schedule(ns.core.Seconds(1.3), rxOutlet.SetImpedance, imp, 1)
 
-    ## Start simulation
+    ## Initialize simulation
     ns.core.Simulator.Run()
 
     ## Cleanup simulation

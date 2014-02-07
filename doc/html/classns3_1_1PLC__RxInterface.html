@@ -123,7 +123,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__RxInterface.html#aa0c5595df05fa4bdfe66e7ddb24059fc">GetRxIfIdx</a> (void) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__RxInterface.html#ad7659f89d745e25b469beb2dfcc475d1">SetOutlet</a> (Ptr&lt; <a class="el" href="classns3_1_1PLC__Outlet.html">PLC_Outlet</a> &gt; outlet)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ptr&lt; <a class="el" href="classns3_1_1PLC__Outlet.html">PLC_Outlet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__RxInterface.html#a51921ebe8b6889afe7df65329a272d47">GetOutlet</a> (void)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__RxInterface.html#a8dfc9936531323a25d3625d0e9a2a707">StartRx</a> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__RxInterface.html#a8dfc9936531323a25d3625d0e9a2a707">InitializeRx</a> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__RxInterface.html#a5ed074ad9563a148975b3b5b3e15eb40">RxPsdChanged</a> (uint32_t txId, Ptr&lt; SpectrumValue &gt; rxSignal)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -286,12 +286,12 @@ static TypeId&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeId</b
 
 </div>
 </div>
-<a class="anchor" id="a8dfc9936531323a25d3625d0e9a2a707"></a><!-- doxytag: member="ns3::PLC_RxInterface::StartRx" ref="a8dfc9936531323a25d3625d0e9a2a707" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
+<a class="anchor" id="a8dfc9936531323a25d3625d0e9a2a707"></a><!-- doxytag: member="ns3::PLC_RxInterface::InitializeRx" ref="a8dfc9936531323a25d3625d0e9a2a707" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; SpectrumValue &gt; &amp;rxPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classns3_1_1PLC__RxInterface.html#a8dfc9936531323a25d3625d0e9a2a707">ns3::PLC_RxInterface::StartRx</a> </td>
+          <td class="memname">void <a class="el" href="classns3_1_1PLC__RxInterface.html#a8dfc9936531323a25d3625d0e9a2a707">ns3::PLC_RxInterface::InitializeRx</a> </td>
           <td>(</td>
           <td class="paramtype">Ptr&lt; const Packet &gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
@@ -328,7 +328,7 @@ static TypeId&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeId</b
       </table>
 </div>
 <div class="memdoc">
-<p>Start receiving. Called by <a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6" title="Start transmitting a packet over the channel.">PLC_Channel::TransmissionStart()</a></p>
+<p>Initialize receiving. Called by <a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6" title="Initialize transmitting a packet over the channel.">PLC_Channel::TransmissionInitialize()</a></p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>Packet associated with the incoming waveform or NULL for noise </td></tr>

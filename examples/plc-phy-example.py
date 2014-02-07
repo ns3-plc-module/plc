@@ -26,7 +26,7 @@ import ns.spectrum
 import ns.network
 
 def startTx(phy,p):
-    phy.StartTx(p)
+    phy.InitializeTx(p)
 
 def receiveSuccess(packet, msgId):
     print 'Packet received'
@@ -98,7 +98,7 @@ def main(dummy_argv):
     ## Schedule transmission of packet p from phy1 to phy2 to begin at 1s simulation time
     ns.core.Simulator.Schedule(ns.core.Seconds(1), startTx, phy1, p)
 
-    ## Start simulation
+    ## Initialize simulation
     ns.core.Simulator.Run()
 
     ## Cleanup simulation

@@ -138,7 +138,7 @@ public:
 //	void Unlock(void) { m_branch_mutex.Unlock(); }
 
 private:
-	virtual void DoStart(void);
+	virtual void DoInitialize(void);
 	virtual void DoDispose(void);
 
 	Ptr<const SpectrumModel> 	m_spectrum_model;

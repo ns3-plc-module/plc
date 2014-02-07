@@ -451,7 +451,7 @@ public:
 	Ptr<PLC_TransferBase> GetChannelTransferData(uint32_t txId, uint32_t rxId);
 
 	/**
-	* \brief Start transmitting a packet over the channel
+	* \brief Initialize transmitting a packet over the channel
 	*
 	* If the srcId belongs to a txInterface that is connected to the
 	* channel, packet transmission begins, and the channel becomes busy
@@ -463,7 +463,7 @@ public:
 	* transmit on the channel.
 	* \param st Spectrum Type of txPsd to emulate different modulations
 	*/
-	void TransmissionStart(uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void TransmissionInitialize(uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 	void InvokeReception(Ptr<PLC_RxInterface> rxIf, uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 	/**
@@ -533,7 +533,7 @@ public:
 	void UnlockTransmissionDescriptor (void) const { m_transmissionDescriptorMutex.Unlock(); }
 
 private:
-	void DoStart(void);
+	void DoInitialize(void);
 	void DoDispose(void);
 
 	/**

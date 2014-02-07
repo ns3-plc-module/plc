@@ -30,7 +30,7 @@ PLC_Node::~PLC_Node()
 }
 
 void
-PLC_Node::DoStart ()
+PLC_Node::DoInitialize ()
 {
 	NS_ASSERT(m_graph);
 

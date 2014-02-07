@@ -81,10 +81,10 @@ PLC_NetDevice::DoDispose (void)
 }
 
 void
-PLC_NetDevice::DoStart (void)
+PLC_NetDevice::DoInitialize (void)
 {
 	NS_LOG_FUNCTION (this);
-	NetDevice::DoStart ();
+	NetDevice::DoInitialize ();
 }
 
 void
@@ -217,7 +217,7 @@ PLC_NetDevice::LinkUp (void)
 
 	if (GetPhy() != NULL)
 	{
-		GetPhy()->Start();
+		GetPhy()->Initialize();
 	}
 
 	m_linkChanges ();

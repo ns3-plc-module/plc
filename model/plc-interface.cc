@@ -109,7 +109,7 @@ PLC_TxInterface::PLC_TxInterface (Ptr<PLC_Node> associated_plc_node, Ptr<const S
 }
 
 void
-PLC_TxInterface::DoStart (void)
+PLC_TxInterface::DoInitialize (void)
 {
 }
 
@@ -313,7 +313,7 @@ PLC_TxInterface::GetChannelTransferImpl (PLC_RxInterface *rxInterface)
 }
 
 void
-PLC_TxInterface::StartTx (Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_TxInterface::InitializeTx (Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_LOG_FUNCTION (this << txPsd << duration << metaInfo);
 
@@ -331,7 +331,7 @@ PLC_TxInterface::StartTx (Ptr<const SpectrumValue> txPsd, Time duration, Ptr<con
 		PLC_LOG_LOGIC("Sending noise...");
 	}
 
-	this->GetChannel()->TransmissionStart(sendIf, txPsd, duration, metaInfo);
+	this->GetChannel()->TransmissionInitialize(sendIf, txPsd, duration, metaInfo);
 }
 
 void
@@ -366,7 +366,7 @@ PLC_RxInterface::PLC_RxInterface (Ptr<PLC_Node> associated_node, Ptr<const Spect
 	m_rxIfIdx = 0;
 }
 
-void PLC_RxInterface::DoStart (void)
+void PLC_RxInterface::DoInitialize (void)
 {
 }
 
@@ -398,12 +398,12 @@ PLC_RxInterface::SetOutlet(Ptr<PLC_Outlet> outlet)
 }
 
 void
-PLC_RxInterface::StartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_RxInterface::InitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	PLC_LOG_FUNCTION (this << rxPsd << metaInfo);
 	if  (this->m_phy != NULL)
 	{
-		m_phy->StartRx (txId, rxPsd, duration, metaInfo);
+		m_phy->InitializeRx (txId, rxPsd, duration, metaInfo);
 	}
 }
 

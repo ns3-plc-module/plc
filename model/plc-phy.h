@@ -79,13 +79,13 @@ public:
 	static TypeId GetTypeId (void);
 
 	/**
-	 * Start transmitting a packet
+	 * Initialize transmitting a packet
 	 * @param p Packet
 	 * @param txPsd Power Spectral Density of the waveform to be transmitted
 	 * @param duration Time the packet needs for transmission
 	 * @return True if PHY started transmission
 	 */
-	bool StartTx (Ptr<const Packet> p);
+	bool InitializeTx (Ptr<const Packet> p);
 
 	/**
 	* Notify the PLC_Phy instance of an incoming waveform
@@ -95,7 +95,7 @@ public:
 	* @param duration the duration of the incoming waveform
 	* @param metaInfo meta information for link performance emulation
 	*/
-	void StartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void InitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 	/**
 	 * Notify the PLC_Phy instance that the Power Spectral Density of the incoming waveform transmitted by interface txId
@@ -190,10 +190,10 @@ public:
 protected:
 	static Time symbol_duration;
 
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
-	virtual bool DoStartTx (Ptr<const Packet> p) = 0;
-	virtual void DoStartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo) = 0;
+	virtual bool DoInitializeTx (Ptr<const Packet> p) = 0;
+	virtual void DoInitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo) = 0;
 	virtual void DoUpdateRxPsd (uint32_t txId, Ptr<const SpectrumValue> newRxPsd) = 0;
 	virtual PLC_ChannelTransferImpl *DoGetChannelTransferImpl (Ptr<PLC_Phy> rxPhy) = 0;
 	virtual Ptr<PLC_ChannelTransferImpl> DoGetChannelTransferImplPtr (Ptr<PLC_Phy> rxPhy) = 0;
@@ -205,7 +205,7 @@ protected:
 	Ptr<const PLC_TrxMetaInfo> m_rxMetaInfo;
 	PLC_SpectrumValueTrace		m_rx_signal_trace;
 	PLC_SpectrumValueTrace		m_noise_trace;
-	Time						m_rxStartTime;
+	Time						m_rxInitializeTime;
 
 	PLC_PhyFrameSentCallback 	m_frame_sent_callback;
 	PhyRxEndOkCallback 			m_receive_success_cb;
@@ -374,11 +374,11 @@ public:
 
 	void SendFrame (Ptr<PLC_TrxMetaInfo> metaInfo);
 
-	void NoiseStart (uint32_t txId, Ptr<const SpectrumValue> psd, Time duration);
+	void NoiseInitialize (uint32_t txId, Ptr<const SpectrumValue> psd, Time duration);
 	void NoiseStop (uint32_t txId);
 
 protected:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
 	virtual PLC_ChannelTransferImpl *DoGetChannelTransferImpl (Ptr<PLC_Phy> rxPhy);
 	virtual Ptr<PLC_ChannelTransferImpl> DoGetChannelTransferImplPtr (Ptr<PLC_Phy> rxPhy);
@@ -448,10 +448,10 @@ public:
 	virtual void EndRx(uint32_t txId);
 
 private:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
-	virtual bool DoStartTx (Ptr<const Packet> p);
-	virtual void DoStartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	virtual bool DoInitializeTx (Ptr<const Packet> p);
+	virtual void DoInitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 	virtual Ptr<PLC_LinkPerformanceModel> DoGetLinkPerformanceModel (void);
 
 	PLC_PhyCcaResult ClearChannelAssessment (void);
@@ -530,13 +530,13 @@ protected:
 	static size_t modulation_symbols_per_code_block;
 	static double rateless_coding_overhead;
 
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
-	virtual bool DoStartTx (Ptr<const Packet> p);
-	virtual void DoStartRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	virtual bool DoInitializeTx (Ptr<const Packet> p);
+	virtual void DoInitializeRx (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 	virtual Ptr<PLC_LinkPerformanceModel> DoGetLinkPerformanceModel (void);
 
-	virtual void StartReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	virtual void InitializeReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 	virtual void NotifySuccessfulReception (void);
 	virtual void NotifyPayloadReceptionFailed (Ptr<const PLC_TrxMetaInfo> metaInfo);
 
@@ -585,11 +585,11 @@ public:
 	virtual bool SendRedundancy (void);
 
 protected:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
-	virtual bool DoStartTx (Ptr<const Packet> p);
+	virtual bool DoInitializeTx (Ptr<const Packet> p);
 
-	virtual void StartReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	virtual void InitializeReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 private:
 	struct RxQueueElem
@@ -603,7 +603,7 @@ private:
 	RxQueueElem *GetRxQueueElement (uint16_t msgId);
 
 	Ptr<PLC_TrxMetaInfo> m_txMetaInfo;
-	Time m_sinrBaseTraceStartTime;
+	Time m_sinrBaseTraceInitializeTime;
 	PLC_SpectrumValueTrace m_sinrBaseTrace;
 
 	std::deque<RxQueueElem> m_rxQueue;
@@ -633,11 +633,11 @@ public:
 	virtual bool SendRedundancy (void);
 
 protected:
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	virtual void DoDispose (void);
-	virtual bool DoStartTx (Ptr<const Packet> ppdu);
+	virtual bool DoInitializeTx (Ptr<const Packet> ppdu);
 
-	virtual void StartReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	virtual void InitializeReception (uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 private:
 	struct RxQueueElem

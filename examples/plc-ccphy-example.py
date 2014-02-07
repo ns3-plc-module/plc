@@ -26,7 +26,7 @@ import ns.spectrum
 import ns.network
 
 def startTx(phy,p):
-    phy.StartTx(p)
+    phy.InitializeTx(p)
 
 def sendRedundancy(phy):
     phy.SendRedundancy()
@@ -127,7 +127,7 @@ def main(dummy_argv):
     traceHelper = ns.plc.PLC_PhyTraceHelper(phy2)
     traceHelper.EnableSnrTracing()
 
-    ## Start simulation
+    ## Initialize simulation
     ns.core.Simulator.Run()
 
     traceHelper.SaveSnrTraceToFile('snr.dat')

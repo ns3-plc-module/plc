@@ -111,7 +111,7 @@ def main(argv):
     ## Schedule transmission
     ns.core.Simulator.Schedule(ns.core.Seconds(0), sendPacket, source, packet)
 
-    ## Start simulation
+    ## Initialize simulation
     ns.core.Simulator.Run()
 
     ## Cleanup simulation

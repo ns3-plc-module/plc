@@ -26,7 +26,7 @@ import ns.spectrum
 import ns.network
 
 def startTx(phy,p):
-    phy.StartTx(p)
+    phy.InitializeTx(p)
 
 def sendRedundancy(phy):
     phy.SendRedundancy()
@@ -127,7 +127,7 @@ def main(dummy_argv):
     for i in range(2,7):
         ns.core.Simulator.Schedule(ns.core.Seconds(i), sendRedundancy, phy1)
 
-    ## Start simulation
+    ## Initialize simulation
     ns.core.Simulator.Run()
 
     ## Cleanup simulation
