@@ -46,7 +46,7 @@ def build(bld):
     module.env.append_value('CXXFLAGS', ['-fopenmp'])     
     module.env.append_value('LINKFLAGS', ['-fopenmp'])
 
-    headers = bld.new_task_gen(features=['ns3header'])
+    headers = bld(features='ns3header')
     headers.module = 'plc'
     headers.source = [
     'model/plc-thread-dispatcher.h',
