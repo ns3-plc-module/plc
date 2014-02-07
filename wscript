@@ -81,7 +81,7 @@ def build(bld):
         ]
 
     if bld.env.ENABLE_EXAMPLES:
-        bld.add_subdirs('examples')
+        bld.recurse('examples')
 
     bld.ns3_python_bindings()
 
