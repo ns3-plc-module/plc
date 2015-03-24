@@ -107,14 +107,14 @@ PLC_LinkPerformanceModel::GetTotalNoisePower(void)
 }
 
 void
-PLC_LinkPerformanceModel::StartRx(ModulationAndCodingScheme mcs, Ptr<const SpectrumValue> rxPsd, double requiredInformationBits)
+PLC_LinkPerformanceModel::InitializeRx(ModulationAndCodingScheme mcs, Ptr<const SpectrumValue> rxPsd, double requiredInformationBits)
 {
 	NS_LOG_FUNCTION(this << mcs << rxPsd << requiredInformationBits);
 	m_mcs = mcs;
-	m_interference->StartRx(rxPsd);
+	m_interference->InitializeRx(rxPsd);
 	m_receiving = true;
 
-	DoStartRx(requiredInformationBits);
+	DoInitializeRx(requiredInformationBits);
 
 	m_sinrTracer(Now(), m_interference->GetSinr());
 }
@@ -199,7 +199,7 @@ double
 PLC_LinkPerformanceModel::GetShannonTransmissionRateLimit(Ptr<SpectrumValue> rxPsd)
 {
 	NS_LOG_FUNCTION (this << rxPsd);
-	m_interference->StartRx(rxPsd);
+	m_interference->InitializeRx(rxPsd);
 	Ptr<SpectrumValue> sinr = m_interference->GetSinr();
 	SpectrumValue CapacityPerHertz = Log2(1 + (*sinr));
 	m_interference->EndRx();
@@ -283,7 +283,7 @@ PLC_ErrorRateModel::SetChannelCondition(PLC_ErrorRateModel::ChannelCondition con
 }
 
 void
-PLC_ErrorRateModel::DoStartRx(double requiredInformationBits)
+PLC_ErrorRateModel::DoInitializeRx(double requiredInformationBits)
 {
 	NS_LOG_FUNCTION(this);
 	m_packet_success_rate = 1;
@@ -362,7 +362,7 @@ PLC_InformationRateModel::PLC_InformationRateModel()
 }
 
 void
-PLC_InformationRateModel::DoStartRx(double requiredInformationBits)
+PLC_InformationRateModel::DoInitializeRx(double requiredInformationBits)
 {
 	NS_LOG_FUNCTION(this);
 	NS_ASSERT_MSG((size_t) m_mcs.mct < sizeof(s_mcs_info) / sizeof(struct McsInfo), "Unsupported Modulation and Coding Scheme");
@@ -522,7 +522,7 @@ PLC_InformationRateModel::GetTransmissionRateLimit(Ptr<SpectrumValue> rxPsd, Mod
 {
 	NS_LOG_FUNCTION (this << rxPsd << mcs);
 
-	m_interference->StartRx(rxPsd);
+	m_interference->InitializeRx(rxPsd);
 	Ptr<SpectrumValue> sinr = m_interference->GetSinr();
 	SpectrumValue sinr_db = 20*Log10(*sinr);
 	SpectrumValue CapacityPerHertz = GetCapacity(sinr_db, s_mcs_info[mcs.mct].mod, s_mcs_info[mcs.mct].cardinality);;

@@ -14,9 +14,9 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}{\-Start\-Tx} (\-Ptr$<$ \-Packet $>$ p)
+bool \hyperlink{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}{\-Initialize\-Tx} (\-Ptr$<$ \-Packet $>$ p)
 \item 
-void \hyperlink{classns3_1_1PLC__Phy_abe32cc0f1c2e7c9de36a37812423df8e}{\-Start\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)
+void \hyperlink{classns3_1_1PLC__Phy_abe32cc0f1c2e7c9de36a37812423df8e}{\-Initialize\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)
 \item 
 void \hyperlink{classns3_1_1PLC__Phy_a37c13147b5d5cb71843be91c1654fc18}{\-Rx\-Psd\-Changed} (uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ new\-Rx\-Psd)
 \item 
@@ -47,16 +47,16 @@ static \-Time \hyperlink{classns3_1_1PLC__Phy_a407d28e0eaa83475f931038c94cd4381}
 \subsection*{\-Protected \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classns3_1_1PLC__Phy_a614fcc21473fed15ea0a56f86a0e3628}{virtual void {\bfseries \-Do\-Start} (void)}\label{classns3_1_1PLC__Phy_a614fcc21473fed15ea0a56f86a0e3628}
+\hypertarget{classns3_1_1PLC__Phy_a614fcc21473fed15ea0a56f86a0e3628}{virtual void {\bfseries \-Do\-Initialize} (void)}\label{classns3_1_1PLC__Phy_a614fcc21473fed15ea0a56f86a0e3628}
 
 \item 
 \hypertarget{classns3_1_1PLC__Phy_a5654398d73868f256bd338a5bd64229f}{virtual void {\bfseries \-Do\-Dispose} (void)}\label{classns3_1_1PLC__Phy_a5654398d73868f256bd338a5bd64229f}
 
 \item 
-\hypertarget{classns3_1_1PLC__Phy_a29adea495ce0dfd3299766982ed5b0fe}{virtual bool {\bfseries \-Do\-Start\-Tx} (\-Ptr$<$ \-Packet $>$ p)=0}\label{classns3_1_1PLC__Phy_a29adea495ce0dfd3299766982ed5b0fe}
+\hypertarget{classns3_1_1PLC__Phy_a29adea495ce0dfd3299766982ed5b0fe}{virtual bool {\bfseries \-Do\-Initialize\-Tx} (\-Ptr$<$ \-Packet $>$ p)=0}\label{classns3_1_1PLC__Phy_a29adea495ce0dfd3299766982ed5b0fe}
 
 \item 
-\hypertarget{classns3_1_1PLC__Phy_a46b98bd3de07f51cfa53af58fa20f1cd}{virtual void {\bfseries \-Do\-Start\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)=0}\label{classns3_1_1PLC__Phy_a46b98bd3de07f51cfa53af58fa20f1cd}
+\hypertarget{classns3_1_1PLC__Phy_a46b98bd3de07f51cfa53af58fa20f1cd}{virtual void {\bfseries \-Do\-Initialize\-Rx} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ \&rx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)=0}\label{classns3_1_1PLC__Phy_a46b98bd3de07f51cfa53af58fa20f1cd}
 
 \item 
 \hypertarget{classns3_1_1PLC__Phy_ad2137025b97803e834683d9a1eed897e}{virtual void {\bfseries \-Do\-Update\-Rx\-Psd} (uint32\-\_\-t tx\-Id, \-Ptr$<$ \-Spectrum\-Value $>$ new\-Rx\-Psd)=0}\label{classns3_1_1PLC__Phy_ad2137025b97803e834683d9a1eed897e}
@@ -208,9 +208,9 @@ static \-Time \hyperlink{classns3_1_1PLC__Phy_a407d28e0eaa83475f931038c94cd4381}
 {\em t\-Symbol} & \-Duration of a modulation symbol \\
 \hline
 \end{DoxyParams}
-\hypertarget{classns3_1_1PLC__Phy_abe32cc0f1c2e7c9de36a37812423df8e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Start\-Rx@{\-Start\-Rx}}
-\index{\-Start\-Rx@{\-Start\-Rx}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
-\subsubsection[{\-Start\-Rx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Start\-Rx} (
+\hypertarget{classns3_1_1PLC__Phy_abe32cc0f1c2e7c9de36a37812423df8e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Initialize\-Rx@{\-Initialize\-Rx}}
+\index{\-Initialize\-Rx@{\-Initialize\-Rx}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Initialize\-Rx}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Initialize\-Rx} (
 \begin{DoxyParamCaption}
 \item[{\-Ptr$<$ const \-Packet $>$}]{p, }
 \item[{uint32\-\_\-t}]{tx\-Id, }
@@ -232,14 +232,14 @@ static \-Time \hyperlink{classns3_1_1PLC__Phy_a407d28e0eaa83475f931038c94cd4381}
 {\em meta\-Info} & meta information for link performance emulation \\
 \hline
 \end{DoxyParams}
-\hypertarget{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Start\-Tx@{\-Start\-Tx}}
-\index{\-Start\-Tx@{\-Start\-Tx}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
-\subsubsection[{\-Start\-Tx}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Start\-Tx} (
+\hypertarget{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}{\index{ns3\-::\-P\-L\-C\-\_\-\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}!\-Initialize\-Tx@{\-Initialize\-Tx}}
+\index{\-Initialize\-Tx@{\-Initialize\-Tx}!ns3::PLC_Phy@{ns3\-::\-P\-L\-C\-\_\-\-Phy}}
+\subsubsection[{\-Initialize\-Tx}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ns3\-::\-P\-L\-C\-\_\-\-Phy\-::\-Initialize\-Tx} (
 \begin{DoxyParamCaption}
 \item[{\-Ptr$<$ \-Packet $>$}]{p}
 \end{DoxyParamCaption}
 )}}\label{classns3_1_1PLC__Phy_a4087fbae09bdb778285c0e7cdc307d2e}
-\-Start transmitting a packet 
+\-Initialize transmitting a packet 
 \begin{DoxyParams}{\-Parameters}
 {\em p} & \-Packet \\
 \hline

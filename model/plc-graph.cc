@@ -54,7 +54,7 @@ PLC_Graph::AddNode (Ptr<PLC_Node> node)
 }
 
 void
-PLC_Graph::DoStart (void)
+PLC_Graph::DoInitialize (void)
 {
 }
 
@@ -203,7 +203,7 @@ void PLC_Graph::CalculateShortestPaths(void)
 								(std::numeric_limits<int>::max)(), 0,
 								default_dijkstra_visitor());
 #else
-		dijkstra_shortest_paths(*graph_copy, s, boost::predecessor_map(&p[0]).distance_map(&d[0]));
+		dijkstra_shortest_paths(*graph_copy, s, boost::predecessor_map(&p[0]).distance_map(boost::make_iterator_property_map(d.begin(), get(boost::vertex_index, *graph_copy))));
 #endif
 
 		boost::graph_traits <boost::UGraph>::vertex_iterator vi, vend;

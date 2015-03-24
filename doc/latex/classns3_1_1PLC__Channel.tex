@@ -40,8 +40,8 @@ void \hyperlink{classns3_1_1PLC__Channel_a2bb68af9c30a3d0c4f7a264c4e90ddab}{\-Ca
 \item 
 \-Ptr$<$ \hyperlink{classns3_1_1PLC__ValueBase}{\-P\-L\-C\-\_\-\-Transfer\-Base} $>$ \hyperlink{classns3_1_1PLC__Channel_ae0ccd3520dbb21ed05cb006f817a89c7}{\-Get\-Channel\-Transfer\-Data} (uint32\-\_\-t tx\-Id, uint32\-\_\-t rx\-Id)
 \item 
-void \hyperlink{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}{\-Transmission\-Start} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)
-\begin{DoxyCompactList}\small\item\em \-Start transmitting a packet over the channel. \end{DoxyCompactList}\item 
+void \hyperlink{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}{\-Transmission\-Initialize} (\-Ptr$<$ const \-Packet $>$ p, uint32\-\_\-t tx\-Id, \-Ptr$<$ const \-Spectrum\-Value $>$ tx\-Psd, \-Time duration, \-Ptr$<$ const \hyperlink{classns3_1_1PLC__TrxMetaInfo}{\-P\-L\-C\-\_\-\-Trx\-Meta\-Info} $>$ meta\-Info)
+\begin{DoxyCompactList}\small\item\em \-Initialize transmitting a packet over the channel. \end{DoxyCompactList}\item 
 bool \hyperlink{classns3_1_1PLC__Channel_ab856d23667e7f0ac87a2c95a482a695c}{\-Transmission\-End} (uint32\-\_\-t tx\-Id, \-Time propagation\-\_\-delay)
 \begin{DoxyCompactList}\small\item\em \-Indicates that the tx\-Interface has finished transmitting over the channel. \end{DoxyCompactList}\item 
 void \hyperlink{classns3_1_1PLC__Channel_a787ab20c1ee23c65a47de50adb917a68}{\-Propagation\-Complete\-Event} (uint32\-\_\-t tx\-Id)
@@ -314,9 +314,9 @@ one of the \-Tx\-Interfaces connected to this channel.
 \begin{DoxyReturn}{\-Returns}
 \-Returns true unless the source was detached before it completed its transmission. 
 \end{DoxyReturn}
-\hypertarget{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-Start@{\-Transmission\-Start}}
-\index{\-Transmission\-Start@{\-Transmission\-Start}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
-\subsubsection[{\-Transmission\-Start}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-Start} (
+\hypertarget{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}{\index{ns3\-::\-P\-L\-C\-\_\-\-Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}!\-Transmission\-Initialize@{\-Transmission\-Initialize}}
+\index{\-Transmission\-Initialize@{\-Transmission\-Initialize}!ns3::PLC_Channel@{ns3\-::\-P\-L\-C\-\_\-\-Channel}}
+\subsubsection[{\-Transmission\-Initialize}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf ns3\-::\-P\-L\-C\-\_\-\-Channel\-::\-Transmission\-Initialize} (
 \begin{DoxyParamCaption}
 \item[{\-Ptr$<$ const \-Packet $>$}]{p, }
 \item[{uint32\-\_\-t}]{tx\-Id, }
@@ -327,7 +327,7 @@ one of the \-Tx\-Interfaces connected to this channel.
 )}}\label{classns3_1_1PLC__Channel_adeb6bba5a291bd4508c20dae60d46ce6}
 
 
-\-Start transmitting a packet over the channel. 
+\-Initialize transmitting a packet over the channel. 
 
 \-If the src\-Id belongs to a tx\-Interface that is connected to the channel, packet transmission begins, and the channel becomes busy until the packet has completely reached all destinations.
 

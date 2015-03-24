@@ -115,7 +115,7 @@ def main(dummy_argv):
     ## Schedule transmission of packet p from phy0 to phy1 to begin at 1s simulation time
     ns.core.Simulator.Schedule(ns.core.Seconds(1), sendPacket, mac1, p, ns.network.Mac48Address('00:00:00:00:00:02'))
 
-    ## Start simulation
+    ## Initialize simulation
     ns.core.Simulator.Run()
 
     ## Cleanup simulation

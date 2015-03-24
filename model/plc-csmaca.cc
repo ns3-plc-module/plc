@@ -165,7 +165,7 @@ PLC_CsmaCa::getTimeToNextSlot (void) const
 }
 
 void
-PLC_CsmaCa::Start ()
+PLC_CsmaCa::Initialize ()
 
 {
   NS_LOG_FUNCTION (this);

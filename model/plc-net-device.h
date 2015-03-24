@@ -112,7 +112,7 @@ public:
 
 protected:
 	virtual void DoDispose (void);
-	virtual void DoStart (void);
+	virtual void DoInitialize (void);
 	Ptr<Channel> DoGetChannel (void) const;
 	virtual void CompleteConfig (void);
 

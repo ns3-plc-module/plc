@@ -177,7 +177,7 @@ public:
 //	void Unlock() { m_graph_mutex.Unlock(); }
 
 protected:
-	virtual void DoStart(void);
+	virtual void DoInitialize(void);
 	virtual void DoDispose(void);
 
 	void CalculateShortestPaths(void);

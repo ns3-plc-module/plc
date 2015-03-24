@@ -332,7 +332,7 @@ PLC_ChannelTransferImpl::AddBackboneBranch (Ptr<PLC_Node> branch, Ptr<PLC_Node> 
 //	GetGraph ()->Lock ();
 	if  (!GetGraph ()->BackboneBranchExists (bb_key)) {
 		backbone_branch = CreateObject<PLC_BackboneBranch>  (branch, node_before, node_next, m_spectrum_model);
-		backbone_branch->Start ();
+		backbone_branch->Initialize ();
 		GetGraph ()->RegisterBackboneBranch (bb_key, backbone_branch);
 		NS_LOG_LOGIC ("Backbone Branch <" << branch_id << "," << tmp.first << "," << tmp.second << "> created");
 	}
@@ -946,13 +946,13 @@ PLC_Channel::~PLC_Channel (void)
 	NS_LOG_FUNCTION (this);
 }
 
-void PLC_Channel::DoStart (void)
+void PLC_Channel::DoInitialize (void)
 {
 	NS_LOG_FUNCTION (this);
 #ifdef PLC_INFO_SCHEDULE
 	Simulator::Schedule (Seconds (0), &PLC_Channel::ProcessTimeslotTasks, this, 0);
 #endif
-	Channel::DoStart ();
+	Channel::DoInitialize ();
 }
 
 void PLC_Channel::DoDispose (void)
@@ -1019,7 +1019,7 @@ PLC_Channel::CalcTransmissionChannels (void)
 	{
 		int thread = omp_get_thread_num();
 		NS_LOG_LOGIC ("Num threads: " << omp_get_num_threads ());
-		NS_LOG_LOGIC ("Start channel calculation, thread " << thread);
+		NS_LOG_LOGIC ("Initialize channel calculation, thread " << thread);
 		m_txInterfaces[i]->Lock ();
 		m_txInterfaces[i]->CalculateChannels ();
 		m_txInterfaces[i]->Unlock ();
@@ -1116,7 +1116,7 @@ Ptr<NetDevice> PLC_Channel::GetDevice  (uint32_t i) const
 }
 
 void
-PLC_Channel::TransmissionStart (uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
+PLC_Channel::TransmissionInitialize (uint32_t txId, Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo)
 {
 	NS_LOG_FUNCTION (this << txPsd << duration << metaInfo);
 	NS_ASSERT (txId > 0);
@@ -1125,7 +1125,7 @@ PLC_Channel::TransmissionStart (uint32_t txId, Ptr<const SpectrumValue> txPsd, T
 	// BUG workaround
 	if (m_transmitting.find (txId) != m_transmitting.end ()) return;
 
-	NS_LOG_INFO ("Starting transmission from TX-Interface: " << txId << ", duration: " << duration);
+	NS_LOG_INFO ("Initializeing transmission from TX-Interface: " << txId << ", duration: " << duration);
 
 	// Get transmission interface
 	Ptr<PLC_TxInterface> txInterface = GetTxInterface (txId);
@@ -1236,7 +1236,7 @@ PLC_Channel::TransmissionStart (uint32_t txId, Ptr<const SpectrumValue> txPsd, T
 
 		// Schedule reception
 		NS_LOG_LOGIC ("RxPsd from " << txId << " to " << rxId << " " << *cur_rxPsd);
-		Simulator::ScheduleWithContext (rxNode->GetId(), delay, &PLC_RxInterface::StartRx, rx, txId, cur_rxPsd, duration, metaInfo);
+		Simulator::ScheduleWithContext (rxNode->GetId(), delay, &PLC_RxInterface::InitializeRx, rx, txId, cur_rxPsd, duration, metaInfo);
 //		Simulator::ScheduleWithContext (rxNode->GetId(), delay, &PLC_Channel::InvokeReception, this, rx, txId, cur_rxPsd, duration, metaInfo);
 	}
 

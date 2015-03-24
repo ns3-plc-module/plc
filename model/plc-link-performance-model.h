@@ -49,7 +49,7 @@ public:
 	double GetMeanRxPower(void);
 	double GetTotalNoisePower(void);
 
-	void StartRx(ModulationAndCodingScheme mcs, Ptr<const SpectrumValue> rxPsd, double requiredInformationBits = 0);
+	void InitializeRx(ModulationAndCodingScheme mcs, Ptr<const SpectrumValue> rxPsd, double requiredInformationBits = 0);
 	void AlterRxSignal(Ptr<const SpectrumValue> rxPsd);
 	void AddNoiseSignal(Ptr<const SpectrumValue> noisePsd);
 	void RemoveNoiseSignal(Ptr<const SpectrumValue> noisePsd);
@@ -63,7 +63,7 @@ public:
 
 protected:
 	virtual void DoDispose(void);
-	virtual void DoStartRx(double requiredInformationBits) = 0;
+	virtual void DoInitializeRx(double requiredInformationBits) = 0;
 	virtual void DoEvaluateChunk(void) = 0;
 	virtual bool DoEndRx(void) = 0;
 
@@ -108,7 +108,7 @@ private:
 	static double s_A[8][3];
 	static double s_B[8][3];
 
-	void DoStartRx(double requiredInformationBits);
+	void DoInitializeRx(double requiredInformationBits);
 	void DoEvaluateChunk(void);
 	bool DoEndRx(void);
 
@@ -151,7 +151,7 @@ public:
 private:
 	static McsInfo s_mcs_info[10];
 
-	void DoStartRx(double requiredInformationBits);
+	void DoInitializeRx(double requiredInformationBits);
 	void DoEvaluateChunk(void);
 	bool DoEndRx(void);
 

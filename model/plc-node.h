@@ -247,7 +247,7 @@ public:
 	static uint64_t GetImpedanceHashSum(void) { return m_impedance_hash_sum; }
 
 protected:
-	virtual void DoStart(void);
+	virtual void DoInitialize(void);
 	virtual void DoDispose(void);
 
 	static uint64_t m_impedance_hash_sum;

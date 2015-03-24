@@ -16,7 +16,7 @@ virtual void \hyperlink{classns3_1_1PLC__SpectrumPhy_aa4376915a9c4b950111412d77b
 \item 
 virtual \-Ptr$<$ const \-Spectrum\-Model $>$ \hyperlink{classns3_1_1PLC__SpectrumPhy_a28b28091075d30da4a37cdb6d2ff45ab}{\-Get\-Rx\-Spectrum\-Model} () const =0
 \item 
-virtual void \hyperlink{classns3_1_1PLC__SpectrumPhy_abb4e75a04569d7bcac70ad0530455658}{\-Start\-Rx} (\-Ptr$<$ \-Packet\-Burst $>$ p, \-Ptr$<$ const \-Spectrum\-Value $>$ rx\-Psd, \-Spectrum\-Type st, \-Time duration)=0
+virtual void \hyperlink{classns3_1_1PLC__SpectrumPhy_abb4e75a04569d7bcac70ad0530455658}{\-Initialize\-Rx} (\-Ptr$<$ \-Packet\-Burst $>$ p, \-Ptr$<$ const \-Spectrum\-Value $>$ rx\-Psd, \-Spectrum\-Type st, \-Time duration)=0
 \end{DoxyCompactItemize}
 \subsection*{\-Static \-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
@@ -50,7 +50,7 @@ a \-Ptr to the associated \-Net\-Device instance
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classns3_1_1PLC__SpectrumPhy_a28b28091075d30da4a37cdb6d2ff45ab}
 \begin{DoxyReturn}{\-Returns}
-returns the \-Spectrum\-Model that this \hyperlink{classns3_1_1PLC__SpectrumPhy}{\-P\-L\-C\-\_\-\-Spectrum\-Phy} expects to be used for all \-Spectrum\-Values that are passed to \-Start\-Rx. \-If 0 is returned, it means that any model will be accepted. 
+returns the \-Spectrum\-Model that this \hyperlink{classns3_1_1PLC__SpectrumPhy}{\-P\-L\-C\-\_\-\-Spectrum\-Phy} expects to be used for all \-Spectrum\-Values that are passed to \-Initialize\-Rx. \-If 0 is returned, it means that any model will be accepted. 
 \end{DoxyReturn}
 \hypertarget{classns3_1_1PLC__SpectrumPhy_aa4376915a9c4b950111412d77bf105a7}{\index{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy}!\-Set\-Channel@{\-Set\-Channel}}
 \index{\-Set\-Channel@{\-Set\-Channel}!ns3::PLC_SpectrumPhy@{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy}}
@@ -80,9 +80,9 @@ set the associated \-Net\-Device instance
 {\em d} & the \-Net\-Device instance \\
 \hline
 \end{DoxyParams}
-\hypertarget{classns3_1_1PLC__SpectrumPhy_abb4e75a04569d7bcac70ad0530455658}{\index{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy}!\-Start\-Rx@{\-Start\-Rx}}
-\index{\-Start\-Rx@{\-Start\-Rx}!ns3::PLC_SpectrumPhy@{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy}}
-\subsubsection[{\-Start\-Rx}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy\-::\-Start\-Rx} (
+\hypertarget{classns3_1_1PLC__SpectrumPhy_abb4e75a04569d7bcac70ad0530455658}{\index{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy@{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy}!\-Initialize\-Rx@{\-Initialize\-Rx}}
+\index{\-Initialize\-Rx@{\-Initialize\-Rx}!ns3::PLC_SpectrumPhy@{ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy}}
+\subsubsection[{\-Initialize\-Rx}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf ns3\-::\-P\-L\-C\-\_\-\-Spectrum\-Phy\-::\-Initialize\-Rx} (
 \begin{DoxyParamCaption}
 \item[{\-Ptr$<$ \-Packet\-Burst $>$}]{p, }
 \item[{\-Ptr$<$ const \-Spectrum\-Value $>$}]{rx\-Psd, }
@@ -96,7 +96,7 @@ set the associated \-Net\-Device instance
 \begin{DoxyParams}{\-Parameters}
 {\em p} & the \-Packet\-Burst associated with the incoming waveform \\
 \hline
-{\em rx\-Psd} & the \-Power \-Spectral \-Density of the incoming waveform. \-The units of the \-P\-S\-D are the same specified for \-Spectrum\-Channel\-::\-Start\-Tx(). \\
+{\em rx\-Psd} & the \-Power \-Spectral \-Density of the incoming waveform. \-The units of the \-P\-S\-D are the same specified for \-Spectrum\-Channel\-::\-Initialize\-Tx(). \\
 \hline
 {\em st} & spectrum type \\
 \hline

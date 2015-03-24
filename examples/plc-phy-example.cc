@@ -110,9 +110,9 @@ int main (int argc, char *argv[])
 	Ptr<Packet> p = Create<Packet> (1024);
 
 	// Schedule transmission of packet p from phy0 to phy1 to begin at 1s simulation time
-	Simulator::Schedule(Seconds(1), &PLC_Phy::StartTx, phy1, p);
+	Simulator::Schedule(Seconds(1), &PLC_Phy::InitializeTx, phy1, p);
 
-	// Start simulation
+	// Initialize simulation
 	Simulator::Run();
 
 	// Cleanup simulation

@@ -21,5 +21,5 @@ var searchData=
   ['processtimeslottasks',['ProcessTimeslotTasks',['../classns3_1_1PLC__Channel.html#ad19b881e0302a2a3e0dda571ecf83bf7',1,'ns3::PLC_Channel']]],
   ['propagationcompleteevent',['PropagationCompleteEvent',['../classns3_1_1PLC__Channel.html#a787ab20c1ee23c65a47de50adb917a68',1,'ns3::PLC_Channel']]],
   ['pulseend',['PulseEnd',['../classns3_1_1PLC__ImpulsiveNoiseSource.html#af90f96c556fc3abff99d1ccee2fd8da6',1,'ns3::PLC_ImpulsiveNoiseSource']]],
-  ['pulsestart',['PulseStart',['../classns3_1_1PLC__ImpulsiveNoiseSource.html#a63a45910cd88be1b20ac9875f4a8fe20',1,'ns3::PLC_ImpulsiveNoiseSource']]]
+  ['pulsestart',['PulseInitialize',['../classns3_1_1PLC__ImpulsiveNoiseSource.html#a63a45910cd88be1b20ac9875f4a8fe20',1,'ns3::PLC_ImpulsiveNoiseSource']]]
 ];

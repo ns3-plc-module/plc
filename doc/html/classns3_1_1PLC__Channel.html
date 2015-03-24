@@ -128,8 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a9210af0d915d96817f77e21000deb5a5">InitTransmissionChannels</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a2bb68af9c30a3d0c4f7a264c4e90ddab">CalcTransmissionChannels</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ptr&lt; <a class="el" href="classns3_1_1PLC__ValueBase.html">PLC_TransferBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#ae0ccd3520dbb21ed05cb006f817a89c7">GetChannelTransferData</a> (uint32_t txId, uint32_t rxId)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6">TransmissionStart</a> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Start transmitting a packet over the channel.  <a href="#adeb6bba5a291bd4508c20dae60d46ce6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6">TransmissionInitialize</a> (Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const <a class="el" href="classns3_1_1PLC__TrxMetaInfo.html">PLC_TrxMetaInfo</a> &gt; metaInfo)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize transmitting a packet over the channel.  <a href="#adeb6bba5a291bd4508c20dae60d46ce6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#ab856d23667e7f0ac87a2c95a482a695c">TransmissionEnd</a> (uint32_t txId, Time propagation_delay)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the txInterface has finished transmitting over the channel.  <a href="#ab856d23667e7f0ac87a2c95a482a695c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns3_1_1PLC__Channel.html#a787ab20c1ee23c65a47de50adb917a68">PropagationCompleteEvent</a> (uint32_t txId)</td></tr>
@@ -655,12 +655,12 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 
 </div>
 </div>
-<a class="anchor" id="adeb6bba5a291bd4508c20dae60d46ce6"></a><!-- doxytag: member="ns3::PLC_Channel::TransmissionStart" ref="adeb6bba5a291bd4508c20dae60d46ce6" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
+<a class="anchor" id="adeb6bba5a291bd4508c20dae60d46ce6"></a><!-- doxytag: member="ns3::PLC_Channel::TransmissionInitialize" ref="adeb6bba5a291bd4508c20dae60d46ce6" args="(Ptr&lt; const Packet &gt; p, uint32_t txId, Ptr&lt; const SpectrumValue &gt; txPsd, Time duration, Ptr&lt; const PLC_TrxMetaInfo &gt; metaInfo)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6">ns3::PLC_Channel::TransmissionStart</a> </td>
+          <td class="memname">void <a class="el" href="classns3_1_1PLC__Channel.html#adeb6bba5a291bd4508c20dae60d46ce6">ns3::PLC_Channel::TransmissionInitialize</a> </td>
           <td>(</td>
           <td class="paramtype">Ptr&lt; const Packet &gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
@@ -698,7 +698,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>PLC_Outlet</b></td><
 </div>
 <div class="memdoc">
 
-<p>Start transmitting a packet over the channel. </p>
+<p>Initialize transmitting a packet over the channel. </p>
 <p>If the srcId belongs to a txInterface that is connected to the channel, packet transmission begins, and the channel becomes busy until the packet has completely reached all destinations.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">

@@ -117,7 +117,7 @@ PLC_Mac::~PLC_Mac ()
 }
 
 void
-PLC_Mac::DoStart (void)
+PLC_Mac::DoInitialize (void)
 {
 	PLC_MAC_FUNCTION (this);
 }
@@ -155,7 +155,7 @@ PLC_Mac::RequestCca (void)
 }
 
 void
-PLC_Mac::StartCsmaCa (void)
+PLC_Mac::InitializeCsmaCa (void)
 {
 	PLC_MAC_FUNCTION(this);
 
@@ -405,7 +405,7 @@ PLC_Mac::TriggerTransmission (void)
 
 	PLC_MAC_LOGIC ("Triggering transmission of packet " << *p);
 
-	if (GetPhy ()->StartTx (p) == false)
+	if (GetPhy ()->InitializeTx (p) == false)
 	{
 		PLC_MAC_LOGIC ("PHY rejected transmission");
 	}
@@ -456,10 +456,10 @@ PLC_ArqMac::PLC_ArqMac (void)
 }
 
 void
-PLC_ArqMac::DoStart (void)
+PLC_ArqMac::DoInitialize (void)
 {
 	PLC_MAC_FUNCTION (this);
-	PLC_Mac::DoStart ();
+	PLC_Mac::DoInitialize ();
 }
 
 void
@@ -492,7 +492,7 @@ PLC_ArqMac::DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst)
 	}
 
 	PLC_MAC_LOGIC ("Triggering CSMA/CA...");
-	StartCsmaCa();
+	InitializeCsmaCa();
 
 	return true;
 }
@@ -605,8 +605,8 @@ PLC_ArqMac::NotifyAcknowledgement (void)
 
 	if (m_txQueue->IsEmpty() == false)
 	{
-		PLC_MAC_LOGIC ("Starting CSMA/CA for next packet to send...");
-		StartCsmaCa ();
+		PLC_MAC_LOGIC ("Initializeing CSMA/CA for next packet to send...");
+		InitializeCsmaCa ();
 	}
 }
 
@@ -625,7 +625,7 @@ PLC_ArqMac::NotifyCcaConfirm (PLC_PhyCcaResult status)
 		else
 		{
 			NS_LOG_LOGIC ("Channel occupied, starting CSMA/CA...");
-			StartCsmaCa ();
+			InitializeCsmaCa ();
 		}
 	}
 }
@@ -650,7 +650,7 @@ PLC_ArqMac::NotifyCsmaCaConfirm (PLC_CsmaCaState state)
 			if (m_csmaca_attempts++ < MAX_CSMACA_ATTEMPTS)
 			{
 				PLC_MAC_LOGIC("Entering CSMA/CA round " << m_csmaca_attempts);
-				Simulator::ScheduleNow (&PLC_Mac::StartCsmaCa, this);
+				Simulator::ScheduleNow (&PLC_Mac::InitializeCsmaCa, this);
 			}
 			else
 			{
@@ -674,8 +674,8 @@ PLC_ArqMac::NotifyTransmissionEnd (void)
 
 		if (m_txQueue->IsEmpty () == false)
 		{
-			PLC_MAC_LOGIC ("Starting CSMA/CA for next frame to be sent...");
-			StartCsmaCa ();
+			PLC_MAC_LOGIC ("Initializeing CSMA/CA for next frame to be sent...");
+			InitializeCsmaCa ();
 		}
 	}
 	else
@@ -720,7 +720,7 @@ PLC_ArqMac::AcknowledgementTimeout(void)
 		if (m_replays++ <= m_max_replays)
 		{
 			PLC_MAC_LOGIC ("Triggering CSMA/CA for frame replay...");
-			StartCsmaCa ();
+			InitializeCsmaCa ();
 		}
 		else
 		{
@@ -735,7 +735,7 @@ PLC_ArqMac::AcknowledgementTimeout(void)
 
 			if (m_txQueue->IsEmpty () == false)
 			{
-				StartCsmaCa ();
+				InitializeCsmaCa ();
 			}
 		}
 	}
@@ -766,10 +766,10 @@ PLC_HarqMac::PLC_HarqMac (void)
 }
 
 void
-PLC_HarqMac::DoStart (void)
+PLC_HarqMac::DoInitialize (void)
 {
 	PLC_MAC_FUNCTION (this);
-	PLC_Mac::DoStart ();
+	PLC_Mac::DoInitialize ();
 }
 
 void
@@ -803,7 +803,7 @@ PLC_HarqMac::DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst)
 
 	m_send_redundancy = false;
 	PLC_MAC_LOGIC ("Triggering CSMA/CA...");
-	StartCsmaCa();
+	InitializeCsmaCa();
 
 	return true;
 }
@@ -929,7 +929,7 @@ PLC_HarqMac::NotifyCcaConfirm (PLC_PhyCcaResult status)
 		else
 		{
 			NS_LOG_LOGIC ("Channel occupied, starting CSMA/CA...");
-			StartCsmaCa ();
+			InitializeCsmaCa ();
 		}
 	}
 }
@@ -955,7 +955,7 @@ PLC_HarqMac::NotifyCsmaCaConfirm (PLC_CsmaCaState state)
 			if (m_csmaca_attempts++ < MAX_CSMACA_ATTEMPTS)
 			{
 				PLC_MAC_LOGIC("Entering CSMA/CA round " << m_csmaca_attempts);
-				Simulator::ScheduleNow (&PLC_Mac::StartCsmaCa, this);
+				Simulator::ScheduleNow (&PLC_Mac::InitializeCsmaCa, this);
 			}
 			else
 			{
@@ -1002,7 +1002,7 @@ PLC_HarqMac::TriggerTransmission (void)
 
 	PLC_MAC_LOGIC ("Triggering transmission of packet " << *p);
 
-	if (GetPhy ()->StartTx (p) == false)
+	if (GetPhy ()->InitializeTx (p) == false)
 	{
 		// debug
 		NS_LOG_DEBUG ("PHY rejected transmission");
@@ -1023,8 +1023,8 @@ PLC_HarqMac::NotifyTransmissionEnd (void)
 
 		if (m_txQueue->IsEmpty () == false)
 		{
-			PLC_MAC_LOGIC ("Starting CSMA/CA for next frame to be sent...");
-			StartCsmaCa ();
+			PLC_MAC_LOGIC ("Initializeing CSMA/CA for next frame to be sent...");
+			InitializeCsmaCa ();
 		}
 	}
 	else
@@ -1074,7 +1074,7 @@ PLC_HarqMac::AcknowledgementTimeout(void)
 			NS_LOG_DEBUG ("send redundancy: true");
 
 			m_send_redundancy = true;
-			StartCsmaCa ();
+			InitializeCsmaCa ();
 		}
 		else
 		{
@@ -1091,7 +1091,7 @@ PLC_HarqMac::AcknowledgementTimeout(void)
 
 			if (m_txQueue->IsEmpty () == false)
 			{
-				StartCsmaCa ();
+				InitializeCsmaCa ();
 			}
 		}
 	}
@@ -1116,8 +1116,8 @@ PLC_HarqMac::NotifyAcknowledgement (void)
 
 	if (m_txQueue->IsEmpty() == false)
 	{
-		PLC_MAC_LOGIC ("Starting CSMA/CA for next packet to send...");
-		StartCsmaCa ();
+		PLC_MAC_LOGIC ("Initializeing CSMA/CA for next packet to send...");
+		InitializeCsmaCa ();
 	}
 }
 

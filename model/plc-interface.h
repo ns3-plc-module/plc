@@ -212,17 +212,17 @@ public:
 	PLC_BackbonePath::iterator BackbonePathEnd(PLC_RxInterface *sink);
 
 	/**
-	 * Start transmission from this tx interface
+	 * Initialize transmission from this tx interface
 	 *
 	 * @param p Packet to be transmitted or NULL for noise signal
 	 * @param metaInfo Meta information for link performance emulation
 	 */
-	void StartTx(Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void InitializeTx(Ptr<const SpectrumValue> txPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 private:
     // virtual dummy function to keep pybindgen happy
     virtual void pureVirtualDummy(void) {}
-	virtual void DoStart(void);
+	virtual void DoInitialize(void);
 	virtual void DoDispose(void);
 
 	// currently all rx interfaces are taken into account
@@ -286,13 +286,13 @@ public:
 	Ptr<PLC_Outlet> GetOutlet(void) { return m_outlet; }
 
 	/**
-	 * Start receiving. Called by PLC_Channel::TransmissionStart()
+	 * Initialize receiving. Called by PLC_Channel::TransmissionInitialize()
 	 *
 	 * @param p Packet associated with the incoming waveform or NULL for noise
 	 * @param rxPsd received power spectral density
 	 * @param metaInfo meta information for link performance emulation
 	 **/
-	void StartRx(uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
+	void InitializeRx(uint32_t txId, Ptr<const SpectrumValue> rxPsd, Time duration, Ptr<const PLC_TrxMetaInfo> metaInfo);
 
 	/**
 	 * Called when rxPsd changes due to channel evolution
@@ -304,7 +304,7 @@ public:
 private:
     // virtual dummy function to keep pybindgen happy
     virtual void pureVirtualDummy(void) {}
-	virtual void DoStart(void);
+	virtual void DoInitialize(void);
 	virtual void DoDispose(void);
 
 	Ptr<PLC_Outlet> m_outlet;

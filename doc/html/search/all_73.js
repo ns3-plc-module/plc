@@ -40,8 +40,8 @@ var searchData=
   ['settransmissionfailedcallback',['SetTransmissionFailedCallback',['../classns3_1_1PLC__Mac.html#ad20fd028d921ce08d633321a88a12fbf',1,'ns3::PLC_Mac']]],
   ['settximpedance',['SetTxImpedance',['../classns3_1_1PLC__HalfDuplexOfdmPhy.html#a8633a9bbaafcccf370900b1301d1c963',1,'ns3::PLC_HalfDuplexOfdmPhy']]],
   ['settxpowerspectraldensity',['SetTxPowerSpectralDensity',['../classns3_1_1PLC__HalfDuplexOfdmPhy.html#a6181d4b225c735f11a032580744ab7f0',1,'ns3::PLC_HalfDuplexOfdmPhy']]],
-  ['startrx',['StartRx',['../classns3_1_1PLC__RxInterface.html#a8dfc9936531323a25d3625d0e9a2a707',1,'ns3::PLC_RxInterface::StartRx()'],['../classns3_1_1PLC__Phy.html#abe32cc0f1c2e7c9de36a37812423df8e',1,'ns3::PLC_Phy::StartRx()']]],
-  ['starttx',['StartTx',['../classns3_1_1PLC__TxInterface.html#ac45fd62e1c2e924026df7b04acb6d0b4',1,'ns3::PLC_TxInterface::StartTx()'],['../classns3_1_1PLC__Phy.html#a4087fbae09bdb778285c0e7cdc307d2e',1,'ns3::PLC_Phy::StartTx()']]],
+  ['startrx',['InitializeRx',['../classns3_1_1PLC__RxInterface.html#a8dfc9936531323a25d3625d0e9a2a707',1,'ns3::PLC_RxInterface::InitializeRx()'],['../classns3_1_1PLC__Phy.html#abe32cc0f1c2e7c9de36a37812423df8e',1,'ns3::PLC_Phy::InitializeRx()']]],
+  ['starttx',['InitializeTx',['../classns3_1_1PLC__TxInterface.html#ac45fd62e1c2e924026df7b04acb6d0b4',1,'ns3::PLC_TxInterface::InitializeTx()'],['../classns3_1_1PLC__Phy.html#a4087fbae09bdb778285c0e7cdc307d2e',1,'ns3::PLC_Phy::InitializeTx()']]],
   ['state',['State',['../classns3_1_1PLC__HalfDuplexOfdmPhy.html#ae91e168f9a51bf5344e7e03d9ae13b60',1,'ns3::PLC_HalfDuplexOfdmPhy']]],
   ['sub_5fthread_5farg_5ft',['sub_thread_arg_t',['../structns3_1_1sub__thread__arg__t.html',1,'ns3']]],
   ['switchimpedance',['SwitchImpedance',['../classns3_1_1PLC__HalfDuplexOfdmPhy.html#afff34328dc4f9eb43f856f9219992889',1,'ns3::PLC_HalfDuplexOfdmPhy']]]

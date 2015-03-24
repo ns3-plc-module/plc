@@ -56,7 +56,7 @@ PLC_NetDevice::PLC_NetDevice ()
 	// Default Modulation and Coding Scheme
 	m_mcs = ModulationAndCodingScheme (BPSK_1_2, 0);
 	m_linkUp = true;
-	m_mtu = 1024;
+	m_mtu = 1280;
 	m_configComplete = false;
 }
 
@@ -81,10 +81,10 @@ PLC_NetDevice::DoDispose (void)
 }
 
 void
-PLC_NetDevice::DoStart (void)
+PLC_NetDevice::DoInitialize (void)
 {
 	NS_LOG_FUNCTION (this);
-	NetDevice::DoStart ();
+	NetDevice::DoInitialize ();
 }
 
 void
@@ -217,7 +217,7 @@ PLC_NetDevice::LinkUp (void)
 
 	if (GetPhy() != NULL)
 	{
-		GetPhy()->Start();
+		GetPhy()->Initialize();
 	}
 
 	m_linkChanges ();
@@ -278,7 +278,7 @@ bool
 PLC_NetDevice::IsMulticast (void) const
 {
 	NS_LOG_FUNCTION (this);
-	return false;
+	return true;
 }
 
 Address

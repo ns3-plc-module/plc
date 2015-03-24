@@ -59,7 +59,7 @@ public:
 PlcTestSuite::PlcTestSuite ()
   : TestSuite ("plc", UNIT)
 {
-  AddTestCase (new PlcTestCase1);
+  AddTestCase (new PlcTestCase1, EXTENSIVE);
 }
 
 // Do not forget to allocate an instance of this TestSuite

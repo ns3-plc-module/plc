@@ -79,10 +79,10 @@ public:
   uint64_t getTimeToNextSlot (void) const;
 
   /*
-   * Start CSMA-CA algorithm (step 1), initialize NB, BE for both slotted and unslotted
+   * Initialize CSMA-CA algorithm (step 1), initialize NB, BE for both slotted and unslotted
    * CSMA-CA. For the slotted intialize CW plus also start on the backoff boundary
    */
-  void Start (void);
+  void Initialize (void);
 
   /*
    * cancel CSMA-CA algorithm

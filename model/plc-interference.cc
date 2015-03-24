@@ -93,7 +93,7 @@ PLC_Interference::DoDispose ()
 }
 
 void
-PLC_Interference::StartRx (Ptr<const SpectrumValue> rxPsd)
+PLC_Interference::InitializeRx (Ptr<const SpectrumValue> rxPsd)
 {
 	NS_LOG_FUNCTION (this << rxPsd);
 	NS_LOG_LOGIC (*rxPsd);

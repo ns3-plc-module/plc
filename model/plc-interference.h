@@ -42,7 +42,7 @@ public:
 	void SetNoiseFloor(Ptr<const SpectrumValue> noiseFloor);
 	Ptr<const SpectrumValue> GetNoiseFloor(void) { return m_noiseFloor; }
 
-	void StartRx (Ptr<const SpectrumValue> rxPsd);
+	void InitializeRx (Ptr<const SpectrumValue> rxPsd);
 	void AlterRxSignal (Ptr<const SpectrumValue> rxSignal);
 	void EndRx(void);
 

@@ -194,7 +194,7 @@ public:
 
 	PLC_StaticNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumValue> noisePsd);
 
-	void Start (Time duration);
+	void Initialize (Time duration);
 
 protected:
     // dummy function to keep pybindgen happy
@@ -212,7 +212,7 @@ public:
 	PLC_TimeVaryingNoiseSource() {}
 	PLC_TimeVaryingNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumModel> sm, RandomVariable subChannelPsd, RandomVariable staticDuration);
 
-	void Start (void);
+	void Initialize (void);
 	void Stop (void);
 
 	void AlterPsd (void);
@@ -283,12 +283,12 @@ public:
 	 *
 	 * Scheduled by PulseEnd() with random variable m_pulsegap_gen
 	 */
-	void PulseStart(void);
+	void PulseInitialize(void);
 
 	/**
 	 * Stop emitting noise psd
 	 *
-	 * Scheduled in PulseStart with random variable m_pulselen_gen
+	 * Scheduled in PulseInitialize with random variable m_pulselen_gen
 	 */
 	void PulseEnd(void);
 

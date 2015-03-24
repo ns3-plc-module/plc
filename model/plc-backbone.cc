@@ -76,7 +76,7 @@ PLC_BackboneBranch::PLC_BackboneBranch(Ptr<PLC_Node> node, Ptr<PLC_Node> before,
 	m_key = std::pair<unsigned int, std::pair<unsigned int, unsigned int> > (branch_id, tmp);
 }
 
-void PLC_BackboneBranch::DoStart(void)
+void PLC_BackboneBranch::DoInitialize(void)
 {
 	m_node->AssociateBackboneBranch(this);
 }
