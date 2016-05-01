@@ -22,7 +22,7 @@
 #include <ns3/log.h>
 #include <ns3/abort.h>
 #include <ns3/simulator.h>
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 #include "plc-link-performance-model.h"
 #include "plc-phy.h"
 
@@ -306,8 +306,8 @@ PLC_ErrorRateModel::DoEndRx(void)
 {
 	NS_LOG_FUNCTION(this);
 
-	UniformVariable u;
-	double random = u.GetValue();
+	Ptr<UniformRandomVariable> u = CreateObject<UniformRandomVariable>();
+	double random = u->GetValue();
 
 	if (random > m_packet_success_rate)
 	{

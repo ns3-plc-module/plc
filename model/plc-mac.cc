@@ -21,7 +21,7 @@
 #include <ns3/abort.h>
 #include <ns3/log.h>
 #include <ns3/simulator.h>
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 #include <ns3/llc-snap-header.h>
 #include "plc-mac.h"
 
@@ -171,13 +171,12 @@ PLC_Mac::RandomBackoffDelay ()
 {
 	NS_LOG_FUNCTION (this);
 
-	UniformVariable uniformVar;
+	Ptr<UniformRandomVariable> uniformVar = CreateObject<UniformRandomVariable>();
 	uint64_t upperBound = (uint64_t) pow (2, m_BE) - 1;
 	uint64_t backoffPeriod;
 	Time randomBackoff;
 
-	uniformVar = UniformVariable (0, upperBound);
-	backoffPeriod = (uint64_t)uniformVar.GetValue (); //num backoff periods
+	backoffPeriod = (uint64_t)uniformVar->GetValue (0,upperBound); //num backoff periods
 	PLC_MAC_LOGIC ("CSMA/CA backoff periods: " << backoffPeriod);
 
 	randomBackoff = MicroSeconds (backoffPeriod * m_aUnitBackoffPeriod * PLC_Phy::GetSymbolDuration().GetMicroSeconds());
@@ -392,7 +391,7 @@ PLC_Mac::TriggerTransmission (void)
 	}
 	else if (m_txQueue->IsEmpty() == false)
 	{
-		p = m_txQueue->Peek ();
+		p = m_txQueue->Peek()->GetPacket();
 
 		// debug
 		NS_LOG_DEBUG ("Sending data: " << *p);
@@ -448,8 +447,8 @@ PLC_ArqMac::GetTypeId  (void)
 
 PLC_ArqMac::PLC_ArqMac (void)
 {
-	UniformVariable u;
-	m_sequence_number = u.GetInteger(0, 65535);
+	Ptr<UniformRandomVariable> u = CreateObject<UniformRandomVariable>();
+	m_sequence_number = u->GetInteger(0, 65535);
 	m_timeout = Seconds(1);
 	m_max_replays = 1000;
 	m_replays = 0;
@@ -485,7 +484,7 @@ PLC_ArqMac::DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst)
 	m_txHeader.SetSequenceNumber(m_sequence_number++);
 	txPacket->AddHeader(m_txHeader);
 
-	if (!m_txQueue->Enqueue (txPacket))
+	if (!m_txQueue->Enqueue (Ptr<QueueItem>(new QueueItem(txPacket))))
 	{
 		PLC_MAC_LOGIC ("TX queue full, packet dropped");
 		return false;
@@ -533,7 +532,7 @@ PLC_ArqMac::DoProcess (Ptr<const Packet> p)
 					m_txQueue->IsEmpty () == false
 				 )
 		{
-			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ();
+			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ()->GetPacket();
 			PLC_MacHeader txMacHdr;
 			lastTxPacket->PeekHeader(txMacHdr);
 
@@ -681,7 +680,7 @@ PLC_ArqMac::NotifyTransmissionEnd (void)
 	else
 	{
 		// Data frame sent
-		Ptr<const Packet> p = m_txQueue->Peek ();
+		Ptr<const Packet> p = m_txQueue->Peek ()->GetPacket();
 		NS_ASSERT_MSG (p, "No packet in send queue, something went wrong!");
 
 		PLC_MacHeader macHdr;
@@ -725,7 +724,7 @@ PLC_ArqMac::AcknowledgementTimeout(void)
 		else
 		{
 			PLC_MAC_INFO ("Maximum replays reached, transmission failed!");
-			Ptr<const Packet> p = m_txQueue->Dequeue();
+			Ptr<const Packet> p = m_txQueue->Dequeue()->GetPacket();
 			m_replays = 0;
 
 			if (!m_transmission_failed_callback.IsNull())
@@ -758,8 +757,8 @@ PLC_HarqMac::GetTypeId  (void)
 PLC_HarqMac::PLC_HarqMac (void)
 {
 	m_send_redundancy = false;
-	UniformVariable u;
-	m_sequence_number = u.GetInteger(0, 65535);
+	Ptr<UniformRandomVariable> u = CreateObject<UniformRandomVariable>();
+	m_sequence_number = u->GetInteger(0, 65535);
 	m_acknowledgement_timeout = MicroSeconds(100);
 	m_max_redundancy_frames = 1000;
 	m_sent_redundancy_frames = 0;
@@ -795,7 +794,7 @@ PLC_HarqMac::DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst)
 	m_txHeader.SetSequenceNumber(m_sequence_number++);
 	txPacket->AddHeader(m_txHeader);
 
-	if (!m_txQueue->Enqueue(txPacket))
+	if (!m_txQueue->Enqueue(Ptr<QueueItem>(new QueueItem(txPacket))))
 	{
 		PLC_MAC_LOGIC ("TX queue full, packet dropped");
 		return false;
@@ -845,7 +844,7 @@ PLC_HarqMac::DoProcess (Ptr<const Packet> p)
 					m_txQueue->IsEmpty () == false
 				 )
 		{
-			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ();
+			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ()->GetPacket();
 			PLC_MacHeader txMacHdr;
 			lastTxPacket->PeekHeader(txMacHdr);
 
@@ -860,7 +859,7 @@ PLC_HarqMac::DoProcess (Ptr<const Packet> p)
 					m_txQueue->IsEmpty () == false
 				 )
 		{
-			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ();
+			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ()->GetPacket();
 			PLC_MacHeader txMacHdr;
 			lastTxPacket->PeekHeader(txMacHdr);
 
@@ -991,7 +990,7 @@ PLC_HarqMac::TriggerTransmission (void)
 	}
 	else if (m_txQueue->IsEmpty() == false)
 	{
-		p = m_txQueue->Peek ();
+		p = m_txQueue->Peek ()->GetPacket();
 		m_sent_redundancy_frames = 0;
 	}
 	else
@@ -1030,7 +1029,7 @@ PLC_HarqMac::NotifyTransmissionEnd (void)
 	else
 	{
 		// Data frame sent
-		Ptr<const Packet> p = m_txQueue->Peek ();
+		Ptr<const Packet> p = m_txQueue->Peek ()->GetPacket();
 		NS_ASSERT_MSG (p, "No packet in send queue, something went wrong!");
 
 		PLC_MacHeader macHdr;
@@ -1080,7 +1079,7 @@ PLC_HarqMac::AcknowledgementTimeout(void)
 		{
 			PLC_MAC_INFO ("Maximum replays reached, transmission failed!");
 
-			Ptr<const Packet> p = m_txQueue->Dequeue ();
+			Ptr<const Packet> p = m_txQueue->Dequeue ()->GetPacket();
 			m_sent_redundancy_frames = 0;
 			m_send_redundancy = false;
 

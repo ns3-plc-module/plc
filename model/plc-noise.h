@@ -22,7 +22,7 @@
 #define PLC_NOISE_H_
 
 #include <ns3/simple-ref-count.h>
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 #include <ns3/spectrum-value.h>
 
 #include "plc-time.h"
@@ -210,7 +210,7 @@ public:
 	static TypeId GetTypeId(void);
 
 	PLC_TimeVaryingNoiseSource() {}
-	PLC_TimeVaryingNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumModel> sm, RandomVariable subChannelPsd, RandomVariable staticDuration);
+	PLC_TimeVaryingNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumModel> sm, Ptr<UniformRandomVariable> subChannelPsd, Ptr<UniformRandomVariable> staticDuration);
 
 	void Initialize (void);
 	void Stop (void);
@@ -222,8 +222,8 @@ protected:
     virtual void pureVirtualDummy(void) {}
 
 private:
-	RandomVariable m_subChannelPsd;
-	RandomVariable m_staticDuration;
+    Ptr<UniformRandomVariable> m_subChannelPsd;
+    Ptr<UniformRandomVariable> m_staticDuration;
 };
 
 class PLC_ImpulseNoiseSource : public PLC_NoiseSource
@@ -271,7 +271,7 @@ public:
 	 * @param pulselen_gen RandomVariable for the pulse duration generator
 	 * @param pulsegap_gen RandomVariable for the silence duration generator
 	 */
-	PLC_ImpulsiveNoiseSource(Ptr<PLC_Node> src_node, Ptr<SpectrumValue> noisePsd, RandomVariable pulselen_gen, RandomVariable pulsegap_gen);
+	PLC_ImpulsiveNoiseSource(Ptr<PLC_Node> src_node, Ptr<SpectrumValue> noisePsd, Ptr<UniformRandomVariable> pulselen_gen, Ptr<UniformRandomVariable> pulsegap_gen);
 
 	/**
 	 * Enable noise source
@@ -297,8 +297,8 @@ protected:
     virtual void pureVirtualDummy(void) {}
 
 private:
-	RandomVariable	m_pulse_len;
-	RandomVariable	m_pulse_gap;
+	Ptr <UniformRandomVariable>	m_pulse_len;
+	Ptr <UniformRandomVariable>	m_pulse_gap;
 };
 
 }
