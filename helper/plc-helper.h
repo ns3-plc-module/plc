@@ -22,7 +22,7 @@
 #define PLC_HELPER_H
 
 #include <ns3/object.h>
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 
 #include "ns3/plc-node.h"
 #include "ns3/plc-outlet.h"
@@ -73,7 +73,7 @@ public:
 private:
 	Ptr<const SpectrumModel> m_spectrum_model;
 
-	UniformVariable m_uni;
+	Ptr<UniformRandomVariable> m_uni;
 	double m_rmin, m_rmax, m_imin, m_imax;
 	double m_Rmin, m_Rmax, m_Qmin, m_Qmax, m_f0min, m_f0max;
 	double m_RoffsMin, m_RoffsMax, m_QoffsMin, m_QoffsMax, m_f0offsMin, m_f0offsMax, m_RamplMin, m_RamplMax, m_QamplMin, m_QamplMax, m_f0amplMin, m_f0amplMax, m_phiMin, m_phiMax;

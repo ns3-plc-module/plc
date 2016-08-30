@@ -22,7 +22,7 @@
 
 #include <ns3/simulator.h>
 #include <ns3/abort.h>
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 #include <ns3/callback.h>
 #include <ns3/log.h>
 #include <ns3/abort.h>
@@ -973,8 +973,8 @@ PLC_InformationRatePhy::PLC_InformationRatePhy (void)
 	m_information_rate_model->SetSymbolDuration(GetSymbolDuration());
 	m_information_rate_model->SetGuardIntervalDuration(GetGuardIntervalDuration());
 
-	UniformVariable u;
-	m_txMessageId = u.GetInteger(1,65535);
+	Ptr<UniformRandomVariable> u = CreateObject<UniformRandomVariable>();
+	m_txMessageId = u->GetInteger(1,65535);
 }
 
 void

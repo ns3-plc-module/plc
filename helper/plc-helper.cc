@@ -45,6 +45,7 @@ PLC_ImpedanceHelper::PLC_ImpedanceHelper(Ptr<const SpectrumModel> sm)
 	m_rmax = 500;
 	m_imin = 0;
 	m_imax = 500;
+	m_uni = CreateObject<UniformRandomVariable>();
 }
 
 Ptr<PLC_FreqSelectiveImpedance>
@@ -96,7 +97,7 @@ PLC_ImpedanceHelper::SetConstImpedanceBounds(double rmin, double rmax, double im
 Ptr<PLC_ConstImpedance>
 PLC_ImpedanceHelper::CreateConstImpedance()
 {
-	PLC_Value val(m_uni.GetValue(m_rmin, m_rmax), m_uni.GetValue(m_imin, m_imax));
+	PLC_Value val(m_uni->GetValue(m_rmin, m_rmax), m_uni->GetValue(m_imin, m_imax));
 	return CreateObject<PLC_ConstImpedance> (m_spectrum_model, val);
 }
 
@@ -115,9 +116,9 @@ PLC_ImpedanceHelper::SetFreqSelectiveImpedanceBounds(double Rmin, double Rmax, d
 Ptr<PLC_FreqSelectiveImpedance>
 PLC_ImpedanceHelper::CreateFreqSelectiveImpedance()
 {
-	double R = m_uni.GetValue(m_Rmin, m_Rmax);
-	double Q = m_uni.GetValue(m_Qmin, m_Qmax);
-	double f0 = m_uni.GetValue(m_f0min, m_f0max);
+	double R = m_uni->GetValue(m_Rmin, m_Rmax);
+	double Q = m_uni->GetValue(m_Qmin, m_Qmax);
+	double f0 = m_uni->GetValue(m_f0min, m_f0max);
 
 	return CreateObject<PLC_FreqSelectiveImpedance> (m_spectrum_model, R, Q, f0);
 }
@@ -145,13 +146,13 @@ Ptr<PLC_TimeVariantFreqSelectiveImpedance>
 PLC_ImpedanceHelper::CreateTimeVariantFreqSelectiveImpedance()
 {
 	PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet paramSet;
-	paramSet.R_offset = m_uni.GetValue(m_RoffsMin, m_RoffsMax);
-	paramSet.Q_offset = m_uni.GetValue(m_QoffsMin, m_QoffsMax);
-	paramSet.f_0_offset = m_uni.GetValue(m_f0offsMin, m_f0offsMax);
-	paramSet.R_amplitude = m_uni.GetValue(m_RamplMin, m_RamplMax);
-	paramSet.Q_amplitude = m_uni.GetValue(m_QamplMin, m_QamplMax);
-	paramSet.f0_amplitude = m_uni.GetValue(m_f0amplMin, m_f0amplMax);
-	paramSet.phi = m_uni.GetValue(m_phiMin, m_phiMax);
+	paramSet.R_offset = m_uni->GetValue(m_RoffsMin, m_RoffsMax);
+	paramSet.Q_offset = m_uni->GetValue(m_QoffsMin, m_QoffsMax);
+	paramSet.f_0_offset = m_uni->GetValue(m_f0offsMin, m_f0offsMax);
+	paramSet.R_amplitude = m_uni->GetValue(m_RamplMin, m_RamplMax);
+	paramSet.Q_amplitude = m_uni->GetValue(m_QamplMin, m_QamplMax);
+	paramSet.f0_amplitude = m_uni->GetValue(m_f0amplMin, m_f0amplMax);
+	paramSet.phi = m_uni->GetValue(m_phiMin, m_phiMax);
 
 	return CreateObject<PLC_TimeVariantFreqSelectiveImpedance> (m_spectrum_model, paramSet);
 }

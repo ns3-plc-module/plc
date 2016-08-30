@@ -23,7 +23,7 @@
 
 #include <string>
 #include <ns3/object.h>
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 #include <ns3/node-container.h>
 #include "ns3/net-device-container.h"
 #include "ns3/plc-node.h"

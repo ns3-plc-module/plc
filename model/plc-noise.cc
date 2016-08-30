@@ -8,7 +8,7 @@
 #include <math.h>
 #include <ns3/log.h>
 #include <ns3/type-id.h>
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 #include <ns3/simulator.h>
 #include <ns3/plc-defs.h>
 #include <ns3/plc-interface.h>
@@ -152,7 +152,7 @@ PLC_TimeVaryingNoiseSource::GetTypeId  (void)
 	return tid;
 }
 
-PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumModel> sm, RandomVariable subChannelPsd, RandomVariable staticDuration)
+PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumModel> sm, Ptr<UniformRandomVariable> subChannelPsd, Ptr<UniformRandomVariable> staticDuration)
 	: PLC_NoiseSource (src_node, Create<SpectrumValue> (sm), TIMEVARIANT)
 {
 //	m_noise_source_type = TIMEVARIANT;
@@ -188,7 +188,7 @@ PLC_TimeVaryingNoiseSource::AlterPsd (void)
 
 	if (!IsEnabled()) return;
 
-	double val_dBm = m_subChannelPsd.GetValue();
+	double val_dBm = m_subChannelPsd->GetValue();
 	double val = std::pow(10,val_dBm/10)*1e-3;
 	PLC_LOG_LOGIC ("Changing noise psd to constant value: " << val);
 	(*m_noisePsd) = val;
@@ -206,7 +206,7 @@ PLC_TimeVaryingNoiseSource::AlterPsd (void)
 //		++vit;
 //	}
 
-	Time duration = Seconds(m_staticDuration.GetValue());
+	Time duration = Seconds(m_staticDuration->GetValue());
 	Simulator::ScheduleNow (&PLC_TxInterface::InitializeTx, m_txInterface, m_noisePsd, duration, Ptr<PLC_TrxMetaInfo> ());
 	Simulator::Schedule (duration, &PLC_TimeVaryingNoiseSource::AlterPsd, this);
 }
@@ -262,8 +262,13 @@ PLC_ImpulsiveNoiseSource::GetTypeId (void)
 PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource ()
 {
 	PLC_LOG_FUNCTION (this);
-	m_pulse_len = UniformVariable (0, MAX_PULSE_NOISE_DURATION);
-	m_pulse_gap = UniformVariable (0, MAX_PULSE_GAP_DURATION);
+	m_pulse_len = CreateObject<UniformRandomVariable>();
+	m_pulse_len->SetAttribute("Min",DoubleValue(0));
+	m_pulse_len->SetAttribute("Max",DoubleValue(MAX_PULSE_NOISE_DURATION));
+
+	m_pulse_gap = CreateObject<UniformRandomVariable>();
+	m_pulse_gap->SetAttribute("Min",DoubleValue(0));
+	m_pulse_gap->SetAttribute("Max",DoubleValue(MAX_PULSE_GAP_DURATION));
 }
 
 
@@ -271,20 +276,27 @@ PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource (Ptr<PLC_Node> src_node, Ptr<
 	: PLC_NoiseSource (src_node, noisePsd, PLC_NoiseSource::IMPULSIVE) //, m_noisePsd (noisePsd)
 {
 	PLC_LOG_FUNCTION (this);
-	m_pulse_len = UniformVariable (0, MAX_PULSE_NOISE_DURATION);
-	m_pulse_gap = UniformVariable (0, MAX_PULSE_GAP_DURATION);
+	m_pulse_len = CreateObject<UniformRandomVariable>();
+	m_pulse_len->SetAttribute("Min",DoubleValue(0));
+	m_pulse_len->SetAttribute("Max",DoubleValue(MAX_PULSE_NOISE_DURATION));
+
+	m_pulse_gap = CreateObject<UniformRandomVariable>();
+	m_pulse_gap->SetAttribute("Min",DoubleValue(0));
+	m_pulse_gap->SetAttribute("Max",DoubleValue(MAX_PULSE_GAP_DURATION));
 }
 
-PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumValue> noisePsd, RandomVariable pulse_len_gen, RandomVariable pulse_gap_gen)
-	: PLC_NoiseSource (src_node, noisePsd, PLC_NoiseSource::IMPULSIVE)/*, m_noisePsd (noisePsd)*/, m_pulse_len (pulse_len_gen), m_pulse_gap (pulse_gap_gen)
+PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource (Ptr<PLC_Node> src_node, Ptr<SpectrumValue> noisePsd, Ptr<UniformRandomVariable> pulse_len_gen, Ptr<UniformRandomVariable> pulse_gap_gen)
+	: PLC_NoiseSource (src_node, noisePsd, PLC_NoiseSource::IMPULSIVE)/*, m_noisePsd (noisePsd)*/
 {
 	PLC_LOG_FUNCTION (this);
+	m_pulse_len =pulse_len_gen;
+	m_pulse_gap =pulse_gap_gen;
 }
 
 void PLC_ImpulsiveNoiseSource::Enable (void)
 {
 	PLC_NoiseSource::Enable ();
-	Time start = Seconds (m_pulse_gap.GetValue ());
+	Time start = Seconds (m_pulse_gap->GetValue ());
 	Simulator::Schedule (start, &PLC_ImpulsiveNoiseSource::PulseInitialize, this);
 }
 
@@ -292,7 +304,7 @@ void PLC_ImpulsiveNoiseSource::PulseInitialize (void)
 {
 	PLC_LOG_FUNCTION (this);
 	if  (IsEnabled ()) {
-		Time duration = Seconds (m_pulse_len.GetValue ());
+		Time duration = Seconds (m_pulse_len->GetValue ());
 		m_txInterface->InitializeTx (this->m_noisePsd, duration, NULL);
 		Simulator::Schedule (duration, &PLC_ImpulsiveNoiseSource::PulseEnd, this);
 	}
@@ -302,7 +314,7 @@ void PLC_ImpulsiveNoiseSource::PulseEnd (void)
 {
 	PLC_LOG_FUNCTION (this);
 	if  (IsEnabled ()) {
-		Time pause = Seconds (m_pulse_gap.GetValue ());
+		Time pause = Seconds (m_pulse_gap->GetValue ());
 		Simulator::Schedule (pause, &PLC_ImpulsiveNoiseSource::PulseInitialize, this);
 	}
 }

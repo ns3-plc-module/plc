@@ -21,7 +21,7 @@
 #ifndef PLC_OUTPUT_HELPER_H_
 #define PLC_OUTPUT_HELPER_H_
 
-#include <ns3/random-variable.h>
+#include <ns3/random-variable-stream.h>
 #include <ns3/spectrum-value.h>
 #include <ns3/spectrum-model.h>
 #include <ns3/plc-value.h>
