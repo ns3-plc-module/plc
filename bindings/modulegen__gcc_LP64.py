@@ -20,16 +20,16 @@ def module_init():
 def register_types(module):
     root_module = module.get_root()
     
+    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingType [enumeration]
+    module.add_enum('ModulationAndCodingType', ['BPSK_1_4', 'BPSK_1_2', 'QPSK_1_2', 'QAM16_1_2', 'QAM64_16_21', 'BPSK_RATELESS', 'QAM4_RATELESS', 'QAM16_RATELESS', 'QAM32_RATELESS', 'QAM64_RATELESS'])
+    ## log.h (module 'core'): ns3::LogLevel [enumeration]
+    module.add_enum('LogLevel', ['LOG_NONE', 'LOG_ERROR', 'LOG_LEVEL_ERROR', 'LOG_WARN', 'LOG_LEVEL_WARN', 'LOG_DEBUG', 'LOG_LEVEL_DEBUG', 'LOG_INFO', 'LOG_LEVEL_INFO', 'LOG_FUNCTION', 'LOG_LEVEL_FUNCTION', 'LOG_LOGIC', 'LOG_LEVEL_LOGIC', 'LOG_ALL', 'LOG_LEVEL_ALL', 'LOG_PREFIX_FUNC', 'LOG_PREFIX_TIME', 'LOG_PREFIX_NODE', 'LOG_PREFIX_LEVEL', 'LOG_PREFIX_ALL'], import_from_module='ns.core')
     ## plc-mac.h (module 'plc'): ns3::PLC_CsmaCaState [enumeration]
     module.add_enum('PLC_CsmaCaState', ['CHANNEL_IDLE', 'CHANNEL_ACCESS_FAILURE'])
     ## plc-phy.h (module 'plc'): ns3::PLC_PhyCcaResult [enumeration]
     module.add_enum('PLC_PhyCcaResult', ['CHANNEL_CLEAR', 'CHANNEL_OCCUPIED'])
-    ## log.h (module 'core'): ns3::LogLevel [enumeration]
-    module.add_enum('LogLevel', ['LOG_NONE', 'LOG_ERROR', 'LOG_LEVEL_ERROR', 'LOG_WARN', 'LOG_LEVEL_WARN', 'LOG_DEBUG', 'LOG_LEVEL_DEBUG', 'LOG_INFO', 'LOG_LEVEL_INFO', 'LOG_FUNCTION', 'LOG_LEVEL_FUNCTION', 'LOG_LOGIC', 'LOG_LEVEL_LOGIC', 'LOG_ALL', 'LOG_LEVEL_ALL', 'LOG_PREFIX_FUNC', 'LOG_PREFIX_TIME', 'LOG_PREFIX_NODE', 'LOG_PREFIX_LEVEL', 'LOG_PREFIX_ALL'], import_from_module='ns.core')
     ## plc-dcmc-capacity.h (module 'plc'): ns3::Modulation [enumeration]
     module.add_enum('Modulation', ['QAM', 'PSK'])
-    ## plc-defs.h (module 'plc'): ns3::ModulationAndCodingType [enumeration]
-    module.add_enum('ModulationAndCodingType', ['BPSK_1_4', 'BPSK_1_2', 'QPSK_1_2', 'QAM16_1_2', 'QAM64_16_21', 'BPSK_RATELESS', 'QAM4_RATELESS', 'QAM16_RATELESS', 'QAM32_RATELESS', 'QAM64_RATELESS'])
     ## address.h (module 'network'): ns3::Address [class]
     module.add_class('Address', import_from_module='ns.network')
     ## address.h (module 'network'): ns3::Address::MaxSize_e [enumeration]
@@ -62,6 +62,8 @@ def register_types(module):
     module.add_class('DataRate', import_from_module='ns.network')
     ## event-id.h (module 'core'): ns3::EventId [class]
     module.add_class('EventId', import_from_module='ns.core')
+    ## hash.h (module 'core'): ns3::Hasher [class]
+    module.add_class('Hasher', import_from_module='ns.core')
     ## ipv4-address.h (module 'network'): ns3::Ipv4Address [class]
     module.add_class('Ipv4Address', import_from_module='ns.network')
     ## ipv4-address.h (module 'network'): ns3::Ipv4Address [class]
@@ -122,12 +124,10 @@ def register_types(module):
     module.add_class('PacketTagList', import_from_module='ns.network')
     ## packet-tag-list.h (module 'network'): ns3::PacketTagList::TagData [struct]
     module.add_class('TagData', import_from_module='ns.network', outer_class=root_module['ns3::PacketTagList'])
-    ## random-variable.h (module 'core'): ns3::RandomVariable [class]
-    module.add_class('RandomVariable', import_from_module='ns.core')
-    ## rng-seed-manager.h (module 'core'): ns3::RngSeedManager [class]
-    module.add_class('RngSeedManager', import_from_module='ns.core')
-    ## random-variable.h (module 'core'): ns3::SequentialVariable [class]
-    module.add_class('SequentialVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
+    ## packet-tag-list.h (module 'network'): ns3::PacketTagList::TagData::TagData_e [enumeration]
+    module.add_enum('TagData_e', ['MAX_SIZE'], outer_class=root_module['ns3::PacketTagList::TagData'], import_from_module='ns.network')
+    ## log.h (module 'core'): ns3::ParameterLogger [class]
+    module.add_class('ParameterLogger', import_from_module='ns.core')
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Object, ns3::ObjectBase, ns3::ObjectDeleter> [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::Object', 'ns3::ObjectBase', 'ns3::ObjectDeleter'], parent=root_module['ns3::ObjectBase'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## system-mutex.h (module 'core'): ns3::SystemMutex [class]
@@ -136,8 +136,10 @@ def register_types(module):
     module.add_class('Tag', import_from_module='ns.network', parent=root_module['ns3::ObjectBase'])
     ## tag-buffer.h (module 'network'): ns3::TagBuffer [class]
     module.add_class('TagBuffer', import_from_module='ns.network')
-    ## random-variable.h (module 'core'): ns3::TriangularVariable [class]
-    module.add_class('TriangularVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
+    ## nstime.h (module 'core'): ns3::TimeWithUnit [class]
+    module.add_class('TimeWithUnit', import_from_module='ns.core')
+    ## traced-value.h (module 'core'): ns3::TracedValue<unsigned int> [class]
+    module.add_class('TracedValue', import_from_module='ns.core', template_parameters=['unsigned int'])
     ## type-id.h (module 'core'): ns3::TypeId [class]
     module.add_class('TypeId', import_from_module='ns.core')
     ## type-id.h (module 'core'): ns3::TypeId::AttributeFlag [enumeration]
@@ -146,18 +148,10 @@ def register_types(module):
     module.add_class('AttributeInformation', import_from_module='ns.core', outer_class=root_module['ns3::TypeId'])
     ## type-id.h (module 'core'): ns3::TypeId::TraceSourceInformation [struct]
     module.add_class('TraceSourceInformation', import_from_module='ns.core', outer_class=root_module['ns3::TypeId'])
-    ## random-variable.h (module 'core'): ns3::UniformVariable [class]
-    module.add_class('UniformVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
     ## vector.h (module 'core'): ns3::Vector2D [class]
     module.add_class('Vector2D', import_from_module='ns.core')
     ## vector.h (module 'core'): ns3::Vector3D [class]
     module.add_class('Vector3D', import_from_module='ns.core')
-    ## random-variable.h (module 'core'): ns3::WeibullVariable [class]
-    module.add_class('WeibullVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::ZetaVariable [class]
-    module.add_class('ZetaVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::ZipfVariable [class]
-    module.add_class('ZipfVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
     ## plc-defs.h (module 'plc'): ns3::backbone_branch_discover_thread_arg_t [struct]
     module.add_class('backbone_branch_discover_thread_arg_t')
     ## plc-defs.h (module 'plc'): ns3::boostgraph_copy_t [struct]
@@ -166,32 +160,16 @@ def register_types(module):
     module.add_class('empty', import_from_module='ns.core')
     ## int64x64-double.h (module 'core'): ns3::int64x64_t [class]
     module.add_class('int64x64_t', import_from_module='ns.core')
+    ## int64x64-double.h (module 'core'): ns3::int64x64_t::impl_type [enumeration]
+    module.add_enum('impl_type', ['int128_impl', 'cairo_impl', 'ld_impl'], outer_class=root_module['ns3::int64x64_t'], import_from_module='ns.core')
     ## plc-defs.h (module 'plc'): ns3::sub_thread_arg_t [struct]
     module.add_class('sub_thread_arg_t')
     ## plc-defs.h (module 'plc'): ns3::thread_arg_t [struct]
     module.add_class('thread_arg_t')
     ## chunk.h (module 'network'): ns3::Chunk [class]
     module.add_class('Chunk', import_from_module='ns.network', parent=root_module['ns3::ObjectBase'])
-    ## random-variable.h (module 'core'): ns3::ConstantVariable [class]
-    module.add_class('ConstantVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::DeterministicVariable [class]
-    module.add_class('DeterministicVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::EmpiricalVariable [class]
-    module.add_class('EmpiricalVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::ErlangVariable [class]
-    module.add_class('ErlangVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::ExponentialVariable [class]
-    module.add_class('ExponentialVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::GammaVariable [class]
-    module.add_class('GammaVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
     ## header.h (module 'network'): ns3::Header [class]
     module.add_class('Header', import_from_module='ns.network', parent=root_module['ns3::Chunk'])
-    ## random-variable.h (module 'core'): ns3::IntEmpiricalVariable [class]
-    module.add_class('IntEmpiricalVariable', import_from_module='ns.core', parent=root_module['ns3::EmpiricalVariable'])
-    ## random-variable.h (module 'core'): ns3::LogNormalVariable [class]
-    module.add_class('LogNormalVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
-    ## random-variable.h (module 'core'): ns3::NormalVariable [class]
-    module.add_class('NormalVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
     ## object.h (module 'core'): ns3::Object [class]
     module.add_class('Object', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::Object, ns3::ObjectBase, ns3::ObjectDeleter >'])
     ## object.h (module 'core'): ns3::Object::AggregateIterator [class]
@@ -274,18 +252,20 @@ def register_types(module):
     module.add_enum('PLC_ValueType', ['UNDEFINED', 'CONSTANT', 'FREQ_SELECTIVE', 'TIMEVARIANT_CONSTANT', 'TIMEVARIANT_FREQ_SELECTIVE'], outer_class=root_module['ns3::PLC_ValueBase'])
     ## packet-burst.h (module 'network'): ns3::PacketBurst [class]
     module.add_class('PacketBurst', import_from_module='ns.network', parent=root_module['ns3::Object'])
-    ## random-variable.h (module 'core'): ns3::ParetoVariable [class]
-    module.add_class('ParetoVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariable'])
     ## queue.h (module 'network'): ns3::Queue [class]
     module.add_class('Queue', import_from_module='ns.network', parent=root_module['ns3::Object'])
     ## queue.h (module 'network'): ns3::Queue::QueueMode [enumeration]
     module.add_enum('QueueMode', ['QUEUE_MODE_PACKETS', 'QUEUE_MODE_BYTES'], outer_class=root_module['ns3::Queue'], import_from_module='ns.network')
+    ## random-variable-stream.h (module 'core'): ns3::RandomVariableStream [class]
+    module.add_class('RandomVariableStream', import_from_module='ns.core', parent=root_module['ns3::Object'])
     ## scheduler.h (module 'core'): ns3::Scheduler [class]
     module.add_class('Scheduler', import_from_module='ns.core', parent=root_module['ns3::Object'])
     ## scheduler.h (module 'core'): ns3::Scheduler::Event [struct]
     module.add_class('Event', import_from_module='ns.core', outer_class=root_module['ns3::Scheduler'])
     ## scheduler.h (module 'core'): ns3::Scheduler::EventKey [struct]
     module.add_class('EventKey', import_from_module='ns.core', outer_class=root_module['ns3::Scheduler'])
+    ## random-variable-stream.h (module 'core'): ns3::SequentialRandomVariable [class]
+    module.add_class('SequentialRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::AttributeAccessor, ns3::empty, ns3::DefaultDeleter<ns3::AttributeAccessor> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::AttributeAccessor', 'ns3::empty', 'ns3::DefaultDeleter<ns3::AttributeAccessor>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::AttributeChecker, ns3::empty, ns3::DefaultDeleter<ns3::AttributeChecker> > [class]
@@ -296,6 +276,10 @@ def register_types(module):
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::CallbackImplBase', 'ns3::empty', 'ns3::DefaultDeleter<ns3::CallbackImplBase>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::EventImpl, ns3::empty, ns3::DefaultDeleter<ns3::EventImpl> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::EventImpl', 'ns3::empty', 'ns3::DefaultDeleter<ns3::EventImpl>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter<ns3::Hash::Implementation> > [class]
+    module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::Hash::Implementation', 'ns3::empty', 'ns3::DefaultDeleter<ns3::Hash::Implementation>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter<ns3::NetDeviceQueue> > [class]
+    module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::NetDeviceQueue', 'ns3::empty', 'ns3::DefaultDeleter<ns3::NetDeviceQueue>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::NixVector, ns3::empty, ns3::DefaultDeleter<ns3::NixVector> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::NixVector', 'ns3::empty', 'ns3::DefaultDeleter<ns3::NixVector>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> > [class]
@@ -304,6 +288,8 @@ def register_types(module):
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, template_parameters=['ns3::PLC_TrxMetaInfo', 'ns3::empty', 'ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::Packet', 'ns3::empty', 'ns3::DefaultDeleter<ns3::Packet>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::QueueItem, ns3::empty, ns3::DefaultDeleter<ns3::QueueItem> > [class]
+    module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::QueueItem', 'ns3::empty', 'ns3::DefaultDeleter<ns3::QueueItem>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::SpectrumModel, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumModel> > [class]
     module.add_class('SimpleRefCount', automatic_type_narrowing=True, import_from_module='ns.core', template_parameters=['ns3::SpectrumModel', 'ns3::empty', 'ns3::DefaultDeleter<ns3::SpectrumModel>'], parent=root_module['ns3::empty'], memory_policy=cppclass.ReferenceCountingMethodsPolicy(incref_method='Ref', decref_method='Unref', peekref_method='GetReferenceCount'))
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::SpectrumValue, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumValue> > [class]
@@ -323,13 +309,23 @@ def register_types(module):
     ## nstime.h (module 'core'): ns3::Time [class]
     module.add_class('Time', import_from_module='ns.core')
     ## nstime.h (module 'core'): ns3::Time::Unit [enumeration]
-    module.add_enum('Unit', ['S', 'MS', 'US', 'NS', 'PS', 'FS', 'LAST'], outer_class=root_module['ns3::Time'], import_from_module='ns.core')
+    module.add_enum('Unit', ['Y', 'D', 'H', 'MIN', 'S', 'MS', 'US', 'NS', 'PS', 'FS', 'LAST'], outer_class=root_module['ns3::Time'], import_from_module='ns.core')
     ## nstime.h (module 'core'): ns3::Time [class]
     root_module['ns3::Time'].implicitly_converts_to(root_module['ns3::int64x64_t'])
     ## trace-source-accessor.h (module 'core'): ns3::TraceSourceAccessor [class]
     module.add_class('TraceSourceAccessor', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::TraceSourceAccessor, ns3::empty, ns3::DefaultDeleter<ns3::TraceSourceAccessor> >'])
     ## trailer.h (module 'network'): ns3::Trailer [class]
     module.add_class('Trailer', import_from_module='ns.network', parent=root_module['ns3::Chunk'])
+    ## random-variable-stream.h (module 'core'): ns3::TriangularRandomVariable [class]
+    module.add_class('TriangularRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
+    ## random-variable-stream.h (module 'core'): ns3::UniformRandomVariable [class]
+    module.add_class('UniformRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
+    ## random-variable-stream.h (module 'core'): ns3::WeibullRandomVariable [class]
+    module.add_class('WeibullRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
+    ## random-variable-stream.h (module 'core'): ns3::ZetaRandomVariable [class]
+    module.add_class('ZetaRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
+    ## random-variable-stream.h (module 'core'): ns3::ZipfRandomVariable [class]
+    module.add_class('ZipfRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## attribute.h (module 'core'): ns3::AttributeAccessor [class]
     module.add_class('AttributeAccessor', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::AttributeAccessor, ns3::empty, ns3::DefaultDeleter<ns3::AttributeAccessor> >'])
     ## attribute.h (module 'core'): ns3::AttributeChecker [class]
@@ -348,22 +344,34 @@ def register_types(module):
     module.add_class('CallbackValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## channel.h (module 'network'): ns3::Channel [class]
     module.add_class('Channel', import_from_module='ns.network', parent=root_module['ns3::Object'])
+    ## random-variable-stream.h (module 'core'): ns3::ConstantRandomVariable [class]
+    module.add_class('ConstantRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## data-rate.h (module 'network'): ns3::DataRateChecker [class]
     module.add_class('DataRateChecker', import_from_module='ns.network', parent=root_module['ns3::AttributeChecker'])
     ## data-rate.h (module 'network'): ns3::DataRateValue [class]
     module.add_class('DataRateValue', import_from_module='ns.network', parent=root_module['ns3::AttributeValue'])
+    ## random-variable-stream.h (module 'core'): ns3::DeterministicRandomVariable [class]
+    module.add_class('DeterministicRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## double.h (module 'core'): ns3::DoubleValue [class]
     module.add_class('DoubleValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## drop-tail-queue.h (module 'network'): ns3::DropTailQueue [class]
     module.add_class('DropTailQueue', import_from_module='ns.network', parent=root_module['ns3::Queue'])
+    ## random-variable-stream.h (module 'core'): ns3::EmpiricalRandomVariable [class]
+    module.add_class('EmpiricalRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## attribute.h (module 'core'): ns3::EmptyAttributeValue [class]
     module.add_class('EmptyAttributeValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## enum.h (module 'core'): ns3::EnumChecker [class]
     module.add_class('EnumChecker', import_from_module='ns.core', parent=root_module['ns3::AttributeChecker'])
     ## enum.h (module 'core'): ns3::EnumValue [class]
     module.add_class('EnumValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
+    ## random-variable-stream.h (module 'core'): ns3::ErlangRandomVariable [class]
+    module.add_class('ErlangRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## event-impl.h (module 'core'): ns3::EventImpl [class]
     module.add_class('EventImpl', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::EventImpl, ns3::empty, ns3::DefaultDeleter<ns3::EventImpl> >'])
+    ## random-variable-stream.h (module 'core'): ns3::ExponentialRandomVariable [class]
+    module.add_class('ExponentialRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
+    ## random-variable-stream.h (module 'core'): ns3::GammaRandomVariable [class]
+    module.add_class('GammaRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## integer.h (module 'core'): ns3::IntegerValue [class]
     module.add_class('IntegerValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## ipv4-address.h (module 'network'): ns3::Ipv4AddressChecker [class]
@@ -382,6 +390,8 @@ def register_types(module):
     module.add_class('Ipv6PrefixChecker', import_from_module='ns.network', parent=root_module['ns3::AttributeChecker'])
     ## ipv6-address.h (module 'network'): ns3::Ipv6PrefixValue [class]
     module.add_class('Ipv6PrefixValue', import_from_module='ns.network', parent=root_module['ns3::AttributeValue'])
+    ## random-variable-stream.h (module 'core'): ns3::LogNormalRandomVariable [class]
+    module.add_class('LogNormalRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## mac48-address.h (module 'network'): ns3::Mac48AddressChecker [class]
     module.add_class('Mac48AddressChecker', import_from_module='ns.network', parent=root_module['ns3::AttributeChecker'])
     ## mac48-address.h (module 'network'): ns3::Mac48AddressValue [class]
@@ -390,10 +400,16 @@ def register_types(module):
     module.add_class('NetDevice', import_from_module='ns.network', parent=root_module['ns3::Object'])
     ## net-device.h (module 'network'): ns3::NetDevice::PacketType [enumeration]
     module.add_enum('PacketType', ['PACKET_HOST', 'NS3_PACKET_HOST', 'PACKET_BROADCAST', 'NS3_PACKET_BROADCAST', 'PACKET_MULTICAST', 'NS3_PACKET_MULTICAST', 'PACKET_OTHERHOST', 'NS3_PACKET_OTHERHOST'], outer_class=root_module['ns3::NetDevice'], import_from_module='ns.network')
+    ## net-device.h (module 'network'): ns3::NetDeviceQueue [class]
+    module.add_class('NetDeviceQueue', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter<ns3::NetDeviceQueue> >'])
+    ## net-device.h (module 'network'): ns3::NetDeviceQueueInterface [class]
+    module.add_class('NetDeviceQueueInterface', import_from_module='ns.network', parent=root_module['ns3::Object'])
     ## nix-vector.h (module 'network'): ns3::NixVector [class]
     module.add_class('NixVector', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::NixVector, ns3::empty, ns3::DefaultDeleter<ns3::NixVector> >'])
     ## node.h (module 'network'): ns3::Node [class]
     module.add_class('Node', import_from_module='ns.network', parent=root_module['ns3::Object'])
+    ## random-variable-stream.h (module 'core'): ns3::NormalRandomVariable [class]
+    module.add_class('NormalRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## object-factory.h (module 'core'): ns3::ObjectFactoryChecker [class]
     module.add_class('ObjectFactoryChecker', import_from_module='ns.core', parent=root_module['ns3::AttributeChecker'])
     ## object-factory.h (module 'core'): ns3::ObjectFactoryValue [class]
@@ -448,10 +464,10 @@ def register_types(module):
     module.add_class('PLC_TrxMetaInfo', parent=root_module['ns3::SimpleRefCount< ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> >'])
     ## packet.h (module 'network'): ns3::Packet [class]
     module.add_class('Packet', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >'])
-    ## random-variable.h (module 'core'): ns3::RandomVariableChecker [class]
-    module.add_class('RandomVariableChecker', import_from_module='ns.core', parent=root_module['ns3::AttributeChecker'])
-    ## random-variable.h (module 'core'): ns3::RandomVariableValue [class]
-    module.add_class('RandomVariableValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
+    ## random-variable-stream.h (module 'core'): ns3::ParetoRandomVariable [class]
+    module.add_class('ParetoRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
+    ## net-device.h (module 'network'): ns3::QueueItem [class]
+    module.add_class('QueueItem', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::QueueItem, ns3::empty, ns3::DefaultDeleter<ns3::QueueItem> >'])
     ## nstime.h (module 'core'): ns3::TimeValue [class]
     module.add_class('TimeValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## type-id.h (module 'core'): ns3::TypeIdChecker [class]
@@ -482,260 +498,269 @@ def register_types(module):
     module.add_class('PLC_ErrorRatePhy', parent=root_module['ns3::PLC_HalfDuplexOfdmPhy'])
     ## plc-phy.h (module 'plc'): ns3::PLC_IncrementalRedundancyPhy [class]
     module.add_class('PLC_IncrementalRedundancyPhy', parent=root_module['ns3::PLC_InformationRatePhy'])
-    module.add_container('ns3::PLC_TimeVariantFreqSelectiveRealValue', 'std::vector< double >', container_type='vector')
-    module.add_container('ns3::PLC_TimeVariantRealValue', 'double', container_type='vector')
-    module.add_container('ns3::PLC_FreqSelectiveRealValue', 'double', container_type='vector')
-    module.add_container('std::vector< double >', 'double', container_type='vector')
-    module.add_container('ns3::PLC_NodeList', 'ns3::Ptr< ns3::PLC_Node >', container_type='vector')
-    module.add_container('std::list< ns3::PLC_BackboneBranch * >', 'ns3::PLC_BackboneBranch *', container_type='list')
-    module.add_container('std::vector< ns3::PLC_Node * >', 'ns3::PLC_Node *', container_type='vector')
-    module.add_container('std::vector< ns3::Ptr< ns3::PLC_RxInterface > >', 'ns3::Ptr< ns3::PLC_RxInterface >', container_type='vector')
-    module.add_container('std::vector< ns3::PLC_RxInterface * >', 'ns3::PLC_RxInterface *', container_type='vector')
-    module.add_container('std::vector< ns3::Ptr< ns3::PLC_Node > >', 'ns3::Ptr< ns3::PLC_Node >', container_type='vector')
-    module.add_container('std::list< ns3::Ptr< ns3::PLC_Node > >', 'ns3::Ptr< ns3::PLC_Node >', container_type='list')
-    module.add_container('ns3::PLC_NetdeviceMap', ('std::string', 'ns3::Ptr< ns3::PLC_NetDevice >'), container_type='map')
-    module.add_container('ns3::PLC_NodeOutEdgesMap', ('ns3::PLC_Node *', 'ns3::Ptr< ns3::PLC_Edge >'), container_type='map')
-    module.add_container('std::list< ns3::Ptr< ns3::Packet > >', 'ns3::Ptr< ns3::Packet >', container_type='list')
-    module.add_container('ns3::Bands', 'ns3::BandInfo', container_type='vector')
-    module.add_container('std::vector< std::complex< double > >', 'std::complex< double >', container_type='vector')
-    module.add_container('ns3::PLC_ValueSpectrum', 'std::complex< double >', container_type='vector')
-    module.add_container('ns3::PLC_TimeVariantValue', 'std::complex< double >', container_type='vector')
-    module.add_container('std::vector< std::vector< std::complex< double > > >', 'std::vector< std::complex< double > >', container_type='vector')
-    module.add_container('ns3::PLC_TimeVariantValueSpectrum', 'std::vector< std::complex< double > >', container_type='vector')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >', 'ns3::PLC_TransmissionDescriptorMap')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >*', 'ns3::PLC_TransmissionDescriptorMap*')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >&', 'ns3::PLC_TransmissionDescriptorMap&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_MacTransmissionFailedCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_MacTransmissionFailedCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_MacTransmissionFailedCallback&')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >', 'ns3::PLC_ChannelTrace')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >*', 'ns3::PLC_ChannelTrace*')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >&', 'ns3::PLC_ChannelTrace&')
-    typehandlers.add_type_alias('std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >', 'ns3::PLC_InterfaceTupel')
-    typehandlers.add_type_alias('std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >*', 'ns3::PLC_InterfaceTupel*')
-    typehandlers.add_type_alias('std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >&', 'ns3::PLC_InterfaceTupel&')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue', 'ns3::PLC_TimeVariantTransferVector')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue*', 'ns3::PLC_TimeVariantTransferVector*')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue&', 'ns3::PLC_TimeVariantTransferVector&')
-    module.add_typedef(root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], 'PLC_TimeVariantTransferVector')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PhyRxEndOkCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PhyRxEndOkCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PhyRxEndOkCallback&')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >', 'ns3::PLC_StateTrace')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >*', 'ns3::PLC_StateTrace*')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >&', 'ns3::PLC_StateTrace&')
-    typehandlers.add_type_alias('void ( * ) ( std::ostream & ) *', 'ns3::LogNodePrinter')
-    typehandlers.add_type_alias('void ( * ) ( std::ostream & ) **', 'ns3::LogNodePrinter*')
-    typehandlers.add_type_alias('void ( * ) ( std::ostream & ) *&', 'ns3::LogNodePrinter&')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_FreqSelectiveResistance')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_FreqSelectiveResistance*')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_FreqSelectiveResistance&')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_Node >, std::allocator< ns3::Ptr< ns3::PLC_Node > > >', 'ns3::PLC_NodeList')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_Node >, std::allocator< ns3::Ptr< ns3::PLC_Node > > >*', 'ns3::PLC_NodeList*')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_Node >, std::allocator< ns3::Ptr< ns3::PLC_Node > > >&', 'ns3::PLC_NodeList&')
-    typehandlers.add_type_alias('ns3::PLC_ValueSpectrum', 'ns3::PLC_ImpedanceSpectrum')
-    typehandlers.add_type_alias('ns3::PLC_ValueSpectrum*', 'ns3::PLC_ImpedanceSpectrum*')
-    typehandlers.add_type_alias('ns3::PLC_ValueSpectrum&', 'ns3::PLC_ImpedanceSpectrum&')
-    typehandlers.add_type_alias('ns3::backbone_branch_discover_thread_arg_t', 'ns3::backbone_branch_discover_thread_arg')
-    typehandlers.add_type_alias('ns3::backbone_branch_discover_thread_arg_t*', 'ns3::backbone_branch_discover_thread_arg*')
-    typehandlers.add_type_alias('ns3::backbone_branch_discover_thread_arg_t&', 'ns3::backbone_branch_discover_thread_arg&')
+    module.add_container('ns3::PLC_TimeVariantFreqSelectiveRealValue', 'std::vector< double >', container_type=u'vector')
+    module.add_container('ns3::PLC_TimeVariantRealValue', 'double', container_type=u'vector')
+    module.add_container('ns3::PLC_FreqSelectiveRealValue', 'double', container_type=u'vector')
+    module.add_container('std::vector< double >', 'double', container_type=u'vector')
+    module.add_container('std::map< std::string, ns3::LogComponent * >', ('std::string', 'ns3::LogComponent *'), container_type=u'map')
+    module.add_container('ns3::PLC_NodeList', 'ns3::Ptr< ns3::PLC_Node >', container_type=u'vector')
+    module.add_container('std::list< ns3::PLC_BackboneBranch * >', 'ns3::PLC_BackboneBranch *', container_type=u'list')
+    module.add_container('std::vector< ns3::PLC_Node * >', 'ns3::PLC_Node *', container_type=u'vector')
+    module.add_container('std::vector< ns3::Ptr< ns3::PLC_RxInterface > >', 'ns3::Ptr< ns3::PLC_RxInterface >', container_type=u'vector')
+    module.add_container('std::vector< ns3::PLC_RxInterface * >', 'ns3::PLC_RxInterface *', container_type=u'vector')
+    module.add_container('std::vector< ns3::Ptr< ns3::PLC_Node > >', 'ns3::Ptr< ns3::PLC_Node >', container_type=u'vector')
+    module.add_container('std::list< ns3::Ptr< ns3::PLC_Node > >', 'ns3::Ptr< ns3::PLC_Node >', container_type=u'list')
+    module.add_container('ns3::PLC_NetdeviceMap', ('std::string', 'ns3::Ptr< ns3::PLC_NetDevice >'), container_type=u'map')
+    module.add_container('ns3::PLC_NodeOutEdgesMap', ('ns3::PLC_Node *', 'ns3::Ptr< ns3::PLC_Edge >'), container_type=u'map')
+    module.add_container('std::list< ns3::Ptr< ns3::Packet > >', 'ns3::Ptr< ns3::Packet >', container_type=u'list')
+    module.add_container('ns3::Bands', 'ns3::BandInfo', container_type=u'vector')
+    module.add_container('std::vector< std::complex< double > >', 'std::complex< double >', container_type=u'vector')
+    module.add_container('ns3::PLC_ValueSpectrum', 'std::complex< double >', container_type=u'vector')
+    module.add_container('ns3::PLC_TimeVariantValue', 'std::complex< double >', container_type=u'vector')
+    module.add_container('std::vector< std::vector< std::complex< double > > >', 'std::vector< std::complex< double > >', container_type=u'vector')
+    module.add_container('ns3::PLC_TimeVariantValueSpectrum', 'std::vector< std::complex< double > >', container_type=u'vector')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PLC_MacTransmissionFailedCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PLC_MacTransmissionFailedCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet const >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PLC_MacTransmissionFailedCallback&')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >', u'ns3::PLC_ChannelTrace')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >*', u'ns3::PLC_ChannelTrace*')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::PLC_ValueBase > > > >&', u'ns3::PLC_ChannelTrace&')
+    typehandlers.add_type_alias(u'std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >', u'ns3::PLC_InterfaceTupel')
+    typehandlers.add_type_alias(u'std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >*', u'ns3::PLC_InterfaceTupel*')
+    typehandlers.add_type_alias(u'std::set< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * >, std::less< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > >, std::allocator< std::pair< ns3::PLC_TxInterface *, ns3::PLC_RxInterface * > > >&', u'ns3::PLC_InterfaceTupel&')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueSpectrum', u'ns3::PLC_ImpedanceSpectrum')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueSpectrum*', u'ns3::PLC_ImpedanceSpectrum*')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueSpectrum&', u'ns3::PLC_ImpedanceSpectrum&')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_Outlet >, std::allocator< ns3::Ptr< ns3::PLC_Outlet > > >', u'ns3::PLC_OutletList')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_Outlet >, std::allocator< ns3::Ptr< ns3::PLC_Outlet > > >*', u'ns3::PLC_OutletList*')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_Outlet >, std::allocator< ns3::Ptr< ns3::PLC_Outlet > > >&', u'ns3::PLC_OutletList&')
+    typehandlers.add_type_alias(u'void ( * ) ( std::ostream & ) *', u'ns3::LogNodePrinter')
+    typehandlers.add_type_alias(u'void ( * ) ( std::ostream & ) **', u'ns3::LogNodePrinter*')
+    typehandlers.add_type_alias(u'void ( * ) ( std::ostream & ) *&', u'ns3::LogNodePrinter&')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >', u'ns3::PLC_FreqSelectiveResistance')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >*', u'ns3::PLC_FreqSelectiveResistance*')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >&', u'ns3::PLC_FreqSelectiveResistance&')
+    typehandlers.add_type_alias(u'ns3::backbone_branch_discover_thread_arg_t', u'ns3::backbone_branch_discover_thread_arg')
+    typehandlers.add_type_alias(u'ns3::backbone_branch_discover_thread_arg_t*', u'ns3::backbone_branch_discover_thread_arg*')
+    typehandlers.add_type_alias(u'ns3::backbone_branch_discover_thread_arg_t&', u'ns3::backbone_branch_discover_thread_arg&')
     module.add_typedef(root_module['ns3::backbone_branch_discover_thread_arg_t'], 'backbone_branch_discover_thread_arg')
-    typehandlers.add_type_alias('ns3::PLC_Value', 'ns3::PLC_ImpedanceValue')
-    typehandlers.add_type_alias('ns3::PLC_Value*', 'ns3::PLC_ImpedanceValue*')
-    typehandlers.add_type_alias('ns3::PLC_Value&', 'ns3::PLC_ImpedanceValue&')
-    typehandlers.add_type_alias('ns3::PLC_ConstValue', 'ns3::PLC_ConstImpedance')
-    typehandlers.add_type_alias('ns3::PLC_ConstValue*', 'ns3::PLC_ConstImpedance*')
-    typehandlers.add_type_alias('ns3::PLC_ConstValue&', 'ns3::PLC_ConstImpedance&')
+    typehandlers.add_type_alias(u'ns3::PLC_Value', u'ns3::PLC_ImpedanceValue')
+    typehandlers.add_type_alias(u'ns3::PLC_Value*', u'ns3::PLC_ImpedanceValue*')
+    typehandlers.add_type_alias(u'ns3::PLC_Value&', u'ns3::PLC_ImpedanceValue&')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_Node >, std::allocator< ns3::Ptr< ns3::PLC_Node > > >', u'ns3::PLC_NodeList')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_Node >, std::allocator< ns3::Ptr< ns3::PLC_Node > > >*', u'ns3::PLC_NodeList*')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_Node >, std::allocator< ns3::Ptr< ns3::PLC_Node > > >&', u'ns3::PLC_NodeList&')
+    typehandlers.add_type_alias(u'ns3::PLC_ConstValue', u'ns3::PLC_ConstImpedance')
+    typehandlers.add_type_alias(u'ns3::PLC_ConstValue*', u'ns3::PLC_ConstImpedance*')
+    typehandlers.add_type_alias(u'ns3::PLC_ConstValue&', u'ns3::PLC_ConstImpedance&')
     module.add_typedef(root_module['ns3::PLC_ConstValue'], 'PLC_ConstImpedance')
-    typehandlers.add_type_alias('std::vector< std::complex< double >, std::allocator< std::complex< double > > >', 'ns3::PLC_TimeVariantValue')
-    typehandlers.add_type_alias('std::vector< std::complex< double >, std::allocator< std::complex< double > > >*', 'ns3::PLC_TimeVariantValue*')
-    typehandlers.add_type_alias('std::vector< std::complex< double >, std::allocator< std::complex< double > > >&', 'ns3::PLC_TimeVariantValue&')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::Values')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::Values*')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::Values&')
-    typehandlers.add_type_alias('std::vector< std::vector< double, std::allocator< double > >, std::allocator< std::vector< double, std::allocator< double > > > >', 'ns3::PLC_TimeVariantFreqSelectiveRealValue')
-    typehandlers.add_type_alias('std::vector< std::vector< double, std::allocator< double > >, std::allocator< std::vector< double, std::allocator< double > > > >*', 'ns3::PLC_TimeVariantFreqSelectiveRealValue*')
-    typehandlers.add_type_alias('std::vector< std::vector< double, std::allocator< double > >, std::allocator< std::vector< double, std::allocator< double > > > >&', 'ns3::PLC_TimeVariantFreqSelectiveRealValue&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PhyRxEndErrorCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PhyRxEndErrorCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PhyRxEndErrorCallback&')
-    typehandlers.add_type_alias('ns3::PLC_FreqSelectiveValue', 'ns3::PLC_FreqSelectiveImpedance')
-    typehandlers.add_type_alias('ns3::PLC_FreqSelectiveValue*', 'ns3::PLC_FreqSelectiveImpedance*')
-    typehandlers.add_type_alias('ns3::PLC_FreqSelectiveValue&', 'ns3::PLC_FreqSelectiveImpedance&')
+    typehandlers.add_type_alias(u'std::vector< std::complex< double >, std::allocator< std::complex< double > > >', u'ns3::PLC_TimeVariantValue')
+    typehandlers.add_type_alias(u'std::vector< std::complex< double >, std::allocator< std::complex< double > > >*', u'ns3::PLC_TimeVariantValue*')
+    typehandlers.add_type_alias(u'std::vector< std::complex< double >, std::allocator< std::complex< double > > >&', u'ns3::PLC_TimeVariantValue&')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >', u'ns3::Values')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >*', u'ns3::Values*')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >&', u'ns3::Values&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PhyRxEndOkCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PhyRxEndOkCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PhyRxEndOkCallback&')
+    typehandlers.add_type_alias(u'std::vector< std::vector< double, std::allocator< double > >, std::allocator< std::vector< double, std::allocator< double > > > >', u'ns3::PLC_TimeVariantFreqSelectiveRealValue')
+    typehandlers.add_type_alias(u'std::vector< std::vector< double, std::allocator< double > >, std::allocator< std::vector< double, std::allocator< double > > > >*', u'ns3::PLC_TimeVariantFreqSelectiveRealValue*')
+    typehandlers.add_type_alias(u'std::vector< std::vector< double, std::allocator< double > >, std::allocator< std::vector< double, std::allocator< double > > > >&', u'ns3::PLC_TimeVariantFreqSelectiveRealValue&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PhyRxEndErrorCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PhyRxEndErrorCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PhyRxEndErrorCallback&')
+    typehandlers.add_type_alias(u'ns3::PLC_FreqSelectiveValue', u'ns3::PLC_FreqSelectiveImpedance')
+    typehandlers.add_type_alias(u'ns3::PLC_FreqSelectiveValue*', u'ns3::PLC_FreqSelectiveImpedance*')
+    typehandlers.add_type_alias(u'ns3::PLC_FreqSelectiveValue&', u'ns3::PLC_FreqSelectiveImpedance&')
     module.add_typedef(root_module['ns3::PLC_FreqSelectiveValue'], 'PLC_FreqSelectiveImpedance')
-    typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >', 'ns3::PLC_NetdeviceMap')
-    typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >*', 'ns3::PLC_NetdeviceMap*')
-    typehandlers.add_type_alias('std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >&', 'ns3::PLC_NetdeviceMap&')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >', 'ns3::PLC_NetdeviceList')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >*', 'ns3::PLC_NetdeviceList*')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >&', 'ns3::PLC_NetdeviceList&')
-    typehandlers.add_type_alias('uint32_t', 'ns3::Timeslot')
-    typehandlers.add_type_alias('uint32_t*', 'ns3::Timeslot*')
-    typehandlers.add_type_alias('uint32_t&', 'ns3::Timeslot&')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >', 'ns3::PLC_AccumulatedBitsTrace')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >*', 'ns3::PLC_AccumulatedBitsTrace*')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >&', 'ns3::PLC_AccumulatedBitsTrace&')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >', 'ns3::PLC_EdgeTransferDataMap')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >*', 'ns3::PLC_EdgeTransferDataMap*')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >&', 'ns3::PLC_EdgeTransferDataMap&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_PayloadReceptionFailedCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_PayloadReceptionFailedCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_PayloadReceptionFailedCallback&')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_FreqSelectiveCapacitance')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_FreqSelectiveCapacitance*')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_FreqSelectiveCapacitance&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_PhyFrameSentCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_PhyFrameSentCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_PhyFrameSentCallback&')
-    typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_Node >, double >', 'ns3::PLC_RandomNodeDescriptor')
-    typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_Node >, double >*', 'ns3::PLC_RandomNodeDescriptor*')
-    typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_Node >, double >&', 'ns3::PLC_RandomNodeDescriptor&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_MacDataCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_MacDataCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_MacDataCallback&')
-    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >', 'ns3::PLC_RxPsdMap')
-    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >*', 'ns3::PLC_RxPsdMap*')
-    typehandlers.add_type_alias('std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >&', 'ns3::PLC_RxPsdMap&')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantConstValue', 'ns3::PLC_TimeVariantConstImpedance')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantConstValue*', 'ns3::PLC_TimeVariantConstImpedance*')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantConstValue&', 'ns3::PLC_TimeVariantConstImpedance&')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >', u'ns3::PLC_NetdeviceList')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >*', u'ns3::PLC_NetdeviceList*')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_NetDevice >, std::allocator< ns3::Ptr< ns3::PLC_NetDevice > > >&', u'ns3::PLC_NetdeviceList&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PLC_PayloadReceptionFailedCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PLC_PayloadReceptionFailedCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Mac48Address, unsigned short, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PLC_PayloadReceptionFailedCallback&')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >', u'ns3::PLC_TransmissionDescriptorMap')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >*', u'ns3::PLC_TransmissionDescriptorMap*')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > > > > >&', u'ns3::PLC_TransmissionDescriptorMap&')
+    typehandlers.add_type_alias(u'uint32_t', u'ns3::Timeslot')
+    typehandlers.add_type_alias(u'uint32_t*', u'ns3::Timeslot*')
+    typehandlers.add_type_alias(u'uint32_t&', u'ns3::Timeslot&')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >', u'ns3::PLC_AccumulatedBitsTrace')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >*', u'ns3::PLC_AccumulatedBitsTrace*')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, double >, std::allocator< std::pair< ns3::Time, double > > >&', u'ns3::PLC_AccumulatedBitsTrace&')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >', u'ns3::PLC_EdgeTransferDataMap')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >*', u'ns3::PLC_EdgeTransferDataMap*')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::PLC_EdgeTransferData_t, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::PLC_EdgeTransferData_t > > >&', u'ns3::PLC_EdgeTransferDataMap&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PLC_PhyFrameSentCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PLC_PhyFrameSentCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PLC_PhyFrameSentCallback&')
+    typehandlers.add_type_alias(u'std::pair< ns3::Ptr< ns3::PLC_Node >, double >', u'ns3::PLC_RandomNodeDescriptor')
+    typehandlers.add_type_alias(u'std::pair< ns3::Ptr< ns3::PLC_Node >, double >*', u'ns3::PLC_RandomNodeDescriptor*')
+    typehandlers.add_type_alias(u'std::pair< ns3::Ptr< ns3::PLC_Node >, double >&', u'ns3::PLC_RandomNodeDescriptor&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PLC_MacDataCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PLC_MacDataCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Mac48Address, ns3::Mac48Address, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PLC_MacDataCallback&')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >', u'ns3::PLC_RxPsdMap')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >*', u'ns3::PLC_RxPsdMap*')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >&', u'ns3::PLC_RxPsdMap&')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantConstValue', u'ns3::PLC_TimeVariantConstImpedance')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantConstValue*', u'ns3::PLC_TimeVariantConstImpedance*')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantConstValue&', u'ns3::PLC_TimeVariantConstImpedance&')
     module.add_typedef(root_module['ns3::PLC_TimeVariantConstValue'], 'PLC_TimeVariantConstImpedance')
-    typehandlers.add_type_alias('ns3::sub_thread_arg_t', 'ns3::sub_thread_arg')
-    typehandlers.add_type_alias('ns3::sub_thread_arg_t*', 'ns3::sub_thread_arg*')
-    typehandlers.add_type_alias('ns3::sub_thread_arg_t&', 'ns3::sub_thread_arg&')
-    module.add_typedef(root_module['ns3::sub_thread_arg_t'], 'sub_thread_arg')
-    typehandlers.add_type_alias('ns3::PLC_ImpedanceIndicator_t', 'ns3::PLC_ImpedanceIndicator')
-    typehandlers.add_type_alias('ns3::PLC_ImpedanceIndicator_t*', 'ns3::PLC_ImpedanceIndicator*')
-    typehandlers.add_type_alias('ns3::PLC_ImpedanceIndicator_t&', 'ns3::PLC_ImpedanceIndicator&')
-    module.add_typedef(root_module['ns3::PLC_ImpedanceIndicator_t'], 'PLC_ImpedanceIndicator')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_FreqSelectiveConductance')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_FreqSelectiveConductance*')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_FreqSelectiveConductance&')
-    typehandlers.add_type_alias('ns3::PLC_ValueBase', 'ns3::PLC_TransferBase')
-    typehandlers.add_type_alias('ns3::PLC_ValueBase*', 'ns3::PLC_TransferBase*')
-    typehandlers.add_type_alias('ns3::PLC_ValueBase&', 'ns3::PLC_TransferBase&')
-    module.add_typedef(root_module['ns3::PLC_ValueBase'], 'PLC_TransferBase')
-    typehandlers.add_type_alias('std::pair< unsigned int, std::pair< unsigned int, unsigned int > >', 'ns3::PLC_BackboneBranchKey')
-    typehandlers.add_type_alias('std::pair< unsigned int, std::pair< unsigned int, unsigned int > >*', 'ns3::PLC_BackboneBranchKey*')
-    typehandlers.add_type_alias('std::pair< unsigned int, std::pair< unsigned int, unsigned int > >&', 'ns3::PLC_BackboneBranchKey&')
-    typehandlers.add_type_alias('ns3::Vector3DChecker', 'ns3::VectorChecker')
-    typehandlers.add_type_alias('ns3::Vector3DChecker*', 'ns3::VectorChecker*')
-    typehandlers.add_type_alias('ns3::Vector3DChecker&', 'ns3::VectorChecker&')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >', u'ns3::PLC_FreqSelectiveCapacitance')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >*', u'ns3::PLC_FreqSelectiveCapacitance*')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >&', u'ns3::PLC_FreqSelectiveCapacitance&')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Ptr< ns3::PLC_Node >, double >, std::allocator< std::pair< ns3::Ptr< ns3::PLC_Node >, double > > >', u'ns3::PLC_RandomLevelDescriptor')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Ptr< ns3::PLC_Node >, double >, std::allocator< std::pair< ns3::Ptr< ns3::PLC_Node >, double > > >*', u'ns3::PLC_RandomLevelDescriptor*')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Ptr< ns3::PLC_Node >, double >, std::allocator< std::pair< ns3::Ptr< ns3::PLC_Node >, double > > >&', u'ns3::PLC_RandomLevelDescriptor&')
+    typehandlers.add_type_alias(u'std::vector< ns3::BandInfo, std::allocator< ns3::BandInfo > >', u'ns3::Bands')
+    typehandlers.add_type_alias(u'std::vector< ns3::BandInfo, std::allocator< ns3::BandInfo > >*', u'ns3::Bands*')
+    typehandlers.add_type_alias(u'std::vector< ns3::BandInfo, std::allocator< ns3::BandInfo > >&', u'ns3::Bands&')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantFreqSelectiveValue', u'ns3::PLC_TimeVariantTransferVector')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantFreqSelectiveValue*', u'ns3::PLC_TimeVariantTransferVector*')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantFreqSelectiveValue&', u'ns3::PLC_TimeVariantTransferVector&')
+    module.add_typedef(root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], 'PLC_TimeVariantTransferVector')
+    typehandlers.add_type_alias(u'ns3::Vector3DChecker', u'ns3::VectorChecker')
+    typehandlers.add_type_alias(u'ns3::Vector3DChecker*', u'ns3::VectorChecker*')
+    typehandlers.add_type_alias(u'ns3::Vector3DChecker&', u'ns3::VectorChecker&')
     module.add_typedef(root_module['ns3::Vector3DChecker'], 'VectorChecker')
-    typehandlers.add_type_alias('void ( * ) ( std::ostream & ) *', 'ns3::LogTimePrinter')
-    typehandlers.add_type_alias('void ( * ) ( std::ostream & ) **', 'ns3::LogTimePrinter*')
-    typehandlers.add_type_alias('void ( * ) ( std::ostream & ) *&', 'ns3::LogTimePrinter&')
-    typehandlers.add_type_alias('ns3::PLC_ValueBase', 'ns3::PLC_Impedance')
-    typehandlers.add_type_alias('ns3::PLC_ValueBase*', 'ns3::PLC_Impedance*')
-    typehandlers.add_type_alias('ns3::PLC_ValueBase&', 'ns3::PLC_Impedance&')
+    typehandlers.add_type_alias(u'void ( * ) ( std::ostream & ) *', u'ns3::LogTimePrinter')
+    typehandlers.add_type_alias(u'void ( * ) ( std::ostream & ) **', u'ns3::LogTimePrinter*')
+    typehandlers.add_type_alias(u'void ( * ) ( std::ostream & ) *&', u'ns3::LogTimePrinter&')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueBase', u'ns3::PLC_Impedance')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueBase*', u'ns3::PLC_Impedance*')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueBase&', u'ns3::PLC_Impedance&')
     module.add_typedef(root_module['ns3::PLC_ValueBase'], 'PLC_Impedance')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >', 'ns3::PLC_ReceiveDescriptorMap')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >*', 'ns3::PLC_ReceiveDescriptorMap*')
-    typehandlers.add_type_alias('std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >&', 'ns3::PLC_ReceiveDescriptorMap&')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_FreqSelectiveRealValue')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_FreqSelectiveRealValue*')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_FreqSelectiveRealValue&')
-    typehandlers.add_type_alias('ns3::RngSeedManager', 'ns3::SeedManager')
-    typehandlers.add_type_alias('ns3::RngSeedManager*', 'ns3::SeedManager*')
-    typehandlers.add_type_alias('ns3::RngSeedManager&', 'ns3::SeedManager&')
-    module.add_typedef(root_module['ns3::RngSeedManager'], 'SeedManager')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_Outlet >, std::allocator< ns3::Ptr< ns3::PLC_Outlet > > >', 'ns3::PLC_OutletList')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_Outlet >, std::allocator< ns3::Ptr< ns3::PLC_Outlet > > >*', 'ns3::PLC_OutletList*')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_Outlet >, std::allocator< ns3::Ptr< ns3::PLC_Outlet > > >&', 'ns3::PLC_OutletList&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_CcaRequestCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_CcaRequestCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_CcaRequestCallback&')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_TimeVariantRealValue')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_TimeVariantRealValue*')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_TimeVariantRealValue&')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Ptr< ns3::PLC_Node >, double >, std::allocator< std::pair< ns3::Ptr< ns3::PLC_Node >, double > > >', 'ns3::PLC_RandomLevelDescriptor')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Ptr< ns3::PLC_Node >, double >, std::allocator< std::pair< ns3::Ptr< ns3::PLC_Node >, double > > >*', 'ns3::PLC_RandomLevelDescriptor*')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Ptr< ns3::PLC_Node >, double >, std::allocator< std::pair< ns3::Ptr< ns3::PLC_Node >, double > > >&', 'ns3::PLC_RandomLevelDescriptor&')
-    typehandlers.add_type_alias('std::vector< ns3::BandInfo, std::allocator< ns3::BandInfo > >', 'ns3::Bands')
-    typehandlers.add_type_alias('std::vector< ns3::BandInfo, std::allocator< ns3::BandInfo > >*', 'ns3::Bands*')
-    typehandlers.add_type_alias('std::vector< ns3::BandInfo, std::allocator< ns3::BandInfo > >&', 'ns3::Bands&')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NoiseSource >, std::allocator< ns3::Ptr< ns3::PLC_NoiseSource > > >', 'ns3::PLC_NoiseSourceList')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NoiseSource >, std::allocator< ns3::Ptr< ns3::PLC_NoiseSource > > >*', 'ns3::PLC_NoiseSourceList*')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_NoiseSource >, std::allocator< ns3::Ptr< ns3::PLC_NoiseSource > > >&', 'ns3::PLC_NoiseSourceList&')
-    typehandlers.add_type_alias('uint32_t', 'ns3::SpectrumModelUid_t')
-    typehandlers.add_type_alias('uint32_t*', 'ns3::SpectrumModelUid_t*')
-    typehandlers.add_type_alias('uint32_t&', 'ns3::SpectrumModelUid_t&')
-    typehandlers.add_type_alias('ns3::boostgraph_copy_t', 'ns3::boostgraph_copy')
-    typehandlers.add_type_alias('ns3::boostgraph_copy_t*', 'ns3::boostgraph_copy*')
-    typehandlers.add_type_alias('ns3::boostgraph_copy_t&', 'ns3::boostgraph_copy&')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >', u'ns3::PLC_ReceiveDescriptorMap')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >*', u'ns3::PLC_ReceiveDescriptorMap*')
+    typehandlers.add_type_alias(u'std::map< unsigned int, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::map< unsigned int, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > >, std::less< unsigned int >, std::allocator< std::pair< unsigned int const, std::pair< unsigned int, ns3::Ptr< ns3::SpectrumValue const > > > > > > > >&', u'ns3::PLC_ReceiveDescriptorMap&')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >', u'ns3::PLC_FreqSelectiveRealValue')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >*', u'ns3::PLC_FreqSelectiveRealValue*')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >&', u'ns3::PLC_FreqSelectiveRealValue&')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_BackboneBranch >, std::allocator< ns3::Ptr< ns3::PLC_BackboneBranch > > >', u'ns3::PLC_BackbonePath')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_BackboneBranch >, std::allocator< ns3::Ptr< ns3::PLC_BackboneBranch > > >*', u'ns3::PLC_BackbonePath*')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_BackboneBranch >, std::allocator< ns3::Ptr< ns3::PLC_BackboneBranch > > >&', u'ns3::PLC_BackbonePath&')
+    typehandlers.add_type_alias(u'std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >', u'ns3::PLC_NetdeviceMap')
+    typehandlers.add_type_alias(u'std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >*', u'ns3::PLC_NetdeviceMap*')
+    typehandlers.add_type_alias(u'std::map< std::string, ns3::Ptr< ns3::PLC_NetDevice >, std::less< std::string >, std::allocator< std::pair< std::string const, ns3::Ptr< ns3::PLC_NetDevice > > > >&', u'ns3::PLC_NetdeviceMap&')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >', u'ns3::PLC_TimeVariantRealValue')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >*', u'ns3::PLC_TimeVariantRealValue*')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >&', u'ns3::PLC_TimeVariantRealValue&')
+    typehandlers.add_type_alias(u'ns3::sub_thread_arg_t', u'ns3::sub_thread_arg')
+    typehandlers.add_type_alias(u'ns3::sub_thread_arg_t*', u'ns3::sub_thread_arg*')
+    typehandlers.add_type_alias(u'ns3::sub_thread_arg_t&', u'ns3::sub_thread_arg&')
+    module.add_typedef(root_module['ns3::sub_thread_arg_t'], 'sub_thread_arg')
+    typehandlers.add_type_alias(u'ns3::PLC_ImpedanceIndicator_t', u'ns3::PLC_ImpedanceIndicator')
+    typehandlers.add_type_alias(u'ns3::PLC_ImpedanceIndicator_t*', u'ns3::PLC_ImpedanceIndicator*')
+    typehandlers.add_type_alias(u'ns3::PLC_ImpedanceIndicator_t&', u'ns3::PLC_ImpedanceIndicator&')
+    module.add_typedef(root_module['ns3::PLC_ImpedanceIndicator_t'], 'PLC_ImpedanceIndicator')
+    typehandlers.add_type_alias(u'std::vector< std::vector< std::complex< double >, std::allocator< std::complex< double > > >, std::allocator< std::vector< std::complex< double >, std::allocator< std::complex< double > > > > >', u'ns3::PLC_TimeVariantValueSpectrum')
+    typehandlers.add_type_alias(u'std::vector< std::vector< std::complex< double >, std::allocator< std::complex< double > > >, std::allocator< std::vector< std::complex< double >, std::allocator< std::complex< double > > > > >*', u'ns3::PLC_TimeVariantValueSpectrum*')
+    typehandlers.add_type_alias(u'std::vector< std::vector< std::complex< double >, std::allocator< std::complex< double > > >, std::allocator< std::vector< std::complex< double >, std::allocator< std::complex< double > > > > >&', u'ns3::PLC_TimeVariantValueSpectrum&')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_NoiseSource >, std::allocator< ns3::Ptr< ns3::PLC_NoiseSource > > >', u'ns3::PLC_NoiseSourceList')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_NoiseSource >, std::allocator< ns3::Ptr< ns3::PLC_NoiseSource > > >*', u'ns3::PLC_NoiseSourceList*')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_NoiseSource >, std::allocator< ns3::Ptr< ns3::PLC_NoiseSource > > >&', u'ns3::PLC_NoiseSourceList&')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >', u'ns3::PLC_StateTrace')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >*', u'ns3::PLC_StateTrace*')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, int >, std::allocator< std::pair< ns3::Time, int > > >&', u'ns3::PLC_StateTrace&')
+    typehandlers.add_type_alias(u'uint32_t', u'ns3::SpectrumModelUid_t')
+    typehandlers.add_type_alias(u'uint32_t*', u'ns3::SpectrumModelUid_t*')
+    typehandlers.add_type_alias(u'uint32_t&', u'ns3::SpectrumModelUid_t&')
+    typehandlers.add_type_alias(u'ns3::boostgraph_copy_t', u'ns3::boostgraph_copy')
+    typehandlers.add_type_alias(u'ns3::boostgraph_copy_t*', u'ns3::boostgraph_copy*')
+    typehandlers.add_type_alias(u'ns3::boostgraph_copy_t&', u'ns3::boostgraph_copy&')
     module.add_typedef(root_module['ns3::boostgraph_copy_t'], 'boostgraph_copy')
-    typehandlers.add_type_alias('ns3::PLC_FreqSelectiveValue', 'ns3::PLC_TransferVector')
-    typehandlers.add_type_alias('ns3::PLC_FreqSelectiveValue*', 'ns3::PLC_TransferVector*')
-    typehandlers.add_type_alias('ns3::PLC_FreqSelectiveValue&', 'ns3::PLC_TransferVector&')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >', u'ns3::PLC_FreqSelectiveConductance')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >*', u'ns3::PLC_FreqSelectiveConductance*')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >&', u'ns3::PLC_FreqSelectiveConductance&')
+    typehandlers.add_type_alias(u'ns3::PLC_FreqSelectiveValue', u'ns3::PLC_TransferVector')
+    typehandlers.add_type_alias(u'ns3::PLC_FreqSelectiveValue*', u'ns3::PLC_TransferVector*')
+    typehandlers.add_type_alias(u'ns3::PLC_FreqSelectiveValue&', u'ns3::PLC_TransferVector&')
     module.add_typedef(root_module['ns3::PLC_FreqSelectiveValue'], 'PLC_TransferVector')
-    typehandlers.add_type_alias('ns3::Vector3D', 'ns3::Vector')
-    typehandlers.add_type_alias('ns3::Vector3D*', 'ns3::Vector*')
-    typehandlers.add_type_alias('ns3::Vector3D&', 'ns3::Vector&')
-    module.add_typedef(root_module['ns3::Vector3D'], 'Vector')
-    typehandlers.add_type_alias('std::vector< std::complex< double >, std::allocator< std::complex< double > > >', 'ns3::PLC_ValueSpectrum')
-    typehandlers.add_type_alias('std::vector< std::complex< double >, std::allocator< std::complex< double > > >*', 'ns3::PLC_ValueSpectrum*')
-    typehandlers.add_type_alias('std::vector< std::complex< double >, std::allocator< std::complex< double > > >&', 'ns3::PLC_ValueSpectrum&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_MacAcknowledgementCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_MacAcknowledgementCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_MacAcknowledgementCallback&')
-    typehandlers.add_type_alias('ns3::Vector3DValue', 'ns3::VectorValue')
-    typehandlers.add_type_alias('ns3::Vector3DValue*', 'ns3::VectorValue*')
-    typehandlers.add_type_alias('ns3::Vector3DValue&', 'ns3::VectorValue&')
+    typehandlers.add_type_alias(u'std::vector< std::complex< double >, std::allocator< std::complex< double > > >', u'ns3::PLC_ValueSpectrum')
+    typehandlers.add_type_alias(u'std::vector< std::complex< double >, std::allocator< std::complex< double > > >*', u'ns3::PLC_ValueSpectrum*')
+    typehandlers.add_type_alias(u'std::vector< std::complex< double >, std::allocator< std::complex< double > > >&', u'ns3::PLC_ValueSpectrum&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PLC_MacAcknowledgementCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PLC_MacAcknowledgementCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PLC_MacAcknowledgementCallback&')
+    typehandlers.add_type_alias(u'ns3::Vector3DValue', u'ns3::VectorValue')
+    typehandlers.add_type_alias(u'ns3::Vector3DValue*', u'ns3::VectorValue*')
+    typehandlers.add_type_alias(u'ns3::Vector3DValue&', u'ns3::VectorValue&')
     module.add_typedef(root_module['ns3::Vector3DValue'], 'VectorValue')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_BackboneBranch >, std::allocator< ns3::Ptr< ns3::PLC_BackboneBranch > > >', 'ns3::PLC_BackbonePath')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_BackboneBranch >, std::allocator< ns3::Ptr< ns3::PLC_BackboneBranch > > >*', 'ns3::PLC_BackbonePath*')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_BackboneBranch >, std::allocator< ns3::Ptr< ns3::PLC_BackboneBranch > > >&', 'ns3::PLC_BackbonePath&')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >', 'ns3::PLC_FreqSelectiveInductance')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >*', 'ns3::PLC_FreqSelectiveInductance*')
-    typehandlers.add_type_alias('std::vector< double, std::allocator< double > >&', 'ns3::PLC_FreqSelectiveInductance&')
-    typehandlers.add_type_alias('ns3::thread_arg_t', 'ns3::thread_arg')
-    typehandlers.add_type_alias('ns3::thread_arg_t*', 'ns3::thread_arg*')
-    typehandlers.add_type_alias('ns3::thread_arg_t&', 'ns3::thread_arg&')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >', u'ns3::PLC_TransformerList')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >*', u'ns3::PLC_TransformerList*')
+    typehandlers.add_type_alias(u'std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >&', u'ns3::PLC_TransformerList&')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >', u'ns3::PLC_FreqSelectiveInductance')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >*', u'ns3::PLC_FreqSelectiveInductance*')
+    typehandlers.add_type_alias(u'std::vector< double, std::allocator< double > >&', u'ns3::PLC_FreqSelectiveInductance&')
+    typehandlers.add_type_alias(u'ns3::Vector3D', u'ns3::Vector')
+    typehandlers.add_type_alias(u'ns3::Vector3D*', u'ns3::Vector*')
+    typehandlers.add_type_alias(u'ns3::Vector3D&', u'ns3::Vector&')
+    module.add_typedef(root_module['ns3::Vector3D'], 'Vector')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueBase', u'ns3::PLC_TransferBase')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueBase*', u'ns3::PLC_TransferBase*')
+    typehandlers.add_type_alias(u'ns3::PLC_ValueBase&', u'ns3::PLC_TransferBase&')
+    module.add_typedef(root_module['ns3::PLC_ValueBase'], 'PLC_TransferBase')
+    typehandlers.add_type_alias(u'ns3::thread_arg_t', u'ns3::thread_arg')
+    typehandlers.add_type_alias(u'ns3::thread_arg_t*', u'ns3::thread_arg*')
+    typehandlers.add_type_alias(u'ns3::thread_arg_t&', u'ns3::thread_arg&')
     module.add_typedef(root_module['ns3::thread_arg_t'], 'thread_arg')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Line >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Line > > > >', 'ns3::PLC_NodeOutlinesMap')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Line >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Line > > > >*', 'ns3::PLC_NodeOutlinesMap*')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Line >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Line > > > >&', 'ns3::PLC_NodeOutlinesMap&')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Edge >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Edge > > > >', 'ns3::PLC_NodeOutEdgesMap')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Edge >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Edge > > > >*', 'ns3::PLC_NodeOutEdgesMap*')
-    typehandlers.add_type_alias('std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Edge >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Edge > > > >&', 'ns3::PLC_NodeOutEdgesMap&')
-    typehandlers.add_type_alias('ns3::PLC_EdgeTransferData_t', 'ns3::PLC_EdgeTransferData')
-    typehandlers.add_type_alias('ns3::PLC_EdgeTransferData_t*', 'ns3::PLC_EdgeTransferData*')
-    typehandlers.add_type_alias('ns3::PLC_EdgeTransferData_t&', 'ns3::PLC_EdgeTransferData&')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Line >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Line > > > >', u'ns3::PLC_NodeOutlinesMap')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Line >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Line > > > >*', u'ns3::PLC_NodeOutlinesMap*')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Line >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Line > > > >&', u'ns3::PLC_NodeOutlinesMap&')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Edge >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Edge > > > >', u'ns3::PLC_NodeOutEdgesMap')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Edge >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Edge > > > >*', u'ns3::PLC_NodeOutEdgesMap*')
+    typehandlers.add_type_alias(u'std::map< ns3::PLC_Node *, ns3::Ptr< ns3::PLC_Edge >, std::less< ns3::PLC_Node * >, std::allocator< std::pair< ns3::PLC_Node * const, ns3::Ptr< ns3::PLC_Edge > > > >&', u'ns3::PLC_NodeOutEdgesMap&')
+    typehandlers.add_type_alias(u'ns3::PLC_EdgeTransferData_t', u'ns3::PLC_EdgeTransferData')
+    typehandlers.add_type_alias(u'ns3::PLC_EdgeTransferData_t*', u'ns3::PLC_EdgeTransferData*')
+    typehandlers.add_type_alias(u'ns3::PLC_EdgeTransferData_t&', u'ns3::PLC_EdgeTransferData&')
     module.add_typedef(root_module['ns3::PLC_EdgeTransferData_t'], 'PLC_EdgeTransferData')
-    typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >', 'ns3::PLC_InputImpedance')
-    typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >*', 'ns3::PLC_InputImpedance*')
-    typehandlers.add_type_alias('std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >&', 'ns3::PLC_InputImpedance&')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >', 'ns3::PLC_SpectrumValueTrace')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >*', 'ns3::PLC_SpectrumValueTrace*')
-    typehandlers.add_type_alias('std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >&', 'ns3::PLC_SpectrumValueTrace&')
-    typehandlers.add_type_alias('ns3::PLC_TwoPort', 'ns3::PLC_Transformer')
-    typehandlers.add_type_alias('ns3::PLC_TwoPort*', 'ns3::PLC_Transformer*')
-    typehandlers.add_type_alias('ns3::PLC_TwoPort&', 'ns3::PLC_Transformer&')
+    typehandlers.add_type_alias(u'std::pair< unsigned int, std::pair< unsigned int, unsigned int > >', u'ns3::PLC_BackboneBranchKey')
+    typehandlers.add_type_alias(u'std::pair< unsigned int, std::pair< unsigned int, unsigned int > >*', u'ns3::PLC_BackboneBranchKey*')
+    typehandlers.add_type_alias(u'std::pair< unsigned int, std::pair< unsigned int, unsigned int > >&', u'ns3::PLC_BackboneBranchKey&')
+    typehandlers.add_type_alias(u'std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >', u'ns3::PLC_InputImpedance')
+    typehandlers.add_type_alias(u'std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >*', u'ns3::PLC_InputImpedance*')
+    typehandlers.add_type_alias(u'std::pair< ns3::Ptr< ns3::PLC_ValueBase >, ns3::PLC_ImpedanceIndicator_t >&', u'ns3::PLC_InputImpedance&')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >', u'ns3::PLC_SpectrumValueTrace')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >*', u'ns3::PLC_SpectrumValueTrace*')
+    typehandlers.add_type_alias(u'std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >&', u'ns3::PLC_SpectrumValueTrace&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PLC_CcaRequestCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PLC_CcaRequestCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PLC_CcaRequestCallback&')
+    typehandlers.add_type_alias(u'ns3::PLC_TwoPort', u'ns3::PLC_Transformer')
+    typehandlers.add_type_alias(u'ns3::PLC_TwoPort*', u'ns3::PLC_Transformer*')
+    typehandlers.add_type_alias(u'ns3::PLC_TwoPort&', u'ns3::PLC_Transformer&')
     module.add_typedef(root_module['ns3::PLC_TwoPort'], 'PLC_Transformer')
-    typehandlers.add_type_alias('std::vector< std::vector< std::complex< double >, std::allocator< std::complex< double > > >, std::allocator< std::vector< std::complex< double >, std::allocator< std::complex< double > > > > >', 'ns3::PLC_TimeVariantValueSpectrum')
-    typehandlers.add_type_alias('std::vector< std::vector< std::complex< double >, std::allocator< std::complex< double > > >, std::allocator< std::vector< std::complex< double >, std::allocator< std::complex< double > > > > >*', 'ns3::PLC_TimeVariantValueSpectrum*')
-    typehandlers.add_type_alias('std::vector< std::vector< std::complex< double >, std::allocator< std::complex< double > > >, std::allocator< std::vector< std::complex< double >, std::allocator< std::complex< double > > > > >&', 'ns3::PLC_TimeVariantValueSpectrum&')
-    typehandlers.add_type_alias('std::complex< double >', 'ns3::PLC_Value')
-    typehandlers.add_type_alias('std::complex< double >*', 'ns3::PLC_Value*')
-    typehandlers.add_type_alias('std::complex< double >&', 'ns3::PLC_Value&')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue', 'ns3::PLC_TimeVariantFreqSelectiveImpedance')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue*', 'ns3::PLC_TimeVariantFreqSelectiveImpedance*')
-    typehandlers.add_type_alias('ns3::PLC_TimeVariantFreqSelectiveValue&', 'ns3::PLC_TimeVariantFreqSelectiveImpedance&')
+    typehandlers.add_type_alias(u'std::complex< double >', u'ns3::PLC_Value')
+    typehandlers.add_type_alias(u'std::complex< double >*', u'ns3::PLC_Value*')
+    typehandlers.add_type_alias(u'std::complex< double >&', u'ns3::PLC_Value&')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantFreqSelectiveValue', u'ns3::PLC_TimeVariantFreqSelectiveImpedance')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantFreqSelectiveValue*', u'ns3::PLC_TimeVariantFreqSelectiveImpedance*')
+    typehandlers.add_type_alias(u'ns3::PLC_TimeVariantFreqSelectiveValue&', u'ns3::PLC_TimeVariantFreqSelectiveImpedance&')
     module.add_typedef(root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], 'PLC_TimeVariantFreqSelectiveImpedance')
-    typehandlers.add_type_alias('ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PhyRxEndCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PhyRxEndCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PhyRxEndCallback&')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >', 'ns3::PLC_TransformerList')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >*', 'ns3::PLC_TransformerList*')
-    typehandlers.add_type_alias('std::vector< ns3::Ptr< ns3::PLC_TwoPort >, std::allocator< ns3::Ptr< ns3::PLC_TwoPort > > >&', 'ns3::PLC_TransformerList&')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::PLC_PhyCcaResult, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'ns3::PLC_PhyCcaConfirmCallback')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::PLC_PhyCcaResult, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', 'ns3::PLC_PhyCcaConfirmCallback*')
-    typehandlers.add_type_alias('ns3::Callback< void, ns3::PLC_PhyCcaResult, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', 'ns3::PLC_PhyCcaConfirmCallback&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PhyRxEndCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PhyRxEndCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, bool, ns3::Ptr< ns3::PLC_TrxMetaInfo const >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, std::vector< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > >, std::allocator< std::pair< ns3::Time, ns3::Ptr< ns3::SpectrumValue const > > > >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PhyRxEndCallback&')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::PLC_PhyCcaResult, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', u'ns3::PLC_PhyCcaConfirmCallback')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::PLC_PhyCcaResult, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >*', u'ns3::PLC_PhyCcaConfirmCallback*')
+    typehandlers.add_type_alias(u'ns3::Callback< void, ns3::PLC_PhyCcaResult, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >&', u'ns3::PLC_PhyCcaConfirmCallback&')
     
     ## Register a nested module for the namespace FatalImpl
     
     nested_module = module.add_cpp_namespace('FatalImpl')
     register_types_ns3_FatalImpl(nested_module)
+    
+    
+    ## Register a nested module for the namespace Hash
+    
+    nested_module = module.add_cpp_namespace('Hash')
+    register_types_ns3_Hash(nested_module)
+    
+    
+    ## Register a nested module for the namespace TracedValueCallback
+    
+    nested_module = module.add_cpp_namespace('TracedValueCallback')
+    register_types_ns3_TracedValueCallback(nested_module)
     
     
     ## Register a nested module for the namespace internal
@@ -747,6 +772,67 @@ def register_types(module):
 def register_types_ns3_FatalImpl(module):
     root_module = module.get_root()
     
+
+def register_types_ns3_Hash(module):
+    root_module = module.get_root()
+    
+    ## hash-function.h (module 'core'): ns3::Hash::Implementation [class]
+    module.add_class('Implementation', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter<ns3::Hash::Implementation> >'])
+    typehandlers.add_type_alias(u'uint64_t ( * ) ( char const *, size_t ) *', u'ns3::Hash::Hash64Function_ptr')
+    typehandlers.add_type_alias(u'uint64_t ( * ) ( char const *, size_t ) **', u'ns3::Hash::Hash64Function_ptr*')
+    typehandlers.add_type_alias(u'uint64_t ( * ) ( char const *, size_t ) *&', u'ns3::Hash::Hash64Function_ptr&')
+    typehandlers.add_type_alias(u'uint32_t ( * ) ( char const *, size_t ) *', u'ns3::Hash::Hash32Function_ptr')
+    typehandlers.add_type_alias(u'uint32_t ( * ) ( char const *, size_t ) **', u'ns3::Hash::Hash32Function_ptr*')
+    typehandlers.add_type_alias(u'uint32_t ( * ) ( char const *, size_t ) *&', u'ns3::Hash::Hash32Function_ptr&')
+    
+    ## Register a nested module for the namespace Function
+    
+    nested_module = module.add_cpp_namespace('Function')
+    register_types_ns3_Hash_Function(nested_module)
+    
+
+def register_types_ns3_Hash_Function(module):
+    root_module = module.get_root()
+    
+    ## hash-fnv.h (module 'core'): ns3::Hash::Function::Fnv1a [class]
+    module.add_class('Fnv1a', import_from_module='ns.core', parent=root_module['ns3::Hash::Implementation'])
+    ## hash-function.h (module 'core'): ns3::Hash::Function::Hash32 [class]
+    module.add_class('Hash32', import_from_module='ns.core', parent=root_module['ns3::Hash::Implementation'])
+    ## hash-function.h (module 'core'): ns3::Hash::Function::Hash64 [class]
+    module.add_class('Hash64', import_from_module='ns.core', parent=root_module['ns3::Hash::Implementation'])
+    ## hash-murmur3.h (module 'core'): ns3::Hash::Function::Murmur3 [class]
+    module.add_class('Murmur3', import_from_module='ns.core', parent=root_module['ns3::Hash::Implementation'])
+
+def register_types_ns3_TracedValueCallback(module):
+    root_module = module.get_root()
+    
+    typehandlers.add_type_alias(u'void ( * ) ( double, double ) *', u'ns3::TracedValueCallback::Double')
+    typehandlers.add_type_alias(u'void ( * ) ( double, double ) **', u'ns3::TracedValueCallback::Double*')
+    typehandlers.add_type_alias(u'void ( * ) ( double, double ) *&', u'ns3::TracedValueCallback::Double&')
+    typehandlers.add_type_alias(u'void ( * ) ( int8_t, int8_t ) *', u'ns3::TracedValueCallback::Int8')
+    typehandlers.add_type_alias(u'void ( * ) ( int8_t, int8_t ) **', u'ns3::TracedValueCallback::Int8*')
+    typehandlers.add_type_alias(u'void ( * ) ( int8_t, int8_t ) *&', u'ns3::TracedValueCallback::Int8&')
+    typehandlers.add_type_alias(u'void ( * ) ( bool, bool ) *', u'ns3::TracedValueCallback::Bool')
+    typehandlers.add_type_alias(u'void ( * ) ( bool, bool ) **', u'ns3::TracedValueCallback::Bool*')
+    typehandlers.add_type_alias(u'void ( * ) ( bool, bool ) *&', u'ns3::TracedValueCallback::Bool&')
+    typehandlers.add_type_alias(u'void ( * ) ( ns3::Time, ns3::Time ) *', u'ns3::TracedValueCallback::Time')
+    typehandlers.add_type_alias(u'void ( * ) ( ns3::Time, ns3::Time ) **', u'ns3::TracedValueCallback::Time*')
+    typehandlers.add_type_alias(u'void ( * ) ( ns3::Time, ns3::Time ) *&', u'ns3::TracedValueCallback::Time&')
+    typehandlers.add_type_alias(u'void ( * ) ( int16_t, int16_t ) *', u'ns3::TracedValueCallback::Int16')
+    typehandlers.add_type_alias(u'void ( * ) ( int16_t, int16_t ) **', u'ns3::TracedValueCallback::Int16*')
+    typehandlers.add_type_alias(u'void ( * ) ( int16_t, int16_t ) *&', u'ns3::TracedValueCallback::Int16&')
+    typehandlers.add_type_alias(u'void ( * ) ( uint8_t, uint8_t ) *', u'ns3::TracedValueCallback::Uint8')
+    typehandlers.add_type_alias(u'void ( * ) ( uint8_t, uint8_t ) **', u'ns3::TracedValueCallback::Uint8*')
+    typehandlers.add_type_alias(u'void ( * ) ( uint8_t, uint8_t ) *&', u'ns3::TracedValueCallback::Uint8&')
+    typehandlers.add_type_alias(u'void ( * ) ( uint16_t, uint16_t ) *', u'ns3::TracedValueCallback::Uint16')
+    typehandlers.add_type_alias(u'void ( * ) ( uint16_t, uint16_t ) **', u'ns3::TracedValueCallback::Uint16*')
+    typehandlers.add_type_alias(u'void ( * ) ( uint16_t, uint16_t ) *&', u'ns3::TracedValueCallback::Uint16&')
+    typehandlers.add_type_alias(u'void ( * ) ( uint32_t, uint32_t ) *', u'ns3::TracedValueCallback::Uint32')
+    typehandlers.add_type_alias(u'void ( * ) ( uint32_t, uint32_t ) **', u'ns3::TracedValueCallback::Uint32*')
+    typehandlers.add_type_alias(u'void ( * ) ( uint32_t, uint32_t ) *&', u'ns3::TracedValueCallback::Uint32&')
+    typehandlers.add_type_alias(u'void ( * ) ( int32_t, int32_t ) *', u'ns3::TracedValueCallback::Int32')
+    typehandlers.add_type_alias(u'void ( * ) ( int32_t, int32_t ) **', u'ns3::TracedValueCallback::Int32*')
+    typehandlers.add_type_alias(u'void ( * ) ( int32_t, int32_t ) *&', u'ns3::TracedValueCallback::Int32&')
 
 def register_types_ns3_internal(module):
     root_module = module.get_root()
@@ -768,6 +854,7 @@ def register_methods(root_module):
     register_Ns3CriticalSection_methods(root_module, root_module['ns3::CriticalSection'])
     register_Ns3DataRate_methods(root_module, root_module['ns3::DataRate'])
     register_Ns3EventId_methods(root_module, root_module['ns3::EventId'])
+    register_Ns3Hasher_methods(root_module, root_module['ns3::Hasher'])
     register_Ns3Ipv4Address_methods(root_module, root_module['ns3::Ipv4Address'])
     register_Ns3Ipv4Mask_methods(root_module, root_module['ns3::Ipv4Mask'])
     register_Ns3Ipv6Address_methods(root_module, root_module['ns3::Ipv6Address'])
@@ -794,23 +881,18 @@ def register_methods(root_module):
     register_Ns3PacketTagIteratorItem_methods(root_module, root_module['ns3::PacketTagIterator::Item'])
     register_Ns3PacketTagList_methods(root_module, root_module['ns3::PacketTagList'])
     register_Ns3PacketTagListTagData_methods(root_module, root_module['ns3::PacketTagList::TagData'])
-    register_Ns3RandomVariable_methods(root_module, root_module['ns3::RandomVariable'])
-    register_Ns3RngSeedManager_methods(root_module, root_module['ns3::RngSeedManager'])
-    register_Ns3SequentialVariable_methods(root_module, root_module['ns3::SequentialVariable'])
+    register_Ns3ParameterLogger_methods(root_module, root_module['ns3::ParameterLogger'])
     register_Ns3SimpleRefCount__Ns3Object_Ns3ObjectBase_Ns3ObjectDeleter_methods(root_module, root_module['ns3::SimpleRefCount< ns3::Object, ns3::ObjectBase, ns3::ObjectDeleter >'])
     register_Ns3SystemMutex_methods(root_module, root_module['ns3::SystemMutex'])
     register_Ns3Tag_methods(root_module, root_module['ns3::Tag'])
     register_Ns3TagBuffer_methods(root_module, root_module['ns3::TagBuffer'])
-    register_Ns3TriangularVariable_methods(root_module, root_module['ns3::TriangularVariable'])
+    register_Ns3TimeWithUnit_methods(root_module, root_module['ns3::TimeWithUnit'])
+    register_Ns3TracedValue__Unsigned_int_methods(root_module, root_module['ns3::TracedValue< unsigned int >'])
     register_Ns3TypeId_methods(root_module, root_module['ns3::TypeId'])
     register_Ns3TypeIdAttributeInformation_methods(root_module, root_module['ns3::TypeId::AttributeInformation'])
     register_Ns3TypeIdTraceSourceInformation_methods(root_module, root_module['ns3::TypeId::TraceSourceInformation'])
-    register_Ns3UniformVariable_methods(root_module, root_module['ns3::UniformVariable'])
     register_Ns3Vector2D_methods(root_module, root_module['ns3::Vector2D'])
     register_Ns3Vector3D_methods(root_module, root_module['ns3::Vector3D'])
-    register_Ns3WeibullVariable_methods(root_module, root_module['ns3::WeibullVariable'])
-    register_Ns3ZetaVariable_methods(root_module, root_module['ns3::ZetaVariable'])
-    register_Ns3ZipfVariable_methods(root_module, root_module['ns3::ZipfVariable'])
     register_Ns3Backbone_branch_discover_thread_arg_t_methods(root_module, root_module['ns3::backbone_branch_discover_thread_arg_t'])
     register_Ns3Boostgraph_copy_t_methods(root_module, root_module['ns3::boostgraph_copy_t'])
     register_Ns3Empty_methods(root_module, root_module['ns3::empty'])
@@ -818,16 +900,7 @@ def register_methods(root_module):
     register_Ns3Sub_thread_arg_t_methods(root_module, root_module['ns3::sub_thread_arg_t'])
     register_Ns3Thread_arg_t_methods(root_module, root_module['ns3::thread_arg_t'])
     register_Ns3Chunk_methods(root_module, root_module['ns3::Chunk'])
-    register_Ns3ConstantVariable_methods(root_module, root_module['ns3::ConstantVariable'])
-    register_Ns3DeterministicVariable_methods(root_module, root_module['ns3::DeterministicVariable'])
-    register_Ns3EmpiricalVariable_methods(root_module, root_module['ns3::EmpiricalVariable'])
-    register_Ns3ErlangVariable_methods(root_module, root_module['ns3::ErlangVariable'])
-    register_Ns3ExponentialVariable_methods(root_module, root_module['ns3::ExponentialVariable'])
-    register_Ns3GammaVariable_methods(root_module, root_module['ns3::GammaVariable'])
     register_Ns3Header_methods(root_module, root_module['ns3::Header'])
-    register_Ns3IntEmpiricalVariable_methods(root_module, root_module['ns3::IntEmpiricalVariable'])
-    register_Ns3LogNormalVariable_methods(root_module, root_module['ns3::LogNormalVariable'])
-    register_Ns3NormalVariable_methods(root_module, root_module['ns3::NormalVariable'])
     register_Ns3Object_methods(root_module, root_module['ns3::Object'])
     register_Ns3ObjectAggregateIterator_methods(root_module, root_module['ns3::Object::AggregateIterator'])
     register_Ns3PLC_BackboneBranch_methods(root_module, root_module['ns3::PLC_BackboneBranch'])
@@ -865,20 +938,24 @@ def register_methods(root_module):
     register_Ns3PLC_TxInterface_methods(root_module, root_module['ns3::PLC_TxInterface'])
     register_Ns3PLC_ValueBase_methods(root_module, root_module['ns3::PLC_ValueBase'])
     register_Ns3PacketBurst_methods(root_module, root_module['ns3::PacketBurst'])
-    register_Ns3ParetoVariable_methods(root_module, root_module['ns3::ParetoVariable'])
     register_Ns3Queue_methods(root_module, root_module['ns3::Queue'])
+    register_Ns3RandomVariableStream_methods(root_module, root_module['ns3::RandomVariableStream'])
     register_Ns3Scheduler_methods(root_module, root_module['ns3::Scheduler'])
     register_Ns3SchedulerEvent_methods(root_module, root_module['ns3::Scheduler::Event'])
     register_Ns3SchedulerEventKey_methods(root_module, root_module['ns3::Scheduler::EventKey'])
+    register_Ns3SequentialRandomVariable_methods(root_module, root_module['ns3::SequentialRandomVariable'])
     register_Ns3SimpleRefCount__Ns3AttributeAccessor_Ns3Empty_Ns3DefaultDeleter__lt__ns3AttributeAccessor__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::AttributeAccessor, ns3::empty, ns3::DefaultDeleter<ns3::AttributeAccessor> >'])
     register_Ns3SimpleRefCount__Ns3AttributeChecker_Ns3Empty_Ns3DefaultDeleter__lt__ns3AttributeChecker__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::AttributeChecker, ns3::empty, ns3::DefaultDeleter<ns3::AttributeChecker> >'])
     register_Ns3SimpleRefCount__Ns3AttributeValue_Ns3Empty_Ns3DefaultDeleter__lt__ns3AttributeValue__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::AttributeValue, ns3::empty, ns3::DefaultDeleter<ns3::AttributeValue> >'])
     register_Ns3SimpleRefCount__Ns3CallbackImplBase_Ns3Empty_Ns3DefaultDeleter__lt__ns3CallbackImplBase__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::CallbackImplBase, ns3::empty, ns3::DefaultDeleter<ns3::CallbackImplBase> >'])
     register_Ns3SimpleRefCount__Ns3EventImpl_Ns3Empty_Ns3DefaultDeleter__lt__ns3EventImpl__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::EventImpl, ns3::empty, ns3::DefaultDeleter<ns3::EventImpl> >'])
+    register_Ns3SimpleRefCount__Ns3HashImplementation_Ns3Empty_Ns3DefaultDeleter__lt__ns3HashImplementation__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter<ns3::Hash::Implementation> >'])
+    register_Ns3SimpleRefCount__Ns3NetDeviceQueue_Ns3Empty_Ns3DefaultDeleter__lt__ns3NetDeviceQueue__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter<ns3::NetDeviceQueue> >'])
     register_Ns3SimpleRefCount__Ns3NixVector_Ns3Empty_Ns3DefaultDeleter__lt__ns3NixVector__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::NixVector, ns3::empty, ns3::DefaultDeleter<ns3::NixVector> >'])
     register_Ns3SimpleRefCount__Ns3PLC_ColoredNoiseFloor_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_ColoredNoiseFloor__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::PLC_ColoredNoiseFloor, ns3::empty, ns3::DefaultDeleter<ns3::PLC_ColoredNoiseFloor> >'])
     register_Ns3SimpleRefCount__Ns3PLC_TrxMetaInfo_Ns3Empty_Ns3DefaultDeleter__lt__ns3PLC_TrxMetaInfo__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::PLC_TrxMetaInfo, ns3::empty, ns3::DefaultDeleter<ns3::PLC_TrxMetaInfo> >'])
     register_Ns3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Packet__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >'])
+    register_Ns3SimpleRefCount__Ns3QueueItem_Ns3Empty_Ns3DefaultDeleter__lt__ns3QueueItem__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::QueueItem, ns3::empty, ns3::DefaultDeleter<ns3::QueueItem> >'])
     register_Ns3SimpleRefCount__Ns3SpectrumModel_Ns3Empty_Ns3DefaultDeleter__lt__ns3SpectrumModel__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::SpectrumModel, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumModel> >'])
     register_Ns3SimpleRefCount__Ns3SpectrumValue_Ns3Empty_Ns3DefaultDeleter__lt__ns3SpectrumValue__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::SpectrumValue, ns3::empty, ns3::DefaultDeleter<ns3::SpectrumValue> >'])
     register_Ns3SimpleRefCount__Ns3SystemThread_Ns3Empty_Ns3DefaultDeleter__lt__ns3SystemThread__gt___methods(root_module, root_module['ns3::SimpleRefCount< ns3::SystemThread, ns3::empty, ns3::DefaultDeleter<ns3::SystemThread> >'])
@@ -890,6 +967,11 @@ def register_methods(root_module):
     register_Ns3Time_methods(root_module, root_module['ns3::Time'])
     register_Ns3TraceSourceAccessor_methods(root_module, root_module['ns3::TraceSourceAccessor'])
     register_Ns3Trailer_methods(root_module, root_module['ns3::Trailer'])
+    register_Ns3TriangularRandomVariable_methods(root_module, root_module['ns3::TriangularRandomVariable'])
+    register_Ns3UniformRandomVariable_methods(root_module, root_module['ns3::UniformRandomVariable'])
+    register_Ns3WeibullRandomVariable_methods(root_module, root_module['ns3::WeibullRandomVariable'])
+    register_Ns3ZetaRandomVariable_methods(root_module, root_module['ns3::ZetaRandomVariable'])
+    register_Ns3ZipfRandomVariable_methods(root_module, root_module['ns3::ZipfRandomVariable'])
     register_Ns3AttributeAccessor_methods(root_module, root_module['ns3::AttributeAccessor'])
     register_Ns3AttributeChecker_methods(root_module, root_module['ns3::AttributeChecker'])
     register_Ns3AttributeValue_methods(root_module, root_module['ns3::AttributeValue'])
@@ -899,14 +981,20 @@ def register_methods(root_module):
     register_Ns3CallbackImplBase_methods(root_module, root_module['ns3::CallbackImplBase'])
     register_Ns3CallbackValue_methods(root_module, root_module['ns3::CallbackValue'])
     register_Ns3Channel_methods(root_module, root_module['ns3::Channel'])
+    register_Ns3ConstantRandomVariable_methods(root_module, root_module['ns3::ConstantRandomVariable'])
     register_Ns3DataRateChecker_methods(root_module, root_module['ns3::DataRateChecker'])
     register_Ns3DataRateValue_methods(root_module, root_module['ns3::DataRateValue'])
+    register_Ns3DeterministicRandomVariable_methods(root_module, root_module['ns3::DeterministicRandomVariable'])
     register_Ns3DoubleValue_methods(root_module, root_module['ns3::DoubleValue'])
     register_Ns3DropTailQueue_methods(root_module, root_module['ns3::DropTailQueue'])
+    register_Ns3EmpiricalRandomVariable_methods(root_module, root_module['ns3::EmpiricalRandomVariable'])
     register_Ns3EmptyAttributeValue_methods(root_module, root_module['ns3::EmptyAttributeValue'])
     register_Ns3EnumChecker_methods(root_module, root_module['ns3::EnumChecker'])
     register_Ns3EnumValue_methods(root_module, root_module['ns3::EnumValue'])
+    register_Ns3ErlangRandomVariable_methods(root_module, root_module['ns3::ErlangRandomVariable'])
     register_Ns3EventImpl_methods(root_module, root_module['ns3::EventImpl'])
+    register_Ns3ExponentialRandomVariable_methods(root_module, root_module['ns3::ExponentialRandomVariable'])
+    register_Ns3GammaRandomVariable_methods(root_module, root_module['ns3::GammaRandomVariable'])
     register_Ns3IntegerValue_methods(root_module, root_module['ns3::IntegerValue'])
     register_Ns3Ipv4AddressChecker_methods(root_module, root_module['ns3::Ipv4AddressChecker'])
     register_Ns3Ipv4AddressValue_methods(root_module, root_module['ns3::Ipv4AddressValue'])
@@ -916,11 +1004,15 @@ def register_methods(root_module):
     register_Ns3Ipv6AddressValue_methods(root_module, root_module['ns3::Ipv6AddressValue'])
     register_Ns3Ipv6PrefixChecker_methods(root_module, root_module['ns3::Ipv6PrefixChecker'])
     register_Ns3Ipv6PrefixValue_methods(root_module, root_module['ns3::Ipv6PrefixValue'])
+    register_Ns3LogNormalRandomVariable_methods(root_module, root_module['ns3::LogNormalRandomVariable'])
     register_Ns3Mac48AddressChecker_methods(root_module, root_module['ns3::Mac48AddressChecker'])
     register_Ns3Mac48AddressValue_methods(root_module, root_module['ns3::Mac48AddressValue'])
     register_Ns3NetDevice_methods(root_module, root_module['ns3::NetDevice'])
+    register_Ns3NetDeviceQueue_methods(root_module, root_module['ns3::NetDeviceQueue'])
+    register_Ns3NetDeviceQueueInterface_methods(root_module, root_module['ns3::NetDeviceQueueInterface'])
     register_Ns3NixVector_methods(root_module, root_module['ns3::NixVector'])
     register_Ns3Node_methods(root_module, root_module['ns3::Node'])
+    register_Ns3NormalRandomVariable_methods(root_module, root_module['ns3::NormalRandomVariable'])
     register_Ns3ObjectFactoryChecker_methods(root_module, root_module['ns3::ObjectFactoryChecker'])
     register_Ns3ObjectFactoryValue_methods(root_module, root_module['ns3::ObjectFactoryValue'])
     register_Ns3PLC_AL3x95XLPE_Cable_methods(root_module, root_module['ns3::PLC_AL3x95XLPE_Cable'])
@@ -946,8 +1038,8 @@ def register_methods(root_module):
     register_Ns3PLC_TimeVariantFreqSelectiveValuePLC_TimeVariantParamSet_methods(root_module, root_module['ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantParamSet'])
     register_Ns3PLC_TrxMetaInfo_methods(root_module, root_module['ns3::PLC_TrxMetaInfo'])
     register_Ns3Packet_methods(root_module, root_module['ns3::Packet'])
-    register_Ns3RandomVariableChecker_methods(root_module, root_module['ns3::RandomVariableChecker'])
-    register_Ns3RandomVariableValue_methods(root_module, root_module['ns3::RandomVariableValue'])
+    register_Ns3ParetoRandomVariable_methods(root_module, root_module['ns3::ParetoRandomVariable'])
+    register_Ns3QueueItem_methods(root_module, root_module['ns3::QueueItem'])
     register_Ns3TimeValue_methods(root_module, root_module['ns3::TimeValue'])
     register_Ns3TypeIdChecker_methods(root_module, root_module['ns3::TypeIdChecker'])
     register_Ns3TypeIdValue_methods(root_module, root_module['ns3::TypeIdValue'])
@@ -963,6 +1055,11 @@ def register_methods(root_module):
     register_Ns3PLC_ChaseCombiningPhy_methods(root_module, root_module['ns3::PLC_ChaseCombiningPhy'])
     register_Ns3PLC_ErrorRatePhy_methods(root_module, root_module['ns3::PLC_ErrorRatePhy'])
     register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, root_module['ns3::PLC_IncrementalRedundancyPhy'])
+    register_Ns3HashImplementation_methods(root_module, root_module['ns3::Hash::Implementation'])
+    register_Ns3HashFunctionFnv1a_methods(root_module, root_module['ns3::Hash::Function::Fnv1a'])
+    register_Ns3HashFunctionHash32_methods(root_module, root_module['ns3::Hash::Function::Hash32'])
+    register_Ns3HashFunctionHash64_methods(root_module, root_module['ns3::Hash::Function::Hash64'])
+    register_Ns3HashFunctionMurmur3_methods(root_module, root_module['ns3::Hash::Function::Murmur3'])
     return
 
 def register_Ns3Address_methods(root_module, cls):
@@ -1096,17 +1193,17 @@ def register_Ns3Buffer_methods(root_module, cls):
     cls.add_constructor([param('uint32_t', 'dataSize'), param('bool', 'initialize')])
     ## buffer.h (module 'network'): ns3::Buffer::Buffer(ns3::Buffer const & o) [copy constructor]
     cls.add_constructor([param('ns3::Buffer const &', 'o')])
-    ## buffer.h (module 'network'): bool ns3::Buffer::AddAtEnd(uint32_t end) [member function]
+    ## buffer.h (module 'network'): void ns3::Buffer::AddAtEnd(uint32_t end) [member function]
     cls.add_method('AddAtEnd', 
-                   'bool', 
+                   'void', 
                    [param('uint32_t', 'end')])
     ## buffer.h (module 'network'): void ns3::Buffer::AddAtEnd(ns3::Buffer const & o) [member function]
     cls.add_method('AddAtEnd', 
                    'void', 
                    [param('ns3::Buffer const &', 'o')])
-    ## buffer.h (module 'network'): bool ns3::Buffer::AddAtInitialize(uint32_t start) [member function]
-    cls.add_method('AddAtInitialize', 
-                   'bool', 
+    ## buffer.h (module 'network'): void ns3::Buffer::AddAtStart(uint32_t start) [member function]
+    cls.add_method('AddAtStart', 
+                   'void', 
                    [param('uint32_t', 'start')])
     ## buffer.h (module 'network'): ns3::Buffer::Iterator ns3::Buffer::Begin() const [member function]
     cls.add_method('Begin', 
@@ -1128,11 +1225,6 @@ def register_Ns3Buffer_methods(root_module, cls):
                    'ns3::Buffer', 
                    [param('uint32_t', 'start'), param('uint32_t', 'length')], 
                    is_const=True)
-    ## buffer.h (module 'network'): ns3::Buffer ns3::Buffer::CreateFullCopy() const [member function]
-    cls.add_method('CreateFullCopy', 
-                   'ns3::Buffer', 
-                   [], 
-                   is_const=True)
     ## buffer.h (module 'network'): uint32_t ns3::Buffer::Deserialize(uint8_t const * buffer, uint32_t size) [member function]
     cls.add_method('Deserialize', 
                    'uint32_t', 
@@ -1140,16 +1232,6 @@ def register_Ns3Buffer_methods(root_module, cls):
     ## buffer.h (module 'network'): ns3::Buffer::Iterator ns3::Buffer::End() const [member function]
     cls.add_method('End', 
                    'ns3::Buffer::Iterator', 
-                   [], 
-                   is_const=True)
-    ## buffer.h (module 'network'): int32_t ns3::Buffer::GetCurrentEndOffset() const [member function]
-    cls.add_method('GetCurrentEndOffset', 
-                   'int32_t', 
-                   [], 
-                   is_const=True)
-    ## buffer.h (module 'network'): int32_t ns3::Buffer::GetCurrentInitializeOffset() const [member function]
-    cls.add_method('GetCurrentInitializeOffset', 
-                   'int32_t', 
                    [], 
                    is_const=True)
     ## buffer.h (module 'network'): uint32_t ns3::Buffer::GetSerializedSize() const [member function]
@@ -1171,8 +1253,8 @@ def register_Ns3Buffer_methods(root_module, cls):
     cls.add_method('RemoveAtEnd', 
                    'void', 
                    [param('uint32_t', 'end')])
-    ## buffer.h (module 'network'): void ns3::Buffer::RemoveAtInitialize(uint32_t start) [member function]
-    cls.add_method('RemoveAtInitialize', 
+    ## buffer.h (module 'network'): void ns3::Buffer::RemoveAtStart(uint32_t start) [member function]
+    cls.add_method('RemoveAtStart', 
                    'void', 
                    [param('uint32_t', 'start')])
     ## buffer.h (module 'network'): uint32_t ns3::Buffer::Serialize(uint8_t * buffer, uint32_t maxSize) const [member function]
@@ -1210,8 +1292,8 @@ def register_Ns3BufferIterator_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_const=True)
-    ## buffer.h (module 'network'): bool ns3::Buffer::Iterator::IsInitialize() const [member function]
-    cls.add_method('IsInitialize', 
+    ## buffer.h (module 'network'): bool ns3::Buffer::Iterator::IsStart() const [member function]
+    cls.add_method('IsStart', 
                    'bool', 
                    [], 
                    is_const=True)
@@ -1223,6 +1305,10 @@ def register_Ns3BufferIterator_methods(root_module, cls):
     cls.add_method('Next', 
                    'void', 
                    [param('uint32_t', 'delta')])
+    ## buffer.h (module 'network'): uint8_t ns3::Buffer::Iterator::PeekU8() [member function]
+    cls.add_method('PeekU8', 
+                   'uint8_t', 
+                   [])
     ## buffer.h (module 'network'): void ns3::Buffer::Iterator::Prev() [member function]
     cls.add_method('Prev', 
                    'void', 
@@ -1235,6 +1321,10 @@ def register_Ns3BufferIterator_methods(root_module, cls):
     cls.add_method('Read', 
                    'void', 
                    [param('uint8_t *', 'buffer'), param('uint32_t', 'size')])
+    ## buffer.h (module 'network'): void ns3::Buffer::Iterator::Read(ns3::Buffer::Iterator start, uint32_t size) [member function]
+    cls.add_method('Read', 
+                   'void', 
+                   [param('ns3::Buffer::Iterator', 'start'), param('uint32_t', 'size')])
     ## buffer.h (module 'network'): uint16_t ns3::Buffer::Iterator::ReadLsbtohU16() [member function]
     cls.add_method('ReadLsbtohU16', 
                    'uint16_t', 
@@ -1351,8 +1441,8 @@ def register_Ns3ByteTagIteratorItem_methods(root_module, cls):
                    'uint32_t', 
                    [], 
                    is_const=True)
-    ## packet.h (module 'network'): uint32_t ns3::ByteTagIterator::Item::GetInitialize() const [member function]
-    cls.add_method('GetInitialize', 
+    ## packet.h (module 'network'): uint32_t ns3::ByteTagIterator::Item::GetStart() const [member function]
+    cls.add_method('GetStart', 
                    'uint32_t', 
                    [], 
                    is_const=True)
@@ -1381,18 +1471,22 @@ def register_Ns3ByteTagList_methods(root_module, cls):
     cls.add_method('Add', 
                    'void', 
                    [param('ns3::ByteTagList const &', 'o')])
-    ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::AddAtEnd(int32_t adjustment, int32_t appendOffset) [member function]
+    ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::AddAtEnd(int32_t appendOffset) [member function]
     cls.add_method('AddAtEnd', 
                    'void', 
-                   [param('int32_t', 'adjustment'), param('int32_t', 'appendOffset')])
-    ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::AddAtInitialize(int32_t adjustment, int32_t prependOffset) [member function]
-    cls.add_method('AddAtInitialize', 
+                   [param('int32_t', 'appendOffset')])
+    ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::AddAtStart(int32_t prependOffset) [member function]
+    cls.add_method('AddAtStart', 
                    'void', 
-                   [param('int32_t', 'adjustment'), param('int32_t', 'prependOffset')])
-    ## byte-tag-list.h (module 'network'): ns3::ByteTagList::Iterator ns3::ByteTagList::Begin(int32_t offsetInitialize, int32_t offsetEnd) const [member function]
+                   [param('int32_t', 'prependOffset')])
+    ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::Adjust(int32_t adjustment) [member function]
+    cls.add_method('Adjust', 
+                   'void', 
+                   [param('int32_t', 'adjustment')])
+    ## byte-tag-list.h (module 'network'): ns3::ByteTagList::Iterator ns3::ByteTagList::Begin(int32_t offsetStart, int32_t offsetEnd) const [member function]
     cls.add_method('Begin', 
                    'ns3::ByteTagList::Iterator', 
-                   [param('int32_t', 'offsetInitialize'), param('int32_t', 'offsetEnd')], 
+                   [param('int32_t', 'offsetStart'), param('int32_t', 'offsetEnd')], 
                    is_const=True)
     ## byte-tag-list.h (module 'network'): void ns3::ByteTagList::RemoveAll() [member function]
     cls.add_method('RemoveAll', 
@@ -1403,8 +1497,8 @@ def register_Ns3ByteTagList_methods(root_module, cls):
 def register_Ns3ByteTagListIterator_methods(root_module, cls):
     ## byte-tag-list.h (module 'network'): ns3::ByteTagList::Iterator::Iterator(ns3::ByteTagList::Iterator const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::ByteTagList::Iterator const &', 'arg0')])
-    ## byte-tag-list.h (module 'network'): uint32_t ns3::ByteTagList::Iterator::GetOffsetInitialize() const [member function]
-    cls.add_method('GetOffsetInitialize', 
+    ## byte-tag-list.h (module 'network'): uint32_t ns3::ByteTagList::Iterator::GetOffsetStart() const [member function]
+    cls.add_method('GetOffsetStart', 
                    'uint32_t', 
                    [], 
                    is_const=True)
@@ -1449,11 +1543,6 @@ def register_Ns3CallbackBase_methods(root_module, cls):
     ## callback.h (module 'core'): ns3::CallbackBase::CallbackBase(ns3::Ptr<ns3::CallbackImplBase> impl) [constructor]
     cls.add_constructor([param('ns3::Ptr< ns3::CallbackImplBase >', 'impl')], 
                         visibility='protected')
-    ## callback.h (module 'core'): static std::string ns3::CallbackBase::Demangle(std::string const & mangled) [member function]
-    cls.add_method('Demangle', 
-                   'std::string', 
-                   [param('std::string const &', 'mangled')], 
-                   is_static=True, visibility='protected')
     return
 
 def register_Ns3CriticalSection_methods(root_module, cls):
@@ -1479,11 +1568,21 @@ def register_Ns3DataRate_methods(root_module, cls):
     cls.add_constructor([param('uint64_t', 'bps')])
     ## data-rate.h (module 'network'): ns3::DataRate::DataRate(std::string rate) [constructor]
     cls.add_constructor([param('std::string', 'rate')])
+    ## data-rate.h (module 'network'): ns3::Time ns3::DataRate::CalculateBitsTxTime(uint32_t bits) const [member function]
+    cls.add_method('CalculateBitsTxTime', 
+                   'ns3::Time', 
+                   [param('uint32_t', 'bits')], 
+                   is_const=True)
+    ## data-rate.h (module 'network'): ns3::Time ns3::DataRate::CalculateBytesTxTime(uint32_t bytes) const [member function]
+    cls.add_method('CalculateBytesTxTime', 
+                   'ns3::Time', 
+                   [param('uint32_t', 'bytes')], 
+                   is_const=True)
     ## data-rate.h (module 'network'): double ns3::DataRate::CalculateTxTime(uint32_t bytes) const [member function]
     cls.add_method('CalculateTxTime', 
                    'double', 
                    [param('uint32_t', 'bytes')], 
-                   is_const=True)
+                   deprecated=True, is_const=True)
     ## data-rate.h (module 'network'): uint64_t ns3::DataRate::GetBitRate() const [member function]
     cls.add_method('GetBitRate', 
                    'uint64_t', 
@@ -1534,6 +1633,35 @@ def register_Ns3EventId_methods(root_module, cls):
                    'ns3::EventImpl *', 
                    [], 
                    is_const=True)
+    return
+
+def register_Ns3Hasher_methods(root_module, cls):
+    ## hash.h (module 'core'): ns3::Hasher::Hasher(ns3::Hasher const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::Hasher const &', 'arg0')])
+    ## hash.h (module 'core'): ns3::Hasher::Hasher() [constructor]
+    cls.add_constructor([])
+    ## hash.h (module 'core'): ns3::Hasher::Hasher(ns3::Ptr<ns3::Hash::Implementation> hp) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::Hash::Implementation >', 'hp')])
+    ## hash.h (module 'core'): uint32_t ns3::Hasher::GetHash32(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash32', 
+                   'uint32_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')])
+    ## hash.h (module 'core'): uint32_t ns3::Hasher::GetHash32(std::string const s) [member function]
+    cls.add_method('GetHash32', 
+                   'uint32_t', 
+                   [param('std::string const', 's')])
+    ## hash.h (module 'core'): uint64_t ns3::Hasher::GetHash64(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash64', 
+                   'uint64_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')])
+    ## hash.h (module 'core'): uint64_t ns3::Hasher::GetHash64(std::string const s) [member function]
+    cls.add_method('GetHash64', 
+                   'uint64_t', 
+                   [param('std::string const', 's')])
+    ## hash.h (module 'core'): ns3::Hasher & ns3::Hasher::clear() [member function]
+    cls.add_method('clear', 
+                   'ns3::Hasher &', 
+                   [])
     return
 
 def register_Ns3Ipv4Address_methods(root_module, cls):
@@ -1594,6 +1722,11 @@ def register_Ns3Ipv4Address_methods(root_module, cls):
                    'ns3::Ipv4Address', 
                    [], 
                    is_static=True)
+    ## ipv4-address.h (module 'network'): bool ns3::Ipv4Address::IsAny() const [member function]
+    cls.add_method('IsAny', 
+                   'bool', 
+                   [], 
+                   is_const=True)
     ## ipv4-address.h (module 'network'): bool ns3::Ipv4Address::IsBroadcast() const [member function]
     cls.add_method('IsBroadcast', 
                    'bool', 
@@ -1606,6 +1739,11 @@ def register_Ns3Ipv4Address_methods(root_module, cls):
                    is_const=True)
     ## ipv4-address.h (module 'network'): bool ns3::Ipv4Address::IsLocalMulticast() const [member function]
     cls.add_method('IsLocalMulticast', 
+                   'bool', 
+                   [], 
+                   is_const=True)
+    ## ipv4-address.h (module 'network'): bool ns3::Ipv4Address::IsLocalhost() const [member function]
+    cls.add_method('IsLocalhost', 
                    'bool', 
                    [], 
                    is_const=True)
@@ -1785,7 +1923,7 @@ def register_Ns3Ipv6Address_methods(root_module, cls):
     cls.add_method('IsAllHostsMulticast', 
                    'bool', 
                    [], 
-                   is_const=True)
+                   deprecated=True, is_const=True)
     ## ipv6-address.h (module 'network'): bool ns3::Ipv6Address::IsAllNodesMulticast() const [member function]
     cls.add_method('IsAllNodesMulticast', 
                    'bool', 
@@ -1801,15 +1939,21 @@ def register_Ns3Ipv6Address_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_const=True)
+    ## ipv6-address.h (module 'network'): bool ns3::Ipv6Address::IsDocumentation() const [member function]
+    cls.add_method('IsDocumentation', 
+                   'bool', 
+                   [], 
+                   is_const=True)
     ## ipv6-address.h (module 'network'): bool ns3::Ipv6Address::IsEqual(ns3::Ipv6Address const & other) const [member function]
     cls.add_method('IsEqual', 
                    'bool', 
                    [param('ns3::Ipv6Address const &', 'other')], 
                    is_const=True)
-    ## ipv6-address.h (module 'network'): bool ns3::Ipv6Address::IsIpv4MappedAddress() [member function]
+    ## ipv6-address.h (module 'network'): bool ns3::Ipv6Address::IsIpv4MappedAddress() const [member function]
     cls.add_method('IsIpv4MappedAddress', 
                    'bool', 
-                   [])
+                   [], 
+                   is_const=True)
     ## ipv6-address.h (module 'network'): bool ns3::Ipv6Address::IsLinkLocal() const [member function]
     cls.add_method('IsLinkLocal', 
                    'bool', 
@@ -1840,15 +1984,35 @@ def register_Ns3Ipv6Address_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_const=True)
+    ## ipv6-address.h (module 'network'): static ns3::Ipv6Address ns3::Ipv6Address::MakeAutoconfiguredAddress(ns3::Mac16Address addr, ns3::Ipv6Address prefix) [member function]
+    cls.add_method('MakeAutoconfiguredAddress', 
+                   'ns3::Ipv6Address', 
+                   [param('ns3::Mac16Address', 'addr'), param('ns3::Ipv6Address', 'prefix')], 
+                   is_static=True)
     ## ipv6-address.h (module 'network'): static ns3::Ipv6Address ns3::Ipv6Address::MakeAutoconfiguredAddress(ns3::Mac48Address addr, ns3::Ipv6Address prefix) [member function]
     cls.add_method('MakeAutoconfiguredAddress', 
                    'ns3::Ipv6Address', 
                    [param('ns3::Mac48Address', 'addr'), param('ns3::Ipv6Address', 'prefix')], 
                    is_static=True)
+    ## ipv6-address.h (module 'network'): static ns3::Ipv6Address ns3::Ipv6Address::MakeAutoconfiguredAddress(ns3::Mac64Address addr, ns3::Ipv6Address prefix) [member function]
+    cls.add_method('MakeAutoconfiguredAddress', 
+                   'ns3::Ipv6Address', 
+                   [param('ns3::Mac64Address', 'addr'), param('ns3::Ipv6Address', 'prefix')], 
+                   is_static=True)
+    ## ipv6-address.h (module 'network'): static ns3::Ipv6Address ns3::Ipv6Address::MakeAutoconfiguredLinkLocalAddress(ns3::Mac16Address mac) [member function]
+    cls.add_method('MakeAutoconfiguredLinkLocalAddress', 
+                   'ns3::Ipv6Address', 
+                   [param('ns3::Mac16Address', 'mac')], 
+                   is_static=True)
     ## ipv6-address.h (module 'network'): static ns3::Ipv6Address ns3::Ipv6Address::MakeAutoconfiguredLinkLocalAddress(ns3::Mac48Address mac) [member function]
     cls.add_method('MakeAutoconfiguredLinkLocalAddress', 
                    'ns3::Ipv6Address', 
                    [param('ns3::Mac48Address', 'mac')], 
+                   is_static=True)
+    ## ipv6-address.h (module 'network'): static ns3::Ipv6Address ns3::Ipv6Address::MakeAutoconfiguredLinkLocalAddress(ns3::Mac64Address mac) [member function]
+    cls.add_method('MakeAutoconfiguredLinkLocalAddress', 
+                   'ns3::Ipv6Address', 
+                   [param('ns3::Mac64Address', 'mac')], 
                    is_static=True)
     ## ipv6-address.h (module 'network'): static ns3::Ipv6Address ns3::Ipv6Address::MakeIpv4MappedAddress(ns3::Ipv4Address addr) [member function]
     cls.add_method('MakeIpv4MappedAddress', 
@@ -1941,29 +2105,35 @@ def register_Ns3Ipv6Prefix_methods(root_module, cls):
 def register_Ns3LogComponent_methods(root_module, cls):
     ## log.h (module 'core'): ns3::LogComponent::LogComponent(ns3::LogComponent const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::LogComponent const &', 'arg0')])
-    ## log.h (module 'core'): ns3::LogComponent::LogComponent(char const * name) [constructor]
-    cls.add_constructor([param('char const *', 'name')])
-    ## log.h (module 'core'): void ns3::LogComponent::Disable(ns3::LogLevel level) [member function]
+    ## log.h (module 'core'): ns3::LogComponent::LogComponent(std::string const & name, std::string const & file, ns3::LogLevel const mask=::ns3::LOG_NONE) [constructor]
+    cls.add_constructor([param('std::string const &', 'name'), param('std::string const &', 'file'), param('ns3::LogLevel const', 'mask', default_value='::ns3::LOG_NONE')])
+    ## log.h (module 'core'): void ns3::LogComponent::Disable(ns3::LogLevel const level) [member function]
     cls.add_method('Disable', 
                    'void', 
-                   [param('ns3::LogLevel', 'level')])
-    ## log.h (module 'core'): void ns3::LogComponent::Enable(ns3::LogLevel level) [member function]
+                   [param('ns3::LogLevel const', 'level')])
+    ## log.h (module 'core'): void ns3::LogComponent::Enable(ns3::LogLevel const level) [member function]
     cls.add_method('Enable', 
                    'void', 
-                   [param('ns3::LogLevel', 'level')])
-    ## log.h (module 'core'): void ns3::LogComponent::EnvVarCheck(char const * name) [member function]
-    cls.add_method('EnvVarCheck', 
-                   'void', 
-                   [param('char const *', 'name')])
-    ## log.h (module 'core'): std::string ns3::LogComponent::GetLevelLabel(ns3::LogLevel const level) const [member function]
+                   [param('ns3::LogLevel const', 'level')])
+    ## log.h (module 'core'): std::string ns3::LogComponent::File() const [member function]
+    cls.add_method('File', 
+                   'std::string', 
+                   [], 
+                   is_const=True)
+    ## log.h (module 'core'): static std::map<std::basic_string<char, std::char_traits<char>, std::allocator<char> >,ns3::LogComponent*,std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >,std::allocator<std::pair<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >, ns3::LogComponent*> > > * ns3::LogComponent::GetComponentList() [member function]
+    cls.add_method('GetComponentList', 
+                   'std::map< std::string, ns3::LogComponent * > *', 
+                   [], 
+                   is_static=True)
+    ## log.h (module 'core'): static std::string ns3::LogComponent::GetLevelLabel(ns3::LogLevel const level) [member function]
     cls.add_method('GetLevelLabel', 
                    'std::string', 
                    [param('ns3::LogLevel const', 'level')], 
-                   is_const=True)
-    ## log.h (module 'core'): bool ns3::LogComponent::IsEnabled(ns3::LogLevel level) const [member function]
+                   is_static=True)
+    ## log.h (module 'core'): bool ns3::LogComponent::IsEnabled(ns3::LogLevel const level) const [member function]
     cls.add_method('IsEnabled', 
                    'bool', 
-                   [param('ns3::LogLevel', 'level')], 
+                   [param('ns3::LogLevel const', 'level')], 
                    is_const=True)
     ## log.h (module 'core'): bool ns3::LogComponent::IsNoneEnabled() const [member function]
     cls.add_method('IsNoneEnabled', 
@@ -1975,6 +2145,10 @@ def register_Ns3LogComponent_methods(root_module, cls):
                    'char const *', 
                    [], 
                    is_const=True)
+    ## log.h (module 'core'): void ns3::LogComponent::SetMask(ns3::LogLevel const level) [member function]
+    cls.add_method('SetMask', 
+                   'void', 
+                   [param('ns3::LogLevel const', 'level')])
     return
 
 def register_Ns3Mac48Address_methods(root_module, cls):
@@ -2182,10 +2356,10 @@ def register_Ns3ObjectBase_methods(root_module, cls):
                    'void', 
                    [param('std::string', 'name'), param('ns3::AttributeValue &', 'value')], 
                    is_const=True)
-    ## object-base.h (module 'core'): bool ns3::ObjectBase::GetAttributeFailSafe(std::string name, ns3::AttributeValue & attribute) const [member function]
+    ## object-base.h (module 'core'): bool ns3::ObjectBase::GetAttributeFailSafe(std::string name, ns3::AttributeValue & value) const [member function]
     cls.add_method('GetAttributeFailSafe', 
                    'bool', 
-                   [param('std::string', 'name'), param('ns3::AttributeValue &', 'attribute')], 
+                   [param('std::string', 'name'), param('ns3::AttributeValue &', 'value')], 
                    is_const=True)
     ## object-base.h (module 'core'): ns3::TypeId ns3::ObjectBase::GetInstanceTypeId() const [member function]
     cls.add_method('GetInstanceTypeId', 
@@ -2511,8 +2685,8 @@ def register_Ns3PacketMetadata_methods(root_module, cls):
     cls.add_method('RemoveAtEnd', 
                    'void', 
                    [param('uint32_t', 'end')])
-    ## packet-metadata.h (module 'network'): void ns3::PacketMetadata::RemoveAtInitialize(uint32_t start) [member function]
-    cls.add_method('RemoveAtInitialize', 
+    ## packet-metadata.h (module 'network'): void ns3::PacketMetadata::RemoveAtStart(uint32_t start) [member function]
+    cls.add_method('RemoveAtStart', 
                    'void', 
                    [param('uint32_t', 'start')])
     ## packet-metadata.h (module 'network'): void ns3::PacketMetadata::RemoveHeader(ns3::Header const & header, uint32_t size) [member function]
@@ -2541,8 +2715,8 @@ def register_Ns3PacketMetadataItem_methods(root_module, cls):
     cls.add_instance_attribute('currentSize', 'uint32_t', is_const=False)
     ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::currentTrimedFromEnd [variable]
     cls.add_instance_attribute('currentTrimedFromEnd', 'uint32_t', is_const=False)
-    ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::currentTrimedFromInitialize [variable]
-    cls.add_instance_attribute('currentTrimedFromInitialize', 'uint32_t', is_const=False)
+    ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::currentTrimedFromStart [variable]
+    cls.add_instance_attribute('currentTrimedFromStart', 'uint32_t', is_const=False)
     ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::isFragment [variable]
     cls.add_instance_attribute('isFragment', 'bool', is_const=False)
     ## packet-metadata.h (module 'network'): ns3::PacketMetadata::Item::tid [variable]
@@ -2622,6 +2796,10 @@ def register_Ns3PacketTagList_methods(root_module, cls):
     cls.add_method('RemoveAll', 
                    'void', 
                    [])
+    ## packet-tag-list.h (module 'network'): bool ns3::PacketTagList::Replace(ns3::Tag & tag) [member function]
+    cls.add_method('Replace', 
+                   'bool', 
+                   [param('ns3::Tag &', 'tag')])
     return
 
 def register_Ns3PacketTagListTagData_methods(root_module, cls):
@@ -2632,70 +2810,18 @@ def register_Ns3PacketTagListTagData_methods(root_module, cls):
     ## packet-tag-list.h (module 'network'): ns3::PacketTagList::TagData::count [variable]
     cls.add_instance_attribute('count', 'uint32_t', is_const=False)
     ## packet-tag-list.h (module 'network'): ns3::PacketTagList::TagData::data [variable]
-    cls.add_instance_attribute('data', 'uint8_t [ 20 ]', is_const=False)
+    cls.add_instance_attribute('data', 'uint8_t [ 21 ]', is_const=False)
     ## packet-tag-list.h (module 'network'): ns3::PacketTagList::TagData::next [variable]
     cls.add_instance_attribute('next', 'ns3::PacketTagList::TagData *', is_const=False)
     ## packet-tag-list.h (module 'network'): ns3::PacketTagList::TagData::tid [variable]
     cls.add_instance_attribute('tid', 'ns3::TypeId', is_const=False)
     return
 
-def register_Ns3RandomVariable_methods(root_module, cls):
-    cls.add_output_stream_operator()
-    ## random-variable.h (module 'core'): ns3::RandomVariable::RandomVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::RandomVariable::RandomVariable(ns3::RandomVariable const & o) [copy constructor]
-    cls.add_constructor([param('ns3::RandomVariable const &', 'o')])
-    ## random-variable.h (module 'core'): uint32_t ns3::RandomVariable::GetInteger() const [member function]
-    cls.add_method('GetInteger', 
-                   'uint32_t', 
-                   [], 
-                   is_const=True)
-    ## random-variable.h (module 'core'): double ns3::RandomVariable::GetValue() const [member function]
-    cls.add_method('GetValue', 
-                   'double', 
-                   [], 
-                   is_const=True)
-    return
-
-def register_Ns3RngSeedManager_methods(root_module, cls):
-    ## rng-seed-manager.h (module 'core'): ns3::RngSeedManager::RngSeedManager() [constructor]
-    cls.add_constructor([])
-    ## rng-seed-manager.h (module 'core'): ns3::RngSeedManager::RngSeedManager(ns3::RngSeedManager const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::RngSeedManager const &', 'arg0')])
-    ## rng-seed-manager.h (module 'core'): static uint64_t ns3::RngSeedManager::GetNextStreamIndex() [member function]
-    cls.add_method('GetNextStreamIndex', 
-                   'uint64_t', 
-                   [], 
-                   is_static=True)
-    ## rng-seed-manager.h (module 'core'): static uint64_t ns3::RngSeedManager::GetRun() [member function]
-    cls.add_method('GetRun', 
-                   'uint64_t', 
-                   [], 
-                   is_static=True)
-    ## rng-seed-manager.h (module 'core'): static uint32_t ns3::RngSeedManager::GetSeed() [member function]
-    cls.add_method('GetSeed', 
-                   'uint32_t', 
-                   [], 
-                   is_static=True)
-    ## rng-seed-manager.h (module 'core'): static void ns3::RngSeedManager::SetRun(uint64_t run) [member function]
-    cls.add_method('SetRun', 
-                   'void', 
-                   [param('uint64_t', 'run')], 
-                   is_static=True)
-    ## rng-seed-manager.h (module 'core'): static void ns3::RngSeedManager::SetSeed(uint32_t seed) [member function]
-    cls.add_method('SetSeed', 
-                   'void', 
-                   [param('uint32_t', 'seed')], 
-                   is_static=True)
-    return
-
-def register_Ns3SequentialVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::SequentialVariable::SequentialVariable(ns3::SequentialVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::SequentialVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::SequentialVariable::SequentialVariable(double f, double l, double i=1, uint32_t c=1) [constructor]
-    cls.add_constructor([param('double', 'f'), param('double', 'l'), param('double', 'i', default_value='1'), param('uint32_t', 'c', default_value='1')])
-    ## random-variable.h (module 'core'): ns3::SequentialVariable::SequentialVariable(double f, double l, ns3::RandomVariable const & i, uint32_t c=1) [constructor]
-    cls.add_constructor([param('double', 'f'), param('double', 'l'), param('ns3::RandomVariable const &', 'i'), param('uint32_t', 'c', default_value='1')])
+def register_Ns3ParameterLogger_methods(root_module, cls):
+    ## log.h (module 'core'): ns3::ParameterLogger::ParameterLogger(ns3::ParameterLogger const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::ParameterLogger const &', 'arg0')])
+    ## log.h (module 'core'): ns3::ParameterLogger::ParameterLogger(std::ostream & os) [constructor]
+    cls.add_constructor([param('std::ostream &', 'os')])
     return
 
 def register_Ns3SimpleRefCount__Ns3Object_Ns3ObjectBase_Ns3ObjectDeleter_methods(root_module, cls):
@@ -2820,13 +2946,46 @@ def register_Ns3TagBuffer_methods(root_module, cls):
                    [param('uint8_t', 'v')])
     return
 
-def register_Ns3TriangularVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::TriangularVariable::TriangularVariable(ns3::TriangularVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::TriangularVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::TriangularVariable::TriangularVariable() [constructor]
+def register_Ns3TimeWithUnit_methods(root_module, cls):
+    cls.add_output_stream_operator()
+    ## nstime.h (module 'core'): ns3::TimeWithUnit::TimeWithUnit(ns3::TimeWithUnit const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::TimeWithUnit const &', 'arg0')])
+    ## nstime.h (module 'core'): ns3::TimeWithUnit::TimeWithUnit(ns3::Time const time, ns3::Time::Unit const unit) [constructor]
+    cls.add_constructor([param('ns3::Time const', 'time'), param('ns3::Time::Unit const', 'unit')])
+    return
+
+def register_Ns3TracedValue__Unsigned_int_methods(root_module, cls):
+    ## traced-value.h (module 'core'): ns3::TracedValue<unsigned int>::TracedValue() [constructor]
     cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::TriangularVariable::TriangularVariable(double s, double l, double mean) [constructor]
-    cls.add_constructor([param('double', 's'), param('double', 'l'), param('double', 'mean')])
+    ## traced-value.h (module 'core'): ns3::TracedValue<unsigned int>::TracedValue(ns3::TracedValue<unsigned int> const & o) [copy constructor]
+    cls.add_constructor([param('ns3::TracedValue< unsigned int > const &', 'o')])
+    ## traced-value.h (module 'core'): ns3::TracedValue<unsigned int>::TracedValue(unsigned int const & v) [constructor]
+    cls.add_constructor([param('unsigned int const &', 'v')])
+    ## traced-value.h (module 'core'): void ns3::TracedValue<unsigned int>::Connect(ns3::CallbackBase const & cb, std::basic_string<char,std::char_traits<char>,std::allocator<char> > path) [member function]
+    cls.add_method('Connect', 
+                   'void', 
+                   [param('ns3::CallbackBase const &', 'cb'), param('std::string', 'path')])
+    ## traced-value.h (module 'core'): void ns3::TracedValue<unsigned int>::ConnectWithoutContext(ns3::CallbackBase const & cb) [member function]
+    cls.add_method('ConnectWithoutContext', 
+                   'void', 
+                   [param('ns3::CallbackBase const &', 'cb')])
+    ## traced-value.h (module 'core'): void ns3::TracedValue<unsigned int>::Disconnect(ns3::CallbackBase const & cb, std::basic_string<char,std::char_traits<char>,std::allocator<char> > path) [member function]
+    cls.add_method('Disconnect', 
+                   'void', 
+                   [param('ns3::CallbackBase const &', 'cb'), param('std::string', 'path')])
+    ## traced-value.h (module 'core'): void ns3::TracedValue<unsigned int>::DisconnectWithoutContext(ns3::CallbackBase const & cb) [member function]
+    cls.add_method('DisconnectWithoutContext', 
+                   'void', 
+                   [param('ns3::CallbackBase const &', 'cb')])
+    ## traced-value.h (module 'core'): unsigned int ns3::TracedValue<unsigned int>::Get() const [member function]
+    cls.add_method('Get', 
+                   'unsigned int', 
+                   [], 
+                   is_const=True)
+    ## traced-value.h (module 'core'): void ns3::TracedValue<unsigned int>::Set(unsigned int const & v) [member function]
+    cls.add_method('Set', 
+                   'void', 
+                   [param('unsigned int const &', 'v')])
     return
 
 def register_Ns3TypeId_methods(root_module, cls):
@@ -2851,7 +3010,12 @@ def register_Ns3TypeId_methods(root_module, cls):
     ## type-id.h (module 'core'): ns3::TypeId ns3::TypeId::AddTraceSource(std::string name, std::string help, ns3::Ptr<ns3::TraceSourceAccessor const> accessor) [member function]
     cls.add_method('AddTraceSource', 
                    'ns3::TypeId', 
-                   [param('std::string', 'name'), param('std::string', 'help'), param('ns3::Ptr< ns3::TraceSourceAccessor const >', 'accessor')])
+                   [param('std::string', 'name'), param('std::string', 'help'), param('ns3::Ptr< ns3::TraceSourceAccessor const >', 'accessor')], 
+                   deprecated=True)
+    ## type-id.h (module 'core'): ns3::TypeId ns3::TypeId::AddTraceSource(std::string name, std::string help, ns3::Ptr<ns3::TraceSourceAccessor const> accessor, std::string callback) [member function]
+    cls.add_method('AddTraceSource', 
+                   'ns3::TypeId', 
+                   [param('std::string', 'name'), param('std::string', 'help'), param('ns3::Ptr< ns3::TraceSourceAccessor const >', 'accessor'), param('std::string', 'callback')])
     ## type-id.h (module 'core'): ns3::TypeId::AttributeInformation ns3::TypeId::GetAttribute(uint32_t i) const [member function]
     cls.add_method('GetAttribute', 
                    'ns3::TypeId::AttributeInformation', 
@@ -2877,6 +3041,11 @@ def register_Ns3TypeId_methods(root_module, cls):
                    'std::string', 
                    [], 
                    is_const=True)
+    ## type-id.h (module 'core'): uint32_t ns3::TypeId::GetHash() const [member function]
+    cls.add_method('GetHash', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
     ## type-id.h (module 'core'): std::string ns3::TypeId::GetName() const [member function]
     cls.add_method('GetName', 
                    'std::string', 
@@ -2897,6 +3066,11 @@ def register_Ns3TypeId_methods(root_module, cls):
                    'uint32_t', 
                    [], 
                    is_static=True)
+    ## type-id.h (module 'core'): std::size_t ns3::TypeId::GetSize() const [member function]
+    cls.add_method('GetSize', 
+                   'std::size_t', 
+                   [], 
+                   is_const=True)
     ## type-id.h (module 'core'): ns3::TypeId::TraceSourceInformation ns3::TypeId::GetTraceSource(uint32_t i) const [member function]
     cls.add_method('GetTraceSource', 
                    'ns3::TypeId::TraceSourceInformation', 
@@ -2936,6 +3110,16 @@ def register_Ns3TypeId_methods(root_module, cls):
                    'bool', 
                    [param('std::string', 'name'), param('ns3::TypeId::AttributeInformation *', 'info', transfer_ownership=False)], 
                    is_const=True)
+    ## type-id.h (module 'core'): static ns3::TypeId ns3::TypeId::LookupByHash(uint32_t hash) [member function]
+    cls.add_method('LookupByHash', 
+                   'ns3::TypeId', 
+                   [param('uint32_t', 'hash')], 
+                   is_static=True)
+    ## type-id.h (module 'core'): static bool ns3::TypeId::LookupByHashFailSafe(uint32_t hash, ns3::TypeId * tid) [member function]
+    cls.add_method('LookupByHashFailSafe', 
+                   'bool', 
+                   [param('uint32_t', 'hash'), param('ns3::TypeId *', 'tid')], 
+                   is_static=True)
     ## type-id.h (module 'core'): static ns3::TypeId ns3::TypeId::LookupByName(std::string name) [member function]
     cls.add_method('LookupByName', 
                    'ns3::TypeId', 
@@ -2963,6 +3147,10 @@ def register_Ns3TypeId_methods(root_module, cls):
     cls.add_method('SetParent', 
                    'ns3::TypeId', 
                    [param('ns3::TypeId', 'tid')])
+    ## type-id.h (module 'core'): ns3::TypeId ns3::TypeId::SetSize(std::size_t size) [member function]
+    cls.add_method('SetSize', 
+                   'ns3::TypeId', 
+                   [param('std::size_t', 'size')])
     ## type-id.h (module 'core'): void ns3::TypeId::SetUid(uint16_t tid) [member function]
     cls.add_method('SetUid', 
                    'void', 
@@ -2997,32 +3185,12 @@ def register_Ns3TypeIdTraceSourceInformation_methods(root_module, cls):
     cls.add_constructor([param('ns3::TypeId::TraceSourceInformation const &', 'arg0')])
     ## type-id.h (module 'core'): ns3::TypeId::TraceSourceInformation::accessor [variable]
     cls.add_instance_attribute('accessor', 'ns3::Ptr< ns3::TraceSourceAccessor const >', is_const=False)
+    ## type-id.h (module 'core'): ns3::TypeId::TraceSourceInformation::callback [variable]
+    cls.add_instance_attribute('callback', 'std::string', is_const=False)
     ## type-id.h (module 'core'): ns3::TypeId::TraceSourceInformation::help [variable]
     cls.add_instance_attribute('help', 'std::string', is_const=False)
     ## type-id.h (module 'core'): ns3::TypeId::TraceSourceInformation::name [variable]
     cls.add_instance_attribute('name', 'std::string', is_const=False)
-    return
-
-def register_Ns3UniformVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::UniformVariable::UniformVariable(ns3::UniformVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::UniformVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::UniformVariable::UniformVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::UniformVariable::UniformVariable(double s, double l) [constructor]
-    cls.add_constructor([param('double', 's'), param('double', 'l')])
-    ## random-variable.h (module 'core'): uint32_t ns3::UniformVariable::GetInteger(uint32_t s, uint32_t l) [member function]
-    cls.add_method('GetInteger', 
-                   'uint32_t', 
-                   [param('uint32_t', 's'), param('uint32_t', 'l')])
-    ## random-variable.h (module 'core'): double ns3::UniformVariable::GetValue() const [member function]
-    cls.add_method('GetValue', 
-                   'double', 
-                   [], 
-                   is_const=True)
-    ## random-variable.h (module 'core'): double ns3::UniformVariable::GetValue(double s, double l) [member function]
-    cls.add_method('GetValue', 
-                   'double', 
-                   [param('double', 's'), param('double', 'l')])
     return
 
 def register_Ns3Vector2D_methods(root_module, cls):
@@ -3053,37 +3221,6 @@ def register_Ns3Vector3D_methods(root_module, cls):
     cls.add_instance_attribute('y', 'double', is_const=False)
     ## vector.h (module 'core'): ns3::Vector3D::z [variable]
     cls.add_instance_attribute('z', 'double', is_const=False)
-    return
-
-def register_Ns3WeibullVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::WeibullVariable::WeibullVariable(ns3::WeibullVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::WeibullVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::WeibullVariable::WeibullVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::WeibullVariable::WeibullVariable(double m) [constructor]
-    cls.add_constructor([param('double', 'm')])
-    ## random-variable.h (module 'core'): ns3::WeibullVariable::WeibullVariable(double m, double s) [constructor]
-    cls.add_constructor([param('double', 'm'), param('double', 's')])
-    ## random-variable.h (module 'core'): ns3::WeibullVariable::WeibullVariable(double m, double s, double b) [constructor]
-    cls.add_constructor([param('double', 'm'), param('double', 's'), param('double', 'b')])
-    return
-
-def register_Ns3ZetaVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::ZetaVariable::ZetaVariable(ns3::ZetaVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::ZetaVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::ZetaVariable::ZetaVariable(double alpha) [constructor]
-    cls.add_constructor([param('double', 'alpha')])
-    ## random-variable.h (module 'core'): ns3::ZetaVariable::ZetaVariable() [constructor]
-    cls.add_constructor([])
-    return
-
-def register_Ns3ZipfVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::ZipfVariable::ZipfVariable(ns3::ZipfVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::ZipfVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::ZipfVariable::ZipfVariable(long int N, double alpha) [constructor]
-    cls.add_constructor([param('long int', 'N'), param('double', 'alpha')])
-    ## random-variable.h (module 'core'): ns3::ZipfVariable::ZipfVariable() [constructor]
-    cls.add_constructor([])
     return
 
 def register_Ns3Backbone_branch_discover_thread_arg_t_methods(root_module, cls):
@@ -3120,68 +3257,26 @@ def register_Ns3Empty_methods(root_module, cls):
 def register_Ns3Int64x64_t_methods(root_module, cls):
     cls.add_binary_comparison_operator('<=')
     cls.add_binary_comparison_operator('!=')
-    cls.add_inplace_numeric_operator('*=', param('ns3::int64x64_t const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::int64x64_t const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::int64x64_t const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::int64x64_t const &', 'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::int64x64_t const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::int64x64_t const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::int64x64_t const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::int64x64_t const &', u'right'))
     cls.add_output_stream_operator()
     cls.add_binary_comparison_operator('==')
     cls.add_binary_comparison_operator('>=')
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned char const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short int const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('signed char const', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('double const', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', u'right'))
     cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('-', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned char const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short int const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('signed char const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('double const', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned char const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short int const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('signed char const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('double const', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short unsigned int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('unsigned char const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long long int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('long int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('short int const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('signed char const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('double const', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::int64x64_t'], root_module['ns3::int64x64_t'], param('ns3::int64x64_t const &', u'right'))
     cls.add_binary_comparison_operator('<')
     cls.add_binary_comparison_operator('>')
     ## int64x64-double.h (module 'core'): ns3::int64x64_t::int64x64_t() [constructor]
     cls.add_constructor([])
     ## int64x64-double.h (module 'core'): ns3::int64x64_t::int64x64_t(double v) [constructor]
     cls.add_constructor([param('double', 'v')])
+    ## int64x64-double.h (module 'core'): ns3::int64x64_t::int64x64_t(long double v) [constructor]
+    cls.add_constructor([param('long double', 'v')])
     ## int64x64-double.h (module 'core'): ns3::int64x64_t::int64x64_t(int v) [constructor]
     cls.add_constructor([param('int', 'v')])
     ## int64x64-double.h (module 'core'): ns3::int64x64_t::int64x64_t(long int v) [constructor]
@@ -3222,6 +3317,8 @@ def register_Ns3Int64x64_t_methods(root_module, cls):
     cls.add_method('MulByInvert', 
                    'void', 
                    [param('ns3::int64x64_t const &', 'o')])
+    ## int64x64-double.h (module 'core'): ns3::int64x64_t::implementation [variable]
+    cls.add_static_attribute('implementation', 'ns3::int64x64_t::impl_type const', is_const=True)
     return
 
 def register_Ns3Sub_thread_arg_t_methods(root_module, cls):
@@ -3270,86 +3367,6 @@ def register_Ns3Chunk_methods(root_module, cls):
                    is_pure_virtual=True, is_const=True, is_virtual=True)
     return
 
-def register_Ns3ConstantVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::ConstantVariable::ConstantVariable(ns3::ConstantVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::ConstantVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::ConstantVariable::ConstantVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::ConstantVariable::ConstantVariable(double c) [constructor]
-    cls.add_constructor([param('double', 'c')])
-    ## random-variable.h (module 'core'): void ns3::ConstantVariable::SetConstant(double c) [member function]
-    cls.add_method('SetConstant', 
-                   'void', 
-                   [param('double', 'c')])
-    return
-
-def register_Ns3DeterministicVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::DeterministicVariable::DeterministicVariable(ns3::DeterministicVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::DeterministicVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::DeterministicVariable::DeterministicVariable(double * d, uint32_t c) [constructor]
-    cls.add_constructor([param('double *', 'd'), param('uint32_t', 'c')])
-    return
-
-def register_Ns3EmpiricalVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::EmpiricalVariable::EmpiricalVariable(ns3::EmpiricalVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EmpiricalVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::EmpiricalVariable::EmpiricalVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): void ns3::EmpiricalVariable::CDF(double v, double c) [member function]
-    cls.add_method('CDF', 
-                   'void', 
-                   [param('double', 'v'), param('double', 'c')])
-    return
-
-def register_Ns3ErlangVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::ErlangVariable::ErlangVariable(ns3::ErlangVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::ErlangVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::ErlangVariable::ErlangVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::ErlangVariable::ErlangVariable(unsigned int k, double lambda) [constructor]
-    cls.add_constructor([param('unsigned int', 'k'), param('double', 'lambda')])
-    ## random-variable.h (module 'core'): double ns3::ErlangVariable::GetValue() const [member function]
-    cls.add_method('GetValue', 
-                   'double', 
-                   [], 
-                   is_const=True)
-    ## random-variable.h (module 'core'): double ns3::ErlangVariable::GetValue(unsigned int k, double lambda) const [member function]
-    cls.add_method('GetValue', 
-                   'double', 
-                   [param('unsigned int', 'k'), param('double', 'lambda')], 
-                   is_const=True)
-    return
-
-def register_Ns3ExponentialVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::ExponentialVariable::ExponentialVariable(ns3::ExponentialVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::ExponentialVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::ExponentialVariable::ExponentialVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::ExponentialVariable::ExponentialVariable(double m) [constructor]
-    cls.add_constructor([param('double', 'm')])
-    ## random-variable.h (module 'core'): ns3::ExponentialVariable::ExponentialVariable(double m, double b) [constructor]
-    cls.add_constructor([param('double', 'm'), param('double', 'b')])
-    return
-
-def register_Ns3GammaVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::GammaVariable::GammaVariable(ns3::GammaVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::GammaVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::GammaVariable::GammaVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::GammaVariable::GammaVariable(double alpha, double beta) [constructor]
-    cls.add_constructor([param('double', 'alpha'), param('double', 'beta')])
-    ## random-variable.h (module 'core'): double ns3::GammaVariable::GetValue() const [member function]
-    cls.add_method('GetValue', 
-                   'double', 
-                   [], 
-                   is_const=True)
-    ## random-variable.h (module 'core'): double ns3::GammaVariable::GetValue(double alpha, double beta) const [member function]
-    cls.add_method('GetValue', 
-                   'double', 
-                   [param('double', 'alpha'), param('double', 'beta')], 
-                   is_const=True)
-    return
-
 def register_Ns3Header_methods(root_module, cls):
     cls.add_output_stream_operator()
     ## header.h (module 'network'): ns3::Header::Header() [constructor]
@@ -3381,31 +3398,6 @@ def register_Ns3Header_methods(root_module, cls):
                    'void', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
-    return
-
-def register_Ns3IntEmpiricalVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::IntEmpiricalVariable::IntEmpiricalVariable(ns3::IntEmpiricalVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::IntEmpiricalVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::IntEmpiricalVariable::IntEmpiricalVariable() [constructor]
-    cls.add_constructor([])
-    return
-
-def register_Ns3LogNormalVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::LogNormalVariable::LogNormalVariable(ns3::LogNormalVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::LogNormalVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::LogNormalVariable::LogNormalVariable(double mu, double sigma) [constructor]
-    cls.add_constructor([param('double', 'mu'), param('double', 'sigma')])
-    return
-
-def register_Ns3NormalVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::NormalVariable::NormalVariable(ns3::NormalVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::NormalVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::NormalVariable::NormalVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::NormalVariable::NormalVariable(double m, double v) [constructor]
-    cls.add_constructor([param('double', 'm'), param('double', 'v')])
-    ## random-variable.h (module 'core'): ns3::NormalVariable::NormalVariable(double m, double v, double b) [constructor]
-    cls.add_constructor([param('double', 'm'), param('double', 'v'), param('double', 'b')])
     return
 
 def register_Ns3Object_methods(root_module, cls):
@@ -4184,6 +4176,10 @@ def register_Ns3PLC_Interference_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::InitializeRx(ns3::Ptr<ns3::SpectrumValue const> rxPsd) [member function]
+    cls.add_method('InitializeRx', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd')])
     ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::RemoveInterferenceSignal(ns3::Ptr<ns3::SpectrumValue const> spd) [member function]
     cls.add_method('RemoveInterferenceSignal', 
                    'void', 
@@ -4196,10 +4192,6 @@ def register_Ns3PLC_Interference_methods(root_module, cls):
     cls.add_method('SetSinrBase', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'baseSinr')])
-    ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::InitializeRx(ns3::Ptr<ns3::SpectrumValue const> rxPsd) [member function]
-    cls.add_method('InitializeRx', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd')])
     ## plc-interference.h (module 'plc'): void ns3::PLC_Interference::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -4307,6 +4299,10 @@ def register_Ns3PLC_LinkPerformanceModel_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::InitializeRx(ns3::ModulationAndCodingScheme mcs, ns3::Ptr<ns3::SpectrumValue const> rxPsd, double requiredInformationBits=0) [member function]
+    cls.add_method('InitializeRx', 
+                   'void', 
+                   [param('ns3::ModulationAndCodingScheme', 'mcs'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('double', 'requiredInformationBits', default_value='0')])
     ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::RemoveNoiseSignal(ns3::Ptr<ns3::SpectrumValue const> noisePsd) [member function]
     cls.add_method('RemoveNoiseSignal', 
                    'void', 
@@ -4319,10 +4315,6 @@ def register_Ns3PLC_LinkPerformanceModel_methods(root_module, cls):
     cls.add_method('SetSinrBase', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'sinrBase')])
-    ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::InitializeRx(ns3::ModulationAndCodingScheme mcs, ns3::Ptr<ns3::SpectrumValue const> rxPsd, double requiredInformationBits=0) [member function]
-    cls.add_method('InitializeRx', 
-                   'void', 
-                   [param('ns3::ModulationAndCodingScheme', 'mcs'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('double', 'requiredInformationBits', default_value='0')])
     ## plc-link-performance-model.h (module 'plc'): void ns3::PLC_LinkPerformanceModel::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -4390,6 +4382,10 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
     ## plc-mac.h (module 'plc'): uint32_t ns3::PLC_Mac::GetUnitBackoffPeriod() [member function]
     cls.add_method('GetUnitBackoffPeriod', 
                    'uint32_t', 
+                   [])
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::InitializeCsmaCa() [member function]
+    cls.add_method('InitializeCsmaCa', 
+                   'void', 
                    [])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::NotifyCcaConfirm(ns3::PLC_PhyCcaResult status) [member function]
     cls.add_method('NotifyCcaConfirm', 
@@ -4482,10 +4478,6 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
     cls.add_method('SetUnitBackoffPeriod', 
                    'void', 
                    [param('uint32_t', 'nsymbols')])
-    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::InitializeCsmaCa() [member function]
-    cls.add_method('InitializeCsmaCa', 
-                   'void', 
-                   [])
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -4496,6 +4488,11 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_Phy >', 
                    [], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoNotifyReceptionEndOk() [member function]
     cls.add_method('DoNotifyReceptionEndOk', 
                    'void', 
@@ -4516,11 +4513,6 @@ def register_Ns3PLC_Mac_methods(root_module, cls):
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::DoInitialize() [member function]
-    cls.add_method('DoInitialize', 
-                   'void', 
-                   [], 
-                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_Mac::ForwardUp(ns3::Ptr<ns3::Packet> p, ns3::Mac48Address src, ns3::Mac48Address dst) [member function]
     cls.add_method('ForwardUp', 
                    'void', 
@@ -5024,6 +5016,14 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::InitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeRx', 
+                   'void', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
+    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::InitializeTx(ns3::Ptr<ns3::Packet const> p) [member function]
+    cls.add_method('InitializeTx', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::Lock() [member function]
     cls.add_method('Lock', 
                    'void', 
@@ -5058,14 +5058,6 @@ def register_Ns3PLC_Phy_methods(root_module, cls):
                    'void', 
                    [param('ns3::Time', 'tSymbol')], 
                    is_static=True)
-    ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::InitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('InitializeRx', 
-                   'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
-    ## plc-phy.h (module 'plc'): bool ns3::PLC_Phy::InitializeTx(ns3::Ptr<ns3::Packet const> p) [member function]
-    cls.add_method('InitializeTx', 
-                   'bool', 
-                   [param('ns3::Ptr< ns3::Packet const >', 'p')])
     ## plc-phy.h (module 'plc'): void ns3::PLC_Phy::TraceNoise(ns3::Time t, ns3::Ptr<ns3::SpectrumValue const> noisePsd) [member function]
     cls.add_method('TraceNoise', 
                    'void', 
@@ -5352,6 +5344,10 @@ def register_Ns3PLC_RxInterface_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::InitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeRx', 
+                   'void', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::RxPsdChanged(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxSignal) [member function]
     cls.add_method('RxPsdChanged', 
                    'void', 
@@ -5364,10 +5360,6 @@ def register_Ns3PLC_RxInterface_methods(root_module, cls):
     cls.add_method('SetRxIfIdx', 
                    'void', 
                    [param('uint32_t', 'idx')])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::InitializeRx(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('InitializeRx', 
-                   'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_RxInterface::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -5480,8 +5472,8 @@ def register_Ns3PLC_TimeVaryingNoiseSource_methods(root_module, cls):
     cls.add_constructor([param('ns3::PLC_TimeVaryingNoiseSource const &', 'arg0')])
     ## plc-noise.h (module 'plc'): ns3::PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource() [constructor]
     cls.add_constructor([])
-    ## plc-noise.h (module 'plc'): ns3::PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource(ns3::Ptr<ns3::PLC_Node> src_node, ns3::Ptr<ns3::SpectrumModel> sm, ns3::RandomVariable subChannelPsd, ns3::RandomVariable staticDuration) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'src_node'), param('ns3::Ptr< ns3::SpectrumModel >', 'sm'), param('ns3::RandomVariable', 'subChannelPsd'), param('ns3::RandomVariable', 'staticDuration')])
+    ## plc-noise.h (module 'plc'): ns3::PLC_TimeVaryingNoiseSource::PLC_TimeVaryingNoiseSource(ns3::Ptr<ns3::PLC_Node> src_node, ns3::Ptr<ns3::SpectrumModel> sm, ns3::Ptr<ns3::UniformRandomVariable> subChannelPsd, ns3::Ptr<ns3::UniformRandomVariable> staticDuration) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'src_node'), param('ns3::Ptr< ns3::SpectrumModel >', 'sm'), param('ns3::Ptr< ns3::UniformRandomVariable >', 'subChannelPsd'), param('ns3::Ptr< ns3::UniformRandomVariable >', 'staticDuration')])
     ## plc-noise.h (module 'plc'): void ns3::PLC_TimeVaryingNoiseSource::AlterPsd() [member function]
     cls.add_method('AlterPsd', 
                    'void', 
@@ -5586,6 +5578,10 @@ def register_Ns3PLC_TxInterface_methods(root_module, cls):
     cls.add_method('InitializeChannelTransferImpls', 
                    'void', 
                    [])
+    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::InitializeTx(ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeTx', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::SetNoiseIfIdx(uint32_t idx) [member function]
     cls.add_method('SetNoiseIfIdx', 
                    'void', 
@@ -5594,10 +5590,6 @@ def register_Ns3PLC_TxInterface_methods(root_module, cls):
     cls.add_method('SetTxIfIdx', 
                    'void', 
                    [param('uint32_t', 'idx')])
-    ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::InitializeTx(ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('InitializeTx', 
-                   'void', 
-                   [param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')])
     ## plc-interface.h (module 'plc'): void ns3::PLC_TxInterface::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -5710,40 +5702,38 @@ def register_Ns3PacketBurst_methods(root_module, cls):
                    visibility='private', is_virtual=True)
     return
 
-def register_Ns3ParetoVariable_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable(ns3::ParetoVariable const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::ParetoVariable const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable(double m) [constructor]
-    cls.add_constructor([param('double', 'm')])
-    ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable(double m, double s) [constructor]
-    cls.add_constructor([param('double', 'm'), param('double', 's')])
-    ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable(double m, double s, double b) [constructor]
-    cls.add_constructor([param('double', 'm'), param('double', 's'), param('double', 'b')])
-    ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable(std::pair<double,double> params) [constructor]
-    cls.add_constructor([param('std::pair< double, double >', 'params')])
-    ## random-variable.h (module 'core'): ns3::ParetoVariable::ParetoVariable(std::pair<double,double> params, double b) [constructor]
-    cls.add_constructor([param('std::pair< double, double >', 'params'), param('double', 'b')])
-    return
-
 def register_Ns3Queue_methods(root_module, cls):
     ## queue.h (module 'network'): ns3::Queue::Queue(ns3::Queue const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::Queue const &', 'arg0')])
     ## queue.h (module 'network'): ns3::Queue::Queue() [constructor]
     cls.add_constructor([])
-    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet> ns3::Queue::Dequeue() [member function]
+    ## queue.h (module 'network'): ns3::Ptr<ns3::QueueItem> ns3::Queue::Dequeue() [member function]
     cls.add_method('Dequeue', 
-                   'ns3::Ptr< ns3::Packet >', 
+                   'ns3::Ptr< ns3::QueueItem >', 
                    [])
     ## queue.h (module 'network'): void ns3::Queue::DequeueAll() [member function]
     cls.add_method('DequeueAll', 
                    'void', 
                    [])
-    ## queue.h (module 'network'): bool ns3::Queue::Enqueue(ns3::Ptr<ns3::Packet> p) [member function]
+    ## queue.h (module 'network'): bool ns3::Queue::Enqueue(ns3::Ptr<ns3::QueueItem> item) [member function]
     cls.add_method('Enqueue', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')])
+                   [param('ns3::Ptr< ns3::QueueItem >', 'item')])
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetMaxBytes() const [member function]
+    cls.add_method('GetMaxBytes', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): uint32_t ns3::Queue::GetMaxPackets() const [member function]
+    cls.add_method('GetMaxPackets', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## queue.h (module 'network'): ns3::Queue::QueueMode ns3::Queue::GetMode() const [member function]
+    cls.add_method('GetMode', 
+                   'ns3::Queue::QueueMode', 
+                   [], 
+                   is_const=True)
     ## queue.h (module 'network'): uint32_t ns3::Queue::GetNBytes() const [member function]
     cls.add_method('GetNBytes', 
                    'uint32_t', 
@@ -5784,35 +5774,90 @@ def register_Ns3Queue_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_const=True)
-    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet const> ns3::Queue::Peek() const [member function]
+    ## queue.h (module 'network'): ns3::Ptr<const ns3::QueueItem> ns3::Queue::Peek() const [member function]
     cls.add_method('Peek', 
-                   'ns3::Ptr< ns3::Packet const >', 
+                   'ns3::Ptr< ns3::QueueItem const >', 
                    [], 
                    is_const=True)
     ## queue.h (module 'network'): void ns3::Queue::ResetStatistics() [member function]
     cls.add_method('ResetStatistics', 
                    'void', 
                    [])
-    ## queue.h (module 'network'): void ns3::Queue::Drop(ns3::Ptr<ns3::Packet> packet) [member function]
+    ## queue.h (module 'network'): void ns3::Queue::SetMaxBytes(uint32_t maxBytes) [member function]
+    cls.add_method('SetMaxBytes', 
+                   'void', 
+                   [param('uint32_t', 'maxBytes')])
+    ## queue.h (module 'network'): void ns3::Queue::SetMaxPackets(uint32_t maxPackets) [member function]
+    cls.add_method('SetMaxPackets', 
+                   'void', 
+                   [param('uint32_t', 'maxPackets')])
+    ## queue.h (module 'network'): void ns3::Queue::SetMode(ns3::Queue::QueueMode mode) [member function]
+    cls.add_method('SetMode', 
+                   'void', 
+                   [param('ns3::Queue::QueueMode', 'mode')])
+    ## queue.h (module 'network'): void ns3::Queue::Drop(ns3::Ptr<ns3::Packet> p) [member function]
     cls.add_method('Drop', 
                    'void', 
-                   [param('ns3::Ptr< ns3::Packet >', 'packet')], 
+                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
                    visibility='protected')
-    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet> ns3::Queue::DoDequeue() [member function]
+    ## queue.h (module 'network'): ns3::Ptr<ns3::QueueItem> ns3::Queue::DoDequeue() [member function]
     cls.add_method('DoDequeue', 
-                   'ns3::Ptr< ns3::Packet >', 
+                   'ns3::Ptr< ns3::QueueItem >', 
                    [], 
                    is_pure_virtual=True, visibility='private', is_virtual=True)
-    ## queue.h (module 'network'): bool ns3::Queue::DoEnqueue(ns3::Ptr<ns3::Packet> p) [member function]
+    ## queue.h (module 'network'): bool ns3::Queue::DoEnqueue(ns3::Ptr<ns3::QueueItem> item) [member function]
     cls.add_method('DoEnqueue', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   [param('ns3::Ptr< ns3::QueueItem >', 'item')], 
                    is_pure_virtual=True, visibility='private', is_virtual=True)
-    ## queue.h (module 'network'): ns3::Ptr<ns3::Packet const> ns3::Queue::DoPeek() const [member function]
+    ## queue.h (module 'network'): ns3::Ptr<const ns3::QueueItem> ns3::Queue::DoPeek() const [member function]
     cls.add_method('DoPeek', 
-                   'ns3::Ptr< ns3::Packet const >', 
+                   'ns3::Ptr< ns3::QueueItem const >', 
                    [], 
                    is_pure_virtual=True, is_const=True, visibility='private', is_virtual=True)
+    return
+
+def register_Ns3RandomVariableStream_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::RandomVariableStream::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::RandomVariableStream::RandomVariableStream() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): void ns3::RandomVariableStream::SetStream(int64_t stream) [member function]
+    cls.add_method('SetStream', 
+                   'void', 
+                   [param('int64_t', 'stream')])
+    ## random-variable-stream.h (module 'core'): int64_t ns3::RandomVariableStream::GetStream() const [member function]
+    cls.add_method('GetStream', 
+                   'int64_t', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): void ns3::RandomVariableStream::SetAntithetic(bool isAntithetic) [member function]
+    cls.add_method('SetAntithetic', 
+                   'void', 
+                   [param('bool', 'isAntithetic')])
+    ## random-variable-stream.h (module 'core'): bool ns3::RandomVariableStream::IsAntithetic() const [member function]
+    cls.add_method('IsAntithetic', 
+                   'bool', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::RandomVariableStream::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_pure_virtual=True, is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::RandomVariableStream::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_pure_virtual=True, is_virtual=True)
+    ## random-variable-stream.h (module 'core'): ns3::RngStream * ns3::RandomVariableStream::Peek() const [member function]
+    cls.add_method('Peek', 
+                   'ns3::RngStream *', 
+                   [], 
+                   is_const=True, visibility='protected')
     return
 
 def register_Ns3Scheduler_methods(root_module, cls):
@@ -5880,6 +5925,46 @@ def register_Ns3SchedulerEventKey_methods(root_module, cls):
     cls.add_instance_attribute('m_uid', 'uint32_t', is_const=False)
     return
 
+def register_Ns3SequentialRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::SequentialRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::SequentialRandomVariable::SequentialRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::SequentialRandomVariable::GetMin() const [member function]
+    cls.add_method('GetMin', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::SequentialRandomVariable::GetMax() const [member function]
+    cls.add_method('GetMax', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): ns3::Ptr<ns3::RandomVariableStream> ns3::SequentialRandomVariable::GetIncrement() const [member function]
+    cls.add_method('GetIncrement', 
+                   'ns3::Ptr< ns3::RandomVariableStream >', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::SequentialRandomVariable::GetConsecutive() const [member function]
+    cls.add_method('GetConsecutive', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::SequentialRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::SequentialRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
 def register_Ns3SimpleRefCount__Ns3AttributeAccessor_Ns3Empty_Ns3DefaultDeleter__lt__ns3AttributeAccessor__gt___methods(root_module, cls):
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::AttributeAccessor, ns3::empty, ns3::DefaultDeleter<ns3::AttributeAccessor> >::SimpleRefCount() [constructor]
     cls.add_constructor([])
@@ -5940,6 +6025,30 @@ def register_Ns3SimpleRefCount__Ns3EventImpl_Ns3Empty_Ns3DefaultDeleter__lt__ns3
                    is_static=True)
     return
 
+def register_Ns3SimpleRefCount__Ns3HashImplementation_Ns3Empty_Ns3DefaultDeleter__lt__ns3HashImplementation__gt___methods(root_module, cls):
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter<ns3::Hash::Implementation> >::SimpleRefCount() [constructor]
+    cls.add_constructor([])
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter<ns3::Hash::Implementation> >::SimpleRefCount(ns3::SimpleRefCount<ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter<ns3::Hash::Implementation> > const & o) [copy constructor]
+    cls.add_constructor([param('ns3::SimpleRefCount< ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter< ns3::Hash::Implementation > > const &', 'o')])
+    ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::Hash::Implementation, ns3::empty, ns3::DefaultDeleter<ns3::Hash::Implementation> >::Cleanup() [member function]
+    cls.add_method('Cleanup', 
+                   'void', 
+                   [], 
+                   is_static=True)
+    return
+
+def register_Ns3SimpleRefCount__Ns3NetDeviceQueue_Ns3Empty_Ns3DefaultDeleter__lt__ns3NetDeviceQueue__gt___methods(root_module, cls):
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter<ns3::NetDeviceQueue> >::SimpleRefCount() [constructor]
+    cls.add_constructor([])
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter<ns3::NetDeviceQueue> >::SimpleRefCount(ns3::SimpleRefCount<ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter<ns3::NetDeviceQueue> > const & o) [copy constructor]
+    cls.add_constructor([param('ns3::SimpleRefCount< ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter< ns3::NetDeviceQueue > > const &', 'o')])
+    ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::NetDeviceQueue, ns3::empty, ns3::DefaultDeleter<ns3::NetDeviceQueue> >::Cleanup() [member function]
+    cls.add_method('Cleanup', 
+                   'void', 
+                   [], 
+                   is_static=True)
+    return
+
 def register_Ns3SimpleRefCount__Ns3NixVector_Ns3Empty_Ns3DefaultDeleter__lt__ns3NixVector__gt___methods(root_module, cls):
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::NixVector, ns3::empty, ns3::DefaultDeleter<ns3::NixVector> >::SimpleRefCount() [constructor]
     cls.add_constructor([])
@@ -5982,6 +6091,18 @@ def register_Ns3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Pac
     ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >::SimpleRefCount(ns3::SimpleRefCount<ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> > const & o) [copy constructor]
     cls.add_constructor([param('ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter< ns3::Packet > > const &', 'o')])
     ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >::Cleanup() [member function]
+    cls.add_method('Cleanup', 
+                   'void', 
+                   [], 
+                   is_static=True)
+    return
+
+def register_Ns3SimpleRefCount__Ns3QueueItem_Ns3Empty_Ns3DefaultDeleter__lt__ns3QueueItem__gt___methods(root_module, cls):
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::QueueItem, ns3::empty, ns3::DefaultDeleter<ns3::QueueItem> >::SimpleRefCount() [constructor]
+    cls.add_constructor([])
+    ## simple-ref-count.h (module 'core'): ns3::SimpleRefCount<ns3::QueueItem, ns3::empty, ns3::DefaultDeleter<ns3::QueueItem> >::SimpleRefCount(ns3::SimpleRefCount<ns3::QueueItem, ns3::empty, ns3::DefaultDeleter<ns3::QueueItem> > const & o) [copy constructor]
+    cls.add_constructor([param('ns3::SimpleRefCount< ns3::QueueItem, ns3::empty, ns3::DefaultDeleter< ns3::QueueItem > > const &', 'o')])
+    ## simple-ref-count.h (module 'core'): static void ns3::SimpleRefCount<ns3::QueueItem, ns3::empty, ns3::DefaultDeleter<ns3::QueueItem> >::Cleanup() [member function]
     cls.add_method('Cleanup', 
                    'void', 
                    [], 
@@ -6041,10 +6162,10 @@ def register_Ns3SimulatorImpl_methods(root_module, cls):
     cls.add_constructor([])
     ## simulator-impl.h (module 'core'): ns3::SimulatorImpl::SimulatorImpl(ns3::SimulatorImpl const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::SimulatorImpl const &', 'arg0')])
-    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Cancel(ns3::EventId const & ev) [member function]
+    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Cancel(ns3::EventId const & id) [member function]
     cls.add_method('Cancel', 
                    'void', 
-                   [param('ns3::EventId const &', 'ev')], 
+                   [param('ns3::EventId const &', 'id')], 
                    is_pure_virtual=True, is_virtual=True)
     ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Destroy() [member function]
     cls.add_method('Destroy', 
@@ -6076,10 +6197,10 @@ def register_Ns3SimulatorImpl_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## simulator-impl.h (module 'core'): bool ns3::SimulatorImpl::IsExpired(ns3::EventId const & ev) const [member function]
+    ## simulator-impl.h (module 'core'): bool ns3::SimulatorImpl::IsExpired(ns3::EventId const & id) const [member function]
     cls.add_method('IsExpired', 
                    'bool', 
-                   [param('ns3::EventId const &', 'ev')], 
+                   [param('ns3::EventId const &', 'id')], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
     ## simulator-impl.h (module 'core'): bool ns3::SimulatorImpl::IsFinished() const [member function]
     cls.add_method('IsFinished', 
@@ -6091,20 +6212,20 @@ def register_Ns3SimulatorImpl_methods(root_module, cls):
                    'ns3::Time', 
                    [], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
-    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Remove(ns3::EventId const & ev) [member function]
+    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Remove(ns3::EventId const & id) [member function]
     cls.add_method('Remove', 
                    'void', 
-                   [param('ns3::EventId const &', 'ev')], 
+                   [param('ns3::EventId const &', 'id')], 
                    is_pure_virtual=True, is_virtual=True)
     ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Run() [member function]
     cls.add_method('Run', 
                    'void', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
-    ## simulator-impl.h (module 'core'): ns3::EventId ns3::SimulatorImpl::Schedule(ns3::Time const & time, ns3::EventImpl * event) [member function]
+    ## simulator-impl.h (module 'core'): ns3::EventId ns3::SimulatorImpl::Schedule(ns3::Time const & delay, ns3::EventImpl * event) [member function]
     cls.add_method('Schedule', 
                    'ns3::EventId', 
-                   [param('ns3::Time const &', 'time'), param('ns3::EventImpl *', 'event')], 
+                   [param('ns3::Time const &', 'delay'), param('ns3::EventImpl *', 'event')], 
                    is_pure_virtual=True, is_virtual=True)
     ## simulator-impl.h (module 'core'): ns3::EventId ns3::SimulatorImpl::ScheduleDestroy(ns3::EventImpl * event) [member function]
     cls.add_method('ScheduleDestroy', 
@@ -6116,10 +6237,10 @@ def register_Ns3SimulatorImpl_methods(root_module, cls):
                    'ns3::EventId', 
                    [param('ns3::EventImpl *', 'event')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::ScheduleWithContext(uint32_t context, ns3::Time const & time, ns3::EventImpl * event) [member function]
+    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::ScheduleWithContext(uint32_t context, ns3::Time const & delay, ns3::EventImpl * event) [member function]
     cls.add_method('ScheduleWithContext', 
                    'void', 
-                   [param('uint32_t', 'context'), param('ns3::Time const &', 'time'), param('ns3::EventImpl *', 'event')], 
+                   [param('uint32_t', 'context'), param('ns3::Time const &', 'delay'), param('ns3::EventImpl *', 'event')], 
                    is_pure_virtual=True, is_virtual=True)
     ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::SetScheduler(ns3::ObjectFactory schedulerFactory) [member function]
     cls.add_method('SetScheduler', 
@@ -6131,10 +6252,10 @@ def register_Ns3SimulatorImpl_methods(root_module, cls):
                    'void', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
-    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Stop(ns3::Time const & time) [member function]
+    ## simulator-impl.h (module 'core'): void ns3::SimulatorImpl::Stop(ns3::Time const & delay) [member function]
     cls.add_method('Stop', 
                    'void', 
-                   [param('ns3::Time const &', 'time')], 
+                   [param('ns3::Time const &', 'delay')], 
                    is_pure_virtual=True, is_virtual=True)
     return
 
@@ -6170,23 +6291,23 @@ def register_Ns3SpectrumModel_methods(root_module, cls):
 
 def register_Ns3SpectrumValue_methods(root_module, cls):
     cls.add_output_stream_operator()
+    cls.add_binary_numeric_operator('*', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', u'right'))
     cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('-', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::SpectrumValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::SpectrumValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::SpectrumValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::SpectrumValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::SpectrumValue'], root_module['ns3::SpectrumValue'], param('ns3::SpectrumValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::SpectrumValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::SpectrumValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::SpectrumValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::SpectrumValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', u'right'))
     ## spectrum-value.h (module 'spectrum'): ns3::SpectrumValue::SpectrumValue(ns3::SpectrumValue const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::SpectrumValue const &', 'arg0')])
     ## spectrum-value.h (module 'spectrum'): ns3::SpectrumValue::SpectrumValue(ns3::Ptr<ns3::SpectrumModel const> sm) [constructor]
@@ -6257,8 +6378,8 @@ def register_Ns3SystemThread_methods(root_module, cls):
                    'pthread_t', 
                    [], 
                    is_static=True)
-    ## system-thread.h (module 'core'): void ns3::SystemThread::Initialize() [member function]
-    cls.add_method('Initialize', 
+    ## system-thread.h (module 'core'): void ns3::SystemThread::Start() [member function]
+    cls.add_method('Start', 
                    'void', 
                    [])
     return
@@ -6266,13 +6387,15 @@ def register_Ns3SystemThread_methods(root_module, cls):
 def register_Ns3Time_methods(root_module, cls):
     cls.add_binary_comparison_operator('<=')
     cls.add_binary_comparison_operator('!=')
-    cls.add_inplace_numeric_operator('+=', param('ns3::Time const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::Time const &', 'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::Time const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::Time const &', u'right'))
     cls.add_output_stream_operator()
     cls.add_binary_comparison_operator('==')
     cls.add_binary_comparison_operator('>=')
-    cls.add_binary_numeric_operator('-', root_module['ns3::Time'], root_module['ns3::Time'], param('ns3::Time const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::Time'], root_module['ns3::Time'], param('ns3::Time const &', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::Time'], root_module['ns3::Time'], param('int64_t const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::Time'], root_module['ns3::Time'], param('ns3::Time const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::Time'], root_module['ns3::Time'], param('ns3::Time const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::Time'], root_module['ns3::Time'], param('int64_t const &', u'right'))
     cls.add_binary_comparison_operator('<')
     cls.add_binary_comparison_operator('>')
     ## nstime.h (module 'core'): ns3::Time::Time() [constructor]
@@ -6293,35 +6416,45 @@ def register_Ns3Time_methods(root_module, cls):
     cls.add_constructor([param('long unsigned int', 'v')])
     ## nstime.h (module 'core'): ns3::Time::Time(long long unsigned int v) [constructor]
     cls.add_constructor([param('long long unsigned int', 'v')])
+    ## nstime.h (module 'core'): ns3::Time::Time(ns3::int64x64_t const & v) [constructor]
+    cls.add_constructor([param('ns3::int64x64_t const &', 'v')])
     ## nstime.h (module 'core'): ns3::Time::Time(std::string const & s) [constructor]
     cls.add_constructor([param('std::string const &', 's')])
-    ## nstime.h (module 'core'): ns3::Time::Time(ns3::int64x64_t const & value) [constructor]
-    cls.add_constructor([param('ns3::int64x64_t const &', 'value')])
+    ## nstime.h (module 'core'): ns3::TimeWithUnit ns3::Time::As(ns3::Time::Unit const unit) const [member function]
+    cls.add_method('As', 
+                   'ns3::TimeWithUnit', 
+                   [param('ns3::Time::Unit const', 'unit')], 
+                   is_const=True)
     ## nstime.h (module 'core'): int ns3::Time::Compare(ns3::Time const & o) const [member function]
     cls.add_method('Compare', 
                    'int', 
                    [param('ns3::Time const &', 'o')], 
                    is_const=True)
-    ## nstime.h (module 'core'): static ns3::Time ns3::Time::From(ns3::int64x64_t const & from, ns3::Time::Unit timeUnit) [member function]
-    cls.add_method('From', 
-                   'ns3::Time', 
-                   [param('ns3::int64x64_t const &', 'from'), param('ns3::Time::Unit', 'timeUnit')], 
-                   is_static=True)
     ## nstime.h (module 'core'): static ns3::Time ns3::Time::From(ns3::int64x64_t const & value) [member function]
     cls.add_method('From', 
                    'ns3::Time', 
                    [param('ns3::int64x64_t const &', 'value')], 
                    is_static=True)
-    ## nstime.h (module 'core'): static ns3::Time ns3::Time::FromDouble(double value, ns3::Time::Unit timeUnit) [member function]
+    ## nstime.h (module 'core'): static ns3::Time ns3::Time::From(ns3::int64x64_t const & value, ns3::Time::Unit unit) [member function]
+    cls.add_method('From', 
+                   'ns3::Time', 
+                   [param('ns3::int64x64_t const &', 'value'), param('ns3::Time::Unit', 'unit')], 
+                   is_static=True)
+    ## nstime.h (module 'core'): static ns3::Time ns3::Time::FromDouble(double value, ns3::Time::Unit unit) [member function]
     cls.add_method('FromDouble', 
                    'ns3::Time', 
-                   [param('double', 'value'), param('ns3::Time::Unit', 'timeUnit')], 
+                   [param('double', 'value'), param('ns3::Time::Unit', 'unit')], 
                    is_static=True)
-    ## nstime.h (module 'core'): static ns3::Time ns3::Time::FromInteger(uint64_t value, ns3::Time::Unit timeUnit) [member function]
+    ## nstime.h (module 'core'): static ns3::Time ns3::Time::FromInteger(uint64_t value, ns3::Time::Unit unit) [member function]
     cls.add_method('FromInteger', 
                    'ns3::Time', 
-                   [param('uint64_t', 'value'), param('ns3::Time::Unit', 'timeUnit')], 
+                   [param('uint64_t', 'value'), param('ns3::Time::Unit', 'unit')], 
                    is_static=True)
+    ## nstime.h (module 'core'): double ns3::Time::GetDays() const [member function]
+    cls.add_method('GetDays', 
+                   'double', 
+                   [], 
+                   is_const=True)
     ## nstime.h (module 'core'): double ns3::Time::GetDouble() const [member function]
     cls.add_method('GetDouble', 
                    'double', 
@@ -6330,6 +6463,11 @@ def register_Ns3Time_methods(root_module, cls):
     ## nstime.h (module 'core'): int64_t ns3::Time::GetFemtoSeconds() const [member function]
     cls.add_method('GetFemtoSeconds', 
                    'int64_t', 
+                   [], 
+                   is_const=True)
+    ## nstime.h (module 'core'): double ns3::Time::GetHours() const [member function]
+    cls.add_method('GetHours', 
+                   'double', 
                    [], 
                    is_const=True)
     ## nstime.h (module 'core'): int64_t ns3::Time::GetInteger() const [member function]
@@ -6345,6 +6483,11 @@ def register_Ns3Time_methods(root_module, cls):
     ## nstime.h (module 'core'): int64_t ns3::Time::GetMilliSeconds() const [member function]
     cls.add_method('GetMilliSeconds', 
                    'int64_t', 
+                   [], 
+                   is_const=True)
+    ## nstime.h (module 'core'): double ns3::Time::GetMinutes() const [member function]
+    cls.add_method('GetMinutes', 
+                   'double', 
                    [], 
                    is_const=True)
     ## nstime.h (module 'core'): int64_t ns3::Time::GetNanoSeconds() const [member function]
@@ -6372,6 +6515,11 @@ def register_Ns3Time_methods(root_module, cls):
                    'int64_t', 
                    [], 
                    is_const=True)
+    ## nstime.h (module 'core'): double ns3::Time::GetYears() const [member function]
+    cls.add_method('GetYears', 
+                   'double', 
+                   [], 
+                   is_const=True)
     ## nstime.h (module 'core'): bool ns3::Time::IsNegative() const [member function]
     cls.add_method('IsNegative', 
                    'bool', 
@@ -6397,25 +6545,40 @@ def register_Ns3Time_methods(root_module, cls):
                    'bool', 
                    [], 
                    is_const=True)
+    ## nstime.h (module 'core'): static ns3::Time ns3::Time::Max() [member function]
+    cls.add_method('Max', 
+                   'ns3::Time', 
+                   [], 
+                   is_static=True)
+    ## nstime.h (module 'core'): static ns3::Time ns3::Time::Min() [member function]
+    cls.add_method('Min', 
+                   'ns3::Time', 
+                   [], 
+                   is_static=True)
     ## nstime.h (module 'core'): static void ns3::Time::SetResolution(ns3::Time::Unit resolution) [member function]
     cls.add_method('SetResolution', 
                    'void', 
                    [param('ns3::Time::Unit', 'resolution')], 
                    is_static=True)
-    ## nstime.h (module 'core'): ns3::int64x64_t ns3::Time::To(ns3::Time::Unit timeUnit) const [member function]
+    ## nstime.h (module 'core'): static bool ns3::Time::StaticInit() [member function]
+    cls.add_method('StaticInit', 
+                   'bool', 
+                   [], 
+                   is_static=True)
+    ## nstime.h (module 'core'): ns3::int64x64_t ns3::Time::To(ns3::Time::Unit unit) const [member function]
     cls.add_method('To', 
                    'ns3::int64x64_t', 
-                   [param('ns3::Time::Unit', 'timeUnit')], 
+                   [param('ns3::Time::Unit', 'unit')], 
                    is_const=True)
-    ## nstime.h (module 'core'): double ns3::Time::ToDouble(ns3::Time::Unit timeUnit) const [member function]
+    ## nstime.h (module 'core'): double ns3::Time::ToDouble(ns3::Time::Unit unit) const [member function]
     cls.add_method('ToDouble', 
                    'double', 
-                   [param('ns3::Time::Unit', 'timeUnit')], 
+                   [param('ns3::Time::Unit', 'unit')], 
                    is_const=True)
-    ## nstime.h (module 'core'): int64_t ns3::Time::ToInteger(ns3::Time::Unit timeUnit) const [member function]
+    ## nstime.h (module 'core'): int64_t ns3::Time::ToInteger(ns3::Time::Unit unit) const [member function]
     cls.add_method('ToInteger', 
                    'int64_t', 
-                   [param('ns3::Time::Unit', 'timeUnit')], 
+                   [param('ns3::Time::Unit', 'unit')], 
                    is_const=True)
     return
 
@@ -6477,6 +6640,201 @@ def register_Ns3Trailer_methods(root_module, cls):
                    'void', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
+    return
+
+def register_Ns3TriangularRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::TriangularRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::TriangularRandomVariable::TriangularRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::TriangularRandomVariable::GetMean() const [member function]
+    cls.add_method('GetMean', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::TriangularRandomVariable::GetMin() const [member function]
+    cls.add_method('GetMin', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::TriangularRandomVariable::GetMax() const [member function]
+    cls.add_method('GetMax', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::TriangularRandomVariable::GetValue(double mean, double min, double max) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'mean'), param('double', 'min'), param('double', 'max')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::TriangularRandomVariable::GetInteger(uint32_t mean, uint32_t min, uint32_t max) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'mean'), param('uint32_t', 'min'), param('uint32_t', 'max')])
+    ## random-variable-stream.h (module 'core'): double ns3::TriangularRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::TriangularRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3UniformRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::UniformRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::UniformRandomVariable::UniformRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::UniformRandomVariable::GetMin() const [member function]
+    cls.add_method('GetMin', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::UniformRandomVariable::GetMax() const [member function]
+    cls.add_method('GetMax', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::UniformRandomVariable::GetValue(double min, double max) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'min'), param('double', 'max')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::UniformRandomVariable::GetInteger(uint32_t min, uint32_t max) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'min'), param('uint32_t', 'max')])
+    ## random-variable-stream.h (module 'core'): double ns3::UniformRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::UniformRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3WeibullRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::WeibullRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::WeibullRandomVariable::WeibullRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::WeibullRandomVariable::GetScale() const [member function]
+    cls.add_method('GetScale', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::WeibullRandomVariable::GetShape() const [member function]
+    cls.add_method('GetShape', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::WeibullRandomVariable::GetBound() const [member function]
+    cls.add_method('GetBound', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::WeibullRandomVariable::GetValue(double scale, double shape, double bound) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'scale'), param('double', 'shape'), param('double', 'bound')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::WeibullRandomVariable::GetInteger(uint32_t scale, uint32_t shape, uint32_t bound) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'scale'), param('uint32_t', 'shape'), param('uint32_t', 'bound')])
+    ## random-variable-stream.h (module 'core'): double ns3::WeibullRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::WeibullRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3ZetaRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::ZetaRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::ZetaRandomVariable::ZetaRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::ZetaRandomVariable::GetAlpha() const [member function]
+    cls.add_method('GetAlpha', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ZetaRandomVariable::GetValue(double alpha) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'alpha')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ZetaRandomVariable::GetInteger(uint32_t alpha) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'alpha')])
+    ## random-variable-stream.h (module 'core'): double ns3::ZetaRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ZetaRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3ZipfRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::ZipfRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::ZipfRandomVariable::ZipfRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ZipfRandomVariable::GetN() const [member function]
+    cls.add_method('GetN', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ZipfRandomVariable::GetAlpha() const [member function]
+    cls.add_method('GetAlpha', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ZipfRandomVariable::GetValue(uint32_t n, double alpha) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('uint32_t', 'n'), param('double', 'alpha')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ZipfRandomVariable::GetInteger(uint32_t n, uint32_t alpha) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'n'), param('uint32_t', 'alpha')])
+    ## random-variable-stream.h (module 'core'): double ns3::ZipfRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ZipfRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
     return
 
 def register_Ns3AttributeAccessor_methods(root_module, cls):
@@ -6623,11 +6981,21 @@ def register_Ns3CallbackImplBase_methods(root_module, cls):
     cls.add_constructor([])
     ## callback.h (module 'core'): ns3::CallbackImplBase::CallbackImplBase(ns3::CallbackImplBase const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::CallbackImplBase const &', 'arg0')])
+    ## callback.h (module 'core'): std::string ns3::CallbackImplBase::GetTypeid() const [member function]
+    cls.add_method('GetTypeid', 
+                   'std::string', 
+                   [], 
+                   is_pure_virtual=True, is_const=True, is_virtual=True)
     ## callback.h (module 'core'): bool ns3::CallbackImplBase::IsEqual(ns3::Ptr<ns3::CallbackImplBase const> other) const [member function]
     cls.add_method('IsEqual', 
                    'bool', 
                    [param('ns3::Ptr< ns3::CallbackImplBase const >', 'other')], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
+    ## callback.h (module 'core'): static std::string ns3::CallbackImplBase::Demangle(std::string const & mangled) [member function]
+    cls.add_method('Demangle', 
+                   'std::string', 
+                   [param('std::string const &', 'mangled')], 
+                   is_static=True, visibility='protected')
     return
 
 def register_Ns3CallbackValue_methods(root_module, cls):
@@ -6685,6 +7053,39 @@ def register_Ns3Channel_methods(root_module, cls):
                    is_static=True)
     return
 
+def register_Ns3ConstantRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::ConstantRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::ConstantRandomVariable::ConstantRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::ConstantRandomVariable::GetConstant() const [member function]
+    cls.add_method('GetConstant', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ConstantRandomVariable::GetValue(double constant) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'constant')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ConstantRandomVariable::GetInteger(uint32_t constant) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'constant')])
+    ## random-variable-stream.h (module 'core'): double ns3::ConstantRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ConstantRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
 def register_Ns3DataRateChecker_methods(root_module, cls):
     ## data-rate.h (module 'network'): ns3::DataRateChecker::DataRateChecker() [constructor]
     cls.add_constructor([])
@@ -6725,6 +7126,30 @@ def register_Ns3DataRateValue_methods(root_module, cls):
                    [param('ns3::DataRate const &', 'value')])
     return
 
+def register_Ns3DeterministicRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::DeterministicRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::DeterministicRandomVariable::DeterministicRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): void ns3::DeterministicRandomVariable::SetValueArray(double * values, uint64_t length) [member function]
+    cls.add_method('SetValueArray', 
+                   'void', 
+                   [param('double *', 'values'), param('uint64_t', 'length')])
+    ## random-variable-stream.h (module 'core'): double ns3::DeterministicRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::DeterministicRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
 def register_Ns3DoubleValue_methods(root_module, cls):
     ## double.h (module 'core'): ns3::DoubleValue::DoubleValue() [constructor]
     cls.add_constructor([])
@@ -6763,34 +7188,60 @@ def register_Ns3DropTailQueue_methods(root_module, cls):
     cls.add_constructor([param('ns3::DropTailQueue const &', 'arg0')])
     ## drop-tail-queue.h (module 'network'): ns3::DropTailQueue::DropTailQueue() [constructor]
     cls.add_constructor([])
-    ## drop-tail-queue.h (module 'network'): ns3::Queue::QueueMode ns3::DropTailQueue::GetMode() [member function]
-    cls.add_method('GetMode', 
-                   'ns3::Queue::QueueMode', 
-                   [])
     ## drop-tail-queue.h (module 'network'): static ns3::TypeId ns3::DropTailQueue::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## drop-tail-queue.h (module 'network'): void ns3::DropTailQueue::SetMode(ns3::Queue::QueueMode mode) [member function]
-    cls.add_method('SetMode', 
-                   'void', 
-                   [param('ns3::Queue::QueueMode', 'mode')])
-    ## drop-tail-queue.h (module 'network'): ns3::Ptr<ns3::Packet> ns3::DropTailQueue::DoDequeue() [member function]
+    ## drop-tail-queue.h (module 'network'): ns3::Ptr<ns3::QueueItem> ns3::DropTailQueue::DoDequeue() [member function]
     cls.add_method('DoDequeue', 
-                   'ns3::Ptr< ns3::Packet >', 
+                   'ns3::Ptr< ns3::QueueItem >', 
                    [], 
                    visibility='private', is_virtual=True)
-    ## drop-tail-queue.h (module 'network'): bool ns3::DropTailQueue::DoEnqueue(ns3::Ptr<ns3::Packet> p) [member function]
+    ## drop-tail-queue.h (module 'network'): bool ns3::DropTailQueue::DoEnqueue(ns3::Ptr<ns3::QueueItem> item) [member function]
     cls.add_method('DoEnqueue', 
                    'bool', 
-                   [param('ns3::Ptr< ns3::Packet >', 'p')], 
+                   [param('ns3::Ptr< ns3::QueueItem >', 'item')], 
                    visibility='private', is_virtual=True)
-    ## drop-tail-queue.h (module 'network'): ns3::Ptr<ns3::Packet const> ns3::DropTailQueue::DoPeek() const [member function]
+    ## drop-tail-queue.h (module 'network'): ns3::Ptr<const ns3::QueueItem> ns3::DropTailQueue::DoPeek() const [member function]
     cls.add_method('DoPeek', 
-                   'ns3::Ptr< ns3::Packet const >', 
+                   'ns3::Ptr< ns3::QueueItem const >', 
                    [], 
                    is_const=True, visibility='private', is_virtual=True)
+    return
+
+def register_Ns3EmpiricalRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): ns3::EmpiricalRandomVariable::EmpiricalRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): void ns3::EmpiricalRandomVariable::CDF(double v, double c) [member function]
+    cls.add_method('CDF', 
+                   'void', 
+                   [param('double', 'v'), param('double', 'c')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::EmpiricalRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::EmpiricalRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): double ns3::EmpiricalRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): double ns3::EmpiricalRandomVariable::Interpolate(double c1, double c2, double v1, double v2, double r) [member function]
+    cls.add_method('Interpolate', 
+                   'double', 
+                   [param('double', 'c1'), param('double', 'c2'), param('double', 'v1'), param('double', 'v2'), param('double', 'r')], 
+                   visibility='private', is_virtual=True)
+    ## random-variable-stream.h (module 'core'): void ns3::EmpiricalRandomVariable::Validate() [member function]
+    cls.add_method('Validate', 
+                   'void', 
+                   [], 
+                   visibility='private', is_virtual=True)
     return
 
 def register_Ns3EmptyAttributeValue_methods(root_module, cls):
@@ -6820,14 +7271,14 @@ def register_Ns3EnumChecker_methods(root_module, cls):
     cls.add_constructor([param('ns3::EnumChecker const &', 'arg0')])
     ## enum.h (module 'core'): ns3::EnumChecker::EnumChecker() [constructor]
     cls.add_constructor([])
-    ## enum.h (module 'core'): void ns3::EnumChecker::Add(int v, std::string name) [member function]
+    ## enum.h (module 'core'): void ns3::EnumChecker::Add(int value, std::string name) [member function]
     cls.add_method('Add', 
                    'void', 
-                   [param('int', 'v'), param('std::string', 'name')])
-    ## enum.h (module 'core'): void ns3::EnumChecker::AddDefault(int v, std::string name) [member function]
+                   [param('int', 'value'), param('std::string', 'name')])
+    ## enum.h (module 'core'): void ns3::EnumChecker::AddDefault(int value, std::string name) [member function]
     cls.add_method('AddDefault', 
                    'void', 
-                   [param('int', 'v'), param('std::string', 'name')])
+                   [param('int', 'value'), param('std::string', 'name')])
     ## enum.h (module 'core'): bool ns3::EnumChecker::Check(ns3::AttributeValue const & value) const [member function]
     cls.add_method('Check', 
                    'bool', 
@@ -6865,8 +7316,8 @@ def register_Ns3EnumValue_methods(root_module, cls):
     cls.add_constructor([param('ns3::EnumValue const &', 'arg0')])
     ## enum.h (module 'core'): ns3::EnumValue::EnumValue() [constructor]
     cls.add_constructor([])
-    ## enum.h (module 'core'): ns3::EnumValue::EnumValue(int v) [constructor]
-    cls.add_constructor([param('int', 'v')])
+    ## enum.h (module 'core'): ns3::EnumValue::EnumValue(int value) [constructor]
+    cls.add_constructor([param('int', 'value')])
     ## enum.h (module 'core'): ns3::Ptr<ns3::AttributeValue> ns3::EnumValue::Copy() const [member function]
     cls.add_method('Copy', 
                    'ns3::Ptr< ns3::AttributeValue >', 
@@ -6887,10 +7338,48 @@ def register_Ns3EnumValue_methods(root_module, cls):
                    'std::string', 
                    [param('ns3::Ptr< ns3::AttributeChecker const >', 'checker')], 
                    is_const=True, is_virtual=True)
-    ## enum.h (module 'core'): void ns3::EnumValue::Set(int v) [member function]
+    ## enum.h (module 'core'): void ns3::EnumValue::Set(int value) [member function]
     cls.add_method('Set', 
                    'void', 
-                   [param('int', 'v')])
+                   [param('int', 'value')])
+    return
+
+def register_Ns3ErlangRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::ErlangRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::ErlangRandomVariable::ErlangRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ErlangRandomVariable::GetK() const [member function]
+    cls.add_method('GetK', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ErlangRandomVariable::GetLambda() const [member function]
+    cls.add_method('GetLambda', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ErlangRandomVariable::GetValue(uint32_t k, double lambda) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('uint32_t', 'k'), param('double', 'lambda')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ErlangRandomVariable::GetInteger(uint32_t k, uint32_t lambda) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'k'), param('uint32_t', 'lambda')])
+    ## random-variable-stream.h (module 'core'): double ns3::ErlangRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ErlangRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
     return
 
 def register_Ns3EventImpl_methods(root_module, cls):
@@ -6915,6 +7404,82 @@ def register_Ns3EventImpl_methods(root_module, cls):
                    'void', 
                    [], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
+    return
+
+def register_Ns3ExponentialRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::ExponentialRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::ExponentialRandomVariable::ExponentialRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::ExponentialRandomVariable::GetMean() const [member function]
+    cls.add_method('GetMean', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ExponentialRandomVariable::GetBound() const [member function]
+    cls.add_method('GetBound', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ExponentialRandomVariable::GetValue(double mean, double bound) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'mean'), param('double', 'bound')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ExponentialRandomVariable::GetInteger(uint32_t mean, uint32_t bound) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'mean'), param('uint32_t', 'bound')])
+    ## random-variable-stream.h (module 'core'): double ns3::ExponentialRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ExponentialRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3GammaRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::GammaRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::GammaRandomVariable::GammaRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::GammaRandomVariable::GetAlpha() const [member function]
+    cls.add_method('GetAlpha', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::GammaRandomVariable::GetBeta() const [member function]
+    cls.add_method('GetBeta', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::GammaRandomVariable::GetValue(double alpha, double beta) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'alpha'), param('double', 'beta')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::GammaRandomVariable::GetInteger(uint32_t alpha, uint32_t beta) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'alpha'), param('uint32_t', 'beta')])
+    ## random-variable-stream.h (module 'core'): double ns3::GammaRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::GammaRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
     return
 
 def register_Ns3IntegerValue_methods(root_module, cls):
@@ -7110,6 +7675,44 @@ def register_Ns3Ipv6PrefixValue_methods(root_module, cls):
                    [param('ns3::Ipv6Prefix const &', 'value')])
     return
 
+def register_Ns3LogNormalRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::LogNormalRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::LogNormalRandomVariable::LogNormalRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::LogNormalRandomVariable::GetMu() const [member function]
+    cls.add_method('GetMu', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::LogNormalRandomVariable::GetSigma() const [member function]
+    cls.add_method('GetSigma', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::LogNormalRandomVariable::GetValue(double mu, double sigma) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'mu'), param('double', 'sigma')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::LogNormalRandomVariable::GetInteger(uint32_t mu, uint32_t sigma) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'mu'), param('uint32_t', 'sigma')])
+    ## random-variable-stream.h (module 'core'): double ns3::LogNormalRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::LogNormalRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
 def register_Ns3Mac48AddressChecker_methods(root_module, cls):
     ## mac48-address.h (module 'network'): ns3::Mac48AddressChecker::Mac48AddressChecker() [constructor]
     cls.add_constructor([])
@@ -7282,6 +7885,92 @@ def register_Ns3NetDevice_methods(root_module, cls):
                    is_pure_virtual=True, is_const=True, is_virtual=True)
     return
 
+def register_Ns3NetDeviceQueue_methods(root_module, cls):
+    ## net-device.h (module 'network'): ns3::NetDeviceQueue::NetDeviceQueue(ns3::NetDeviceQueue const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NetDeviceQueue const &', 'arg0')])
+    ## net-device.h (module 'network'): ns3::NetDeviceQueue::NetDeviceQueue() [constructor]
+    cls.add_constructor([])
+    ## net-device.h (module 'network'): bool ns3::NetDeviceQueue::HasWakeCallbackSet() const [member function]
+    cls.add_method('HasWakeCallbackSet', 
+                   'bool', 
+                   [], 
+                   is_const=True, is_virtual=True)
+    ## net-device.h (module 'network'): bool ns3::NetDeviceQueue::IsStopped() const [member function]
+    cls.add_method('IsStopped', 
+                   'bool', 
+                   [], 
+                   is_const=True)
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueue::SetWakeCallback(ns3::Callback<void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
+    cls.add_method('SetWakeCallback', 
+                   'void', 
+                   [param('ns3::Callback< void, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
+                   is_virtual=True)
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueue::Start() [member function]
+    cls.add_method('Start', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueue::Stop() [member function]
+    cls.add_method('Stop', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueue::Wake() [member function]
+    cls.add_method('Wake', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3NetDeviceQueueInterface_methods(root_module, cls):
+    ## net-device.h (module 'network'): ns3::NetDeviceQueueInterface::NetDeviceQueueInterface(ns3::NetDeviceQueueInterface const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NetDeviceQueueInterface const &', 'arg0')])
+    ## net-device.h (module 'network'): ns3::NetDeviceQueueInterface::NetDeviceQueueInterface() [constructor]
+    cls.add_constructor([])
+    ## net-device.h (module 'network'): uint8_t ns3::NetDeviceQueueInterface::GetSelectedQueue(ns3::Ptr<ns3::QueueItem> item) const [member function]
+    cls.add_method('GetSelectedQueue', 
+                   'uint8_t', 
+                   [param('ns3::Ptr< ns3::QueueItem >', 'item')], 
+                   is_const=True)
+    ## net-device.h (module 'network'): ns3::Ptr<ns3::NetDeviceQueue> ns3::NetDeviceQueueInterface::GetTxQueue(uint8_t i) const [member function]
+    cls.add_method('GetTxQueue', 
+                   'ns3::Ptr< ns3::NetDeviceQueue >', 
+                   [param('uint8_t', 'i')], 
+                   is_const=True)
+    ## net-device.h (module 'network'): uint8_t ns3::NetDeviceQueueInterface::GetTxQueuesN() const [member function]
+    cls.add_method('GetTxQueuesN', 
+                   'uint8_t', 
+                   [], 
+                   is_const=True)
+    ## net-device.h (module 'network'): static ns3::TypeId ns3::NetDeviceQueueInterface::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## net-device.h (module 'network'): bool ns3::NetDeviceQueueInterface::IsQueueDiscInstalled() const [member function]
+    cls.add_method('IsQueueDiscInstalled', 
+                   'bool', 
+                   [], 
+                   is_const=True)
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueueInterface::SetQueueDiscInstalled(bool installed) [member function]
+    cls.add_method('SetQueueDiscInstalled', 
+                   'void', 
+                   [param('bool', 'installed')])
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueueInterface::SetSelectQueueCallback(ns3::Callback<unsigned char, ns3::Ptr<ns3::QueueItem>, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
+    cls.add_method('SetSelectQueueCallback', 
+                   'void', 
+                   [param('ns3::Callback< unsigned char, ns3::Ptr< ns3::QueueItem >, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'cb')])
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueueInterface::SetTxQueuesN(uint8_t numTxQueues) [member function]
+    cls.add_method('SetTxQueuesN', 
+                   'void', 
+                   [param('uint8_t', 'numTxQueues')])
+    ## net-device.h (module 'network'): void ns3::NetDeviceQueueInterface::DoDispose() [member function]
+    cls.add_method('DoDispose', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
+    return
+
 def register_Ns3NixVector_methods(root_module, cls):
     cls.add_output_stream_operator()
     ## nix-vector.h (module 'network'): ns3::NixVector::NixVector() [constructor]
@@ -7361,6 +8050,11 @@ def register_Ns3Node_methods(root_module, cls):
                    'uint32_t', 
                    [], 
                    is_const=True)
+    ## node.h (module 'network'): ns3::Time ns3::Node::GetLocalTime() const [member function]
+    cls.add_method('GetLocalTime', 
+                   'ns3::Time', 
+                   [], 
+                   is_const=True)
     ## node.h (module 'network'): uint32_t ns3::Node::GetNApplications() const [member function]
     cls.add_method('GetNApplications', 
                    'uint32_t', 
@@ -7407,6 +8101,51 @@ def register_Ns3Node_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
+    return
+
+def register_Ns3NormalRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): ns3::NormalRandomVariable::INFINITE_VALUE [variable]
+    cls.add_static_attribute('INFINITE_VALUE', 'double const', is_const=True)
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::NormalRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::NormalRandomVariable::NormalRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::NormalRandomVariable::GetMean() const [member function]
+    cls.add_method('GetMean', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::NormalRandomVariable::GetVariance() const [member function]
+    cls.add_method('GetVariance', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::NormalRandomVariable::GetBound() const [member function]
+    cls.add_method('GetBound', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::NormalRandomVariable::GetValue(double mean, double variance, double bound=ns3::NormalRandomVariable::INFINITE_VALUE) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'mean'), param('double', 'variance'), param('double', 'bound', default_value='ns3::NormalRandomVariable::INFINITE_VALUE')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::NormalRandomVariable::GetInteger(uint32_t mean, uint32_t variance, uint32_t bound) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'mean'), param('uint32_t', 'variance'), param('uint32_t', 'bound')])
+    ## random-variable-stream.h (module 'core'): double ns3::NormalRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::NormalRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
     return
 
 def register_Ns3ObjectFactoryChecker_methods(root_module, cls):
@@ -7524,6 +8263,11 @@ def register_Ns3PLC_ArqMac_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_Phy >', 
                    [], 
                    visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoProcess(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoProcess', 
                    'void', 
@@ -7538,11 +8282,6 @@ def register_Ns3PLC_ArqMac_methods(root_module, cls):
     cls.add_method('DoSetPhy', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
-                   visibility='protected', is_virtual=True)
-    ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::DoInitialize() [member function]
-    cls.add_method('DoInitialize', 
-                   'void', 
-                   [], 
                    visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_ArqMac::NotifyAcknowledgement() [member function]
     cls.add_method('NotifyAcknowledgement', 
@@ -7700,43 +8439,43 @@ def register_Ns3PLC_ColoredNoiseFloor_methods(root_module, cls):
 
 def register_Ns3PLC_ConstValue_methods(root_module, cls):
     cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', u'right'))
     cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_ConstValue'], root_module['ns3::PLC_ConstValue'], param('double', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', u'right'))
     ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue() [constructor]
     cls.add_constructor([])
     ## plc-value.h (module 'plc'): ns3::PLC_ConstValue::PLC_ConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, double real) [constructor]
@@ -7805,47 +8544,47 @@ def register_Ns3PLC_ErrorRateModel_methods(root_module, cls):
 
 def register_Ns3PLC_FreqSelectiveValue_methods(root_module, cls):
     cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', u'right'))
     cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_FreqSelectiveValue'], root_module['ns3::PLC_FreqSelectiveValue'], param('double', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
     ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue() [constructor]
     cls.add_constructor([])
     ## plc-value.h (module 'plc'): ns3::PLC_FreqSelectiveValue::PLC_FreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
@@ -8114,6 +8853,11 @@ def register_Ns3PLC_HarqMac_methods(root_module, cls):
                    'ns3::Ptr< ns3::PLC_Phy >', 
                    [], 
                    visibility='protected', is_virtual=True)
+    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoInitialize() [member function]
+    cls.add_method('DoInitialize', 
+                   'void', 
+                   [], 
+                   visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoProcess(ns3::Ptr<ns3::Packet const> p) [member function]
     cls.add_method('DoProcess', 
                    'void', 
@@ -8128,11 +8872,6 @@ def register_Ns3PLC_HarqMac_methods(root_module, cls):
     cls.add_method('DoSetPhy', 
                    'void', 
                    [param('ns3::Ptr< ns3::PLC_Phy >', 'phy')], 
-                   visibility='protected', is_virtual=True)
-    ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::DoInitialize() [member function]
-    cls.add_method('DoInitialize', 
-                   'void', 
-                   [], 
                    visibility='protected', is_virtual=True)
     ## plc-mac.h (module 'plc'): void ns3::PLC_HarqMac::NotifyAcknowledgement() [member function]
     cls.add_method('NotifyAcknowledgement', 
@@ -8185,8 +8924,8 @@ def register_Ns3PLC_ImpulsiveNoiseSource_methods(root_module, cls):
     cls.add_constructor([])
     ## plc-noise.h (module 'plc'): ns3::PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource(ns3::Ptr<ns3::PLC_Node> m_src_node, ns3::Ptr<ns3::SpectrumValue> noisePsd) [constructor]
     cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'm_src_node'), param('ns3::Ptr< ns3::SpectrumValue >', 'noisePsd')])
-    ## plc-noise.h (module 'plc'): ns3::PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource(ns3::Ptr<ns3::PLC_Node> src_node, ns3::Ptr<ns3::SpectrumValue> noisePsd, ns3::RandomVariable pulselen_gen, ns3::RandomVariable pulsegap_gen) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'src_node'), param('ns3::Ptr< ns3::SpectrumValue >', 'noisePsd'), param('ns3::RandomVariable', 'pulselen_gen'), param('ns3::RandomVariable', 'pulsegap_gen')])
+    ## plc-noise.h (module 'plc'): ns3::PLC_ImpulsiveNoiseSource::PLC_ImpulsiveNoiseSource(ns3::Ptr<ns3::PLC_Node> src_node, ns3::Ptr<ns3::SpectrumValue> noisePsd, ns3::Ptr<ns3::UniformRandomVariable> pulselen_gen, ns3::Ptr<ns3::UniformRandomVariable> pulsegap_gen) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::PLC_Node >', 'src_node'), param('ns3::Ptr< ns3::SpectrumValue >', 'noisePsd'), param('ns3::Ptr< ns3::UniformRandomVariable >', 'pulselen_gen'), param('ns3::Ptr< ns3::UniformRandomVariable >', 'pulsegap_gen')])
     ## plc-noise.h (module 'plc'): void ns3::PLC_ImpulsiveNoiseSource::Enable() [member function]
     cls.add_method('Enable', 
                    'void', 
@@ -8396,6 +9135,11 @@ def register_Ns3PLC_InformationRatePhy_methods(root_module, cls):
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet const >', 'p')], 
                    visibility='protected', is_virtual=True)
+    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::InitializeReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
+    cls.add_method('InitializeReception', 
+                   'void', 
+                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
+                   visibility='protected', is_virtual=True)
     ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::NotifyPayloadReceptionFailed(ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
     cls.add_method('NotifyPayloadReceptionFailed', 
                    'void', 
@@ -8426,11 +9170,6 @@ def register_Ns3PLC_InformationRatePhy_methods(root_module, cls):
                    'size_t', 
                    [param('size_t', 'num_blocks')], 
                    visibility='protected')
-    ## plc-phy.h (module 'plc'): void ns3::PLC_InformationRatePhy::InitializeReception(uint32_t txId, ns3::Ptr<ns3::SpectrumValue const> rxPsd, ns3::Time duration, ns3::Ptr<ns3::PLC_TrxMetaInfo const> metaInfo) [member function]
-    cls.add_method('InitializeReception', 
-                   'void', 
-                   [param('uint32_t', 'txId'), param('ns3::Ptr< ns3::SpectrumValue const >', 'rxPsd'), param('ns3::Time', 'duration'), param('ns3::Ptr< ns3::PLC_TrxMetaInfo const >', 'metaInfo')], 
-                   visibility='protected', is_virtual=True)
     return
 
 def register_Ns3PLC_NYCY70SM35_Cable_methods(root_module, cls):
@@ -8840,47 +9579,47 @@ def register_Ns3PLC_SincSpectrumHelper_methods(root_module, cls):
 
 def register_Ns3PLC_TimeVariantConstValue_methods(root_module, cls):
     cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', u'right'))
     cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantConstValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantConstValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
     ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue() [constructor]
     cls.add_constructor([])
     ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantConstValue::PLC_TimeVariantConstValue(ns3::Ptr<ns3::SpectrumModel const> sm, ns3::PLC_Value value=std::complex<double>(0.0, 0.0), size_t timeslots=ns3::PLC_Time::GetNumTimeslots()) [constructor]
@@ -8915,55 +9654,55 @@ def register_Ns3PLC_TimeVariantConstValue_methods(root_module, cls):
 
 def register_Ns3PLC_TimeVariantFreqSelectiveValue_methods(root_module, cls):
     cls.add_output_stream_operator()
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('-', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', u'right'))
     cls.add_unary_numeric_operator('-')
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('*', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('+', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', 'right'))
-    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('double', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', 'right'))
-    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('ns3::PLC_Value const &', u'right'))
+    cls.add_binary_numeric_operator('/', root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], root_module['ns3::PLC_TimeVariantFreqSelectiveValue'], param('double', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('*=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('+=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('-=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('double', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_Value const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_ConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_FreqSelectiveValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantConstValue const &', u'right'))
+    cls.add_inplace_numeric_operator('/=', param('ns3::PLC_TimeVariantFreqSelectiveValue const &', u'right'))
     ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue() [constructor]
     cls.add_constructor([])
     ## plc-value.h (module 'plc'): ns3::PLC_TimeVariantFreqSelectiveValue::PLC_TimeVariantFreqSelectiveValue(ns3::Ptr<ns3::SpectrumModel const> sm, size_t timeslots=ns3::PLC_Time::GetNumTimeslots(), ns3::PLC_Value value=std::complex<double>(0.0, 0.0)) [constructor]
@@ -9217,11 +9956,6 @@ def register_Ns3Packet_methods(root_module, cls):
                    'uint64_t', 
                    [], 
                    is_const=True)
-    ## packet.h (module 'network'): uint8_t const * ns3::Packet::PeekData() const [member function]
-    cls.add_method('PeekData', 
-                   'uint8_t const *', 
-                   [], 
-                   deprecated=True, is_const=True)
     ## packet.h (module 'network'): uint32_t ns3::Packet::PeekHeader(ns3::Header & header) const [member function]
     cls.add_method('PeekHeader', 
                    'uint32_t', 
@@ -9263,8 +9997,8 @@ def register_Ns3Packet_methods(root_module, cls):
     cls.add_method('RemoveAtEnd', 
                    'void', 
                    [param('uint32_t', 'size')])
-    ## packet.h (module 'network'): void ns3::Packet::RemoveAtInitialize(uint32_t size) [member function]
-    cls.add_method('RemoveAtInitialize', 
+    ## packet.h (module 'network'): void ns3::Packet::RemoveAtStart(uint32_t size) [member function]
+    cls.add_method('RemoveAtStart', 
                    'void', 
                    [param('uint32_t', 'size')])
     ## packet.h (module 'network'): uint32_t ns3::Packet::RemoveHeader(ns3::Header & header) [member function]
@@ -9279,55 +10013,88 @@ def register_Ns3Packet_methods(root_module, cls):
     cls.add_method('RemoveTrailer', 
                    'uint32_t', 
                    [param('ns3::Trailer &', 'trailer')])
+    ## packet.h (module 'network'): bool ns3::Packet::ReplacePacketTag(ns3::Tag & tag) [member function]
+    cls.add_method('ReplacePacketTag', 
+                   'bool', 
+                   [param('ns3::Tag &', 'tag')])
     ## packet.h (module 'network'): uint32_t ns3::Packet::Serialize(uint8_t * buffer, uint32_t maxSize) const [member function]
     cls.add_method('Serialize', 
                    'uint32_t', 
                    [param('uint8_t *', 'buffer'), param('uint32_t', 'maxSize')], 
                    is_const=True)
-    ## packet.h (module 'network'): void ns3::Packet::SetNixVector(ns3::Ptr<ns3::NixVector> arg0) [member function]
+    ## packet.h (module 'network'): void ns3::Packet::SetNixVector(ns3::Ptr<ns3::NixVector> nixVector) [member function]
     cls.add_method('SetNixVector', 
                    'void', 
-                   [param('ns3::Ptr< ns3::NixVector >', 'arg0')])
-    return
-
-def register_Ns3RandomVariableChecker_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::RandomVariableChecker::RandomVariableChecker() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::RandomVariableChecker::RandomVariableChecker(ns3::RandomVariableChecker const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::RandomVariableChecker const &', 'arg0')])
-    return
-
-def register_Ns3RandomVariableValue_methods(root_module, cls):
-    ## random-variable.h (module 'core'): ns3::RandomVariableValue::RandomVariableValue() [constructor]
-    cls.add_constructor([])
-    ## random-variable.h (module 'core'): ns3::RandomVariableValue::RandomVariableValue(ns3::RandomVariableValue const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::RandomVariableValue const &', 'arg0')])
-    ## random-variable.h (module 'core'): ns3::RandomVariableValue::RandomVariableValue(ns3::RandomVariable const & value) [constructor]
-    cls.add_constructor([param('ns3::RandomVariable const &', 'value')])
-    ## random-variable.h (module 'core'): ns3::Ptr<ns3::AttributeValue> ns3::RandomVariableValue::Copy() const [member function]
-    cls.add_method('Copy', 
-                   'ns3::Ptr< ns3::AttributeValue >', 
-                   [], 
-                   is_const=True, is_virtual=True)
-    ## random-variable.h (module 'core'): bool ns3::RandomVariableValue::DeserializeFromString(std::string value, ns3::Ptr<ns3::AttributeChecker const> checker) [member function]
-    cls.add_method('DeserializeFromString', 
-                   'bool', 
-                   [param('std::string', 'value'), param('ns3::Ptr< ns3::AttributeChecker const >', 'checker')], 
-                   is_virtual=True)
-    ## random-variable.h (module 'core'): ns3::RandomVariable ns3::RandomVariableValue::Get() const [member function]
-    cls.add_method('Get', 
-                   'ns3::RandomVariable', 
+                   [param('ns3::Ptr< ns3::NixVector >', 'nixVector')])
+    ## packet.h (module 'network'): std::string ns3::Packet::ToString() const [member function]
+    cls.add_method('ToString', 
+                   'std::string', 
                    [], 
                    is_const=True)
-    ## random-variable.h (module 'core'): std::string ns3::RandomVariableValue::SerializeToString(ns3::Ptr<ns3::AttributeChecker const> checker) const [member function]
-    cls.add_method('SerializeToString', 
-                   'std::string', 
-                   [param('ns3::Ptr< ns3::AttributeChecker const >', 'checker')], 
+    return
+
+def register_Ns3ParetoRandomVariable_methods(root_module, cls):
+    ## random-variable-stream.h (module 'core'): static ns3::TypeId ns3::ParetoRandomVariable::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## random-variable-stream.h (module 'core'): ns3::ParetoRandomVariable::ParetoRandomVariable() [constructor]
+    cls.add_constructor([])
+    ## random-variable-stream.h (module 'core'): double ns3::ParetoRandomVariable::GetMean() const [member function]
+    cls.add_method('GetMean', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ParetoRandomVariable::GetShape() const [member function]
+    cls.add_method('GetShape', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ParetoRandomVariable::GetBound() const [member function]
+    cls.add_method('GetBound', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## random-variable-stream.h (module 'core'): double ns3::ParetoRandomVariable::GetValue(double mean, double shape, double bound) [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [param('double', 'mean'), param('double', 'shape'), param('double', 'bound')])
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ParetoRandomVariable::GetInteger(uint32_t mean, uint32_t shape, uint32_t bound) [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [param('uint32_t', 'mean'), param('uint32_t', 'shape'), param('uint32_t', 'bound')])
+    ## random-variable-stream.h (module 'core'): double ns3::ParetoRandomVariable::GetValue() [member function]
+    cls.add_method('GetValue', 
+                   'double', 
+                   [], 
+                   is_virtual=True)
+    ## random-variable-stream.h (module 'core'): uint32_t ns3::ParetoRandomVariable::GetInteger() [member function]
+    cls.add_method('GetInteger', 
+                   'uint32_t', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3QueueItem_methods(root_module, cls):
+    cls.add_output_stream_operator()
+    ## net-device.h (module 'network'): ns3::QueueItem::QueueItem(ns3::Ptr<ns3::Packet> p) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::Packet >', 'p')])
+    ## net-device.h (module 'network'): ns3::Ptr<ns3::Packet> ns3::QueueItem::GetPacket() const [member function]
+    cls.add_method('GetPacket', 
+                   'ns3::Ptr< ns3::Packet >', 
+                   [], 
+                   is_const=True)
+    ## net-device.h (module 'network'): uint32_t ns3::QueueItem::GetPacketSize() const [member function]
+    cls.add_method('GetPacketSize', 
+                   'uint32_t', 
+                   [], 
                    is_const=True, is_virtual=True)
-    ## random-variable.h (module 'core'): void ns3::RandomVariableValue::Set(ns3::RandomVariable const & value) [member function]
-    cls.add_method('Set', 
+    ## net-device.h (module 'network'): void ns3::QueueItem::Print(std::ostream & os) const [member function]
+    cls.add_method('Print', 
                    'void', 
-                   [param('ns3::RandomVariable const &', 'value')])
+                   [param('std::ostream &', 'os')], 
+                   is_const=True, is_virtual=True)
     return
 
 def register_Ns3TimeValue_methods(root_module, cls):
@@ -9947,6 +10714,111 @@ def register_Ns3PLC_IncrementalRedundancyPhy_methods(root_module, cls):
                    visibility='protected', is_virtual=True)
     return
 
+def register_Ns3HashImplementation_methods(root_module, cls):
+    ## hash-function.h (module 'core'): ns3::Hash::Implementation::Implementation(ns3::Hash::Implementation const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::Hash::Implementation const &', 'arg0')])
+    ## hash-function.h (module 'core'): ns3::Hash::Implementation::Implementation() [constructor]
+    cls.add_constructor([])
+    ## hash-function.h (module 'core'): uint32_t ns3::Hash::Implementation::GetHash32(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash32', 
+                   'uint32_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_pure_virtual=True, is_virtual=True)
+    ## hash-function.h (module 'core'): uint64_t ns3::Hash::Implementation::GetHash64(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash64', 
+                   'uint64_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-function.h (module 'core'): void ns3::Hash::Implementation::clear() [member function]
+    cls.add_method('clear', 
+                   'void', 
+                   [], 
+                   is_pure_virtual=True, is_virtual=True)
+    return
+
+def register_Ns3HashFunctionFnv1a_methods(root_module, cls):
+    ## hash-fnv.h (module 'core'): ns3::Hash::Function::Fnv1a::Fnv1a(ns3::Hash::Function::Fnv1a const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::Hash::Function::Fnv1a const &', 'arg0')])
+    ## hash-fnv.h (module 'core'): ns3::Hash::Function::Fnv1a::Fnv1a() [constructor]
+    cls.add_constructor([])
+    ## hash-fnv.h (module 'core'): uint32_t ns3::Hash::Function::Fnv1a::GetHash32(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash32', 
+                   'uint32_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-fnv.h (module 'core'): uint64_t ns3::Hash::Function::Fnv1a::GetHash64(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash64', 
+                   'uint64_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-fnv.h (module 'core'): void ns3::Hash::Function::Fnv1a::clear() [member function]
+    cls.add_method('clear', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3HashFunctionHash32_methods(root_module, cls):
+    ## hash-function.h (module 'core'): ns3::Hash::Function::Hash32::Hash32(ns3::Hash::Function::Hash32 const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::Hash::Function::Hash32 const &', 'arg0')])
+    ## hash-function.h (module 'core'): ns3::Hash::Function::Hash32::Hash32(ns3::Hash::Hash32Function_ptr hp) [constructor]
+    cls.add_constructor([param('ns3::Hash::Hash32Function_ptr', 'hp')])
+    ## hash-function.h (module 'core'): uint32_t ns3::Hash::Function::Hash32::GetHash32(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash32', 
+                   'uint32_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-function.h (module 'core'): void ns3::Hash::Function::Hash32::clear() [member function]
+    cls.add_method('clear', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3HashFunctionHash64_methods(root_module, cls):
+    ## hash-function.h (module 'core'): ns3::Hash::Function::Hash64::Hash64(ns3::Hash::Function::Hash64 const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::Hash::Function::Hash64 const &', 'arg0')])
+    ## hash-function.h (module 'core'): ns3::Hash::Function::Hash64::Hash64(ns3::Hash::Hash64Function_ptr hp) [constructor]
+    cls.add_constructor([param('ns3::Hash::Hash64Function_ptr', 'hp')])
+    ## hash-function.h (module 'core'): uint32_t ns3::Hash::Function::Hash64::GetHash32(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash32', 
+                   'uint32_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-function.h (module 'core'): uint64_t ns3::Hash::Function::Hash64::GetHash64(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash64', 
+                   'uint64_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-function.h (module 'core'): void ns3::Hash::Function::Hash64::clear() [member function]
+    cls.add_method('clear', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    return
+
+def register_Ns3HashFunctionMurmur3_methods(root_module, cls):
+    ## hash-murmur3.h (module 'core'): ns3::Hash::Function::Murmur3::Murmur3(ns3::Hash::Function::Murmur3 const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::Hash::Function::Murmur3 const &', 'arg0')])
+    ## hash-murmur3.h (module 'core'): ns3::Hash::Function::Murmur3::Murmur3() [constructor]
+    cls.add_constructor([])
+    ## hash-murmur3.h (module 'core'): uint32_t ns3::Hash::Function::Murmur3::GetHash32(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash32', 
+                   'uint32_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-murmur3.h (module 'core'): uint64_t ns3::Hash::Function::Murmur3::GetHash64(char const * buffer, size_t const size) [member function]
+    cls.add_method('GetHash64', 
+                   'uint64_t', 
+                   [param('char const *', 'buffer'), param('size_t const', 'size')], 
+                   is_virtual=True)
+    ## hash-murmur3.h (module 'core'): void ns3::Hash::Function::Murmur3::clear() [member function]
+    cls.add_method('clear', 
+                   'void', 
+                   [], 
+                   is_virtual=True)
+    return
+
 def register_functions(root_module):
     module = root_module
     ## plc-value.h (module 'plc'): extern ns3::Ptr<ns3::PLC_ValueBase> ns3::Add(ns3::Ptr<ns3::PLC_ValueBase> op1, ns3::Ptr<ns3::PLC_ValueBase> op2) [free function]
@@ -10190,10 +11062,22 @@ def register_functions(root_module):
                         'ns3::PLC_TimeVariantFreqSelectiveValue', 
                         [param('ns3::PLC_TimeVariantFreqSelectiveValue const &', 'value')])
     register_functions_ns3_FatalImpl(module.get_submodule('FatalImpl'), root_module)
+    register_functions_ns3_Hash(module.get_submodule('Hash'), root_module)
+    register_functions_ns3_TracedValueCallback(module.get_submodule('TracedValueCallback'), root_module)
     register_functions_ns3_internal(module.get_submodule('internal'), root_module)
     return
 
 def register_functions_ns3_FatalImpl(module, root_module):
+    return
+
+def register_functions_ns3_Hash(module, root_module):
+    register_functions_ns3_Hash_Function(module.get_submodule('Function'), root_module)
+    return
+
+def register_functions_ns3_Hash_Function(module, root_module):
+    return
+
+def register_functions_ns3_TracedValueCallback(module, root_module):
     return
 
 def register_functions_ns3_internal(module, root_module):
