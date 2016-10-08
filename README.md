@@ -26,7 +26,13 @@ Further information can be found in the user guide and the API documentation.
 
 A stable ns-3 release is needed to use the plc module. It is available on www.nsnam.org.
 Besides the plc module uses the template-based boost graph library, which has to be accessible
-via the system's include path. For installation see www.boost.org.
+via the system's include path, or included manually in [wscript](wscript) configuration:
+
+```
+def configure(conf):
+    conf.env.append_value('INCLUDES', ['/usr/local/boost_1_61_0'])
+```
+For installation see www.boost.org.
 
 On an UNIX-like operating system the simulation environment can be set up as follows:
 
