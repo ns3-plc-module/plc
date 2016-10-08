@@ -3,8 +3,9 @@
 # def options(opt):
 #     pass
 
-# def configure(conf):
+def configure(conf):
 #     conf.check_nonfatal(header_name='stdint.h', define_name='HAVE_STDINT_H')
+    conf.env.append_value('INCLUDES', ['/usr/local/boost_1_61_0'])
 
 def build(bld):
     module = bld.create_ns3_module('plc', ['core', 'spectrum', 'network'])
@@ -42,7 +43,7 @@ def build(bld):
         'test/plc-test-suite.cc',
         ]
     
-   	# Enable multiprocessing
+    # Enable multiprocessing
     module.env.append_value('CXXFLAGS', ['-fopenmp'])     
     module.env.append_value('LINKFLAGS', ['-fopenmp'])
 
@@ -84,4 +85,5 @@ def build(bld):
         bld.recurse('examples')
 
     bld.ns3_python_bindings()
+
 
