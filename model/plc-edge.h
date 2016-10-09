@@ -295,8 +295,6 @@ public:
 				);
 
 private:
-	ushort timeVarianceIndicator;
-
 	void CalculateInputImpedance(PLC_Node *dst_node);
 	void CalculateEdgeTransferFactor(PLC_Node *dst_node);
 	double GetAttenuationApproxdB(void);

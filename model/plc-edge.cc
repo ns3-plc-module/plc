@@ -748,7 +748,7 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 		return;
 	}
 
-    LockImpedanceCache (dst_node);
+	LockImpedanceCache (dst_node);
 
 	// get connected edges of destination node
 	outEdges = dst_node->GetEdges();

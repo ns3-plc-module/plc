@@ -34,12 +34,35 @@ using namespace ns3;
 int main (int argc, char *argv[])
 {
 	// Define spectrum model
-    PLC_SpectrumModelHelper smHelper;
-    Ptr<const SpectrumModel> sm, sm1;
-    sm = smHelper.GetSpectrumModel(0, 10e6, 100);
+	PLC_SpectrumModelHelper smHelper;
+	Ptr<const SpectrumModel> sm, sm1;
 
-    // Create cable types
-	Ptr<PLC_Cable> cable = CreateObject<PLC_NAYY150SE_Cable> (sm);
+	bool narrowBand = false;
+	std::string cableStr("NAYY150SE");
+
+	CommandLine cmd;
+	cmd.AddValue("nb", "Use narrow-band spectrum spacing?", narrowBand);
+	cmd.AddValue("cable", "Cable name. Can be one of: [AL3x95XLPE, NYCY70SM35, "
+			"NAYY150SE (default), NAYY50SE, MV_Overhead]", cableStr);
+	cmd.Parse (argc, argv);
+
+	if (narrowBand)
+		sm = smHelper.GetSpectrumModel(0, 500e3, 5);
+	else
+		sm = smHelper.GetSpectrumModel(0, 10e6, 100);
+
+	// Create cable types
+	Ptr<PLC_Cable> cable;
+	if (cableStr.compare("AL3x95XLPE") == 0)
+		cable = CreateObject<PLC_AL3x95XLPE_Cable> (sm);
+	else if (cableStr.compare("NYCY70SM35") == 0)
+		cable = CreateObject<PLC_NYCY70SM35_Cable> (sm);
+	else if (cableStr.compare("NAYY50SE") == 0)
+		cable = CreateObject<PLC_NAYY50SE_Cable> (sm);
+	else if (cableStr.compare("MV_Overhead") == 0)
+		cable = CreateObject<PLC_MV_Overhead_Cable> (sm);
+	else // NAYY150SE
+		cable = CreateObject<PLC_NAYY150SE_Cable> (sm);
 
 	// Create nodes
 	Ptr<PLC_Node> n1 = CreateObject<PLC_Node> ();
@@ -79,6 +102,7 @@ int main (int argc, char *argv[])
 	Ptr<PLC_ChannelTransferImpl> chImpl = txIf->GetChannelTransferImpl(PeekPointer(rxIf));
 	NS_ASSERT(chImpl);
 	Ptr<SpectrumValue> rxPsd = chImpl->CalculateRxPowerSpectralDensity(txPsd);
+	Ptr<SpectrumValue> absSqrCtf = chImpl->GetAbsSqrCtf(0);
 
 	// SINR is calculated by PLC_Interference (member of PLC_Phy)
 	//PLC_NoiseSource N1;
@@ -98,6 +122,7 @@ int main (int argc, char *argv[])
 	NS_LOG_UNCOND("Receive power spectral density:\n" << *rxPsd << "\n");
 	NS_LOG_UNCOND("Noise power spectral density:\n" << *noiseFloor << "\n");
 	NS_LOG_UNCOND("Signal to interference and noise ratio:\n" << *sinr);
+	NS_LOG_UNCOND("CTF (dB):\n" << 10.0 * Log10(*absSqrCtf));
 
 	return EXIT_SUCCESS;
 }
