@@ -42,8 +42,8 @@ int main (int argc, char *argv[])
 
 	CommandLine cmd;
 	cmd.AddValue("nb", "Use narrow-band spectrum spacing?", narrowBand);
-	cmd.AddValue("cable", "Cable name. Can be one of: [AL3x95XLPE, NYCY70SM35, "
-			"NAYY150SE (default), NAYY50SE, MV_Overhead]", cableStr);
+	cmd.AddValue("cable", "Cable name. Can be one of the following:\n\t"
+			"AL3x95XLPE, NYCY70SM35, NAYY150SE, NAYY50SE, MV_Overhead", cableStr);
 	cmd.Parse (argc, argv);
 
 	if (narrowBand)
