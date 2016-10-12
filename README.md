@@ -26,7 +26,13 @@ Further information can be found in the user guide and the API documentation.
 
 A stable ns-3 release is needed to use the plc module. It is available on www.nsnam.org.
 Besides the plc module uses the template-based boost graph library, which has to be accessible
-via the system's include path. For installation see www.boost.org.
+via the system's include path, or included manually in [wscript](wscript) configuration:
+
+```
+def configure(conf):
+    conf.env.append_value('INCLUDES', ['/usr/local/boost_1_61_0'])
+```
+For installation see www.boost.org.
 
 On an UNIX-like operating system the simulation environment can be set up as follows:
 
@@ -36,15 +42,16 @@ On an UNIX-like operating system the simulation environment can be set up as fol
 
 2.  Download a stable ns-3 release, e.g.
 
-    > wget https://www.nsnam.org/release/ns-allinone-3.16.tar.bz2
+    > NS3_VER=3.25
+    > wget https://www.nsnam.org/release/ns-allinone-${NS3_VER}.tar.bz2
 
 3.  Extract ns-3 sources
 
-    > tar xvjf ns-allinone-3.16.tar.bz2 
+    > tar xvjf ns-allinone-${NS3_VER}.tar.bz2 
 
 4.  Change to ns-3 modules' source directory
 
-    > cd ns-allinone-3.16/ns-3.16/src
+    > cd ns-allinone-${NS3_VER}/ns-${NS3_VER}/src
 
 5.  Clone or copy the plc module into the source directory, e.g.
 
@@ -57,7 +64,7 @@ NS-3 makes use of the waf build automation tool. NS-3 and the plc module can be 
 
 1.  Change to the ns-3 root directory
     
-    > cd ns-allinone-3.16/ns-3.16
+    > cd ns-allinone-${NS3_VER}/ns-${NS3_VER}
 
 2.  Run build configuration with enabled examples and tests
 

@@ -37,13 +37,13 @@ TypeId
 PLC_Cable::GetTypeId (void)
 {
 	static TypeId tid = ns3::TypeId("ns3::PLC_Cable")
-    		.SetParent<Object> ()
-    		;
+			.SetParent<Object> ()
+			;
 	return tid;
 }
 
 PLC_Cable::PLC_Cable(Ptr<const SpectrumModel> sm)
-	: m_spectrum_model(sm)
+	: m_spectrum_model(sm), v(DEFAULT_V)
 {
 	z_c 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
 	gamma 	= CreateObject<PLC_FreqSelectiveImpedance>(sm);
@@ -126,8 +126,8 @@ TypeId
 PLC_ThreeCoreConcentricCable::GetTypeId (void)
 {
 	static TypeId tid = ns3::TypeId("PLC_ThreeCoreConcentricCable")
-    		.SetParent<PLC_Cable> ()
-    		;
+			.SetParent<PLC_Cable> ()
+			;
 	return tid;
 }
 
@@ -193,8 +193,8 @@ TypeId
 PLC_FourSectorPowerSupplyCable::GetTypeId (void)
 {
 	static TypeId tid = ns3::TypeId("PLC_FourSectorPowerSupplyCable")
-    		.SetParent<PLC_Cable> ()
-    		;
+			.SetParent<PLC_Cable> ()
+			;
 	return tid;
 }
 
@@ -206,6 +206,11 @@ PLC_FourSectorPowerSupplyCable::PLC_FourSectorPowerSupplyCable(double radius, do
 PLC_FourSectorPowerSupplyCable::PLC_FourSectorPowerSupplyCable(double radius, double conductor_distance, PLC_FreqSelectiveRealValue tan_loss_angle, PLC_FreqSelectiveRealValue epsilon_r, double rho, Ptr<const SpectrumModel> sm) : PLC_Cable(sm)
 {
 	Calculate(radius, conductor_distance, tan_loss_angle, epsilon_r, rho, sm);
+}
+
+PLC_FourSectorPowerSupplyCable::PLC_FourSectorPowerSupplyCable(double r, double g, double l, double c, Ptr<const SpectrumModel> sm) : PLC_Cable(sm)
+{
+	Calculate(r, g, l, c, sm);
 }
 
 void
@@ -259,6 +264,19 @@ PLC_FourSectorPowerSupplyCable::Calculate(double radius, double conductor_distan
 	this->CalcTransConst();
 }
 
+void
+PLC_FourSectorPowerSupplyCable::Calculate(double r, double g, double l, double c, Ptr<const SpectrumModel> sm)
+{
+	this->L = PLC_FreqSelectiveInductance(sm->GetNumBands(), l);
+	this->C = PLC_FreqSelectiveCapacitance(sm->GetNumBands(), c);
+	this->R = PLC_FreqSelectiveCapacitance(sm->GetNumBands(), r);
+	this->G = PLC_FreqSelectiveCapacitance(sm->GetNumBands(), g);
+	this->v = 1 / sqrt(l*c);
+
+	this->CalcCharImp();
+	this->CalcTransConst();
+}
+
 PLC_AL3x95XLPE_Cable::PLC_AL3x95XLPE_Cable(Ptr<const SpectrumModel> sm) : PLC_ThreeCoreConcentricCable(AL3X95XLPE_EPS_R, AL3X95XLPE_KAPPA, AL3X95XLPE_R_A, AL3X95XLPE_R_I, AL3X95XLPE_TAND, sm)
 {
 }
@@ -267,9 +285,9 @@ TypeId
 PLC_AL3x95XLPE_Cable::GetTypeId (void)
 {
 	static TypeId tid = ns3::TypeId("PLC_AL3x95XLPE_Cable")
-    		.SetParent<PLC_ThreeCoreConcentricCable> ()
-    		.AddConstructor<PLC_AL3x95XLPE_Cable> ()
-    		;
+			.SetParent<PLC_ThreeCoreConcentricCable> ()
+			.AddConstructor<PLC_AL3x95XLPE_Cable> ()
+			;
 	return tid;
 }
 
@@ -290,9 +308,9 @@ TypeId
 PLC_NYCY70SM35_Cable::GetTypeId (void)
 {
 	static TypeId tid = ns3::TypeId("PLC_NYCY70SM35_Cable")
-    		.SetParent<PLC_ThreeCoreConcentricCable> ()
-    		.AddConstructor<PLC_NYCY70SM35_Cable> ()
-    		;
+			.SetParent<PLC_ThreeCoreConcentricCable> ()
+			.AddConstructor<PLC_NYCY70SM35_Cable> ()
+			;
 	return tid;
 }
 
@@ -321,9 +339,9 @@ TypeId
 PLC_NAYY150SE_Cable::GetTypeId (void)
 {
 	static TypeId tid = ns3::TypeId("PLC_NAYY150SE_Cable")
-    		.SetParent<PLC_FourSectorPowerSupplyCable> ()
-    		.AddConstructor<PLC_NAYY150SE_Cable> ()
-    		;
+			.SetParent<PLC_FourSectorPowerSupplyCable> ()
+			.AddConstructor<PLC_NAYY150SE_Cable> ()
+			;
 	return tid;
 }
 
@@ -357,9 +375,9 @@ TypeId
 PLC_NAYY50SE_Cable::GetTypeId (void)
 {
 	static TypeId tid = ns3::TypeId("PLC_NAYY50SE_Cable")
-    		.SetParent<PLC_FourSectorPowerSupplyCable> ()
-    		.AddConstructor<PLC_NAYY50SE_Cable> ()
-    		;
+			.SetParent<PLC_FourSectorPowerSupplyCable> ()
+			.AddConstructor<PLC_NAYY50SE_Cable> ()
+			;
 	return tid;
 }
 
@@ -375,4 +393,27 @@ PLC_NAYY50SE_Cable::Calculate(void)
 	PLC_FourSectorPowerSupplyCable::Calculate(NAYY50SE_R, NAYY50SE_THETA, TAND, EPS_R, RHO, m_spectrum_model);
 }
 
+////////////////////////////// PLC_MV_Overhead_Cable  //////////////////////////////////////
+TypeId
+PLC_MV_Overhead_Cable::GetTypeId (void)
+{
+	static TypeId tid = ns3::TypeId("PLC_MV_Overhead_Cable")
+			.SetParent<PLC_FourSectorPowerSupplyCable> ()
+			.AddConstructor<PLC_MV_Overhead_Cable> ()
+			;
+	return tid;
 }
+
+PLC_MV_Overhead_Cable::PLC_MV_Overhead_Cable(Ptr<const SpectrumModel> sm)
+	: PLC_FourSectorPowerSupplyCable(MVOH_R, MVOH_G, MVOH_L, MVOH_C, sm)
+{
+}
+
+void
+PLC_MV_Overhead_Cable::Calculate(void)
+{
+	NS_ASSERT(m_spectrum_model);
+	PLC_FourSectorPowerSupplyCable::Calculate(MVOH_R, MVOH_G, MVOH_L, MVOH_C, m_spectrum_model);
+}
+
+} /* namespace ns3 */

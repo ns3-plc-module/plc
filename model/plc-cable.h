@@ -41,6 +41,7 @@
 #define MU		(MU_0 * MU_R)
 #define EPS_R	4
 #define EPS_P	(EPS_0 * EPS_R)
+#define DEFAULT_V 1.00
 
 #define NAYY150SE_D		1.8e-3		// insulation, m
 #define NAYY150SE_A		6e-4		// conductor area, 4*150e-6m^2
@@ -52,13 +53,18 @@
 #define NAYY50SE_THETA	2.8e-3		// 2*NAYY50SE_D
 #define NAYY50SE_R		7.98e-3		// radius, m, r = sqrt(A/pi)
 
+#define MVOH_R			3e-2
+#define MVOH_G			1.5e-6
+#define MVOH_L			1.9e-6
+#define MVOH_C			8e-12
+
 #define AL3X95XLPE_EPS_R	0.9
 #define AL3X95XLPE_KAPPA	0.285714286
 #define AL3X95XLPE_R_A		10e-3
 #define AL3X95XLPE_R_I		9.52e-3
 #define AL3X95XLPE_TAND		0.004
 
-#define COPPER_CONDUCTIVITY	5.96e7 // (S/m) at 20 degree celcius
+#define COPPER_CONDUCTIVITY	5.96e7 // (S/m) at 20 degree Celsius
 #define NYCY70SM35_R_O 8.448e-3 // radius to outer conductor
 #define NYCY70SM35_R_I 7.048e-3 // inner conductor radius
 
@@ -77,7 +83,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	PLC_Cable () {}
+	PLC_Cable (): v(DEFAULT_V) {}
 
 	/**
 	 * Constructor
@@ -246,9 +252,11 @@ public:
 	 */
 	PLC_FourSectorPowerSupplyCable(double radius, double conductor_distance, double tan_loss_angle, double epsilon_r, double rho, Ptr<const SpectrumModel> sm);
 	PLC_FourSectorPowerSupplyCable(double radius, double conductor_distance, PLC_FreqSelectiveRealValue tan_loss_angle, PLC_FreqSelectiveRealValue epsilon_r, double rho, Ptr<const SpectrumModel> sm);
+	PLC_FourSectorPowerSupplyCable(double r, double g, double l, double c, Ptr<const SpectrumModel> sm);
 
 	void Calculate(double radius, double conductor_distance, double tan_loss_angle, double epsilon_r, double rho, Ptr<const SpectrumModel> sm);
 	void Calculate(double radius, double conductor_distance, PLC_FreqSelectiveRealValue tan_loss_angle, PLC_FreqSelectiveRealValue epsilon_r, double rho, Ptr<const SpectrumModel> sm);
+	void Calculate(double r, double g, double l, double c, Ptr<const SpectrumModel> sm);
 };
 
 /**
@@ -274,6 +282,19 @@ public:
 
 	PLC_NAYY50SE_Cable() : PLC_FourSectorPowerSupplyCable() {}
 	PLC_NAYY50SE_Cable(Ptr<const SpectrumModel> sm);
+	void Calculate();
+};
+
+/**
+ * Parameter model for the MV Overhead cable
+ */
+class PLC_MV_Overhead_Cable : public PLC_FourSectorPowerSupplyCable
+{
+public:
+	static TypeId GetTypeId(void);
+
+	PLC_MV_Overhead_Cable() : PLC_FourSectorPowerSupplyCable() {}
+	PLC_MV_Overhead_Cable(Ptr<const SpectrumModel> sm);
 	void Calculate();
 };
 
