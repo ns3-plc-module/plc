@@ -293,9 +293,7 @@ PLC_Edge::UnlockEdgeTransferUnit (PLC_Node *dst)
 
 TypeId PLC_Line::GetTypeId (void)
 {
-  static TypeId tid = TypeId ("ns3::PLC_Line")
-    				  .SetParent<PLC_Edge> ()
-    				  ;
+  static TypeId tid = TypeId ("ns3::PLC_Line").SetParent<PLC_Edge> ();
   return tid;
 }
 
@@ -728,8 +726,7 @@ PLC_TwoPort::PLC_TwoPort(Ptr<const SpectrumModel> sm,
 TypeId PLC_TwoPort::GetTypeId (void)
 {
 	static TypeId tid = TypeId ("ns3::PLC_TwoPort")
-				  .SetParent<PLC_Edge> ()
-				  ;
+			.SetParent<PLC_Edge> ();
 	return tid;
 }
 
@@ -797,7 +794,8 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 			PLC_Edge *cur_edge;
 			PLC_Impedance *cur_eq_imp;
 
-			if ((cur_edge = PeekPointer(outEdges_it->second)) == this) continue;
+			if ((cur_edge = PeekPointer(outEdges_it->second)) == this)
+				continue;
 
 			PLC_Node *new_dst = cur_edge->GetConnectedNode(dst_node);
 			cur_eq_imp = cur_edge->GetInputImpedance(new_dst);
@@ -827,7 +825,7 @@ PLC_TwoPort::CalculateInputImpedance (PLC_Node *dst_node)
 
 	CacheImpedances(dst_node, result, load_impedance);
 
-    UnlockImpedanceCache (dst_node);
+	UnlockImpedanceCache (dst_node);
 }
 
 void

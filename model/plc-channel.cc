@@ -552,17 +552,6 @@ PLC_ChannelTransferImpl::CalculateChannelTransferVector (void)
 	else
 	{
 		result = CreateObject<PLC_TransferVector>  (m_spectrum_model, PLC_Value (1, 0));
-		m_channel_transfer_vector = result;
-
-		NS_LOG_UNCOND("Channel transfer vector result: " << *result);
-
-		// trace channel data
-		m_channelDataTracer (Simulator::Now (), result);
-
-		NS_LOG_INFO ("Channel Transfer Data from Node" << m_txInterface->GetNodePeekPointer ()->GetVertexId () << " to Node" << m_rxInterface->GetNodePeekPointer ()->GetVertexId () << " updated");
-
-//		m_ctv_is_up_2_date = true;
-//		m_is_up_2_date = false;
 	}
 
 	if  (m_backbone_path.begin () == m_backbone_path.end ())
@@ -612,7 +601,7 @@ PLC_ChannelTransferImpl::CalculateChannelTransferVector (void)
 
 		m_channel_transfer_vector = result;
 
-		NS_LOG_UNCOND("Channel transfer vector result: " << *result);
+		NS_LOG_LOGIC ("Channel transfer vector result: " << *result);
 
 		// trace channel data
 		m_channelDataTracer (Simulator::Now (), result);
@@ -653,7 +642,7 @@ PLC_ChannelTransferImpl::CalculateChannelTransferVector (void)
 
 	cur_dst_node = cur_bb->GetNodePeekPtr ();
 
-	for (++rit; rit != m_backbone_path.rend (); rit++) {
+	for  (++rit; rit != m_backbone_path.rend (); rit++) {
 
 		backbone_node = (*rit)->GetNodePeekPtr ();
 		cur_edge = backbone_node->GetEdge (cur_dst_node);
@@ -747,7 +736,7 @@ PLC_ChannelTransferImpl::GetChannelTransferVector (void)
 		NS_LOG_LOGIC ("Impedance hash sum for cached channel transfer vector: " << m_impedance_hash_sum);
 		NS_LOG_LOGIC ("Current impedance hash sum: " << PLC_Node::GetImpedanceHashSum ());
 
-		if (m_impedance_hash_sum != PLC_Node::GetImpedanceHashSum ())
+		if  (m_impedance_hash_sum != PLC_Node::GetImpedanceHashSum ())
 		{
 #endif
 			CalculateChannelTransferVector ();
