@@ -2,6 +2,15 @@
 
 An ns-3 module for simulations of power line communication networks
 
+This software is freely usable provided that publications resulting from the use of this software cite the publications listed here.
+```
+Cite:
+
+F. Aalamifar, A. Schloegl, D. Harris, L. Lampe,“Modelling Power Line Communication Using Network Simulator-3”, 
+IEEE Global Communications Conference (GLOBECOM), Atlanta, GA, USA, December 2013. 
+[Online] Available: “http://www.ece.ubc.ca/~faribaa/ns3_plc_software.htm”.
+```
+
 ##Overview
 
 The provided module enables simulations of power line communication networks with the network simulation
