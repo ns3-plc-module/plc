@@ -1102,14 +1102,14 @@ PLC_Channel::AddDevice (Ptr<NetDevice> dev)
 	return m_devices.size ();
 }
 
-uint32_t
+std::size_t
 PLC_Channel::GetNDevices (void) const
 {
 	NS_LOG_FUNCTION (this);
 	return m_devices.size ();
 }
 
-Ptr<NetDevice> PLC_Channel::GetDevice  (uint32_t i) const
+Ptr<NetDevice> PLC_Channel::GetDevice  (std::size_t i) const
 {
 	NS_LOG_FUNCTION (this);
 	return m_devices[i];

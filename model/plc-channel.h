@@ -426,13 +426,13 @@ public:
 	*
 	* This method must be implemented by subclasses.
 	*/
-	uint32_t GetNDevices (void) const;
+    std::size_t GetNDevices (void) const;
 
 	/**
 	 * \param i index of NetDevice to retrieve
 	 * \returns one of the NetDevices connected to this channel.
 	 */
-	Ptr<NetDevice> GetDevice (uint32_t i) const;
+	Ptr<NetDevice> GetDevice (std::size_t i) const;
 
 	/**
 	 * Create PLC_Graph and init transmission channel data structures

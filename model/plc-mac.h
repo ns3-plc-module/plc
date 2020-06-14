@@ -188,7 +188,7 @@ protected:
 	Mac48Address m_broadcast_address;
 	Mac48Address m_multicast_address;
 
-	Ptr<DropTailQueue> 	m_txQueue;
+	Ptr<DropTailQueue<Packet>> 	m_txQueue;
 	Ptr<Packet>			m_ackPacket;
 	Ptr<Packet> 		m_rxPacket;
 
