@@ -128,8 +128,8 @@ PLC_Mac::DoDispose (void)
 	PLC_MAC_FUNCTION (this);
 	m_data_callback = MakeNullCallback<void, Ptr<Packet>, Mac48Address, Mac48Address > ();
 	m_promiscuous_data_callback = MakeNullCallback<void, Ptr<Packet>, Mac48Address, Mac48Address > ();
-	m_acknowledgement_callback = MakeNullCallback<void> ();
-	m_transmission_failed_callback = MakeNullCallback<void, Ptr<const Packet> > ();
+	m_acknowledgement_callback = MakeNullCallback<void, uint32_t, Ptr<Packet>, Mac48Address, Mac48Address> ();
+	m_transmission_failed_callback = MakeNullCallback<void, Ptr<const Packet>, Mac48Address, Mac48Address> ();
 	m_cca_request_callback = MakeNullCallback<void> ();
 
 	m_ackPacket = 0;
@@ -503,9 +503,11 @@ PLC_ArqMac::DoProcess (Ptr<const Packet> p)
 	PLC_MAC_FUNCTION (this << p);
 
 	PLC_MAC_LOGIC ("Received packet: " << *p);
+    PLC_MAC_INFO ("RECEIVED pkt:" << p->GetSize());
 
 	m_rxPacket = p->Copy ();
 	m_rxPacket->RemoveHeader (m_rxHeader);
+    PLC_MAC_INFO ("RECEIVED rxpkt:" << m_rxPacket->GetSize());
 
 	if (m_rxHeader.GetHasRelayHeader ())
 	{
@@ -539,7 +541,7 @@ PLC_ArqMac::DoProcess (Ptr<const Packet> p)
 
 			if (m_rxHeader.GetSequenceNumber() == txMacHdr.GetSequenceNumber())
 			{
-				PLC_MAC_INFO ("Received ACK");
+				PLC_MAC_INFO ("Received ACK attempts:" << m_csmaca_attempts);
 				NotifyAcknowledgement ();
 			}
 		}
@@ -582,7 +584,7 @@ PLC_ArqMac::DoSetPhy (Ptr<PLC_Phy> phy)
 Ptr<PLC_Phy>
 PLC_ArqMac::DoGetPhy (void)
 {
-	NS_LOG_FUNCTION (this);
+	// NS_LOG_FUNCTION (this);
 	NS_ASSERT_MSG(m_phy, "Phy not set");
 	return m_phy;
 }
@@ -596,11 +598,22 @@ PLC_ArqMac::NotifyAcknowledgement (void)
 	m_requestCCAEvent.Cancel ();
 	m_backoffEndEvent.Cancel ();
 
-	m_txQueue->Dequeue ();
+	Ptr<Packet> p = m_txQueue->Dequeue ();
+    PLC_MacHeader hdr;
+    p->RemoveHeader(hdr);
+
+    if (hdr.GetHasRelayHeader())
+    {
+        PLC_RelayMacHeader relayHeader;
+        p->RemoveHeader (relayHeader);
+    }
+
+    Mac48Address src_addr = hdr.GetSrcAddress ();
+    Mac48Address dst_addr = hdr.GetDstAddress ();
 
 	if (!m_acknowledgement_callback.IsNull())
 	{
-		m_acknowledgement_callback();
+		m_acknowledgement_callback(m_csmaca_attempts, p, src_addr, dst_addr);
 	}
 
 	if (m_txQueue->IsEmpty() == false)
@@ -730,7 +743,19 @@ PLC_ArqMac::AcknowledgementTimeout(void)
 
 			if (!m_transmission_failed_callback.IsNull())
 			{
-				m_transmission_failed_callback (p);
+                Ptr<Packet> lp = p->Copy();
+                PLC_MacHeader hdr;
+                lp->RemoveHeader(hdr);
+
+                if (hdr.GetHasRelayHeader())
+                {
+                    PLC_RelayMacHeader relayHeader;
+                    lp->RemoveHeader (relayHeader);
+                }
+
+                Mac48Address src_addr = hdr.GetSrcAddress ();
+                Mac48Address dst_addr = hdr.GetDstAddress ();
+				m_transmission_failed_callback (lp, src_addr, dst_addr);
 			}
 
 			if (m_txQueue->IsEmpty () == false)
@@ -1087,7 +1112,19 @@ PLC_HarqMac::AcknowledgementTimeout(void)
 
 			if (!m_transmission_failed_callback.IsNull())
 			{
-				m_transmission_failed_callback (p);
+                Ptr<Packet> lp = p->Copy();
+                PLC_MacHeader hdr;
+                lp->RemoveHeader(hdr);
+
+                if (hdr.GetHasRelayHeader())
+                {
+                    PLC_RelayMacHeader relayHeader;
+                    lp->RemoveHeader (relayHeader);
+                }
+
+                Mac48Address src_addr = hdr.GetSrcAddress ();
+                Mac48Address dst_addr = hdr.GetDstAddress ();
+				m_transmission_failed_callback (lp, src_addr, dst_addr);
 			}
 
 			if (m_txQueue->IsEmpty () == false)
@@ -1107,12 +1144,24 @@ PLC_HarqMac::NotifyAcknowledgement (void)
 	m_requestCCAEvent.Cancel ();
 	m_backoffEndEvent.Cancel ();
 
-	m_txQueue->Dequeue();
+	Ptr<Packet> p = m_txQueue->Dequeue();
 	m_send_redundancy = false;
+
+    PLC_MacHeader hdr;
+    p->RemoveHeader(hdr);
+
+    if (hdr.GetHasRelayHeader())
+    {
+        PLC_RelayMacHeader relayHeader;
+        p->RemoveHeader (relayHeader);
+    }
+
+    Mac48Address src_addr = hdr.GetSrcAddress ();
+    Mac48Address dst_addr = hdr.GetDstAddress ();
 
 	if (!m_acknowledgement_callback.IsNull())
 	{
-		m_acknowledgement_callback();
+		m_acknowledgement_callback(m_csmaca_attempts, p, src_addr, dst_addr);
 	}
 
 	if (m_txQueue->IsEmpty() == false)

@@ -68,6 +68,11 @@ Ptr<const SpectrumModel> PLC_SpectrumModelHelper::GetSpectrumModel(double fl, do
 	return this->m_spectrum_model;
 }
 
+Ptr<const SpectrumModel> PLC_SpectrumModelHelper::GetSpectrumModel(void)
+{
+	return this->m_spectrum_model;
+}
+
 Ptr<const SpectrumModel> PLC_SpectrumModelHelper::GetG3SpectrumModel(void)
 {
 	m_fl = G3_BAND_LOW;

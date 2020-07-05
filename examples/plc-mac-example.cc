@@ -32,9 +32,25 @@
 using namespace ns3;
 
 void
-ReceivedACK(void)
+ReceivedACK(uint32_t retries, Ptr<Packet> p, Mac48Address snd, Mac48Address rcv)
 {
-	NS_LOG_UNCOND(Simulator::Now() << ": ACK received!");
+	NS_LOG_UNCOND(Simulator::Now() << ": ACK XXXXXXXXXXX received retries=" 
+            << retries << " pktlen=" << p->GetSize()
+            << " sndr=" << snd << " rcvr=" << rcv);
+}
+
+void
+ReceivedDATA(Ptr<Packet> pkt, Mac48Address snd, Mac48Address rcv)
+{
+	NS_LOG_UNCOND(Simulator::Now() << ": DATA YYYYYYYYY received!");
+}
+
+void
+FailedData(Ptr<const Packet> pkt, Mac48Address snd, Mac48Address rcv)
+{
+	NS_LOG_UNCOND(Simulator::Now() << ": DATA ZZZZZZZZZZ failed! len:"
+            << pkt->GetSize() << " snd:" << snd
+            << " rcv:" << rcv);
 }
 
 int main (int argc, char *argv[])
@@ -114,6 +130,10 @@ int main (int argc, char *argv[])
 
     // Set callback function to be called when ACK is received
     mac1->SetMacAcknowledgementCallback(MakeCallback(&ReceivedACK));
+    mac1->SetMacDataCallback(MakeCallback(&ReceivedDATA));
+    mac2->SetMacDataCallback(MakeCallback(&ReceivedDATA));
+    mac1->SetTransmissionFailedCallback(MakeCallback(FailedData));
+    mac2->SetTransmissionFailedCallback(MakeCallback(FailedData));
 
     // Calculate channels
 	channel->InitTransmissionChannels();
