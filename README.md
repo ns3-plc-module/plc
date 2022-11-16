@@ -1,4 +1,4 @@
-# plc
+# PLC NS-3 Module
 
 An ns-3 module for simulations of power line communication networks
 
@@ -11,7 +11,7 @@ IEEE Global Communications Conference (GLOBECOM), Atlanta, GA, USA, December 201
 [Online] Available: “http://www.ece.ubc.ca/~faribaa/ns3_plc_software.htm”.
 ```
 
-##Overview
+## Overview
 
 The provided module enables simulations of power line communication networks with the network simulation
 environment ns-3. It is intended for protocol development and application testing under realistic link
@@ -31,7 +31,7 @@ important role in future plc systems.
 
 Further information can be found in the user guide and the API documentation.
 
-##Prerequisites
+## Prerequisites
 
 A stable ns-3 release is needed to use the plc module. It is available on www.nsnam.org.
 Besides the plc module uses the template-based boost graph library, which has to be accessible
@@ -68,7 +68,7 @@ On an UNIX-like operating system the simulation environment can be set up as fol
     > git clone https://github.com/ns3-plc-module/plc.git
 
 
-##Build
+## Build
 
 NS-3 makes use of the waf build automation tool. NS-3 and the plc module can be built as follows:
 
@@ -84,7 +84,7 @@ NS-3 makes use of the waf build automation tool. NS-3 and the plc module can be 
 
     > ./waf
 
-##Running
+## Running
 
 The current release of the plc module provides a few simple examples for its usage. The sources
 are located in the directory src/plc/examples. To run e.g. the plc net device example (plc-netdevice.cc)
@@ -92,7 +92,7 @@ go to the ns-3 root directory and type
 
 > ./waf --run src/plc/examples/plc-netdevice-example
 
-# PLC-GUI
+## PLC-GUI
 
 The graphical user interface for PLC module can be downloaded from:
 
