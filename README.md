@@ -92,6 +92,8 @@ go to the ns-3 root directory and type
 
 > ./waf --run src/plc/examples/plc-netdevice-example
 
+# PLC-GUI
+
 The graphical user interface for PLC module can be downloaded from:
 
 https://github.com/73jn/ns3-plc-with-gnosis
