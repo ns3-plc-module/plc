@@ -94,6 +94,6 @@ go to the ns-3 root directory and type
 
 The graphical user interface for PLC module can be downloaded from:
 
-https://github.com/73jn/ns3-plc-with-gnosis/tree/master/plc-gnosis
+https://github.com/73jn/ns3-plc-with-gnosis
 
 
