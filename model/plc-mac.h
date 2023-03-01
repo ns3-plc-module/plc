@@ -42,8 +42,8 @@ typedef enum
 } PLC_CsmaCaState;
 
 typedef Callback<void, Ptr<Packet> , Mac48Address, Mac48Address > PLC_MacDataCallback;
-typedef Callback<void> PLC_MacAcknowledgementCallback;
-typedef Callback<void, Ptr<const Packet> > PLC_MacTransmissionFailedCallback;
+typedef Callback<void, uint32_t, Ptr<Packet>, Mac48Address, Mac48Address> PLC_MacAcknowledgementCallback;
+typedef Callback<void, Ptr<const Packet>, Mac48Address, Mac48Address > PLC_MacTransmissionFailedCallback;
 typedef Callback<void> PLC_CcaRequestCallback; // This method informs MAC whether the channel is idle or busy
 
 /**
@@ -188,7 +188,7 @@ protected:
 	Mac48Address m_broadcast_address;
 	Mac48Address m_multicast_address;
 
-	Ptr<DropTailQueue> 	m_txQueue;
+	Ptr<DropTailQueue<Packet>> 	m_txQueue;
 	Ptr<Packet>			m_ackPacket;
 	Ptr<Packet> 		m_rxPacket;
 

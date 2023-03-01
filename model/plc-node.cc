@@ -52,9 +52,9 @@ PLC_Node::GetTypeId (void)
 	static TypeId tid = ns3::TypeId("ns3::PLC_Node")
     		.SetParent<Object> ()
     		.AddConstructor<PLC_Node> ()
-    		.AddAttribute("Node Id", "identifier of the node", TypeId::ATTR_GET | TypeId::ATTR_CONSTRUCT, UintegerValue(0), MakeUintegerAccessor(&PLC_Node::m_vertex_id), MakeUintegerChecker<unsigned int>())
+    		.AddAttribute("NodeId", "identifier of the node", TypeId::ATTR_GET | TypeId::ATTR_CONSTRUCT, UintegerValue(0), MakeUintegerAccessor(&PLC_Node::m_vertex_id), MakeUintegerChecker<unsigned int>())
     		.AddAttribute("Position", "position of the node", Vector3DValue(Vector3D(0, 0, 0)), MakeVectorAccessor(&PLC_Node::m_position), MakeVectorChecker())
-    		.AddAttribute("Open Circuit", "indicates infinity impedance", BooleanValue(true), MakeBooleanAccessor(&PLC_Node::m_open_circuit), MakeBooleanChecker())
+    		.AddAttribute("OpenCircuit", "indicates infinity impedance", BooleanValue(true), MakeBooleanAccessor(&PLC_Node::m_open_circuit), MakeBooleanChecker())
     		;
 	return tid;
 }

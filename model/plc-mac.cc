@@ -109,7 +109,7 @@ PLC_Mac::PLC_Mac ()
 
 	m_ackPacket = 0;
 	m_rxPacket = 0;
-	m_txQueue = CreateObject<DropTailQueue> ();
+	m_txQueue = CreateObject<DropTailQueue<Packet>> ();
 }
 
 PLC_Mac::~PLC_Mac ()
@@ -128,8 +128,8 @@ PLC_Mac::DoDispose (void)
 	PLC_MAC_FUNCTION (this);
 	m_data_callback = MakeNullCallback<void, Ptr<Packet>, Mac48Address, Mac48Address > ();
 	m_promiscuous_data_callback = MakeNullCallback<void, Ptr<Packet>, Mac48Address, Mac48Address > ();
-	m_acknowledgement_callback = MakeNullCallback<void> ();
-	m_transmission_failed_callback = MakeNullCallback<void, Ptr<const Packet> > ();
+	m_acknowledgement_callback = MakeNullCallback<void, uint32_t, Ptr<Packet>, Mac48Address, Mac48Address> ();
+	m_transmission_failed_callback = MakeNullCallback<void, Ptr<const Packet>, Mac48Address, Mac48Address> ();
 	m_cca_request_callback = MakeNullCallback<void> ();
 
 	m_ackPacket = 0;
@@ -391,7 +391,7 @@ PLC_Mac::TriggerTransmission (void)
 	}
 	else if (m_txQueue->IsEmpty() == false)
 	{
-		p = m_txQueue->Peek()->GetPacket();
+		p = m_txQueue->Peek();
 
 		// debug
 		NS_LOG_DEBUG ("Sending data: " << *p);
@@ -484,7 +484,8 @@ PLC_ArqMac::DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst)
 	m_txHeader.SetSequenceNumber(m_sequence_number++);
 	txPacket->AddHeader(m_txHeader);
 
-	if (!m_txQueue->Enqueue (Ptr<QueueItem>(new QueueItem(txPacket))))
+	if (!m_txQueue->Enqueue (txPacket))
+	//if (!m_txQueue->Enqueue (Ptr<QueueItem>(new QueueItem(txPacket))))
 	{
 		PLC_MAC_LOGIC ("TX queue full, packet dropped");
 		return false;
@@ -502,9 +503,11 @@ PLC_ArqMac::DoProcess (Ptr<const Packet> p)
 	PLC_MAC_FUNCTION (this << p);
 
 	PLC_MAC_LOGIC ("Received packet: " << *p);
+    PLC_MAC_INFO ("RECEIVED pkt:" << p->GetSize());
 
 	m_rxPacket = p->Copy ();
 	m_rxPacket->RemoveHeader (m_rxHeader);
+    PLC_MAC_INFO ("RECEIVED rxpkt:" << m_rxPacket->GetSize());
 
 	if (m_rxHeader.GetHasRelayHeader ())
 	{
@@ -532,13 +535,13 @@ PLC_ArqMac::DoProcess (Ptr<const Packet> p)
 					m_txQueue->IsEmpty () == false
 				 )
 		{
-			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ()->GetPacket();
+			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ();
 			PLC_MacHeader txMacHdr;
 			lastTxPacket->PeekHeader(txMacHdr);
 
 			if (m_rxHeader.GetSequenceNumber() == txMacHdr.GetSequenceNumber())
 			{
-				PLC_MAC_INFO ("Received ACK");
+				PLC_MAC_INFO ("Received ACK attempts:" << m_csmaca_attempts);
 				NotifyAcknowledgement ();
 			}
 		}
@@ -581,7 +584,7 @@ PLC_ArqMac::DoSetPhy (Ptr<PLC_Phy> phy)
 Ptr<PLC_Phy>
 PLC_ArqMac::DoGetPhy (void)
 {
-	NS_LOG_FUNCTION (this);
+	// NS_LOG_FUNCTION (this);
 	NS_ASSERT_MSG(m_phy, "Phy not set");
 	return m_phy;
 }
@@ -595,11 +598,22 @@ PLC_ArqMac::NotifyAcknowledgement (void)
 	m_requestCCAEvent.Cancel ();
 	m_backoffEndEvent.Cancel ();
 
-	m_txQueue->Dequeue ();
+	Ptr<Packet> p = m_txQueue->Dequeue ();
+    PLC_MacHeader hdr;
+    p->RemoveHeader(hdr);
+
+    if (hdr.GetHasRelayHeader())
+    {
+        PLC_RelayMacHeader relayHeader;
+        p->RemoveHeader (relayHeader);
+    }
+
+    Mac48Address src_addr = hdr.GetSrcAddress ();
+    Mac48Address dst_addr = hdr.GetDstAddress ();
 
 	if (!m_acknowledgement_callback.IsNull())
 	{
-		m_acknowledgement_callback();
+		m_acknowledgement_callback(m_csmaca_attempts, p, src_addr, dst_addr);
 	}
 
 	if (m_txQueue->IsEmpty() == false)
@@ -680,7 +694,7 @@ PLC_ArqMac::NotifyTransmissionEnd (void)
 	else
 	{
 		// Data frame sent
-		Ptr<const Packet> p = m_txQueue->Peek ()->GetPacket();
+		Ptr<const Packet> p = m_txQueue->Peek ();
 		NS_ASSERT_MSG (p, "No packet in send queue, something went wrong!");
 
 		PLC_MacHeader macHdr;
@@ -724,12 +738,24 @@ PLC_ArqMac::AcknowledgementTimeout(void)
 		else
 		{
 			PLC_MAC_INFO ("Maximum replays reached, transmission failed!");
-			Ptr<const Packet> p = m_txQueue->Dequeue()->GetPacket();
+			Ptr<const Packet> p = m_txQueue->Dequeue();
 			m_replays = 0;
 
 			if (!m_transmission_failed_callback.IsNull())
 			{
-				m_transmission_failed_callback (p);
+                Ptr<Packet> lp = p->Copy();
+                PLC_MacHeader hdr;
+                lp->RemoveHeader(hdr);
+
+                if (hdr.GetHasRelayHeader())
+                {
+                    PLC_RelayMacHeader relayHeader;
+                    lp->RemoveHeader (relayHeader);
+                }
+
+                Mac48Address src_addr = hdr.GetSrcAddress ();
+                Mac48Address dst_addr = hdr.GetDstAddress ();
+				m_transmission_failed_callback (lp, src_addr, dst_addr);
 			}
 
 			if (m_txQueue->IsEmpty () == false)
@@ -794,7 +820,8 @@ PLC_HarqMac::DoSendFrom (Ptr<Packet> p, Mac48Address src, Mac48Address dst)
 	m_txHeader.SetSequenceNumber(m_sequence_number++);
 	txPacket->AddHeader(m_txHeader);
 
-	if (!m_txQueue->Enqueue(Ptr<QueueItem>(new QueueItem(txPacket))))
+	if (!m_txQueue->Enqueue(txPacket))
+	// if (!m_txQueue->Enqueue(Ptr<QueueItem>(new QueueItem(txPacket))))
 	{
 		PLC_MAC_LOGIC ("TX queue full, packet dropped");
 		return false;
@@ -844,7 +871,7 @@ PLC_HarqMac::DoProcess (Ptr<const Packet> p)
 					m_txQueue->IsEmpty () == false
 				 )
 		{
-			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ()->GetPacket();
+			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ();
 			PLC_MacHeader txMacHdr;
 			lastTxPacket->PeekHeader(txMacHdr);
 
@@ -859,7 +886,7 @@ PLC_HarqMac::DoProcess (Ptr<const Packet> p)
 					m_txQueue->IsEmpty () == false
 				 )
 		{
-			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ()->GetPacket();
+			Ptr<const Packet> lastTxPacket = m_txQueue->Peek ();
 			PLC_MacHeader txMacHdr;
 			lastTxPacket->PeekHeader(txMacHdr);
 
@@ -990,7 +1017,7 @@ PLC_HarqMac::TriggerTransmission (void)
 	}
 	else if (m_txQueue->IsEmpty() == false)
 	{
-		p = m_txQueue->Peek ()->GetPacket();
+		p = m_txQueue->Peek ();
 		m_sent_redundancy_frames = 0;
 	}
 	else
@@ -1029,7 +1056,7 @@ PLC_HarqMac::NotifyTransmissionEnd (void)
 	else
 	{
 		// Data frame sent
-		Ptr<const Packet> p = m_txQueue->Peek ()->GetPacket();
+		Ptr<const Packet> p = m_txQueue->Peek ();
 		NS_ASSERT_MSG (p, "No packet in send queue, something went wrong!");
 
 		PLC_MacHeader macHdr;
@@ -1079,13 +1106,25 @@ PLC_HarqMac::AcknowledgementTimeout(void)
 		{
 			PLC_MAC_INFO ("Maximum replays reached, transmission failed!");
 
-			Ptr<const Packet> p = m_txQueue->Dequeue ()->GetPacket();
+			Ptr<const Packet> p = m_txQueue->Dequeue ();
 			m_sent_redundancy_frames = 0;
 			m_send_redundancy = false;
 
 			if (!m_transmission_failed_callback.IsNull())
 			{
-				m_transmission_failed_callback (p);
+                Ptr<Packet> lp = p->Copy();
+                PLC_MacHeader hdr;
+                lp->RemoveHeader(hdr);
+
+                if (hdr.GetHasRelayHeader())
+                {
+                    PLC_RelayMacHeader relayHeader;
+                    lp->RemoveHeader (relayHeader);
+                }
+
+                Mac48Address src_addr = hdr.GetSrcAddress ();
+                Mac48Address dst_addr = hdr.GetDstAddress ();
+				m_transmission_failed_callback (lp, src_addr, dst_addr);
 			}
 
 			if (m_txQueue->IsEmpty () == false)
@@ -1105,12 +1144,24 @@ PLC_HarqMac::NotifyAcknowledgement (void)
 	m_requestCCAEvent.Cancel ();
 	m_backoffEndEvent.Cancel ();
 
-	m_txQueue->Dequeue();
+	Ptr<Packet> p = m_txQueue->Dequeue();
 	m_send_redundancy = false;
+
+    PLC_MacHeader hdr;
+    p->RemoveHeader(hdr);
+
+    if (hdr.GetHasRelayHeader())
+    {
+        PLC_RelayMacHeader relayHeader;
+        p->RemoveHeader (relayHeader);
+    }
+
+    Mac48Address src_addr = hdr.GetSrcAddress ();
+    Mac48Address dst_addr = hdr.GetDstAddress ();
 
 	if (!m_acknowledgement_callback.IsNull())
 	{
-		m_acknowledgement_callback();
+		m_acknowledgement_callback(m_csmaca_attempts, p, src_addr, dst_addr);
 	}
 
 	if (m_txQueue->IsEmpty() == false)

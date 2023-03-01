@@ -64,6 +64,13 @@ public:
 	Ptr<const SpectrumModel> GetSpectrumModel(double fl, double fh, size_t numbands);
 
 	/**
+	 * Return previously created spectrum model
+	 *
+	 * @return Spectrum model
+	 */
+	Ptr<const SpectrumModel> GetSpectrumModel(void);
+
+	/**
 	 * Get the spectrum model of the G3 standard
 	 * @return
 	 */
